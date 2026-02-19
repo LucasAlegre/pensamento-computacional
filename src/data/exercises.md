@@ -1,0 +1,572 @@
+# Tópico: Expressões Aritméticas
+
+## Exercício: Expressões Matemáticas
+**ID:** Expressões Aritméticas-1
+**Dificuldade:** Fácil
+
+Crie programas em Pyret para resolver as seguintes expressões:
+
+a) $\frac{x+2}{2}-2x$
+
+b) $144-x^{2}+x$
+
+c) $\sqrt{x}-2x+12$
+
+d) $x^{3}-\frac{x}{4}+x^{-1}$
+
+e) $2\cdot\sqrt{x+5}-26$
+
+f) $x\cdot(x+3)-4$
+
+### Testes
+```pyret
+
+```
+
+## Exercício: Cálculo da Hipotenusa
+**ID:** Expressões Aritméticas-2
+**Dificuldade:** Fácil
+
+Faça um programa que, dados os valores para os catetos de um triângulo retângulo, calcule o valor da hipotenusa. A hipotenusa é calculada pelo Teorema de Pitágoras que é dado pela expressão $a^{2}=b^{2}+c^{2}$, onde $b$ e $c$ são os catetos e $a$ a hipotenusa.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Cálculo de Cateto
+**ID:** Expressões Aritméticas-3
+**Dificuldade:** Fácil
+
+Modifique o programa anterior para que calcule o valor de um dos catetos. Para isso, a função deverá receber os valores do cateto conhecido e da hipotenusa.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Conversão Fahrenheit para Celsius
+**ID:** Expressões Aritméticas-4
+**Dificuldade:** Fácil
+
+Escreva um programa em Pyret para a conversão de temperatura ($^\circ$F para $^\circ$C). A expressão que calcula o valor correspondente em $^\circ$C é $C=\frac{F-32}{1,8}$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Conversão Celsius para Fahrenheit
+**ID:** Expressões Aritméticas-5
+**Dificuldade:** Fácil
+
+Similar ao exercício anterior, escreva um programa que, dado um valor de temperatura em $^\circ$C, calcule seu valor correspondente em $^\circ$F. Determine o ponto de ebulição da água em $^\circ$F (considere o ponto de ebulição da água como $100^\circ$C).
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Área de Trapézio
+**ID:** Expressões Aritméticas-6
+**Dificuldade:** Médio
+
+Escreva um programa em Pyret para o cálculo da área de um trapézio. Para isso, o programa deverá utilizar as variáveis base maior (B), base menor (b) e altura (h). A área de um trapézio pode ser calculada pela fórmula $A_{t}=\frac{(B+b)\cdot h}{2}$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Raio e Circunferência
+**ID:** Expressões Aritméticas-7
+**Dificuldade:** Médio
+
+Escreva uma função em Pyret que faça uso de uma variável única, composta pelo raio de uma circunferência. A função deverá retornar a soma do comprimento circunferência com sua área $(C=2\cdot r\cdot\pi \text{ e } A=\pi\cdot r^{2})$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Volume de Cilindro
+**ID:** Expressões Aritméticas-8
+**Dificuldade:** Médio
+
+Crie um programa para o cálculo do volume de um cilindro. Execute a função criada com distintos valores de raio $r\in\{1.5,2,5\}$ e altura $h\in\{12,20,32\}$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Salário Líquido
+**ID:** Expressões Aritméticas-9
+**Dificuldade:** Médio
+
+O salário líquido de uma empresa é calculado descontando do salário bruto uma determinada porcentagem referente ao imposto cobrado dos trabalhadores. O salário bruto, por sua vez, consiste na multiplicação da quantidade de horas trabalhadas pelo valor pago pela hora. Crie um programa em Pyret que compute o valor do salário líquido. Teste o programa criado para uma quantidade total de 110 horas a um valor de \$ 15.50 a hora trabalhada e 11\% de imposto.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Desconto em Loja
+**ID:** Expressões Aritméticas-10
+**Dificuldade:** Difícil
+
+Uma loja de artigos variados possui uma política de cálculo para o valor a ser cobrado dos seus clientes na compra de suas mercadorias. O valor a ser pago pelo cliente é composto pelo valor unitário da mercadoria multiplicado pela quantidade a ser comprada. Usualmente, a loja oferece um desconto que é subtraído do valor a ser pago no ato da venda. O valor unitário de cada mercadoria é obtido somando o custo do bem com um valor de lucro, determinado por uma porcentagem. O desconto também é determinado por uma porcentagem que é aplicada sobre o valor total no ato da venda. Crie um programa para computar o valor final a ser pago pelo cliente em uma compra. Após criado o programa, determine qual a porcentagem máxima (considerar somente múltiplos de 5) de desconto para que o vendedor não tenha prejuízo em uma venda de 12 unidades de um artigo com custo \$ 8.40 com 33\% de lucro.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Juros Simples
+**ID:** Expressões Aritméticas-11
+**Dificuldade:** Difícil
+
+Crie funções para conversão de meses em anos e vice-versa (mes2ano e ano2mes). Crie também funções para conversão de taxas de juros mensais para taxas anuais e vice-versa (mensal2anual e anual2mensal). Utilize estas funções para resolver os problemas a seguir.
+    
+        -  Um indivíduo investiu \$ 35.000,00 em uma aplicação durante 1 semestre à taxa de juros simples de 18,68\% a.a. Em quanto o capital foi aumentado ao final do período?
+        -  Em um período total de 2,5 anos, um capital de \$ 12.200,00 foi aplicado à uma taxa de juros de 7,2\% a.m. Determine o montante ao final do período.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Velocidade Média
+**ID:** Expressões Aritméticas-12
+**Dificuldade:** Difícil
+
+Crie um programa que determine a velocidade média de um veículo. Para isso, o usuário deverá fornecer os valores para as variáveis posição inicial e final (em quilômetros) e tempo inicial e final (em horas). A velocidade média pode ser calculada pela expressão $V=\frac{\Delta s}{\Delta t}$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Posição Final de Veículo
+**ID:** Expressões Aritméticas-13
+**Dificuldade:** Médio
+
+Modifique o programa anterior para determinar a posição final de um veículo com base nas demais variáveis.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+# Tópico: Projeto de Algoritmos e Expressões Condicionais
+
+## Exercício: Divisão ou Multiplicação
+**ID:** Projeto de Algoritmos e Expressões Condicionais-1
+**Dificuldade:** Fácil
+
+Escreva uma função em Pyret que consome uma variável numérica. Caso o número informado seja maior que 100, ele deve ser dividido por 5, caso contrário deve ser multiplicado por 3.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Par ou Ímpar
+**ID:** Projeto de Algoritmos e Expressões Condicionais-2
+**Dificuldade:** Fácil
+
+Crie um programa que, dado um número inteiro qualquer, verifique se o mesmo é par ou ímpar. No caso de ser par, o mesmo de ser dividido por 2. Caso o mesmo seja ímpar, deve ser somado a 1 e posteriormente dividido por 2. Considere utilizar a função `(remainder m n)` para verificar se um número é par ou ímpar.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Álcool ou Gasolina
+**ID:** Projeto de Algoritmos e Expressões Condicionais-3
+**Dificuldade:** Fácil
+
+Um proprietário de automóvel gostaria de saber se é mais viável abastecer seu veículo com álcool ou gasolina. Ele sabe que para ser vantajoso abastecer no álcool, o preço do litro do álcool tem que custar até 70\% (inclusive) do preço do litro da gasolina. Faça um programa que consuma o preço do litro do álcool e da gasolina e informe qual é combustível mais viável financeiramente.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Calculadora Básica
+**ID:** Projeto de Algoritmos e Expressões Condicionais-4
+**Dificuldade:** Fácil
+
+Desenvolva uma calculadora em Pyret para realizar as quatro operações básicas da matemática. Este programa consome uma string e dois números. A string representa o tipo da operação, e tem com possíveis valores: "adicao", "subtracao", "multiplicacao" e "divisao". De acordo com a string passada, o programa deve realizar a devida operação matemática entre os dois números. Na operação de divisão, o programa deve validar para que não ocorra divisão por zero.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Faixa Etária
+**ID:** Projeto de Algoritmos e Expressões Condicionais-5
+**Dificuldade:** Fácil
+
+Escreva uma função que determine a fase da vida de um indivíduo. A função deverá consumir uma variável numérica correspondente à idade e informar a faixa na qual o indivíduo se encontra. Até 12 anos a pessoa se encontra no estágio infantil, após isso a pessoa está na juventude até os 28 anos, vida adulta até os 65 anos e terceira idade com mais de 65 anos de idade.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Situação Aluno (Média Simples)
+**ID:** Projeto de Algoritmos e Expressões Condicionais-6
+**Dificuldade:** Médio
+
+Escreva um programa para auxílio no fechamento das médias de uma turma de alunos. Para isso, uma função deverá consumir as quatro notas do aluno, calculando sua média aritmética simples. O programa ainda deverá determinar se a situação final do aluno (reprovado se a nota for menor que 5, em exame para nota entre 5 e 7 e aprovado para nota maior ou igual a 7). Para informar a situação do aluno ao usuário utilize o comando `(write 'mensagem)`.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Situação Aluno (Média Ponderada)
+**ID:** Projeto de Algoritmos e Expressões Condicionais-7
+**Dificuldade:** Médio
+
+Modifique o programa anterior para uma média ponderada. A maior nota entre as quatro notas deverá possuir um peso $4/10$, enquanto as demais possuirão peso $2/10$.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Cálculo de IMC
+**ID:** Projeto de Algoritmos e Expressões Condicionais-8
+**Dificuldade:** Médio
+
+Crie um programa para cálculo do IMC (Índice de Massa Corporal). Este cálculo é determinado pela expressão $IMC=\frac{peso}{altura^{2}}$. A situação do indivíduo deve ser informada ao usuário de acordo com a tabela abaixo.
+
+| Resultado         | Situação        |
+| ----------------- | --------------- |
+| Abaixo de 18      | Abaixo do peso  |
+| Entre 18 e 24.99  | Peso normal     |
+| Entre 25 e 29.99  | Acima do peso   |
+| Acima de 30       | Obesidade       |
+
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Multa de Velocidade
+**ID:** Projeto de Algoritmos e Expressões Condicionais-9
+**Dificuldade:** Médio
+
+Crie um programa que calcule o valor de multa para um sensor de velocidade. O valor base de uma multa é estipulado em \$ 120,00. Caso o infrator ultrapassou a velocidade máxima em até $15km/h$, a multa é calculada como 88\% do valor base. Se a infração foi de $15km/h$ a $25km/h$ superior à velocidade máxima, a multa é igual a 116\% do valor base. Para um excedente entre $25km/h$ e $40km/h$, a multa é igual a 180\% do valor base. Para excedentes superiores a $40km/h$, o valor final é igual a 250\% do valor base. Dada a velocidade máxima da via e a velocidade inferida pelo sensor, informe o valor da multa (para velocidades dentro do permitido, o valor da multa é \$ 0,00).
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Salto em Altura
+**ID:** Projeto de Algoritmos e Expressões Condicionais-10
+**Dificuldade:** Médio
+
+Em uma competição de salto em altura, a pontuação do atleta é determinada por meio de uma expressão baseada na altura computada e no peso corporal ($Pont = \text{altura} \cdot \text{peso}$), onde a altura varia entre 1 e 2 metros e o peso entre 50 e 90kg. Escreva um programa que faça a leitura da altura computada e do peso de dois atletas (A e B) e determine qual deles é o vencedor.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Concessão de Crédito
+**ID:** Projeto de Algoritmos e Expressões Condicionais-11
+**Dificuldade:** Médio
+
+Uma companhia de crediário mantém um nível de confiança sobre cada um dos seus clientes, a fim de auxiliar na concessão ou negação de crédito. Este nível varia de acordo com o tempo em que o indivíduo é cliente e sua renda mensal. O nível é determinado de acordo com a tabela a seguir.
+
+| Tempo | Renda mensal | Nível |
+|---|---|---|
+| Até 1 ano | Menor que \$ 1200,00 | 1 |
+| Até 1 ano | Maior ou igual a \$ 1200,00 e menor que \$ 2300,00 | 2 |
+| Até 1 ano | Maior ou igual a \$ 2300,00 | 3 |
+| Mais que 1 ano | Menor que \$ 1200,00 | 2 |
+| Mais que 1 ano | Maior ou igual a \$ 1200,00 e menor que \$ 2300,00 | 3 |
+| Mais que 1 ano | Maior ou igual a \$ 2300,00 | 3 |
+
+    Empréstimos para clientes com nível 1 não são concedidos. Clientes com nível dois são analisados por especialistas. Todos os empréstimos com nível 3 são concedidos. Escreva um programa que, dado o tempo em que o indivíduo é cliente e sua renda, determine a situação da concessão de crédito (negado, em análise ou aprovado).
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Seguro de Veículo
+**ID:** Projeto de Algoritmos e Expressões Condicionais-12
+**Dificuldade:** Médio
+
+Crie um programa que calcule o valor do seguro de um veículo. Caso o ano do mesmo seja anterior a 2000, o valor base do seguro é \$ 2000,00. Para veículos mais novos, o valor base cai para \$ 1200,00. Caso o proprietário tenha menos de 25 anos de idade, é acrescido \$ 800,00 no valor do seguro. Caso o veículo seja utilizado para trabalho, é acrescido um valor de \$ 650,00. O programa deverá fazer uso das variáveis necessárias e determinar o valor final do seguro.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Conceito de Aluno
+**ID:** Projeto de Algoritmos e Expressões Condicionais-13
+**Dificuldade:** Médio
+
+Na disciplina de fundamentos de algoritmos, os alunos são avaliados por suas notas obtidas nas três atividades da disciplina: prova $1 (p_{1})$, prova $2 (p_{2})$ e listas de exercícios (E). A média final (M) de cada aluno é calculada através da média aritmética ponderada de suas notas obtidas nessas três atividades, sendo que as atividades valem $p_{1}=40\%$, $p_{2}=50\%$ e $E=10\%$ da média final. Para que o conceito de um aluno seja estimado, o professor precisa ainda avaliar se o aluno possui a frequência (F) mínima de participação nas aulas. A conversão da média final e frequência para o conceito é realizada da seguinte forma:
+    
+        -  FF: $F < 75\%$;
+        -  D: $0 \leq M < 6.0$;
+        -  C: $6.0 \leq M < 7.5$;
+        -  B: $7.5 \leq M < 9.0$;
+        -  A: $9.0 \leq M$;
+    
+    Para auxiliar o professor nesta tarefa, faça um programa em Pyret que consuma as notas de $p_{1}$, $p_{2}$, E e F e calcule o conceito do aluno. Considere o intervalo [0, 10] para cada uma das notas e [0, 100] para a frequência.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Aprovação de Aluno
+**ID:** Projeto de Algoritmos e Expressões Condicionais-14
+**Dificuldade:** Médio
+
+Agora que o professor possui um programa para calcular o conceito dos alunos, ele precisa verificar se os alunos foram aprovados ou reprovados na disciplina. Para que um aluno seja aprovado ele precisa ter conceito A, B ou C, caso contrário o aluno é reprovado. O programa deve consumir a saída obtida pelo programa do exercício anterior e informar se o aluno está aprovado ou reprovado. No caso de ter sido reprovado, o sistema deve ainda informar o motivo da reprovação (nota ou frequência).
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Anualidade de Seguro
+**ID:** Projeto de Algoritmos e Expressões Condicionais-15
+**Dificuldade:** Médio
+
+Uma seguradora de veículos precisa de um programa de computador para facilitar o cálculo do valor da anualidade dos seguros. O valor da anualidade de um seguro é calculado com base no valor do veículo, ano de modelo e idade do condutor. O valor da anuidade do seguro de qualquer veículo se inicia com um valor base de \$ 500,00. Este valor é incrementado de acordo com as características do veículo e condutor. Inicialmente, a seguradora incrementa o valor base em função das características do veículo:
+    
+        -  Para veículos com modelo inferior a 1995, adiciona-se 20\% do valor do veículo ao valor base.
+        -  Para veículos entre 1995 e 2008, o valor adicionado é de 10\% do valor do veículo.
+        -  Para veículos acima de 2008, o valor a ser incrementado no valor base é de 4\% do valor do veículo.
+    
+    A partir deste novo valor obtido a seguradora insere uma taxa de risco, variável em função do perfil do condutor. A seguradora incrementa este valor em 20\% para os casos onde o condutor possui menos de 25 anos. Para os condutores com idade entre 25 e 50 anos, o valor do seguro não é incrementado. Já os condutores acima de 50 anos recebem um desconto de 10\% sobre o valor total do seguro. Desenvolva um programa que compute o valor da anualidade.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Formação de Triângulo
+**ID:** Projeto de Algoritmos e Expressões Condicionais-16
+**Dificuldade:** Difícil
+
+Escreva um programa no Pyret que receba os valores de medida de três segmentos de reta. O programa deverá determinar se estas retas podem formar um triângulo. Para formar um triângulo, nenhuma de suas arestas pode ser maior que a soma das outras duas.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Desconto de Transporte
+**ID:** Projeto de Algoritmos e Expressões Condicionais-17
+**Dificuldade:** Difícil
+
+Uma empresa cobra de seus funcionários uma taxa mensal referente ao traslado de suas residências até o local de trabalho. A taxa é descontada do salário conforme a distância entre a empresa e a residência do funcionário e proporcional ao valor de seu salário conforme a tabela:
+
+| Valor do salário | Distância | Valor do desconto |
+|---|---|---|
+| Até \$ 2000,00 | Menor que 5km | \$ 80,00 |
+| Até \$ 2000,00 | Maior ou igual a 5km e menor que 10km | \$ 120,00 |
+| Até \$ 2000,00 | Maior ou igual a 10km | \$ 200,00 |
+| Mais que \$ 2000,00 | Menor que 5km | \$ 110,00 |
+| Mais que \$ 2000,00 | Maior ou igual a 5km e menor que 10km | \$ 160,00 |
+| Mais que \$ 2000,00 | Maior ou igual a 10km | \$ 240,00 |
+
+    Crie um programa que compute o salário final do funcionário com base no valor do salário e na distância.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Pessoa Mais Velha
+**ID:** Projeto de Algoritmos e Expressões Condicionais-18
+**Dificuldade:** Médio
+
+Escreva uma função que receba os nomes de duas pessoas. Além disso, a função deve consumir o ano, mês e dia de nascimento de ambos. A função deverá retornar o nome da pessoa mais velha.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Viagem e Combustível
+**ID:** Projeto de Algoritmos e Expressões Condicionais-19
+**Dificuldade:** Difícil
+
+Considere um motorista que precisa entregar mercadorias em três cidades distintas. A ordem das cidades é determinada antecipadamente. Antes de iniciar sua viagem, o motorista precisa se certificar de que possui combustível suficiente para realizar o percurso. Escreva um programa que, dadas as distâncias a serem percorridas para chegar a cada cidade, o consumo do veículo (em quilômetros por litro de combustível) e a quantidade de combustível disponível, informe quais cidades podem ser visitadas. A saída deverá ser informada ao usuário mediante as strings "Cidade 1", "Cidades 1 e 2" e "Todas as Cidades".
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+# Tópico: Dados Estruturados e Dados Condicionais
+
+## Exercício: Estrutura Aluno Pós
+**ID:** Dados Estruturados e Dados Condicionais-1
+**Dificuldade:** Médio
+
+Apresente as definições necessárias para representar a estrutura de um aluno de pós graduação. O aluno possui quatro informações principais: número de matrícula, nome do curso que está cursando, instituição de ensino, e curso de graduação cursado. Uma instituição de ensino é composta pelo seu nome e ano de fundação. Já o curso de graduação, por sua vez, possui um nome do curso e instituição de ensino.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Instâncias de Aluno Pós
+**ID:** Dados Estruturados e Dados Condicionais-2
+**Dificuldade:** Médio
+
+Considere as estruturas do exercício anterior e apresente as expressões necessárias para representar os alunos de pós graduação: Marcelo, Fernando e Gabriel. O Marcelo (matrícula 00237755) cursa Doutorado em Computação na UFRGS (fundada em 1934), e é formado em Ciência da Computação na UFRGS. O Fernando (matrícula 00236578), cursa Mestrado em Computação na UFRGS, e é formado em Sistemas de Informação pela UFSM (fundada em 1960). Já o Gabriel (matrícula 512010987), cursa Mestrado em Informática na UFSM, e possui graduação Engenharia de Software pela UDESC (fundada em 1965). Considere a reutilização das estruturas geradas para as instituições de ensino.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Mesma Instituição
+**ID:** Dados Estruturados e Dados Condicionais-3
+**Dificuldade:** Médio
+
+Desenvolva uma função que consuma um elemento do tipo AlunoPos, e retorne verdadeiro caso o aluno esteja cursando a pós graduação na mesma instituição de ensino em que cursou a graduação. Teste o programa nas estruturas do exercício anterior.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+
+## Exercício: Locadora de Veículos
+**ID:** Dados Estruturados e Dados Condicionais-4
+**Dificuldade:** Médio
+
+Uma locadora de veículos precisa de um programa para calcular o valor da diária de locação de seus veículos. A empresa dispõe de dois tipos de veículos: carros e motos. Ambos os tipos de veículos possuem os atributos em comum: ano, modelo (descrição) e valor de mercado. Os carros ainda podem possuir alguns atributos adicionais, como: ar condicionado, direção hidráulica e vidros elétricos. O valor base cobrado pela diária
+é de 0.25\% do valor de mercado do veículo. Os carros ainda possuem um acréscimo de R\$ 30.00 por opcional. Já as motos, possuem apenas uma taxa fixa de seguro, no valor de R\$ 70.00, que deve ser acrecida no valor base da diária. Com base nessa descrição, faça o que é pedido:
+
+    -  Define a estrutura Veículo, com suas variantes carro e moto.
+    -  Crie pelo menos 3 exemplos para cada uma das estruturas definidas.
+    -  Crie a função calcula-diária para efetuar o cálculo da diária de locação.
+    -  Teste a função calcula-diária nos exemplos anteriormente desenvolvidos.
+
+### Testes
+```pyret
+check:
+  # Escreva seus testes aqui
+  true is true
+end
+```
+

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ExerciseItem from '../components/ExerciseItem';
-import exercisesData from '../data/exercises.json';
+import { loadExercises } from '../utils/loadExercises';
+
+const exercisesData = loadExercises();
 
 const ExercisePage = () => {
     const { id } = useParams();

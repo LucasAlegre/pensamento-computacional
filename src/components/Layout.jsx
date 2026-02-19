@@ -17,8 +17,10 @@ const Layout = ({ children }) => {
                                 <ul className="dropdown-content">
                                     <li><Link to="/topics/data">Dados</Link></li>
                                     <li><Link to="/topics/functions">Funções</Link></li>
+                                    <li><Link to="/topics/style-guide">Guia de Estilo</Link></li>
                                 </ul>
                             </li>
+                            <li><NavLink to="/labs" className={({ isActive }) => isActive ? "active" : ""}>Laboratórios</NavLink></li>
                             <li><NavLink to="/exercises" className={({ isActive }) => isActive ? "active" : ""}>Exercícios</NavLink></li>
                             <li><NavLink to="/examples" className={({ isActive }) => isActive ? "active" : ""}>Exemplos</NavLink></li>
                         </ul>

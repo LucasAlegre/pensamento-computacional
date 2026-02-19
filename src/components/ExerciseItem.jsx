@@ -8,7 +8,7 @@ import PyretEmbed from './PyretEmbed';
 
 const ExerciseItem = ({ exercise }) => {
     return (
-        <div className="exercise-item" style={{ marginBottom: '2rem', padding: '1rem', border: '1px solid #eee', borderRadius: '8px' }}>
+        <div className="exercise-item section" style={{ marginBottom: '2rem' }}>
             <div className="exercise-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <span className="exercise-id" style={{ fontWeight: 'bold', color: '#666' }}>{exercise.id}</span>
                 <span className={`difficulty-tag ${exercise.difficulty.toLowerCase()}`}

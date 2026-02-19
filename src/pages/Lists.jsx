@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import exercisesData from '../data/exercises.json';
+import { loadExercises } from '../utils/loadExercises';
+
+const exercisesData = loadExercises();
 
 const Lists = () => {
     return (
