@@ -10,7 +10,7 @@ const Data = () => {
             <div className="section">
                 <h2>Números e Operações</h2>
                 <p>Pyret pode ser usado como uma calculadora. Tente executar o código abaixo:</p>
-                <PyretEmbed code="1 + 2 * 3" />
+                <PyretEmbed code="1 + (2 * 3)" />
             </div>
 
             <div className="section">

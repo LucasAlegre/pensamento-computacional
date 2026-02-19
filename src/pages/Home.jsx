@@ -5,10 +5,10 @@ const Home = () => {
     return (
         <div className="home-page">
             <div className="section hero">
-                <h1>Bem-vindo ao Pensamento Computacional</h1>
+                <h1>INF05008 Pensamento Computacional</h1>
                 <p>Aprenda a pensar como um cientista da computação usando a linguagem Pyret.</p>
                 <div style={{ marginTop: '1.5rem' }}>
-                    <Link to="/data" className="btn">Começar Agora</Link>
+                    <Link to="/topics" className="btn">Começar Agora</Link>
                 </div>
             </div>
 
@@ -16,7 +16,6 @@ const Home = () => {
                 <h2>Sobre o Curso</h2>
                 <p>
                     Este curso segue a metodologia do <a href="https://dcic-world.org/" target="_blank" rel="noopener noreferrer">DCIC World</a> (A Data-Centric Introduction to Computing).
-                    Nosso objetivo é ensinar fundamentos de computação através de uma abordagem centrada em dados.
                 </p>
             </div>
 

@@ -6,7 +6,9 @@ import Data from './pages/Data';
 
 import Functions from './pages/Functions';
 import Lists from './pages/Lists';
+import ExercisePage from './pages/ExercisePage';
 
+import Topics from './pages/Topics';
 import Examples from './pages/Examples';
 
 function App() {
@@ -15,9 +17,11 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/data" element={<Data />} />
-          <Route path="/functions" element={<Functions />} />
-          <Route path="/lists" element={<Lists />} />
+          <Route path="/topics" element={<Topics />} />
+          <Route path="/topics/data" element={<Data />} />
+          <Route path="/topics/functions" element={<Functions />} />
+          <Route path="/exercises" element={<Lists />} />
+          <Route path="/exercises/:id" element={<ExercisePage />} />
           <Route path="/examples" element={<Examples />} />
         </Routes>
       </Layout>
