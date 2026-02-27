@@ -15,7 +15,6 @@ const Layout = ({ children }) => {
                                     Tópicos <span style={{ fontSize: '0.7em' }}>▼</span>
                                 </NavLink>
                                 <ul className="dropdown-content">
-                                    <li><Link to="/topics/data">Dados</Link></li>
                                     <li><Link to="/topics/functions">Funções</Link></li>
                                     <li><Link to="/topics/style-guide">Guia de Estilo</Link></li>
                                 </ul>
@@ -33,7 +32,14 @@ const Layout = ({ children }) => {
             </main>
 
             <footer>
-                <div className="container">
+                <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div style={{ backgroundColor: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', marginBottom: '1rem', display: 'inline-block' }}>
+                        <img
+                            src={`${import.meta.env.BASE_URL || '/'}inf-logo-2.0.svg`.replace('//', '/')}
+                            alt="Logo Instituto de Informática UFRGS"
+                            style={{ height: '50px', display: 'block' }}
+                        />
+                    </div>
                     <p>&copy; {new Date().getFullYear()} INF05008 - Pensamento Computacional
                         <br />
                         Instituto de Informática - UFRGS

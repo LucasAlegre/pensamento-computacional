@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
-import Data from './pages/Data';
 import Functions from './pages/Functions';
 import PyretStyleGuide from './pages/PyretStyleGuide';
 import Laboratories from './pages/Laboratories';
@@ -19,7 +18,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/topics" element={<Topics />} />
-          <Route path="/topics/data" element={<Data />} />
           <Route path="/topics/functions" element={<Functions />} />
           <Route path="/topics/style-guide" element={<PyretStyleGuide />} />
           <Route path="/labs" element={<Laboratories />} />
