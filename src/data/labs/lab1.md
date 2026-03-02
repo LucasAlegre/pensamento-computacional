@@ -39,8 +39,8 @@ Defina as seguintes constantes (que serão usadas mais para frente):
 
 | Nome da Constante | Valor Exato (String) |
 | :--- | :--- |
-| `ATAQUE` | `"Attack"` |
-| `DEFESA` | `"Defense"` |
+| `ataque` | `"Attack"` |
+| `defesa` | `"Defense"` |
 | `efeito-naoefetivo` | `"Not very effective"` |
 | `efeito-efetivo` | `"Effective"` |
 | `efeito-superefetivo` | `"Super-effective!"` |
@@ -107,10 +107,10 @@ Siga precisamente as diretrizes das Vantagens (*Ataque atinge -> Defesa*):
 
 | Atacante | Fraqueza (Super Efetivo) | Resistência (Não Efetivo) |
 | :---: | :--- | :--- |
-| 🔥 **FIRE** | Ganha fácil de `GRASS` | Passa mal contra `WATER` ou `FIRE` |
-| 💧 **WATER** | Ganha em cheio do `FIRE` | Pouco efeito contra `GRASS` ou `WATER` |
-| ⚡ **ELECTRIC**| Frita a água do `WATER` | Inútil contra `GRASS` e curto-circuito no `ELECTRIC` |
-| 🌿 **GRASS** | Se esbalda no `WATER` | Queima pro `FIRE` ou empata com o `GRASS` |
+| 🔥 **FIRE** | `GRASS` | `WATER` ou `FIRE` |
+| 💧 **WATER** | `FIRE` | `GRASS` ou `WATER` |
+| ⚡ **ELECTRIC**| `WATER` | `GRASS` ou `ELECTRIC` |
+| 🌿 **GRASS** | `WATER` | `FIRE` ou `GRASS` |
 
 *Para TODAS as outras permutações, considere apenas o genérico **Efeito Efetivo**.*
 
@@ -121,7 +121,8 @@ Siga precisamente as diretrizes das Vantagens (*Ataque atinge -> Defesa*):
 ---
 
 ## 💥 Exercício 6: Efeito e Fogo - Batalha Final
-A obra prima da computação exige colisão de matrizes (no estilo visual pelo menos 😂). Crie a função `desenha-cenario`!
+
+Agora vamos montar o cenário da batalha! Crie a função `desenha-cenario` da seguinte forma:
 
 **Entrada:** 
 1. Imagem da `carta-ataque`
@@ -134,8 +135,6 @@ A obra prima da computação exige colisão de matrizes (no estilo visual pelo m
 > - `above(img1, img2)`: Coloca a primeira imagem exatamente acima da segunda (Ideal para colocar os letreiros com os textos da constante `ATAQUE` em cima da carta atacante, além do texto final embaixo da mesa toda).
 > - `beside(img1, img2)`: Coloca a primeira imagem lado a lado à esquerda da segunda. Aproveite para montar as duas cartas em modo duelo!
 > - `overlay-align(x, y, img1, img2)`: Será essencial para você assentar a dupla lado a lado exatamente no centro da imagem da nossa `mesa`.
-
-**Pronto, você construiu seu programa funcional para criar batalhas dinâmicas! Descomente as linhas finais do template com as chamadas de teste e veja a mágica acontecer. Parabéns por concluir o primeiro Laboratório! 🚀**
 
 Seu cenário final deverá se parecer com isso:
 
