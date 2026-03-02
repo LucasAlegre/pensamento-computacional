@@ -37,17 +37,17 @@ square(10)`} />
 
                 <p style={{ marginTop: "20px" }}>Junte todas as etapas no exemplo vivo abaixo! Estar na prática significa que sempre que o editor for executado <em>(clique em "Run")</em>, ele vai validar secretamente o bloco <code>where:</code> para nos dizer que de fato, 50 - 20 resulta em 30. E caso tivéssemos implementado a soma errada, o painel do Pyret informaria o erro.</p>
 
-                <PyretEmbed code={`# 1. Contrato Definido na Linha de Assinatura
+                <PyretEmbed code={`# 1. Contrato definido na linha de assinatura da função
 fun calcula-lucro(receita :: Number, gastos :: Number) -> Number:
   
-  # 2. Objetivo da Função preenchido 
-  doc: "Subtrai todos os gastos do dinheiro da sua receita e devolve o lucro final da empresa!"
+  # 2. Objetivo da função preenchido 
+  doc: "Dado o valor da receita e dos gastos, devolve o lucro."
   
-  # 3. Código com a regra de Negócios (A última operação feita aqui será devolvida) 
+  # 3. Código que implementa a lógica da função
   receita - gastos
   
 where: 
-  # 4. Bloco de Testes obrigatório! (Garante e ilustra casos vitais sem deixar erros vazarem pro cliente)
+  # 4. Bloco de testes (garante que a função se comporta como esperado)
   calcula-lucro(50, 20) is 30
   calcula-lucro(100, 100) is 0
 end`} />

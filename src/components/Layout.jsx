@@ -15,8 +15,9 @@ const Layout = ({ children }) => {
                                     Tópicos <span style={{ fontSize: '0.7em' }}>▼</span>
                                 </NavLink>
                                 <ul className="dropdown-content">
-                                    <li><Link to="/topics/functions">Funções</Link></li>
+                                    <li><Link to="/topics/learning">Aprendendo a Programar</Link></li>
                                     <li><Link to="/topics/style-guide">Guia de Estilo</Link></li>
+                                    <li><Link to="/topics/functions">Funções</Link></li>
                                 </ul>
                             </li>
                             <li><NavLink to="/labs" className={({ isActive }) => isActive ? "active" : ""}>Laboratórios</NavLink></li>

@@ -10,6 +10,7 @@ import ExercisePage from './pages/ExercisePage';
 import Lists from './pages/Lists';
 import Topics from './pages/Topics';
 import Examples from './pages/Examples';
+import Learning from './pages/Learning';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/topics" element={<Topics />} />
           <Route path="/topics/functions" element={<Functions />} />
           <Route path="/topics/style-guide" element={<PyretStyleGuide />} />
+          <Route path="/topics/learning" element={<Learning />} />
           <Route path="/labs" element={<Laboratories />} />
           <Route path="/labs/:id" element={<LabPage />} />
           <Route path="/exercises" element={<Lists />} />
