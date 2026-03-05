@@ -148,7 +148,7 @@ CharacterHeight = 40
 5. **Mantenha as linhas abaixo de 80 caracteres**. Se a linha for muito longa, quebre-a. Docstrings muito grandes podem ser escritas usando aspas triplas (` ``` `):
 
 ```pyret
-fun f(x :: Number) -> Number:
+fun return-2(x :: Number) -> Number:
   doc: ```return 2; ignore inputs, always outputs 2 no matter what, 
           this function is going to return 2```
   2
@@ -159,18 +159,18 @@ end
 
 ```pyret
 # Ruim
-fun f(x :: Number) -> Number:
+fun satura-em-zero-v1(x :: Number) -> Number:
 ask:
-    | x < 2 then: 2
-| otherwise: 4
+    | x < 0 then: 0
+| otherwise: x
 end
 end
 
 # Bom
-fun f(x :: Number) -> Number:
+fun satura-em-zero-v2(x :: Number) -> Number:
   ask:
-    | x < 2 then: 2
-    | otherwise: 4
+    | x < 0 then: 0
+    | otherwise: x
   end
 end
 ```

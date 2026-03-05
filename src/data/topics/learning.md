@@ -60,6 +60,4 @@ As pessoas frequentemente acreditam que programação e ciência da computação
 
 ### Não tenha medo de errar e de pedir ajuda
 
-Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.
-
-***Dica:** Não tenha medo de errar. Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.*
+Não tenha medo de errar. Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.
