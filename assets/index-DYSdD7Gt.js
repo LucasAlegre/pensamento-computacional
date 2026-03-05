@@ -194,7 +194,7 @@ CharacterHeight = 40
 5. **Mantenha as linhas abaixo de 80 caracteres**. Se a linha for muito longa, quebre-a. Docstrings muito grandes podem ser escritas usando aspas triplas (\` \`\`\` \`):
 
 \`\`\`pyret
-fun f(x :: Number) -> Number:
+fun return-2(x :: Number) -> Number:
   doc: \`\`\`return 2; ignore inputs, always outputs 2 no matter what, 
           this function is going to return 2\`\`\`
   2
@@ -205,18 +205,18 @@ end
 
 \`\`\`pyret
 # Ruim
-fun f(x :: Number) -> Number:
+fun satura-em-zero-v1(x :: Number) -> Number:
 ask:
-    | x < 2 then: 2
-| otherwise: 4
+    | x < 0 then: 0
+| otherwise: x
 end
 end
 
 # Bom
-fun f(x :: Number) -> Number:
+fun satura-em-zero-v2(x :: Number) -> Number:
   ask:
-    | x < 2 then: 2
-    | otherwise: 4
+    | x < 0 then: 0
+    | otherwise: x
   end
 end
 \`\`\`
@@ -1885,7 +1885,5 @@ As pessoas frequentemente acreditam que programação e ciência da computação
 
 ### Não tenha medo de errar e de pedir ajuda
 
-Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.
-
-***Dica:** Não tenha medo de errar. Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.*
+Não tenha medo de errar. Erros são uma parte natural do processo de aprendizagem. Quando você comete um erro, não se desanime. Em vez disso, veja-o como uma oportunidade para aprender e melhorar. O importante é entender por que o erro aconteceu e como você pode evitá-lo no futuro.
 `,A6=Object.assign({"../data/topics/learning.md":_O}),kO=()=>{const[e,t]=ie.useState("");return ie.useEffect(()=>{A6["../data/topics/learning.md"]&&t(A6["../data/topics/learning.md"])},[]),e?F.jsxs("div",{className:"page-content",children:[F.jsx(Zt,{to:"/topics",className:"back-link",style:{display:"inline-block",marginBottom:"1rem",textDecoration:"none",color:"#666"},children:"← Voltar para Tópicos"}),F.jsx("div",{className:"section",children:F.jsx(yo,{remarkPlugins:[Mo,To],rehypePlugins:[wo,cm],components:{code({node:n,inline:i,className:l,children:s,...c}){const f=/language-(\w+)/.exec(l||""),d=String(s).replace(/\n$/,"");return!i&&f&&f[1]==="pyret"?F.jsx(Ti,{code:d}):i?F.jsx("code",{className:l,...c,children:s}):F.jsx("pre",{children:F.jsx("code",{className:l,...c,children:s})})}},children:e})})]}):F.jsx("div",{className:"page-content",children:"Carregando conteúdo..."})};function wO(){return F.jsx(Iv,{basename:"/pensamento-computacional",children:F.jsx(Yv,{children:F.jsxs(fv,{children:[F.jsx(da,{path:"/",element:F.jsx(Gv,{})}),F.jsx(da,{path:"/topics",element:F.jsx(SO,{})}),F.jsx(da,{path:"/topics/functions",element:F.jsx(Kv,{})}),F.jsx(da,{path:"/topics/style-guide",element:F.jsx(eO,{})}),F.jsx(da,{path:"/topics/learning",element:F.jsx(kO,{})}),F.jsx(da,{path:"/labs",element:F.jsx(tO,{})}),F.jsx(da,{path:"/labs/:id",element:F.jsx(gO,{})}),F.jsx(da,{path:"/exercises",element:F.jsx(xO,{})}),F.jsx(da,{path:"/exercises/:id",element:F.jsx(yO,{})}),F.jsx(da,{path:"/examples",element:F.jsx(CO,{})})]})})})}m9.createRoot(document.getElementById("root")).render(F.jsx(ie.StrictMode,{children:F.jsx(wO,{})}));
