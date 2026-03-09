@@ -29,13 +29,42 @@ const ExerciseItem = ({ exercise }) => {
                 <ReactMarkdown
                     remarkPlugins={[remarkMath, remarkGfm]}
                     rehypePlugins={[rehypeKatex]}
+                    components={{
+                        code({ node, inline, className, children, ...props }) {
+                            const match = /language-(\w+)/.exec(className || '')
+                            const isPyret = !inline && match && match[1] === 'pyret';
+
+                            if (isPyret) {
+                                let codeContent = String(children).replace(/\n$/, '');
+
+                                const meta = node?.data?.meta || '';
+                                let height;
+                                const heightMatch = /height=(\d+)/.exec(meta);
+                                if (heightMatch) height = parseInt(heightMatch[1], 10);
+
+                                return <PyretEmbed code={codeContent} height={height} />
+                            }
+
+                            return !inline && match ? (
+                                <pre className={className}>
+                                    <code className={className} {...props}>
+                                        {children}
+                                    </code>
+                                </pre>
+                            ) : (
+                                <code className={className} {...props}>
+                                    {children}
+                                </code>
+                            )
+                        }
+                    }}
                 >
                     {exercise.statement}
                 </ReactMarkdown>
             </div>
 
             <div className="exercise-code">
-                <PyretEmbed code={exercise.testCode} />
+                <PyretEmbed code={exercise.testCode} height={exercise.testHeight} />
             </div>
         </div>
     );

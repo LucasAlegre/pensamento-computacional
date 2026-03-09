@@ -74,6 +74,7 @@ fun img-pokemon(id :: Number) -> Image:
     doc: "Dado o id de um pokemon, devolve a imagem deste pokemon."
     url = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/" + id-to-3-digit-string(id) + ".png"
     img = image-url(url)
+
     scale(0.75, img)
 end
 

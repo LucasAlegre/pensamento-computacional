@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { makeEmbedConfig } from '@ironm00n/pyret-embed';
 
-const PyretEmbed = ({ code = "" }) => {
+const PyretEmbed = ({ code = "", height }) => {
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -49,17 +49,19 @@ const PyretEmbed = ({ code = "" }) => {
 
     // Calcular altura baseada na quantidade de linhas de código
     const lines = code.split('\n').length;
-    const editorHeight = Math.max(130, Math.min(600, lines * 24 + 65));
+    const computedHeight = Math.max(130, Math.min(600, lines * 24 + 65));
+    const finalHeight = height || computedHeight;
 
     return (
         <div
             ref={containerRef}
             className="pyret-embed-container"
             style={{
-                height: `${editorHeight}px`,
+                height: `${finalHeight}px`,
                 border: '1px solid #ddd',
                 borderRadius: '8px',
-                overflow: 'hidden',
+                overflow: 'auto',
+                resize: 'vertical',
                 backgroundColor: '#f5f5f5',
                 marginBottom: '1rem'
             }}

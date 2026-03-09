@@ -31,7 +31,8 @@ export const loadExercises = () => {
                 id: '',
                 difficulty: '',
                 statement: '',
-                testCode: ''
+                testCode: '',
+                testHeight: undefined
             };
             currentBlock = 'statement';
         }
@@ -53,7 +54,13 @@ export const loadExercises = () => {
                     currentExercise.statement += line + '\n';
                 }
             } else if (currentExercise && currentBlock === 'testCode') {
-                if (line.trim().startsWith('```')) return; // skip fences
+                if (line.trim().startsWith('```')) {
+                    const match = /^\s*```pyret\s+height=(\d+)/.exec(line);
+                    if (match) {
+                        currentExercise.testHeight = parseInt(match[1], 10);
+                    }
+                    return; // skip fences
+                }
                 currentExercise.testCode += line + '\n';
             }
         }

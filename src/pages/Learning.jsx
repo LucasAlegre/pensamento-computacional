@@ -41,8 +41,13 @@ const Learning = () => {
                                 const codeString = String(children).replace(/\n$/, '');
 
                                 if (!inline && match && match[1] === 'pyret') {
+                                    const meta = node?.data?.meta || '';
+                                    let height;
+                                    const heightMatch = /height=(\d+)/.exec(meta);
+                                    if (heightMatch) height = parseInt(heightMatch[1], 10);
+
                                     return (
-                                        <PyretEmbed code={codeString} />
+                                        <PyretEmbed code={codeString} height={height} />
                                     )
                                 }
                                 return !inline ? (

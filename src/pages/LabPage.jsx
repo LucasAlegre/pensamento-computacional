@@ -86,7 +86,12 @@ const LabPage = () => {
                                     }
                                 }
 
-                                return <PyretEmbed code={codeContent} />
+                                const meta = node?.data?.meta || '';
+                                let height;
+                                const heightMatch = /height=(\d+)/.exec(meta);
+                                if (heightMatch) height = parseInt(heightMatch[1], 10);
+
+                                return <PyretEmbed code={codeContent} height={height} />
                             }
 
                             return !inline && match ? (

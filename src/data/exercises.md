@@ -19,7 +19,7 @@ e) $2\cdot\sqrt{x+5}-26$
 f) $x\cdot(x+3)-4$
 
 ### Testes
-```pyret
+```pyret height=500
 
 ```
 
@@ -30,11 +30,8 @@ f) $x\cdot(x+3)-4$
 Faça um programa que, dados os valores para os catetos de um triângulo retângulo, calcule o valor da hipotenusa. A hipotenusa é calculada pelo Teorema de Pitágoras que é dado pela expressão $a^{2}=b^{2}+c^{2}$, onde $b$ e $c$ são os catetos e $a$ a hipotenusa.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Cálculo de Cateto
@@ -44,11 +41,8 @@ end
 Modifique o programa anterior para que calcule o valor de um dos catetos. Para isso, a função deverá receber os valores do cateto conhecido e da hipotenusa.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Conversão Fahrenheit para Celsius
@@ -58,11 +52,8 @@ end
 Escreva um programa em Pyret para a conversão de temperatura ($^\circ$F para $^\circ$C). A expressão que calcula o valor correspondente em $^\circ$C é $C=\frac{F-32}{1,8}$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Conversão Celsius para Fahrenheit
@@ -72,11 +63,8 @@ end
 Similar ao exercício anterior, escreva um programa que, dado um valor de temperatura em $^\circ$C, calcule seu valor correspondente em $^\circ$F. Determine o ponto de ebulição da água em $^\circ$F (considere o ponto de ebulição da água como $100^\circ$C).
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Área de Trapézio
@@ -86,11 +74,8 @@ end
 Escreva um programa em Pyret para o cálculo da área de um trapézio. Para isso, o programa deverá utilizar as variáveis base maior (B), base menor (b) e altura (h). A área de um trapézio pode ser calculada pela fórmula $A_{t}=\frac{(B+b)\cdot h}{2}$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Raio e Circunferência
@@ -100,11 +85,8 @@ end
 Escreva uma função em Pyret que faça uso de uma variável única, composta pelo raio de uma circunferência. A função deverá retornar a soma do comprimento circunferência com sua área $(C=2\cdot r\cdot\pi \text{ e } A=\pi\cdot r^{2})$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Volume de Cilindro
@@ -114,11 +96,8 @@ end
 Crie um programa para o cálculo do volume de um cilindro. Execute a função criada com distintos valores de raio $r\in\{1.5,2,5\}$ e altura $h\in\{12,20,32\}$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Salário Líquido
@@ -128,11 +107,8 @@ end
 O salário líquido de uma empresa é calculado descontando do salário bruto uma determinada porcentagem referente ao imposto cobrado dos trabalhadores. O salário bruto, por sua vez, consiste na multiplicação da quantidade de horas trabalhadas pelo valor pago pela hora. Crie um programa em Pyret que compute o valor do salário líquido. Teste o programa criado para uma quantidade total de 110 horas a um valor de \$ 15.50 a hora trabalhada e 11\% de imposto.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Desconto em Loja
@@ -142,11 +118,8 @@ end
 Uma loja de artigos variados possui uma política de cálculo para o valor a ser cobrado dos seus clientes na compra de suas mercadorias. O valor a ser pago pelo cliente é composto pelo valor unitário da mercadoria multiplicado pela quantidade a ser comprada. Usualmente, a loja oferece um desconto que é subtraído do valor a ser pago no ato da venda. O valor unitário de cada mercadoria é obtido somando o custo do bem com um valor de lucro, determinado por uma porcentagem. O desconto também é determinado por uma porcentagem que é aplicada sobre o valor total no ato da venda. Crie um programa para computar o valor final a ser pago pelo cliente em uma compra. Após criado o programa, determine qual a porcentagem máxima (considerar somente múltiplos de 5) de desconto para que o vendedor não tenha prejuízo em uma venda de 12 unidades de um artigo com custo \$ 8.40 com 33\% de lucro.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Juros Simples
@@ -159,11 +132,8 @@ Crie funções para conversão de meses em anos e vice-versa (mes2ano e ano2mes)
         -  Em um período total de 2,5 anos, um capital de \$ 12.200,00 foi aplicado à uma taxa de juros de 7,2\% a.m. Determine o montante ao final do período.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Velocidade Média
@@ -173,11 +143,8 @@ end
 Crie um programa que determine a velocidade média de um veículo. Para isso, o usuário deverá fornecer os valores para as variáveis posição inicial e final (em quilômetros) e tempo inicial e final (em horas). A velocidade média pode ser calculada pela expressão $V=\frac{\Delta s}{\Delta t}$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Posição Final de Veículo
@@ -187,11 +154,8 @@ end
 Modifique o programa anterior para determinar a posição final de um veículo com base nas demais variáveis.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 # Tópico: Projeto de Algoritmos e Expressões Condicionais
@@ -203,11 +167,8 @@ end
 Escreva uma função em Pyret que consome uma variável numérica. Caso o número informado seja maior que 100, ele deve ser dividido por 5, caso contrário deve ser multiplicado por 3.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Par ou Ímpar
@@ -217,11 +178,8 @@ end
 Crie um programa que, dado um número inteiro qualquer, verifique se o mesmo é par ou ímpar. No caso de ser par, o mesmo de ser dividido por 2. Caso o mesmo seja ímpar, deve ser somado a 1 e posteriormente dividido por 2. Considere utilizar a função `(remainder m n)` para verificar se um número é par ou ímpar.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Álcool ou Gasolina
@@ -231,11 +189,8 @@ end
 Um proprietário de automóvel gostaria de saber se é mais viável abastecer seu veículo com álcool ou gasolina. Ele sabe que para ser vantajoso abastecer no álcool, o preço do litro do álcool tem que custar até 70\% (inclusive) do preço do litro da gasolina. Faça um programa que consuma o preço do litro do álcool e da gasolina e informe qual é combustível mais viável financeiramente.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Calculadora Básica
@@ -245,11 +200,8 @@ end
 Desenvolva uma calculadora em Pyret para realizar as quatro operações básicas da matemática. Este programa consome uma string e dois números. A string representa o tipo da operação, e tem com possíveis valores: "adicao", "subtracao", "multiplicacao" e "divisao". De acordo com a string passada, o programa deve realizar a devida operação matemática entre os dois números. Na operação de divisão, o programa deve validar para que não ocorra divisão por zero.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Faixa Etária
@@ -259,11 +211,8 @@ end
 Escreva uma função que determine a fase da vida de um indivíduo. A função deverá consumir uma variável numérica correspondente à idade e informar a faixa na qual o indivíduo se encontra. Até 12 anos a pessoa se encontra no estágio infantil, após isso a pessoa está na juventude até os 28 anos, vida adulta até os 65 anos e terceira idade com mais de 65 anos de idade.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Situação Aluno (Média Simples)
@@ -273,11 +222,8 @@ end
 Escreva um programa para auxílio no fechamento das médias de uma turma de alunos. Para isso, uma função deverá consumir as quatro notas do aluno, calculando sua média aritmética simples. O programa ainda deverá determinar se a situação final do aluno (reprovado se a nota for menor que 5, em exame para nota entre 5 e 7 e aprovado para nota maior ou igual a 7). Para informar a situação do aluno ao usuário utilize o comando `(write 'mensagem)`.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Situação Aluno (Média Ponderada)
@@ -287,11 +233,8 @@ end
 Modifique o programa anterior para uma média ponderada. A maior nota entre as quatro notas deverá possuir um peso $4/10$, enquanto as demais possuirão peso $2/10$.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Cálculo de IMC
@@ -309,11 +252,8 @@ Crie um programa para cálculo do IMC (Índice de Massa Corporal). Este cálculo
 
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Multa de Velocidade
@@ -323,11 +263,8 @@ end
 Crie um programa que calcule o valor de multa para um sensor de velocidade. O valor base de uma multa é estipulado em \$ 120,00. Caso o infrator ultrapassou a velocidade máxima em até $15km/h$, a multa é calculada como 88\% do valor base. Se a infração foi de $15km/h$ a $25km/h$ superior à velocidade máxima, a multa é igual a 116\% do valor base. Para um excedente entre $25km/h$ e $40km/h$, a multa é igual a 180\% do valor base. Para excedentes superiores a $40km/h$, o valor final é igual a 250\% do valor base. Dada a velocidade máxima da via e a velocidade inferida pelo sensor, informe o valor da multa (para velocidades dentro do permitido, o valor da multa é \$ 0,00).
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Salto em Altura
@@ -337,11 +274,8 @@ end
 Em uma competição de salto em altura, a pontuação do atleta é determinada por meio de uma expressão baseada na altura computada e no peso corporal ($Pont = \text{altura} \cdot \text{peso}$), onde a altura varia entre 1 e 2 metros e o peso entre 50 e 90kg. Escreva um programa que faça a leitura da altura computada e do peso de dois atletas (A e B) e determine qual deles é o vencedor.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Concessão de Crédito
@@ -362,11 +296,8 @@ Uma companhia de crediário mantém um nível de confiança sobre cada um dos se
     Empréstimos para clientes com nível 1 não são concedidos. Clientes com nível dois são analisados por especialistas. Todos os empréstimos com nível 3 são concedidos. Escreva um programa que, dado o tempo em que o indivíduo é cliente e sua renda, determine a situação da concessão de crédito (negado, em análise ou aprovado).
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Seguro de Veículo
@@ -376,11 +307,8 @@ end
 Crie um programa que calcule o valor do seguro de um veículo. Caso o ano do mesmo seja anterior a 2000, o valor base do seguro é \$ 2000,00. Para veículos mais novos, o valor base cai para \$ 1200,00. Caso o proprietário tenha menos de 25 anos de idade, é acrescido \$ 800,00 no valor do seguro. Caso o veículo seja utilizado para trabalho, é acrescido um valor de \$ 650,00. O programa deverá fazer uso das variáveis necessárias e determinar o valor final do seguro.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Conceito de Aluno
@@ -398,11 +326,8 @@ Na disciplina de fundamentos de algoritmos, os alunos são avaliados por suas no
     Para auxiliar o professor nesta tarefa, faça um programa em Pyret que consuma as notas de $p_{1}$, $p_{2}$, E e F e calcule o conceito do aluno. Considere o intervalo [0, 10] para cada uma das notas e [0, 100] para a frequência.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Aprovação de Aluno
@@ -412,11 +337,8 @@ end
 Agora que o professor possui um programa para calcular o conceito dos alunos, ele precisa verificar se os alunos foram aprovados ou reprovados na disciplina. Para que um aluno seja aprovado ele precisa ter conceito A, B ou C, caso contrário o aluno é reprovado. O programa deve consumir a saída obtida pelo programa do exercício anterior e informar se o aluno está aprovado ou reprovado. No caso de ter sido reprovado, o sistema deve ainda informar o motivo da reprovação (nota ou frequência).
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Anualidade de Seguro
@@ -432,11 +354,8 @@ Uma seguradora de veículos precisa de um programa de computador para facilitar 
     A partir deste novo valor obtido a seguradora insere uma taxa de risco, variável em função do perfil do condutor. A seguradora incrementa este valor em 20\% para os casos onde o condutor possui menos de 25 anos. Para os condutores com idade entre 25 e 50 anos, o valor do seguro não é incrementado. Já os condutores acima de 50 anos recebem um desconto de 10\% sobre o valor total do seguro. Desenvolva um programa que compute o valor da anualidade.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Formação de Triângulo
@@ -446,11 +365,8 @@ end
 Escreva um programa no Pyret que receba os valores de medida de três segmentos de reta. O programa deverá determinar se estas retas podem formar um triângulo. Para formar um triângulo, nenhuma de suas arestas pode ser maior que a soma das outras duas.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Desconto de Transporte
@@ -471,11 +387,8 @@ Uma empresa cobra de seus funcionários uma taxa mensal referente ao traslado de
     Crie um programa que compute o salário final do funcionário com base no valor do salário e na distância.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Pessoa Mais Velha
@@ -485,11 +398,8 @@ end
 Escreva uma função que receba os nomes de duas pessoas. Além disso, a função deve consumir o ano, mês e dia de nascimento de ambos. A função deverá retornar o nome da pessoa mais velha.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Viagem e Combustível
@@ -499,11 +409,8 @@ end
 Considere um motorista que precisa entregar mercadorias em três cidades distintas. A ordem das cidades é determinada antecipadamente. Antes de iniciar sua viagem, o motorista precisa se certificar de que possui combustível suficiente para realizar o percurso. Escreva um programa que, dadas as distâncias a serem percorridas para chegar a cada cidade, o consumo do veículo (em quilômetros por litro de combustível) e a quantidade de combustível disponível, informe quais cidades podem ser visitadas. A saída deverá ser informada ao usuário mediante as strings "Cidade 1", "Cidades 1 e 2" e "Todas as Cidades".
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 # Tópico: Dados Estruturados e Dados Condicionais
@@ -515,11 +422,8 @@ end
 Apresente as definições necessárias para representar a estrutura de um aluno de pós graduação. O aluno possui quatro informações principais: número de matrícula, nome do curso que está cursando, instituição de ensino, e curso de graduação cursado. Uma instituição de ensino é composta pelo seu nome e ano de fundação. Já o curso de graduação, por sua vez, possui um nome do curso e instituição de ensino.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Instâncias de Aluno Pós
@@ -529,11 +433,8 @@ end
 Considere as estruturas do exercício anterior e apresente as expressões necessárias para representar os alunos de pós graduação: Marcelo, Fernando e Gabriel. O Marcelo (matrícula 00237755) cursa Doutorado em Computação na UFRGS (fundada em 1934), e é formado em Ciência da Computação na UFRGS. O Fernando (matrícula 00236578), cursa Mestrado em Computação na UFRGS, e é formado em Sistemas de Informação pela UFSM (fundada em 1960). Já o Gabriel (matrícula 512010987), cursa Mestrado em Informática na UFSM, e possui graduação Engenharia de Software pela UDESC (fundada em 1965). Considere a reutilização das estruturas geradas para as instituições de ensino.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Mesma Instituição
@@ -543,11 +444,8 @@ end
 Desenvolva uma função que consuma um elemento do tipo AlunoPos, e retorne verdadeiro caso o aluno esteja cursando a pós graduação na mesma instituição de ensino em que cursou a graduação. Teste o programa nas estruturas do exercício anterior.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 
 ## Exercício: Locadora de Veículos
@@ -563,10 +461,7 @@ Uma locadora de veículos precisa de um programa para calcular o valor da diári
     -  Teste a função calcula-diária nos exemplos anteriormente desenvolvidos.
 
 ### Testes
-```pyret
-check:
-  # Escreva seus testes aqui
-  true is true
-end
+```pyret height=500
+
 ```
 

@@ -41,8 +41,13 @@ const DataTypes = () => {
                                 const codeStr = String(children).replace(/\n$/, '');
 
                                 if (match && match[1] === 'pyret') {
+                                    const meta = node?.data?.meta || '';
+                                    let height;
+                                    const heightMatch = /height=(\d+)/.exec(meta);
+                                    if (heightMatch) height = parseInt(heightMatch[1], 10);
+
                                     return (
-                                        <PyretEmbed code={codeStr} />
+                                        <PyretEmbed code={codeStr} height={height} />
                                     )
                                 }
 
