@@ -1272,7 +1272,7 @@ f) $x\\cdot(x+3)-4$
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Cálculo da Hipotenusa
@@ -1283,7 +1283,7 @@ Faça um programa que, dados os valores para os catetos de um triângulo retâng
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Cálculo de Cateto
@@ -1294,7 +1294,7 @@ Modifique o programa anterior para que calcule o valor de um dos catetos. Para i
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Conversão Fahrenheit para Celsius
@@ -1305,7 +1305,7 @@ Escreva um programa em Pyret para a conversão de temperatura ($^\\circ$F para $
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Conversão Celsius para Fahrenheit
@@ -1316,7 +1316,7 @@ Similar ao exercício anterior, escreva um programa que, dado um valor de temper
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Área de Trapézio
@@ -1327,7 +1327,7 @@ Escreva um programa em Pyret para o cálculo da área de um trapézio. Para isso
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Raio e Circunferência
@@ -1338,7 +1338,7 @@ Escreva uma função em Pyret que faça uso de uma variável única, composta pe
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Volume de Cilindro
@@ -1349,7 +1349,7 @@ Crie um programa para o cálculo do volume de um cilindro. Execute a função cr
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Salário Líquido
@@ -1360,7 +1360,7 @@ O salário líquido de uma empresa é calculado descontando do salário bruto um
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Desconto em Loja
@@ -1371,21 +1371,22 @@ Uma loja de artigos variados possui uma política de cálculo para o valor a ser
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Juros Simples
 **ID:** Expressões Aritméticas-11
 **Dificuldade:** Difícil
 
-Crie funções para conversão de meses em anos e vice-versa (mes2ano e ano2mes). Crie também funções para conversão de taxas de juros mensais para taxas anuais e vice-versa (mensal2anual e anual2mensal). Utilize estas funções para resolver os problemas a seguir.
+Crie funções para conversão de meses em anos e vice-versa (**mes2ano** e **ano2mes**). Crie também funções para conversão de taxas de juros mensais para taxas anuais e vice-versa (**mensal2anual** e **anual2mensal**). Utilize estas funções para resolver os problemas a seguir.
     
-        -  Um indivíduo investiu \\$ 35.000,00 em uma aplicação durante 1 semestre à taxa de juros simples de 18,68\\% a.a. Em quanto o capital foi aumentado ao final do período?
-        -  Em um período total de 2,5 anos, um capital de \\$ 12.200,00 foi aplicado à uma taxa de juros de 7,2\\% a.m. Determine o montante ao final do período.
+1) Um indivíduo investiu \\$ 35.000,00 em uma aplicação durante 1 semestre à taxa de juros simples de 18,68\\% a.a. Em quanto o capital foi aumentado ao final do período?
+
+2) Em um período total de 2,5 anos, um capital de \\$ 12.200,00 foi aplicado à uma taxa de juros de 7,2\\% a.m. Determine o montante ao final do período.
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Velocidade Média
@@ -1394,20 +1395,11 @@ Crie funções para conversão de meses em anos e vice-versa (mes2ano e ano2mes)
 
 Crie um programa que determine a velocidade média de um veículo. Para isso, o usuário deverá fornecer os valores para as variáveis posição inicial e final (em quilômetros) e tempo inicial e final (em horas). A velocidade média pode ser calculada pela expressão $V=\\frac{\\Delta s}{\\Delta t}$.
 
-### Testes
-\`\`\`pyret height=500
-
-\`\`\`
-
-## Exercício: Posição Final de Veículo
-**ID:** Expressões Aritméticas-13
-**Dificuldade:** Médio
-
-Modifique o programa anterior para determinar a posição final de um veículo com base nas demais variáveis.
+Após, modifique o programa feito para determinar a posição final de um veículo com base nas demais variáveis.
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 # Tópico: Projeto de Algoritmos e Expressões Condicionais
@@ -1420,7 +1412,7 @@ Escreva uma função em Pyret que consome uma variável numérica. Caso o númer
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Par ou Ímpar
@@ -1431,7 +1423,7 @@ Crie um programa que, dado um número inteiro qualquer, verifique se o mesmo é 
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Álcool ou Gasolina
@@ -1442,7 +1434,7 @@ Um proprietário de automóvel gostaria de saber se é mais viável abastecer se
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Calculadora Básica
@@ -1453,7 +1445,7 @@ Desenvolva uma calculadora em Pyret para realizar as quatro operações básicas
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Faixa Etária
@@ -1464,7 +1456,7 @@ Escreva uma função que determine a fase da vida de um indivíduo. A função d
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Situação Aluno (Média Simples)
@@ -1475,7 +1467,7 @@ Escreva um programa para auxílio no fechamento das médias de uma turma de alun
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Situação Aluno (Média Ponderada)
@@ -1486,7 +1478,7 @@ Modifique o programa anterior para uma média ponderada. A maior nota entre as q
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Cálculo de IMC
@@ -1505,7 +1497,7 @@ Crie um programa para cálculo do IMC (Índice de Massa Corporal). Este cálculo
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Multa de Velocidade
@@ -1516,7 +1508,7 @@ Crie um programa que calcule o valor de multa para um sensor de velocidade. O va
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Salto em Altura
@@ -1527,7 +1519,7 @@ Em uma competição de salto em altura, a pontuação do atleta é determinada p
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Concessão de Crédito
@@ -1549,7 +1541,7 @@ Uma companhia de crediário mantém um nível de confiança sobre cada um dos se
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Seguro de Veículo
@@ -1560,7 +1552,7 @@ Crie um programa que calcule o valor do seguro de um veículo. Caso o ano do mes
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Conceito de Aluno
@@ -1579,7 +1571,7 @@ Na disciplina de fundamentos de algoritmos, os alunos são avaliados por suas no
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Aprovação de Aluno
@@ -1590,7 +1582,7 @@ Agora que o professor possui um programa para calcular o conceito dos alunos, el
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Anualidade de Seguro
@@ -1607,7 +1599,7 @@ Uma seguradora de veículos precisa de um programa de computador para facilitar 
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Formação de Triângulo
@@ -1618,7 +1610,7 @@ Escreva um programa no Pyret que receba os valores de medida de três segmentos 
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Desconto de Transporte
@@ -1640,7 +1632,7 @@ Uma empresa cobra de seus funcionários uma taxa mensal referente ao traslado de
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Pessoa Mais Velha
@@ -1651,7 +1643,7 @@ Escreva uma função que receba os nomes de duas pessoas. Além disso, a funçã
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Viagem e Combustível
@@ -1662,7 +1654,7 @@ Considere um motorista que precisa entregar mercadorias em três cidades distint
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 # Tópico: Dados Estruturados e Dados Condicionais
@@ -1675,7 +1667,7 @@ Apresente as definições necessárias para representar a estrutura de um aluno 
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Instâncias de Aluno Pós
@@ -1686,7 +1678,7 @@ Considere as estruturas do exercício anterior e apresente as expressões necess
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Mesma Instituição
@@ -1697,7 +1689,7 @@ Desenvolva uma função que consuma um elemento do tipo AlunoPos, e retorne verd
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 ## Exercício: Locadora de Veículos
@@ -1714,7 +1706,7 @@ Uma locadora de veículos precisa de um programa para calcular o valor da diári
 
 ### Testes
 \`\`\`pyret height=500
-
+use context starter2024
 \`\`\`
 
 `,G8=()=>{const e=EO.split(`
