@@ -47,16 +47,21 @@ const PyretEmbed = ({ code = "" }) => {
         };
     }, [code]);
 
+    // Calcular altura baseada na quantidade de linhas de código
+    const lines = code.split('\n').length;
+    const editorHeight = Math.max(130, Math.min(600, lines * 24 + 65));
+
     return (
         <div
             ref={containerRef}
             className="pyret-embed-container"
             style={{
-                height: '400px',
+                height: `${editorHeight}px`,
                 border: '1px solid #ddd',
                 borderRadius: '8px',
                 overflow: 'hidden',
-                backgroundColor: '#f5f5f5'
+                backgroundColor: '#f5f5f5',
+                marginBottom: '1rem'
             }}
         />
     );

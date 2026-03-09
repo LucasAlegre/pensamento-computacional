@@ -11,6 +11,7 @@ import Lists from './pages/Lists';
 import Topics from './pages/Topics';
 import Examples from './pages/Examples';
 import Learning from './pages/Learning';
+import DataTypes from './pages/DataTypes';
 
 function App() {
   return (
@@ -22,12 +23,14 @@ function App() {
           <Route path="/topics/functions" element={<Functions />} />
           <Route path="/topics/style-guide" element={<PyretStyleGuide />} />
           <Route path="/topics/learning" element={<Learning />} />
+          <Route path="/topics/tipos-de-dados" element={<DataTypes />} />
           <Route path="/labs" element={<Laboratories />} />
           <Route path="/labs/:id" element={<LabPage />} />
           <Route path="/exercises" element={<Lists />} />
           <Route path="/exercises/:id" element={<ExercisePage />} />
           <Route path="/examples" element={<Examples />} />
         </Routes>
+
       </Layout>
     </Router>
   );

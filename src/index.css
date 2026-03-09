@@ -73,12 +73,23 @@ a:hover {
   transform: translateY(1px);
 }
 
+strong,
+b {
+  color: var(--primary-color);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-  background-color: #eee;
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
-  font-size: 0.9em;
+  font-size: inherit;
+  color: #d73a49;
+  /* Red by default for backticks */
+  background-color: transparent;
+  display: inline;
+}
+
+.inline-string {
+  color: #032f62;
+  /* Dark green / Dark blueish green for strings */
 }
 
 pre {
@@ -279,14 +290,116 @@ footer {
   margin-bottom: 0.5rem;
 }
 
+/* Removendo forçação de cores de code inline genéricos */
 .section p code,
 .section li code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Classes customizadas de parser Pyret (DataTypes.jsx) */
+.inline-code-container {
+  display: inline;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 4px;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: inherit;
+  color: #d73a49;
+}
+
+.inline-keyword {
+  color: #00509e;
+  font-weight: bold;
+}
+
+.inline-symbol {
   color: #d14;
-  background-color: #fff0f0;
-  border: 1px solid #fbdada;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0.1em 0.3em;
-  margin: 0 0.1em;
-  line-height: normal;
+  font-weight: bold;
+}
+
+.inline-function {
+  color: #6f42c1;
+  font-weight: bold;
+}
+
+/* Layout container com TOC */
+.page-container {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.page-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Table of Contents Lateral */
+.toc-sidebar {
+  width: 280px;
+  min-width: 250px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 90px;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #eaeaea;
+}
+
+.toc-title {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0.5rem;
+}
+
+.toc-nav {
+  display: block;
+  height: auto;
+}
+
+.toc-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.toc-nav li {
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.toc-level-3 {
+  margin-left: 1rem;
+  font-size: 0.9em;
+}
+
+.toc-level-3 a {
+  color: #666;
+}
+
+.toc-level-2 a {
+  color: #333;
+  font-weight: 500;
+}
+
+.toc-nav a {
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.toc-nav a:hover {
+  color: var(--primary-color);
+  transform: translateX(3px);
 }

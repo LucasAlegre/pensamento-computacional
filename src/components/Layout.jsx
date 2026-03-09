@@ -17,6 +17,7 @@ const Layout = ({ children }) => {
                                 <ul className="dropdown-content">
                                     <li><Link to="/topics/learning">Aprendendo a Programar</Link></li>
                                     <li><Link to="/topics/style-guide">Guia de Estilo</Link></li>
+                                    <li><Link to="/topics/tipos-de-dados">Tipos de Dados</Link></li>
                                     <li><Link to="/topics/functions">Funções</Link></li>
                                 </ul>
                             </li>

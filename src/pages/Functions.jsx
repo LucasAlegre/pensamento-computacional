@@ -1,8 +1,10 @@
 import React from 'react';
 import PyretEmbed from '../components/PyretEmbed';
+import TableOfContents from '../components/TableOfContents';
 
 const Functions = () => {
     return (
+        <div className="page-container">
         <div className="page-content">
             <h1>Funções</h1>
             <p>Funções realizam uma tarefa específica e podem ser reutilizadas.</p>
@@ -52,6 +54,8 @@ where:
   calcula-lucro(100, 100) is 0
 end`} />
             </div>
+        </div>
+        <TableOfContents contentDependency={null} />
         </div>
     );
 };
