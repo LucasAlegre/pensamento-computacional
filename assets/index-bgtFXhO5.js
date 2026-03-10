@@ -1419,7 +1419,7 @@ use context starter2024
 **ID:** Projeto de Algoritmos e Expressões Condicionais-2
 **Dificuldade:** Fácil
 
-Crie um programa que, dado um número inteiro qualquer, verifique se o mesmo é par ou ímpar. No caso de ser par, o mesmo de ser dividido por 2. Caso o mesmo seja ímpar, deve ser somado a 1 e posteriormente dividido por 2. Considere utilizar a função \`(remainder m n)\` para verificar se um número é par ou ímpar.
+Crie um programa que, dado um número inteiro qualquer, verifique se o mesmo é par ou ímpar. No caso de ser par, o mesmo de ser dividido por 2. Caso o mesmo seja ímpar, deve ser somado a 1 e posteriormente dividido por 2. Considere utilizar a função \`num-modulo(n, 2)\` para verificar se um número é par ou ímpar.
 
 ### Testes
 \`\`\`pyret height=500
@@ -1459,22 +1459,13 @@ Escreva uma função que determine a fase da vida de um indivíduo. A função d
 use context starter2024
 \`\`\`
 
-## Exercício: Situação Aluno (Média Simples)
+## Exercício: Situação Aluno (Média Simples e Ponderada)
 **ID:** Projeto de Algoritmos e Expressões Condicionais-6
 **Dificuldade:** Médio
 
-Escreva um programa para auxílio no fechamento das médias de uma turma de alunos. Para isso, uma função deverá consumir as quatro notas do aluno, calculando sua média aritmética simples. O programa ainda deverá determinar se a situação final do aluno (reprovado se a nota for menor que 5, em exame para nota entre 5 e 7 e aprovado para nota maior ou igual a 7). Para informar a situação do aluno ao usuário utilize o comando \`(write 'mensagem)\`.
+Escreva um programa para auxílio no fechamento das médias de uma turma de alunos. Para isso, uma função deverá consumir as quatro notas do aluno, calculando sua média aritmética simples. O programa ainda deverá determinar se a situação final do aluno (reprovado se a nota for menor que 5, em exame para nota entre 5 e 7 e aprovado para nota maior ou igual a 7). Para informar a situação do aluno, retorne uma string.
 
-### Testes
-\`\`\`pyret height=500
-use context starter2024
-\`\`\`
-
-## Exercício: Situação Aluno (Média Ponderada)
-**ID:** Projeto de Algoritmos e Expressões Condicionais-7
-**Dificuldade:** Médio
-
-Modifique o programa anterior para uma média ponderada. A maior nota entre as quatro notas deverá possuir um peso $4/10$, enquanto as demais possuirão peso $2/10$.
+Após, modifique o programa anterior para uma média ponderada. A maior nota entre as quatro notas deverá possuir um peso $4/10$, enquanto as demais possuirão peso $2/10$.
 
 ### Testes
 \`\`\`pyret height=500
@@ -1537,7 +1528,7 @@ Uma companhia de crediário mantém um nível de confiança sobre cada um dos se
 | Mais que 1 ano | Maior ou igual a \\$ 1200,00 e menor que \\$ 2300,00 | 3 |
 | Mais que 1 ano | Maior ou igual a \\$ 2300,00 | 3 |
 
-    Empréstimos para clientes com nível 1 não são concedidos. Clientes com nível dois são analisados por especialistas. Todos os empréstimos com nível 3 são concedidos. Escreva um programa que, dado o tempo em que o indivíduo é cliente e sua renda, determine a situação da concessão de crédito (negado, em análise ou aprovado).
+Empréstimos para clientes com nível 1 não são concedidos. Clientes com nível dois são analisados por especialistas. Todos os empréstimos com nível 3 são concedidos. Escreva um programa que, dado o tempo em que o indivíduo é cliente e sua renda, determine a situação da concessão de crédito (negado, em análise ou aprovado).
 
 ### Testes
 \`\`\`pyret height=500
@@ -1561,13 +1552,13 @@ use context starter2024
 
 Na disciplina de fundamentos de algoritmos, os alunos são avaliados por suas notas obtidas nas três atividades da disciplina: prova $1 (p_{1})$, prova $2 (p_{2})$ e listas de exercícios (E). A média final (M) de cada aluno é calculada através da média aritmética ponderada de suas notas obtidas nessas três atividades, sendo que as atividades valem $p_{1}=40\\%$, $p_{2}=50\\%$ e $E=10\\%$ da média final. Para que o conceito de um aluno seja estimado, o professor precisa ainda avaliar se o aluno possui a frequência (F) mínima de participação nas aulas. A conversão da média final e frequência para o conceito é realizada da seguinte forma:
     
-        -  FF: $F < 75\\%$;
-        -  D: $0 \\leq M < 6.0$;
-        -  C: $6.0 \\leq M < 7.5$;
-        -  B: $7.5 \\leq M < 9.0$;
-        -  A: $9.0 \\leq M$;
+-  FF: $F < 75\\%$;
+-  D: $0 \\leq M < 6.0$;
+-  C: $6.0 \\leq M < 7.5$;
+-  B: $7.5 \\leq M < 9.0$;
+-  A: $9.0 \\leq M$;
     
-    Para auxiliar o professor nesta tarefa, faça um programa em Pyret que consuma as notas de $p_{1}$, $p_{2}$, E e F e calcule o conceito do aluno. Considere o intervalo [0, 10] para cada uma das notas e [0, 100] para a frequência.
+Para auxiliar o professor nesta tarefa, faça um programa em Pyret que consuma as notas de $p_{1}$, $p_{2}$, E e F e calcule o conceito do aluno. Considere o intervalo [0, 10] para cada uma das notas e [0, 100] para a frequência.
 
 ### Testes
 \`\`\`pyret height=500
@@ -1591,11 +1582,11 @@ use context starter2024
 
 Uma seguradora de veículos precisa de um programa de computador para facilitar o cálculo do valor da anualidade dos seguros. O valor da anualidade de um seguro é calculado com base no valor do veículo, ano de modelo e idade do condutor. O valor da anuidade do seguro de qualquer veículo se inicia com um valor base de \\$ 500,00. Este valor é incrementado de acordo com as características do veículo e condutor. Inicialmente, a seguradora incrementa o valor base em função das características do veículo:
     
-        -  Para veículos com modelo inferior a 1995, adiciona-se 20\\% do valor do veículo ao valor base.
-        -  Para veículos entre 1995 e 2008, o valor adicionado é de 10\\% do valor do veículo.
-        -  Para veículos acima de 2008, o valor a ser incrementado no valor base é de 4\\% do valor do veículo.
+-  Para veículos com modelo inferior a 1995, adiciona-se 20\\% do valor do veículo ao valor base.
+-  Para veículos entre 1995 e 2008, o valor adicionado é de 10\\% do valor do veículo.
+-  Para veículos acima de 2008, o valor a ser incrementado no valor base é de 4\\% do valor do veículo.
     
-    A partir deste novo valor obtido a seguradora insere uma taxa de risco, variável em função do perfil do condutor. A seguradora incrementa este valor em 20\\% para os casos onde o condutor possui menos de 25 anos. Para os condutores com idade entre 25 e 50 anos, o valor do seguro não é incrementado. Já os condutores acima de 50 anos recebem um desconto de 10\\% sobre o valor total do seguro. Desenvolva um programa que compute o valor da anualidade.
+A partir deste novo valor obtido a seguradora insere uma taxa de risco, variável em função do perfil do condutor. A seguradora incrementa este valor em 20\\% para os casos onde o condutor possui menos de 25 anos. Para os condutores com idade entre 25 e 50 anos, o valor do seguro não é incrementado. Já os condutores acima de 50 anos recebem um desconto de 10\\% sobre o valor total do seguro. Desenvolva um programa que compute o valor da anualidade.
 
 ### Testes
 \`\`\`pyret height=500
@@ -1628,7 +1619,7 @@ Uma empresa cobra de seus funcionários uma taxa mensal referente ao traslado de
 | Mais que \\$ 2000,00 | Maior ou igual a 5km e menor que 10km | \\$ 160,00 |
 | Mais que \\$ 2000,00 | Maior ou igual a 10km | \\$ 240,00 |
 
-    Crie um programa que compute o salário final do funcionário com base no valor do salário e na distância.
+Crie um programa que compute o salário final do funcionário com base no valor do salário e na distância.
 
 ### Testes
 \`\`\`pyret height=500
@@ -1699,16 +1690,15 @@ use context starter2024
 Uma locadora de veículos precisa de um programa para calcular o valor da diária de locação de seus veículos. A empresa dispõe de dois tipos de veículos: carros e motos. Ambos os tipos de veículos possuem os atributos em comum: ano, modelo (descrição) e valor de mercado. Os carros ainda podem possuir alguns atributos adicionais, como: ar condicionado, direção hidráulica e vidros elétricos. O valor base cobrado pela diária
 é de 0.25\\% do valor de mercado do veículo. Os carros ainda possuem um acréscimo de R\\$ 30.00 por opcional. Já as motos, possuem apenas uma taxa fixa de seguro, no valor de R\\$ 70.00, que deve ser acrecida no valor base da diária. Com base nessa descrição, faça o que é pedido:
 
-    -  Define a estrutura Veículo, com suas variantes carro e moto.
-    -  Crie pelo menos 3 exemplos para cada uma das estruturas definidas.
-    -  Crie a função calcula-diária para efetuar o cálculo da diária de locação.
-    -  Teste a função calcula-diária nos exemplos anteriormente desenvolvidos.
+-  Define a estrutura Veículo, com suas variantes carro e moto.
+-  Crie pelo menos 3 exemplos para cada uma das estruturas definidas.
+-  Crie a função calcula-diária para efetuar o cálculo da diária de locação.
+-  Teste a função calcula-diária nos exemplos anteriormente desenvolvidos.
 
 ### Testes
 \`\`\`pyret height=500
 use context starter2024
 \`\`\`
-
 `,G8=()=>{const e=EO.split(`
 `),t=[];let n=null,i=null,s=null;return e.forEach(l=>{if(l.startsWith("# Tópico: "))n&&(i&&n.exercises.push(i),t.push(n)),n={topic:l.replace("# Tópico: ","").trim(),exercises:[]},i=null,s=null;else if(l.startsWith("## Exercício: "))i&&n.exercises.push(i),i={title:l.replace("## Exercício: ","").trim(),id:"",difficulty:"",statement:"",testCode:"",testHeight:void 0},s="statement";else if(l.startsWith("**ID:** "))i&&(i.id=l.replace("**ID:** ","").trim());else if(l.startsWith("**Dificuldade:** "))i&&(i.difficulty=l.replace("**Dificuldade:** ","").trim());else if(l.startsWith("### Testes"))s="testCode";else if(i&&s==="statement")l.startsWith("### Testes")||(i.statement+=l+`
 `);else if(i&&s==="testCode"){if(l.trim().startsWith("```")){const c=/^\s*```pyret\s+height=(\d+)/.exec(l);c&&(i.testHeight=parseInt(c[1],10));return}i.testCode+=l+`
