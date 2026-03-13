@@ -396,6 +396,219 @@ Considere um motorista que precisa entregar mercadorias em três cidades distint
 use context starter2024
 ```
 
+# Tópico: Tabelas
+
+## Exercício: Doces com muito açúcar (Parte 1)
+**ID:** Tabelas-1
+**Dificuldade:** Fácil
+
+Vamos usar o poder das tabelas para extrair informações do nosso conjunto de dados sobre doces (já carregado no bloco de código abaixo na variável `candy-data`).
+
+Use o código `candy-row = candy-data.row-n(0)` para obter a primeira linha de `candy-data`. Escreva uma função que calcule se a porcentagem de açúcar (`"sugar-percent"`) em uma linha é maior que 0.75.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+include gdrive-sheets
+
+# spreadsheet id from Google Sheets
+ssid = "1XzeWZToT-lqPFVpp-RZLimdoGdGaTcVQZ_8VbDbAkOc"
+data-sheet = load-spreadsheet(ssid)
+candy-data = 
+  load-table: name, chocolate, fruity, caramel, nutty, nougat, crisped-rice, 
+    hard, bar, pluribus, sugar-percent, price-percent, win-percent
+    source: data-sheet.sheet-by-name("candy-data", true)
+  end
+
+first-row = candy-data.row-n(0)
+fourth-row = candy-data.row-n(4)
+
+fun is-sugar-rich(r :: Row) -> Boolean:
+  doc: "Dado uma linha da tabela, verifica se a porcentagem de açúcar é maior que 0.75"
+  # Complete aqui
+where:
+    is-sugar-rich(first-row) is false
+    is-sugar-rich(fourth-row) is true    
+end
+```
+
+## Exercício: Doces com muito açúcar (Parte 2)
+**ID:** Tabelas-2
+**Dificuldade:** Médio
+
+Queremos saber quais doces têm mais açúcar. Escreva uma função que produza uma nova tabela contendo apenas os doces onde `"sugar-percent"` é maior que 0.75. Use a função `filter-with` e se beneficie da função implementada na parte 1.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+include gdrive-sheets
+
+# spreadsheet id from Google Sheets
+ssid = "1XzeWZToT-lqPFVpp-RZLimdoGdGaTcVQZ_8VbDbAkOc"
+data-sheet = load-spreadsheet(ssid)
+candy-data = 
+  load-table: name, chocolate, fruity, caramel, nutty, nougat, crisped-rice, 
+    hard, bar, pluribus, sugar-percent, price-percent, win-percent
+    source: data-sheet.sheet-by-name("candy-data", true)
+  end
+
+fun is-sugar-rich(r :: Row) -> Boolean:
+  doc: "Dado uma linha da tabela, verifica se a porcentagem de açúcar é maior que 0.75"
+  # Copie de sua implementação do exercício anterior
+end
+
+fun filter-sugar-rich(table :: Table) -> Table:
+    doc: "Dado uma tabela de doces, filtra os doces com porcentagem de açúcar maior que 0.75"
+    # Complete aqui
+end
+```
+
+## Exercício: Doces com chocolate
+**ID:** Tabelas-3
+**Dificuldade:** Médio
+
+Quantos dos doces possuem chocolate? Escreva uma função que filtre os doces com o valor da coluna `"chocolate"` igual a `true` e depois descubra a quantidade total de linhas restantes utilizando a função `.length()`.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+include gdrive-sheets
+
+# spreadsheet id from Google Sheets
+ssid = "1XzeWZToT-lqPFVpp-RZLimdoGdGaTcVQZ_8VbDbAkOc"
+data-sheet = load-spreadsheet(ssid)
+candy-data = 
+  load-table: name, chocolate, fruity, caramel, nutty, nougat, crisped-rice, 
+    hard, bar, pluribus, sugar-percent, price-percent, win-percent
+    source: data-sheet.sheet-by-name("candy-data", true)
+  end
+
+first-row = candy-data.row-n(0)
+fourth-row = candy-data.row-n(4)
+
+fun is-chocolate(r :: Row) -> Boolean:
+    doc: "Dado uma linha da tabela, verifica se o doce possui chocolate"
+    # Complete aqui
+where:
+    is-chocolate(first-row) is true
+    is-chocolate(fourth-row) is false
+end
+
+fun count-chocolate(table :: Table) -> Number:
+    doc: "Dado uma tabela de doces, conta quantos doces possuem chocolate"
+    # Complete aqui
+where:
+    count-chocolate(candy-data) is 37
+end
+```
+
+# Tópico: Listas
+
+## Exercício: Tamanho de uma lista
+**ID:** Listas-1
+**Dificuldade:** Fácil
+
+Construa uma constante contendo uma lista de strings com os nomes das linguagens de programação C, C++, C#, Java, Javascript, PHP, Ruby, Perl, R, Matlab, DrRacket e Python. Considere a criação da lista usando `link` e `empty`.
+
+Construa uma função que receba uma lista de strings e retorne a quantidade de elementos da lista.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Salários
+**ID:** Listas-3
+**Dificuldade:** Médio
+
+Desenvolva um programa que consuma uma lista de salários e verifique se todos
+os salários são superiores ao salário mínimo (também dado de entrada para o programa).
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Inteiros zero até n
+**ID:** Listas-4
+**Dificuldade:** Fácil
+
+Desenvolva a função `inteiros-n-ate-zero :: (n :: Number) -> List<Number>` que receba um número n e retorne uma lista com os inteiros de n até zero.
+
+## Exercício: Inteiros até n
+**ID:** Listas-5
+**Dificuldade:** Médio
+
+Desenvolva a função `inteiros-ate-n :: (n :: Number) -> List<Number>` que receba um número n e retorne uma lista com os inteiros de 0 até n.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Matriculado?
+**ID:** Listas-6
+**Dificuldade:** Fácil
+
+Uma lista de chamadas é composta pelos nomes dos alunos de determinada turma.
+Escreva uma função que, dada uma lista de chamadas e o nome de um indivíduo, verifique se o mesmo está matriculado na turma em questão.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Acessando n-ésimo elemento
+**ID:** Listas-7
+**Dificuldade:** Difícil
+
+Desenvolva a função `my-get<A> :: (lst :: List<A>, n :: Number) -> A` que receba uma lista e um número n e retorne o n-ésimo elemento da lista.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+fun my-get<A>(lst :: List<A>, n :: Number) -> A:
+  doc: "Retorna o n-ésimo elemento de uma lista, ou lança um erro se n estiver fora do intervalo"
+  cases (List) lst:
+    | empty => # Complete aqui
+    | link(f, r) => # Complete aqui
+  end
+where:
+  my-get([list: 1, 2, 3], 0) is 1
+  my-get([list: 1, 2, 3], 2) is 3
+  my-get([list: 1, 2], 2) raises "n muito grande"
+  my-get(empty, 0) raises "n muito grande"
+  my-get([list: 1, 2, 3], -1) raises "argumento invalido"
+
+  # Compare com o Pyret .get()
+  my-get([list: 1, 2, 3], 2) is [list:1, 2, 3].get(2)
+end
+```
+
+## Exercício: Lista de múltiplos tipos
+**ID:** Listas-8
+**Dificuldade:** Difícil
+
+Considere a lista `lst = link(1, link("dois", link("três", link(4, link(6, empty)))))`, e faça o que é pedido a seguir:
+
+(a) Desenvolva uma função para contar a quantidade de elementos na lista.
+(b) Desenvolva uma função para computar a quantidade de elementos do tipo String
+na lista.
+(c) Desenvolva uma função para computar o somatório dos elementos do tipo Number
+da lista.
+(d) Desenvolva uma função que retorne uma nova lista sem elementos do tipo Number.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+lst :: List<Any> = link(1, link("dois", link("três", link(4, link(6, empty)))))
+```
+
 # Tópico: Dados Estruturados e Dados Condicionais
 
 ## Exercício: Estrutura Aluno Pós
@@ -447,3 +660,5 @@ Uma locadora de veículos precisa de um programa para calcular o valor da diári
 ```pyret height=500
 use context starter2024
 ```
+
+

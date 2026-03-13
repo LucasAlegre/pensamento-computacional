@@ -12,7 +12,7 @@ A maioria das linguagens de especificação/programação oferece vários tipos 
 
 <br>
 
-A seguir, apresentaremos algumas formas de definir tipos de dados em **Pyret**. A seção sobre **Tipos Pré-Definidos** apresenta os tipos de dados básicos da linguagem, bem como algumas operações disponíveis. Pode-se também construir novos tipos de dados por enumeração ou usando a união de tipos já definidos (descrito em **Enumerações e Tipos Mistos**). O uso do produto cartesiano para agrupar campos constitui a construção fundamental apresentada em **Tipos Compostos: Estruturas**. Por fim, a seção sobre **Listas** apresenta uma maneira de construir tipos de dados de tamanho arbitrário utilizando recursão.
+A seguir, apresentaremos algumas formas de definir tipos de dados em **Pyret**. A seção sobre **Tipos Pré-Definidos** apresenta os tipos de dados básicos da linguagem, bem como algumas operações disponíveis. Pode-se também construir novos tipos de dados por enumeração ou usando a união de tipos já definidos (descrito em **Enumerações e Tipos Mistos**). O uso do produto cartesiano para agrupar campos constitui a construção fundamental apresentada em **Tipos Compostos: Estruturas**. A seção sobre **Tabelas** introduz operações para manipular dados tabulares. Por fim, a seção sobre **Listas** apresenta uma maneira de construir tipos de dados de tamanho arbitrário utilizando recursão.
 
 
 ## 1. Tipos Pré-Definidos
@@ -246,9 +246,105 @@ Você também pode verificar via funções auxiliares do `data` ou no corpo sint
   - `is-notas(notas-aluno) is true`
   - `is-notas(7.0) is false`
 
+## 4. Tabelas
+
+Em Pyret, **Tabelas** formam um tipo de dados projetado para a organização de informações bidimensionais (em linhas e colunas), de maneira semelhante a planilhas eletrônicas. Uma **Tabela** é composta por um esquema de colunas e um conjunto de linhas (Rows).
+
+<br>
+
+Se quisermos definir explicitamente uma Tabela, podemos escrevê-la usando a seguinte sintaxe:
+
+```
+table: nome-col0 :: tipo-col0, nome-col1 :: tipo-col1, ...
+  row: r0c0, r0c1, ...
+  row: r1c0, r1c1, ...
+  row: r2c0, r2c1, ...
+  ...
+end
+```
+
+**Exemplo:**
+
+```pyret
+use context dcic2024
+
+minha-tabela = table: nome :: String, idade :: Number, cor-favorita :: String
+  row: "Bob", 12, "blue"
+  row: "Alice", 17, "green"
+  row: "Eve", 13, "red"
+end
+```
+
+<br>
+
+Abaixo estão listadas algumas das funções/métodos pré-definidas para manipulação de Tabelas. A documentação mais detalhada pode ser acessada no link https://cs111-docs.cs.brown.edu/s/table#.
+
+<br>
+
+- `.row-n(pos :: Number) -> Row`
+  - **Obj:** Dada a posição de uma linha (`pos`), devolve o objeto Row da Tabela correspondente a essa posição (indexado a partir de zero).
+
+- `[col-label :: String] -> Any`
+  - **Obj:** Acessa o valor de uma célula específica dentro de uma linha (Row), informando o rótulo da coluna (`col-label`).
+  - **Exemplo:** `linha["nome"]` ou `linha["idade"]`
+
+- `.length() -> Number`
+  - **Obj:** Devolve o número total de linhas (Rows) presentes na Tabela.
+
+- `order-by(t :: Table, colname :: String, sort-up :: Boolean) -> Table`
+  - **Obj:** Utilizado para ordenar os elementos de uma Tabela com base em alguma coluna específica (`colname`), seja de modo crescente (`true`) ou decrescente (`false`).
+  - **Exemplo:** `order-by(tabela, "idade", true)`
+
+- `build-column(t :: Table, colname :: String, builder :: (Row -> Any)) -> Table`
+  - **Obj:** Utilizado para adicionar uma nova coluna à Tabela (`t`), inferindo os valores de cada célula através de uma função (`builder`) e regras estipuladas.
+
+- `filter-with(t :: Table, keep :: (Row -> Boolean)) -> Table`
+  - **Obj:** Seleciona e extrai as linhas (Rows) da Tabela (`t`) que cumprem com um determinado critério, ou seja, onde a função `keep` retorna `true`, retornando uma nova Tabela filtrada.
+
+**Exemplos:**
+
+```pyret
+use context dcic2024
+
+# 1. Declarando uma tabela de exemplo
+tabela-alunos = table: nome :: String, idade :: Number, nota :: Number
+  row: "Ana", 19, 8.5
+  row: "Bruno", 20, 7.0
+  row: "Carla", 18, 9.2
+  row: "Diego", 21, 6.5
+end
+
+# 2. Obtendo o número de linhas (length)
+tabela-alunos.length() # Retorna 4
+
+# 3. Acessando uma linha específica pela posição (row-n)
+segunda-linha = tabela-alunos.row-n(1) 
+segunda-linha  # Primeira linha é a posição 0
+
+# 4. Acessando uma célula pelo rótulo da coluna ([col-label])
+segunda-linha["nome"] # Retorna "Bruno"
+
+# 5. Ordenando a tabela (order-by)
+# Ordena pela nota em ordem decrescente (false para crescente)
+tabela-ordenada = order-by(tabela-alunos, "nota", false)
+tabela-ordenada
+
+# 6. Adicionando uma nova coluna (build-column)
+# Cria a coluna "aprovado", verificando se a nota é >= 7.0
+funcao-aprovacao = lam(linha): linha["nota"] >= 7.0 end
+tabela-com-situacao = build-column(tabela-alunos, "aprovado", funcao-aprovacao)
+tabela-com-situacao
+
+# 7. Filtrando linhas (filter-with)
+# Retorna uma tabela contendo apenas os alunos com idade menor que 20
+funcao-filtro = lam(linha): linha["idade"] < 20 end
+tabela-jovens = filter-with(tabela-alunos, funcao-filtro)
+tabela-jovens
+```
+
 ---
 
-## 4. Tipos Compostos: Listas
+## 5. Listas
 
 **Listas** formam um tipo de dados muito utilizado em Computação. Esse tipo de bloco é frequentemente utilizado sempre que tivermos um número arbitrário (mas finito) de elementos que queremos armazenar de forma conjunta – por exemplo, notas dos alunos de uma turma, itens de um cadastro, bases nitrogenadas do DNA, descendentes de uma pessoa, etc.
 
@@ -308,7 +404,7 @@ Outros métodos acoplados incluem `.length()` (tamanho da lista), `.push(...)` (
 
 ---
 
-## 5. Tipos Compostos: Cenas
+## 6. Tipos Compostos: Cenas
 
 A linguagem Pyret (através do pacote de `image`) também provê recursos de processamento para interagir com uma **Cena** (o tipo Canvas de fundo limitante gerado). Uma cena é composta por várias imagens organizadas através de coordenadas, usualmente colocadas sobre uma tela inicialmente vazia (`empty-scene`). 
 

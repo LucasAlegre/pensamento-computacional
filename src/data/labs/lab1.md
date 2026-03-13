@@ -39,13 +39,13 @@ Defina as seguintes constantes (que serão usadas mais para frente):
 
 | Nome da Constante | Valor Exato (String) |
 | :--- | :--- |
-| `ataque` | `"Attack"` |
-| `defesa` | `"Defense"` |
-| `efeito-naoefetivo` | `"Not very effective"` |
-| `efeito-efetivo` | `"Effective"` |
-| `efeito-superefetivo` | `"Super-effective!"` |
+| `ATAQUE` | `"Attack"` |
+| `DEFESA` | `"Defense"` |
+| `EFEITO-NAOEFETIVO` | `"Not very effective"` |
+| `EFEITO-EFETIVO` | `"Effective"` |
+| `EFEITO-SUPEREFETIVO` | `"Super-effective!"` |
 
-Além destas, defina as **constantes dos tipos de Pokémon**: `type-normal`, `type-fire`, `type-water`, `type-electric` e `type-grass`. O valor atribuído a cada uma deve ser uma _string_ com o seu próprio nome em maiúsculas (ex: `"FIRE"` ou `"GRASS"`).
+Além destas, defina as **constantes dos tipos de Pokémon**: `TYPE-NORMAL`, `TYPE-FIRE`, `TYPE-WATER`, `TYPE-ELECTRIC` e `TYPE-GRASS`. O valor atribuído a cada uma deve ser uma _string_ com o seu próprio nome em maiúsculas (ex: `"FIRE"` ou `"GRASS"`).
 
 ---
 
@@ -53,16 +53,16 @@ Além destas, defina as **constantes dos tipos de Pokémon**: `type-normal`, `ty
 
 Usando as conhecidas funções gráficas do Pyret (`rectangle`, `circle`, etc.), defina as **constantes visuais** que formarão nossas cartas e o campo de batalha. Preste atenção nas dimensões indicadas.
 
-- **Dimensões das Cartas:** `carta-alt = 175` e `carta-lar = 125` *(elas já devem estar no topo do seu template!)*.
+- **Dimensões das Cartas:** `CARTA-ALT = 175` e `CARTA-LAR = 125` *(elas já devem estar no topo do seu template!)*.
 - **Fundos de cada tipo:** Defina retângulos **sólidos** (`"solid"`) das dimensões base acima. Use cores que representem cada tipo de Pokémon (e.g., verde para grama, azul para água).
 
 As cores em Pyret podem ser encontradas aqui: https://pyret.org/docs/latest/color.html#%28part._s~3acolor-constants%29
 
 - **Componentes visuais da batalha:**
-  - `mesa`: O local do duelo. Será um círculo `"solid"` e cinza claro (`"lightgray"`). O *raio* deve ser `20 + carta-alt`.
-  - `borda`: A fita de baralho da carta. Será um retângulo sem preenchimento (`"outline"`) na cor preta (`"black"`). Ele deve ser **um pouco maior** que o tamanho base da carta. Faça com que a largura seja `carta-lar + 10` e a altura seja `carta-alt + 10`.
+  - `MESA`: O local do duelo. Será um círculo `"solid"` e cinza claro (`"lightgray"`). O *raio* deve ser `20 + CARTA-ALT`.
+  - `BORDA`: A fita de baralho da carta. Será um retângulo sem preenchimento (`"outline"`) na cor preta (`"black"`). Ele deve ser **um pouco maior** que o tamanho base da carta. Faça com que a largura seja `CARTA-LAR + 10` e a altura seja `CARTA-ALT + 10`.
 
-> ⚠️ **ATENÇÃO:** Algumas variáveis contendo imagens de Pokémon autênticas extraídas da internet já foram providenciadas no topo do seu template (`bulbasaur-img`, `squirtle-img`, etc.). Use esses *sprites* estilizados para seus Pokémons!
+> ⚠️ **ATENÇÃO:** Algumas variáveis contendo imagens de Pokémon autênticas extraídas da internet já foram providenciadas no topo do seu template (`BULBASAUR-IMG`, `SQUIRTLE-IMG`, etc.). Use esses *sprites* estilizados para seus Pokémons!
 
 ---
 
@@ -70,13 +70,13 @@ As cores em Pyret podem ser encontradas aqui: https://pyret.org/docs/latest/colo
 Vamos agora dar movimento condicional ao jogo! Crie duas funções utilizando a super-estrutura lógica `ask` para filtrar retornos:
 
 1. **A função `seleciona-fundo`**: tem 1 argumento, uma `String` (o **tipo**). Ela deve devolver a **constante de imagem de fundo** correta. 
-   - *Exemplo:* se o `tipo` passado for igual a `type-fire`, retorne a imagem em `fundo-fire`.
+   - *Exemplo:* se o `tipo` passado for igual a `TYPE-FIRE`, retorne a imagem em `FUNDO-FIRE`.
 
-2. **A função `seleciona-imagem-pokemon`**: tem 1 argumento, uma `String` (o **nome do Pokémon**). Ela deve devolver a respectiva imagem (`bulbasaur-img`, etc.). Cubra as strings `"Bulbasaur"`, `"Charmander"`, `"Squirtle"` e `"Pikachu"`.
+2. **A função `seleciona-imagem-pokemon`**: tem 1 argumento, uma `String` (o **nome do Pokémon**). Ela deve devolver a respectiva imagem (`BULBASAUR-IMG`, etc.). Cubra as strings `"Bulbasaur"`, `"Charmander"`, `"Squirtle"` e `"Pikachu"`.
 
 > 📝 **LEMBRETE SOBRE OS TESTES!**
 > Nunca deixe as cláusulas `where:` vazias! Preencha-as testando o que a função deve retornar. 
-> Ex: `seleciona-fundo(type-fire) is fundo-fire`
+> Ex: `seleciona-fundo(TYPE-FIRE) is FUNDO-FIRE`
 
 ---
 
@@ -90,7 +90,7 @@ Implemente a função `cria-carta` recebendo dois parâmetros (ambos `String`): 
 > - `overlay(img1, img2)`: Para colocar uma imagem centralizada **em cima** de outra.
 > - `overlay-align(x, y, img1, img2)`: Para alinhar objetos! Ex: `overlay-align("middle", "bottom", texto, fundo)`.
 > - Utilize a sua função `seleciona-fundo` para buscar a base e `seleciona-imagem-pokemon` para buscar o lutador.
-> - Lembre-se que a nossa `borda` (definida no Exercício 2) tem que ficar por cima de tudo pra dar o acabamento em volta da carta toda!
+> - Lembre-se que a nossa `BORDA` (definida no Exercício 2) tem que ficar por cima de tudo pra dar o acabamento em volta da carta toda!
 
 *Devolva a imagem composta! Descomente e admire o seu resultado rodando `cria-carta("Bulbasaur", "GRASS")`!*
 
@@ -101,7 +101,7 @@ A sua carta formatada deverá se parecer com o exemplo abaixo:
 ---
 
 ## ⚔️ Exercício 5: Vantagens e Efeitos
-Em um embate, certos elementos dominam outros! Desenvolva a função lógica chamada de `verifica-efeito` com os parâmetros `tipo-ataque` e `tipo-defesa` (ambas Strings). Ela avalia e **retorna a constante correta do efeito da briga** (`efeito-naoefetivo`, `efeito-efetivo` ou `efeito-superefetivo`).
+Em um embate, certos elementos dominam outros! Desenvolva a função lógica chamada de `verifica-efeito` com os parâmetros `tipo-ataque` e `tipo-defesa` (ambas Strings). Ela avalia e **retorna a constante correta do efeito da briga** (`EFEITO-NAOEFETIVO`, `EFEITO-EFETIVO` ou `EFEITO-SUPEREFETIVO`).
 
 Siga precisamente as diretrizes das Vantagens (*Ataque atinge -> Defesa*):
 
@@ -127,14 +127,14 @@ Agora vamos montar o cenário da batalha! Crie a função `desenha-cenario` da s
 **Entrada:** 
 1. Imagem da `carta-ataque`
 2. Imagem da `carta-defesa`
-3. A imagem da `mesa` do cenário
+3. A imagem da `MESA` do cenário
 4. A `String` contendo o julgamento do `resultado-efeito`.
 
 > 🛠️ **Dica de Funções:**
 > Novamente, use as funções gráficas a seu favor para alinhar os objetos como na imagem de exemplo abaixo!
 > - `above(img1, img2)`: Coloca a primeira imagem exatamente acima da segunda (Ideal para colocar os letreiros com os textos da constante `ATAQUE` em cima da carta atacante, além do texto final embaixo da mesa toda).
 > - `beside(img1, img2)`: Coloca a primeira imagem lado a lado à esquerda da segunda. Aproveite para montar as duas cartas em modo duelo!
-> - `overlay-align(x, y, img1, img2)`: Será essencial para você assentar a dupla lado a lado exatamente no centro da imagem da nossa `mesa`.
+> - `overlay-align(x, y, img1, img2)`: Será essencial para você assentar a dupla lado a lado exatamente no centro da imagem da nossa `MESA`.
 
 Seu cenário final deverá se parecer com isso:
 

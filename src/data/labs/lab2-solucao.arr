@@ -15,39 +15,39 @@ include data-source
     Constantes
 |#
 
-carta-alt = 175
-carta-lar = 125
+CARTA-ALT = 175
+CARTA-LAR = 125
 
-ataque = "Attack"
-defesa = "Defense"
-efeito-naoefetivo = "Not very effective"
-efeito-efetivo = "Effective"
-efeito-superefetivo = "Super-effective!"
-type-normal = "NORMAL"
-type-fire = "FIRE"
-type-water = "WATER"
-type-electric = "ELECTRIC"
-type-grass = "GRASS"
+ATAQUE = "Attack"
+DEFESA = "Defense"
+EFEITO-NAOEFETIVO = "Not very effective"
+EFEITO-EFETIVO = "Effective"
+EFEITO-SUPEREFETIVO = "Super-effective!"
+TYPE-NORMAL = "NORMAL"
+TYPE-FIRE = "FIRE"
+TYPE-WATER = "WATER"
+TYPE-ELECTRIC = "ELECTRIC"
+TYPE-GRASS = "GRASS"
 
-fundo-normal = rectangle(carta-lar, carta-alt, "solid", "darkgray")
-fundo-fire = rectangle(carta-lar, carta-alt, "solid", "red")
-fundo-water = rectangle(carta-lar, carta-alt, "solid", "blue")
-fundo-electric = rectangle(carta-lar, carta-alt, "solid", "yellow")
-fundo-grass = rectangle(carta-lar, carta-alt, "solid", "green")
+FUNDO-NORMAL = rectangle(CARTA-LAR, CARTA-ALT, "solid", "darkgray")
+FUNDO-FIRE = rectangle(CARTA-LAR, CARTA-ALT, "solid", "red")
+FUNDO-WATER = rectangle(CARTA-LAR, CARTA-ALT, "solid", "blue")
+FUNDO-ELECTRIC = rectangle(CARTA-LAR, CARTA-ALT, "solid", "yellow")
+FUNDO-GRASS = rectangle(CARTA-LAR, CARTA-ALT, "solid", "green")
 
 # Mesa redonda onde vamos desenhar as cartas
-mesa = circle(20 + carta-alt, "solid", "lightgray")
-borda = rectangle(carta-lar + 10, carta-alt + 10, "outline", "black")
+MESA = circle(20 + CARTA-ALT, "solid", "lightgray")
+BORDA = rectangle(CARTA-LAR + 10, CARTA-ALT + 10, "outline", "black")
 
 #|
     Tabela de Pokémons
 |#
 
-pokemons-url = "https://gist.githubusercontent.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6/raw/92200bc0a673d5ce2110aaad4544ed6c4010f687/pokemon.csv"
+POKEMONS-URL = "https://gist.githubusercontent.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6/raw/92200bc0a673d5ce2110aaad4544ed6c4010f687/pokemon.csv"
 
-tabela-pokemons =
+TABELA-POKEMONS =
  load-table: id, name, type1, type2, total, hp, attack, defense, spatck, spdef, speed,generation, legendary
-    source: csv-table-url(pokemons-url, default-options)
+    source: csv-table-url(POKEMONS-URL, default-options)
     sanitize id using num-sanitizer
     sanitize name using string-sanitizer
     sanitize type1 using string-sanitizer
@@ -55,7 +55,7 @@ tabela-pokemons =
     sanitize hp using num-sanitizer
   end
 
-pokemon-data :: Table = filter-with(tabela-pokemons, lam(row): row["id"] <= 50 end)
+POKEMON-DATA :: Table = filter-with(TABELA-POKEMONS, lam(row): row["id"] <= 50 end)
 
 fun id-to-3-digit-string(id :: Number) -> String:
     doc: "Dado um número, devolve uma string com este número formatado com 3 dígitos (com zeros à esquerda se necessário)."
@@ -87,23 +87,23 @@ fun seleciona-imagem-pokemon(nome :: String) -> Image:
         row["name"] == nome
     end
 
-    id = filter-with(pokemon-data, nome-igual).row-n(0)["id"]
+    id = filter-with(POKEMON-DATA, nome-igual).row-n(0)["id"]
     img-pokemon(id)
 end
 
 fun seleciona-fundo(tipo :: String) -> Image:
     doc: "Dado o tipo da carta, devolve a imagem de fundo correspondente a este tipo."
     ask:
-        | tipo == type-normal then: fundo-normal
-        | tipo == type-fire then: fundo-fire
-        | tipo == type-water then: fundo-water
-        | tipo == type-electric then: fundo-electric
-        | tipo == type-grass then: fundo-grass
-        | otherwise: fundo-normal
+        | tipo == TYPE-NORMAL then: FUNDO-NORMAL
+        | tipo == TYPE-FIRE then: FUNDO-FIRE
+        | tipo == TYPE-WATER then: FUNDO-WATER
+        | tipo == TYPE-ELECTRIC then: FUNDO-ELECTRIC
+        | tipo == TYPE-GRASS then: FUNDO-GRASS
+        | otherwise: FUNDO-NORMAL
     end
 where:
-    seleciona-fundo(type-normal) is fundo-normal
-    seleciona-fundo(type-fire) is fundo-fire
+    seleciona-fundo(TYPE-NORMAL) is FUNDO-NORMAL
+    seleciona-fundo(TYPE-FIRE) is FUNDO-FIRE
 end
 
 
@@ -120,7 +120,7 @@ fun cria-carta(nome :: String, tipo :: String) -> Image:
     # Sobrepõe o texto do nome na parte superior da imagem do pokemon
     im4 = overlay-align("middle", "top", text(nome, 20, "black"), im3)
     # Sobrepõe a borda no centro da imagem da carta
-    im5 = overlay-align("center", "center", im4, borda)
+    im5 = overlay-align("center", "center", im4, BORDA)
     im5
 end
 
@@ -129,41 +129,41 @@ fun verifica-efeito(tipo-ataque :: String, tipo-defesa :: String) -> String:
     Tabela de vantagens: https://pokemondb.net/type
     ```
     ask:
-        | (tipo-ataque == type-fire) then:
+        | (tipo-ataque == TYPE-FIRE) then:
             ask:
-                | (tipo-defesa == type-grass) then: efeito-superefetivo
-                | (tipo-defesa == type-water) or (tipo-defesa == type-fire) then: efeito-naoefetivo
-                | otherwise: efeito-efetivo
+                | (tipo-defesa == TYPE-GRASS) then: EFEITO-SUPEREFETIVO
+                | (tipo-defesa == TYPE-WATER) or (tipo-defesa == TYPE-FIRE) then: EFEITO-NAOEFETIVO
+                | otherwise: EFEITO-EFETIVO
             end
-        | (tipo-ataque == type-water) then:
+        | (tipo-ataque == TYPE-WATER) then:
             ask:
-                | (tipo-defesa == type-fire) then: efeito-superefetivo
-                | (tipo-defesa == type-grass) or (tipo-defesa == type-water) then: efeito-naoefetivo
-                | otherwise: efeito-efetivo
+                | (tipo-defesa == TYPE-FIRE) then: EFEITO-SUPEREFETIVO
+                | (tipo-defesa == TYPE-GRASS) or (tipo-defesa == TYPE-WATER) then: EFEITO-NAOEFETIVO
+                | otherwise: EFEITO-EFETIVO
             end
-        | (tipo-ataque == type-electric) then:
+        | (tipo-ataque == TYPE-ELECTRIC) then:
             ask:
-                | (tipo-defesa == type-water) then: efeito-superefetivo
-                | (tipo-defesa == type-grass) or (tipo-defesa == type-electric) then: efeito-naoefetivo
-                | otherwise: efeito-efetivo
+                | (tipo-defesa == TYPE-WATER) then: EFEITO-SUPEREFETIVO
+                | (tipo-defesa == TYPE-GRASS) or (tipo-defesa == TYPE-ELECTRIC) then: EFEITO-NAOEFETIVO
+                | otherwise: EFEITO-EFETIVO
             end
-        | (tipo-ataque == type-grass) then:
+        | (tipo-ataque == TYPE-GRASS) then:
             ask:
-                | (tipo-defesa == type-water) then: efeito-superefetivo
-                | (tipo-defesa == type-fire) or (tipo-defesa == type-grass) then: efeito-naoefetivo
-                | otherwise: efeito-efetivo
+                | (tipo-defesa == TYPE-WATER) then: EFEITO-SUPEREFETIVO
+                | (tipo-defesa == TYPE-FIRE) or (tipo-defesa == TYPE-GRASS) then: EFEITO-NAOEFETIVO
+                | otherwise: EFEITO-EFETIVO
             end
-        | otherwise: efeito-efetivo
+        | otherwise: EFEITO-EFETIVO
     end
 where:
-    verifica-efeito(type-fire, type-grass) is efeito-superefetivo
-    verifica-efeito(type-fire, type-water) is efeito-naoefetivo
-    verifica-efeito(type-fire, type-electric) is efeito-efetivo
+    verifica-efeito(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
+    verifica-efeito(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
+    verifica-efeito(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
 end
 
 
-nomes-pokemons :: List<String> = pokemon-data.get-column("name")
-tipos-pokemons :: List<String> = pokemon-data.get-column("type1")
+NOMES-POKEMONS :: List<String> = POKEMON-DATA.get-column("name")
+TIPOS-POKEMONS :: List<String> = POKEMON-DATA.get-column("type1")
 
 
 fun tamanho-lista(lista :: List<Any>) -> Number:
@@ -208,7 +208,7 @@ where:
     remove-tipos-repetidos(empty) is empty
 end
 
-remove-tipos-repetidos(tipos-pokemons)
+remove-tipos-repetidos(TIPOS-POKEMONS)
 
 #|
     Definição Lista de Imagens
@@ -230,4 +230,4 @@ fun cria-lista-de-cartas(nomes :: List<String>, tipos :: List<String>) -> ListaD
     end
 end
 
-# cria-lista-de-cartas(nomes-pokemons, tipos-pokemons)
+# cria-lista-de-cartas(NOMES-POKEMONS, TIPOS-POKEMONS)

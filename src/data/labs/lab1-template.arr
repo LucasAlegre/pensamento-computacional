@@ -11,14 +11,14 @@ use context starter2024
     Constantes Úteis (Exercício 2)
 |#
 
-carta-alt = 175
-carta-lar = 125
+CARTA-ALT = 175
+CARTA-LAR = 125
 
 # Imagens de pokemons da internet preparadas para a atividade
-bulbasaur-img = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/001.png"))
-squirtle-img = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/007.png"))
-charmander-img = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/004.png"))
-pikachu-img = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/025.png"))
+BULBASAUR-IMG = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/001.png"))
+SQUIRTLE-IMG = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/007.png"))
+CHARMANDER-IMG = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/004.png"))
+PIKACHU-IMG = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/025.png"))
 
 #| 
     Exercício 1
@@ -27,17 +27,17 @@ pikachu-img = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShi
 # TODO: Defina as constantes de texto para os ataques e efeitos
 
 
-# TODO: Defina as constantes para representar os tipos (ex: type-normal)
+# TODO: Defina as constantes para representar os tipos (ex: TYPE-NORMAL)
 
 
 #|
     Exercício 2
 |#
 
-# TODO: Defina as imagens para os fundos de cartas usando rectangle e solid (ex: fundo-normal)
+# TODO: Defina as imagens para os fundos de cartas usando rectangle e solid (ex: FUNDO-NORMAL)
 
 
-# TODO: Defina a mesa (com circle) e a borda (com rectangle e outline)
+# TODO: Defina a MESA (com circle) e a BORDA (com rectangle e outline)
 
 
 #| 
@@ -71,13 +71,13 @@ end
 # Os dois primeiros parâmetros indicam o alinhamento. Exemplo: overlay-align("middle", "bottom", img1, img2) 
 
 fun cria-carta(nome :: String, tipo :: String) -> Image:
-    doc: "Dado a borda da carta, o fundo escolhido referente ao tipo da carta e a String com o tipo da carta, devolve uma imagem com a carta montada."
+    doc: "Dado o nome do Pokemon e o tipo da carta, devolve uma imagem com a carta montada."
     # TODO: Siga o passo a passo do enunciado para construir e sobrepor as camadas em ordem
     empty-image
 end
 
 # Teste a sua funcão de construir cartas (remova o # abaixo para executar quando sua função estiver pronta):
-# cria-carta("Bulbasaur", type-grass)
+# cria-carta("Bulbasaur", TYPE-GRASS)
 
 
 #| 
@@ -108,8 +108,8 @@ end
 
 # Após implementar tudo, remova os comentários da linha abaixo e veja a mágica acontecer! Você simulou uma batalha em código Pyret!
 # desenha-cenario(
-#     cria-carta("Bulbasaur", type-grass),
-#     cria-carta("Charmander", type-fire),
-#     mesa,
-#     verifica-efeito(type-grass, type-fire)
+#     cria-carta("Bulbasaur", TYPE-GRASS),
+#     cria-carta("Charmander", TYPE-FIRE),
+#     MESA,
+#     verifica-efeito(TYPE-GRASS, TYPE-FIRE)
 # )
