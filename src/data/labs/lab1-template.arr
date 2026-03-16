@@ -29,6 +29,7 @@ PIKACHU-IMG = scale(0.75, image-url("https://raw.githubusercontent.com/HybridShi
 
 # TODO: Defina as constantes para representar os tipos (ex: TYPE-NORMAL)
 
+TYPE-FIRE = "FIRE"
 
 #|
     Exercício 2
@@ -75,6 +76,9 @@ fun cria-carta(nome :: String, tipo :: String) -> Image:
     # TODO: Siga o passo a passo do enunciado para construir e sobrepor as camadas em ordem
     empty-image
 end
+
+# PARE E PENSE: Você está usando as constanges definidas no primeiro exercício? Qual a importância ou vantagem de usá-las ao criar novas funções?
+
 
 # Teste a sua funcão de construir cartas (remova o # abaixo para executar quando sua função estiver pronta):
 # cria-carta("Bulbasaur", TYPE-GRASS)
