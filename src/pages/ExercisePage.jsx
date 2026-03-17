@@ -24,7 +24,7 @@ const ExercisePage = () => {
     if (!exercise) {
         return (
             <div className="page-content">
-                <Link to="/lists" className="back-link">← Voltar para a lista</Link>
+                <Link to="/exercises" className="back-link">← Voltar para a lista</Link>
                 <h1>Exercício não encontrado</h1>
                 <p>O exercício solicitado não foi encontrado.</p>
             </div>
@@ -33,7 +33,7 @@ const ExercisePage = () => {
 
     return (
         <div className="page-content">
-            <Link to="/lists" className="back-link" style={{ display: 'inline-block', marginBottom: '1rem', textDecoration: 'none', color: '#666' }}>
+            <Link to="/exercises" className="back-link" style={{ display: 'inline-block', marginBottom: '1rem', textDecoration: 'none', color: '#666' }}>
                 ← Voltar para a lista
             </Link>
 
