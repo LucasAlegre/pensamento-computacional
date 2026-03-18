@@ -125,10 +125,10 @@ Siga precisamente as diretrizes das Vantagens (*Ataque atinge -> Defesa*):
 Agora vamos montar o cenário da batalha! Crie a função `desenha-cenario` da seguinte forma:
 
 **Entrada:** 
-1. Imagem da `carta-ataque`
-2. Imagem da `carta-defesa`
-3. A imagem da `MESA` do cenário
-4. A `String` contendo o julgamento do `resultado-efeito`.
+1. Nome do Pokémon atacante
+2. Tipo do Pokémon atacante
+3. Nome do Pokémon defensor
+4. Tipo do Pokémon defensor
 
 > 🛠️ **Dica de Funções:**
 > Novamente, use as funções gráficas a seu favor para alinhar os objetos como na imagem de exemplo abaixo!

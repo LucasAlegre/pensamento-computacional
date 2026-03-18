@@ -193,12 +193,18 @@ end
     Exercício 6
 |#
 
-fun desenha-cenario(carta-ataque :: Image, carta-defesa :: Image, mesa-img :: Image, resultado-efeito :: String) -> Image:
-    doc: "Dados as imagens de duas cartas, a mesa de fundo e o resultado do efeito do ataque, desenha uma imagem colocando as cartas lado a lado em cima da MESA (ATAQUE na esquerda e DEFESA na direita), escrito 'Attack' em cima da carta atacante e 'Defense' em cima da carta defendendo, e o resultado do efeito embaixo da MESA."
+fun desenha-cenario(nome-atacante :: String, tipo-atacante :: String, nome-defensor :: String, tipo-defensor :: String) -> Image:
+    doc: "Dados o nome e o tipo de um Pokémon atacante e de um Pokémon defensor, desenha uma imagem colocando as cartas lado a lado em cima da MESA (ATAQUE na esquerda e DEFESA na direita), escrito 'Attack' em cima da carta atacante e 'Defense' em cima da carta defendendo, e o resultado do efeito embaixo da MESA."
+    # Cria as cartas
+    carta-atacante = cria-carta(nome-atacante, tipo-atacante)
+    carta-defesa = cria-carta(nome-defensor, tipo-defensor)
+    # Verifica o efeito do ataque
+    resultado-efeito = verifica-efeito(tipo-atacante, tipo-defensor)
+
     # Desenha a carta de ataque com o texto "Attack" em cima
     desenho-ataque = above(
         text(ATAQUE, 20, "black"),
-        carta-ataque
+        carta-atacante
     )
     # Desenha a carta de defesa com o texto "Defense" em cima
     desenho-defesa = above(
@@ -208,7 +214,7 @@ fun desenha-cenario(carta-ataque :: Image, carta-defesa :: Image, mesa-img :: Im
     # Coloca as cartas lado a lado
     beside-cartas = beside(desenho-ataque, desenho-defesa)
     # Coloca as cartas em cima da MESA
-    cartas-na-mesa = overlay-align("center", "center", beside-cartas, mesa-img)
+    cartas-na-mesa = overlay-align("center", "center", beside-cartas, MESA)
     # Coloca o resultado do efeito embaixo da MESA
     resultado = text(resultado-efeito, 20, "black")
     above(cartas-na-mesa, resultado)
@@ -220,22 +226,22 @@ carta-teste
 
 # Imagem do cenário de batalha 1
 cenario-teste = desenha-cenario(
-    cria-carta("Bulbasaur", TYPE-GRASS),
-    cria-carta("Charmander", TYPE-FIRE),
-    MESA,
-    verifica-efeito(TYPE-GRASS, TYPE-FIRE)
+    "Bulbasaur",
+    TYPE-GRASS,
+    "Charmander",
+    TYPE-FIRE
 )
 cenario-teste
 
 cenario-teste2 = desenha-cenario(
-    cria-carta("Pikachu", TYPE-ELECTRIC),
-    cria-carta("Squirtle", TYPE-WATER),
-    MESA,
-    verifica-efeito(TYPE-ELECTRIC, TYPE-WATER)
+    "Pikachu",
+    TYPE-ELECTRIC,
+    "Squirtle",
+    TYPE-WATER
 )
 cenario-teste2
 
 # Salvar imagens para o roteiro
-save-image(carta-teste, "bulbasaur_card.png")
-save-image(cenario-teste, "cenario1.png")
-save-image(cenario-teste2, "cenario2.png")
+# save-image(carta-teste, "bulbasaur_card.png")
+# save-image(cenario-teste, "cenario1.png")
+# save-image(cenario-teste2, "cenario2.png")

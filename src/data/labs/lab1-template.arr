@@ -104,16 +104,29 @@ end
     Exercício 6
 |#
 
-fun desenha-cenario(carta-ataque :: Image, carta-defesa :: Image, mesa :: Image, resultado-efeito :: String) -> Image:
-    doc: "Dados as imagens de duas cartas, a mesa de fundo e o resultado do efeito do ataque, desenha o cenário de batalha."
-    # TODO: Siga o roteiro do enunciado para criar o layout usando os layouts de imagem combinados (above, beside e afins)
-    empty-image
+fun desenha-cenario(nome-atacante :: String, tipo-atacante :: String, nome-defensor :: String, tipo-defensor :: String) -> Image:
+    doc: "Dados o nome e o tipo de um Pokémon atacante e de um Pokémon defensor, desenha uma imagem colocando as cartas lado a lado em cima da MESA (ATAQUE na esquerda e DEFESA na direita), escrito 'Attack' em cima da carta atacante e 'Defense' em cima da carta defendendo, e o resultado do efeito embaixo da MESA."
+    # Cria as cartas
+
+    # Verifica o efeito do ataque
+
+    # Desenha a carta de ataque com o texto "Attack" em cima
+
+    # Desenha a carta de defesa com o texto "Defense" em cima
+
+    # Coloca as cartas lado a lado
+
+    # Coloca as cartas em cima da MESA
+
+    # Coloca o resultado do efeito embaixo da MESA
+
 end
 
-# Após implementar tudo, remova os comentários da linha abaixo e veja a mágica acontecer! Você simulou uma batalha em código Pyret!
+# Após implementar tudo, remova os comentários da linha abaixo e veja o resultado da batalha!
+
 # desenha-cenario(
-#     cria-carta("Bulbasaur", TYPE-GRASS),
-#     cria-carta("Charmander", TYPE-FIRE),
-#     MESA,
-#     verifica-efeito(TYPE-GRASS, TYPE-FIRE)
-# )
+#    "Bulbasaur",
+#    TYPE-GRASS,
+#    "Charmander",
+#    TYPE-FIRE
+#)
