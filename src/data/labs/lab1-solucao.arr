@@ -92,23 +92,26 @@ end
 
 fun cria-carta(nome :: String, tipo :: String) -> Image:
     doc: "Dado o nome do Pokemon e o tipo da carta, devolve uma imagem com a carta montada."
-    # Seleciona a imagem do pokemon
-    img-pokemon = seleciona-imagem-pokemon(nome)
-    # Desenha um círculo branco no centro do fundo
-    im1 = overlay(circle(60, "solid", "white"), seleciona-fundo(tipo))
-    # Sobrepõe a imagem do pokemon no círculo branco
-    im2 = overlay(img-pokemon, im1)
-    # Sobrepõe o texto do tipo na parte inferior da imagem do pokemon
-    im3 = overlay-align("middle", "bottom", text(tipo, 20, "black"), im2)
-    # Sobrepõe o texto do nome na parte superior da imagem do pokemon
-    im4 = overlay-align("middle", "top", text(nome, 20, "black"), im3)
-    # Sobrepõe a BORDA no centro da imagem da carta
-    im5 = overlay-align("center", "center", im4, BORDA)
-    im5
+    
+    # Coloca a borda sobre a carta
+    overlay-align("center", "center",
+        # Coloca o nome no topo da carta
+        overlay-align("middle", "top", 
+            text(nome, 20, "black"),
+            # Coloca o tipo na parte inferior da carta
+            overlay-align("middle", "bottom",
+                text(tipo, 20, "black"),
+                # Coloca o fundo da carta
+                overlay(
+                    # Coloca a imagem do pokemon sobre o círculo branco
+                    overlay(
+                        seleciona-imagem-pokemon(nome), 
+                        circle(60, "solid", "white")),
+                    seleciona-fundo(tipo)))), 
+    BORDA)
 end
 
 cria-carta("Bulbasaur", TYPE-GRASS)
-
 
 #| 
     Exercício 5
@@ -195,29 +198,20 @@ end
 
 fun desenha-cenario(nome-atacante :: String, tipo-atacante :: String, nome-defensor :: String, tipo-defensor :: String) -> Image:
     doc: "Dados o nome e o tipo de um Pokémon atacante e de um Pokémon defensor, desenha uma imagem colocando as cartas lado a lado em cima da MESA (ATAQUE na esquerda e DEFESA na direita), escrito 'Attack' em cima da carta atacante e 'Defense' em cima da carta defendendo, e o resultado do efeito embaixo da MESA."
-    # Cria as cartas
-    carta-atacante = cria-carta(nome-atacante, tipo-atacante)
-    carta-defesa = cria-carta(nome-defensor, tipo-defensor)
-    # Verifica o efeito do ataque
-    resultado-efeito = verifica-efeito(tipo-atacante, tipo-defensor)
 
-    # Desenha a carta de ataque com o texto "Attack" em cima
-    desenho-ataque = above(
-        text(ATAQUE, 20, "black"),
-        carta-atacante
-    )
-    # Desenha a carta de defesa com o texto "Defense" em cima
-    desenho-defesa = above(
-        text(DEFESA, 20, "black"),
-        carta-defesa
-    )
-    # Coloca as cartas lado a lado
-    beside-cartas = beside(desenho-ataque, desenho-defesa)
-    # Coloca as cartas em cima da MESA
-    cartas-na-mesa = overlay-align("center", "center", beside-cartas, MESA)
-    # Coloca o resultado do efeito embaixo da MESA
-    resultado = text(resultado-efeito, 20, "black")
-    above(cartas-na-mesa, resultado)
+    # Coloca o resultado abaixo da imagem
+    above(
+        # Coloca a mesa abaixo das cartas
+        overlay-align("center", "center",
+            # Coloca as cartas lado a lado
+            beside(
+                # Crita carta ataque
+                above(text(ATAQUE, 20, "black"), cria-carta(nome-atacante, tipo-atacante)),
+                # Cria carta defesa
+                above(text(DEFESA, 20, "black"), cria-carta(nome-defensor, tipo-defensor))
+            ),
+            MESA),
+        text(verifica-efeito(tipo-atacante, tipo-defensor), 20, "black"))
 end
 
 # Teste a sua funcão de construir cartas:
