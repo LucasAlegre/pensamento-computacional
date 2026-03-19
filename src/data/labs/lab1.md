@@ -101,7 +101,7 @@ A sua carta formatada deverá se parecer com o exemplo abaixo:
 
 ## ⚔️ Exercício 5: Vantagens e Efeitos
 
-Em uma batalha Pokemon, certos elementos tem vantagem sobre outros! Desenvolva a função lógica chamada de `verifica-efeito` com os parâmetros `tipo-ataque` e `tipo-defesa` (ambas Strings). Ela avalia e **retorna a constante correta do efeito da briga** (`EFEITO-NAOEFETIVO`, `EFEITO-EFETIVO` ou `EFEITO-SUPEREFETIVO`).
+Em uma batalha Pokemon, certos elementos tem vantagem sobre outros! Desenvolva a função lógica chamada de `verifica-efeito` com os parâmetros `tipo-ataque` e `tipo-defesa` (ambas Strings). Ela compara os tipos e **retorna a string de efeito da briga** (`EFEITO-NAOEFETIVO`, `EFEITO-EFETIVO` ou `EFEITO-SUPEREFETIVO`).
 
 Siga precisamente as diretrizes das Vantagens (*Ataque atinge -> Defesa*):
 
