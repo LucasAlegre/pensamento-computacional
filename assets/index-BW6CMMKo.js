@@ -744,7 +744,49 @@ cria-carta("Bulbasaur", TYPE-GRASS)
     Exercício 5
 |#
 
+fun testa-superefetivo(tipo-ataque :: String, tipo-defesa :: String) -> Boolean:
+    doc: "Dado o tipo de ataque e o tipo de defesa, true se o ataque for super efetivo e false caso contrário."
+    ask:
+        | (tipo-ataque == TYPE-FIRE) and (tipo-defesa == TYPE-GRASS) then: true
+        | (tipo-ataque == TYPE-WATER) and (tipo-defesa == TYPE-FIRE) then: true
+        | (tipo-ataque == TYPE-ELECTRIC) and (tipo-defesa == TYPE-WATER) then: true
+        | (tipo-ataque == TYPE-GRASS) and (tipo-defesa == TYPE-WATER) then: true
+        | otherwise: false
+    end
+where:
+    testa-superefetivo(TYPE-FIRE, TYPE-GRASS) is true
+    testa-superefetivo(TYPE-WATER, TYPE-FIRE) is true
+    testa-superefetivo(TYPE-ELECTRIC, TYPE-WATER) is true
+    testa-superefetivo(TYPE-GRASS, TYPE-FIRE) is false
+end
+
+fun testa-naoefetivo(tipo-ataque :: String, tipo-defesa :: String) -> Boolean:
+    doc: "Dado o tipo de ataque e o tipo de defesa, true se o ataque for não efetivo e false caso contrário."
+    # um tipo é não efetivo se ele for igual ao tipo de defesa ou se a defesa for super efetiva
+    (tipo-ataque == tipo-defesa) or testa-superefetivo(tipo-defesa, tipo-ataque)
+where:
+    testa-naoefetivo(TYPE-FIRE, TYPE-WATER) is true
+    testa-naoefetivo(TYPE-WATER, TYPE-ELECTRIC) is true
+    testa-naoefetivo(TYPE-ELECTRIC, TYPE-GRASS) is false
+    testa-naoefetivo(TYPE-GRASS, TYPE-FIRE) is true
+end
+
 fun verifica-efeito(tipo-ataque :: String, tipo-defesa :: String) -> String:
+    doc: \`\`\`Dado o tipo de ataque e o tipo de defesa, devolve uma string indicando o efeito do ataque (sem efeito, não efetivo, efetivo ou super efetivo).
+    Tabela de vantagens: https://pokemondb.net/type
+    \`\`\`
+    ask:
+        | testa-superefetivo(tipo-ataque, tipo-defesa) then: EFEITO-SUPEREFETIVO
+        | testa-naoefetivo(tipo-ataque, tipo-defesa) then: EFEITO-NAOEFETIVO
+        | otherwise: EFEITO-EFETIVO  # Em todos outros casos, o efeito é efetivo
+    end
+where:
+    verifica-efeito(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
+    verifica-efeito(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
+    verifica-efeito(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
+end
+
+fun verifica-efeitov2(tipo-ataque :: String, tipo-defesa :: String) -> String:
     doc: \`\`\`Dado o tipo de ataque e o tipo de defesa, devolve uma string indicando o efeito do ataque (sem efeito, não efetivo, efetivo ou super efetivo).
     Tabela de vantagens: https://pokemondb.net/type
     \`\`\`
@@ -776,12 +818,12 @@ fun verifica-efeito(tipo-ataque :: String, tipo-defesa :: String) -> String:
         | otherwise: EFEITO-EFETIVO
     end
 where:
-    verifica-efeito(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
-    verifica-efeito(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
-    verifica-efeito(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
+    verifica-efeitov2(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
+    verifica-efeitov2(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
+    verifica-efeitov2(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
 end
 
-fun verifica-efeito-v2(tipo-ataque :: String, tipo-defesa :: String) -> String:
+fun verifica-efeito-v3(tipo-ataque :: String, tipo-defesa :: String) -> String:
     doc: \`\`\`Dado o tipo de ataque e o tipo de defesa, devolve uma string indicando o efeito do ataque (sem efeito, não efetivo, efetivo ou super efetivo).
     Tabela de vantagens: https://pokemondb.net/type
     \`\`\`
@@ -813,9 +855,9 @@ fun verifica-efeito-v2(tipo-ataque :: String, tipo-defesa :: String) -> String:
         EFEITO-EFETIVO
     end
 where:
-    verifica-efeito-v2(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
-    verifica-efeito-v2(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
-    verifica-efeito-v2(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
+    verifica-efeito-v3(TYPE-FIRE, TYPE-GRASS) is EFEITO-SUPEREFETIVO
+    verifica-efeito-v3(TYPE-FIRE, TYPE-WATER) is EFEITO-NAOEFETIVO
+    verifica-efeito-v3(TYPE-FIRE, TYPE-ELECTRIC) is EFEITO-EFETIVO
 end
 
 
