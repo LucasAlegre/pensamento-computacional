@@ -78,6 +78,7 @@ fun cria-carta(nome :: String, tipo :: String) -> Image:
             # Coloca o tipo na parte inferior da carta
                 # Coloca o fundo da carta
                     # Coloca a imagem do pokemon sobre o círculo branco
+   empty-image 
 end
 
 # PARE E PENSE: Você está usando as constanges definidas no primeiro exercício? Qual a importância ou vantagem de usá-las ao criar novas funções?
@@ -114,6 +115,7 @@ fun desenha-cenario(nome-atacante :: String, tipo-atacante :: String, nome-defen
             # Coloca as cartas lado a lado
                 # Cria carta ataque
                 # Cria carta defesa
+    empty-image 
 end
 
 # Após implementar tudo, remova os comentários da linha abaixo e veja o resultado da batalha!

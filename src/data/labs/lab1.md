@@ -65,9 +65,9 @@ As cores em Pyret podem ser consultadas aqui: https://pyret.org/docs/latest/colo
 
 ## 🔍 Exercício 3: Selecionando os Elementos das Cartas
 
-Vamos agora dar movimento condicional ao jogo! Crie duas funções utilizando a super-estrutura lógica `ask` para selecionar o fundo e as imagens nas cartas:
+Vamos agora dar movimento condicional ao jogo! Crie duas funções utilizando a expressão `ask` para selecionar o fundo e as imagens nas cartas:
 
-1. **A função `seleciona-fundo`**: tem 1 argumento, uma `String` (o **tipo**). Ela deve devolver a **constante de imagem de fundo** correta. 
+1. **A função `seleciona-fundo`**: tem 1 argumento, uma `String` (o **tipo**). Ela deve devolver a **imagem de fundo** correta. 
    - *Exemplo:* se o `tipo` passado for igual a `TYPE-FIRE`, retorne a imagem em `FUNDO-FIRE`.
 
 2. **A função `seleciona-imagem-pokemon`**: tem 1 argumento, uma `String` (o **nome do Pokémon**). Ela deve devolver a respectiva imagem (`BULBASAUR-IMG`, etc.). Cubra as strings `"Bulbasaur"`, `"Charmander"`, `"Squirtle"` e `"Pikachu"`.
