@@ -76,12 +76,27 @@ EFEITO-SUPEREFETIVO = "Super-effective!"
 
 fun seleciona-fundo(tipo :: String) -> Image:
     doc: "Dado o tipo da carta, devolve a imagem de fundo correspondente a este tipo."
+    tipo-upper = string-to-upper(tipo)
+
     ask:
-        | tipo == TYPE-NORMAL then: FUNDO-NORMAL
-        | tipo == TYPE-FIRE then: FUNDO-FIRE
-        | tipo == TYPE-WATER then: FUNDO-WATER
-        | tipo == TYPE-ELECTRIC then: FUNDO-ELECTRIC
-        | tipo == TYPE-GRASS then: FUNDO-GRASS
+        | tipo-upper == TYPE-NORMAL then: FUNDO-NORMAL
+        | tipo-upper == TYPE-FIRE then: FUNDO-FIRE
+        | tipo-upper == TYPE-WATER then: FUNDO-WATER
+        | tipo-upper == TYPE-ELECTRIC then: FUNDO-ELECTRIC
+        | tipo-upper == TYPE-GRASS then: FUNDO-GRASS
+        | tipo-upper == TYPE-ICE then: FUNDO-ICE
+        | tipo-upper == TYPE-FIGHTING then: FUNDO-FIGHTING
+        | tipo-upper == TYPE-POISON then: FUNDO-POISON
+        | tipo-upper == TYPE-PSYCHIC then: FUNDO-PSYCHIC
+        | tipo-upper == TYPE-BUG then: FUNDO-BUG
+        | tipo-upper == TYPE-GROUND then: FUNDO-GROUND
+        | tipo-upper == TYPE-FAIRY then: FUNDO-FAIRY
+        | tipo-upper == TYPE-ROCK then: FUNDO-ROCK
+        | tipo-upper == TYPE-GHOST then: FUNDO-GHOST
+        | tipo-upper == TYPE-DRAGON then: FUNDO-DRAGON
+        | tipo-upper == TYPE-STEEL then: FUNDO-STEEL
+        | tipo-upper == TYPE-FLYING then: FUNDO-FLYING
+        | tipo-upper == TYPE-DARK then: FUNDO-DARK
         | otherwise: FUNDO-NORMAL
     end
 where:
