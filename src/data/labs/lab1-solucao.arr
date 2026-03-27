@@ -113,6 +113,25 @@ end
 
 cria-carta("Bulbasaur", TYPE-GRASS)
 
+fun cria-carta-v2(nome :: String, tipo :: String) -> Image:
+    doc: "Dado o nome do Pokemon e o tipo da carta, devolve uma imagem com a carta montada."
+    
+    # Definições Locais:
+    # Gera imagem do pokemon sobre o círculo
+    pokemon-sobre-circulo = overlay(seleciona-imagem-pokemon(nome), circle(60, "solid", "white"))
+    # Gera fundo com o pokemon
+    fundo-com-pokemon = overlay(pokemon-sobre-circulo, seleciona-fundo(tipo))
+    # Gera carta com o tipo
+    carta-com-tipo = overlay-align("middle", "bottom", text(tipo, 20, "black"), fundo-com-pokemon)
+    # Gera carta com o nome
+    carta-com-nome = overlay-align("middle", "top", text(nome, 20, "black"), carta-com-tipo)
+    # Gera carta final com a borda
+    carta-final = overlay-align("center", "center", carta-com-nome, BORDA)
+
+    # Expressão:
+    carta-final
+end
+
 #| 
     Exercício 5
 |#
