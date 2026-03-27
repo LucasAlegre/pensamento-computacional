@@ -90,6 +90,18 @@ where:
 end
 
 
+fun id-pokemon(nome :: String) -> Number:
+    doc: "Dado o nome de um pokemon, devolve o id deste pokemon."
+    tabela = filter-with(POKE-DATA, lam(row): row["name"] == nome end)
+
+    tabela.row-n(0)["id"]
+where:
+    id-pokemon("Bulbasaur") is 1
+    id-pokemon("Ivysaur") is 2
+    id-pokemon("Venusaur") is 3
+end
+
+
 fun id-to-3-digit-string(pokemon-id :: Number) -> String:
     doc: "Dado um número, devolve uma string com este número formatado com 3 dígitos (com zeros à esquerda se necessário)."
     ask:
@@ -169,18 +181,18 @@ where:
 end
 
 
-fun cria-carta(pokemon-id :: Number, tipo :: String) -> Image:
+fun cria-carta(nome :: String, tipo :: String) -> Image:
     doc: "Dado o nome do Pokemon e o tipo da carta, devolve uma imagem com a carta montada."
     
     # Definições Locais:
     # Gera imagem do pokemon sobre o círculo
-    pokemon-sobre-circulo = overlay(img-pokemon(pokemon-id), circle(60, "solid", "white"))
+    pokemon-sobre-circulo = overlay(img-pokemon(id-pokemon(nome)), circle(60, "solid", "white"))
     # Gera fundo com o pokemon
     fundo-com-pokemon = overlay(pokemon-sobre-circulo, seleciona-fundo(tipo))
     # Gera carta com o tipo
     carta-com-tipo = overlay-align("middle", "bottom", text(tipo, 20, "black"), fundo-com-pokemon)
     # Gera carta com o nome
-    carta-com-nome = overlay-align("middle", "top", text(name-pokemon(pokemon-id), 20, "black"), carta-com-tipo)
+    carta-com-nome = overlay-align("middle", "top", text(nome, 20, "black"), carta-com-tipo)
     # Gera carta final com a borda
     carta-final = overlay-align("center", "center", carta-com-nome, BORDA)
 
