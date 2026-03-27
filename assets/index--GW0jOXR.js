@@ -1076,7 +1076,7 @@ import url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs
 fun id-primeira-geracao(row :: Row) -> Boolean:
     doc: "Dado uma linha de tabela e um número, devolve True se o id da linha for menor que o número dado."
 
-    row["id"] <= 50
+    row["id"] <= 151
 end
 
 POKE-GEN1 :: Table = filter-with(P.POKE-DATA, id-primeira-geracao)
@@ -1164,7 +1164,9 @@ end
 fun desenha-lista-de-cartas(lista-de-cartas :: ListaDeImagens) -> Image:
     doc: "Dado uma lista de imagens de cartas, devolve uma imagem com todas as cartas lado a lado."
     cases (ListaDeImagens) lista-de-cartas:
-    | i-empty => empty-image
+        # Se a lista é vazia, devolve uma imagem vazia
+        | i-empty => empty-image
+        # Se a lista não é vazia, devolve a primeira imagem ao lado da imagem das cartas do resto da lista
         | i-link(first, rest) => beside(
                                     first, 
                                     desenha-lista-de-cartas(rest))
