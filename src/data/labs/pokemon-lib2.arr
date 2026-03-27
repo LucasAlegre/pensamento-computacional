@@ -76,7 +76,7 @@ EFEITO-SUPEREFETIVO = "Super-effective!"
 
 fun seleciona-fundo(tipo :: String) -> Image:
     doc: "Dado o tipo da carta, devolve a imagem de fundo correspondente a este tipo."
-    tipo-upper = string-to-upper(tipo)   # Coloca em letras maiúsculas
+    tipo-upper = string-to-upper(tipo)  # Coloca em letras maiúsculas
 
     ask:
         | tipo-upper == TYPE-NORMAL then: FUNDO-NORMAL

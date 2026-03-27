@@ -1,7 +1,7 @@
 use context dcic2024
 
 #|
-    Este arquivo contém um modelo para a solução dos exercícios do Laboratório 2 de INF05008 - Pensamento Computacional.
+    Este arquivo contém a solução dos exercícios do Laboratório 2 de INF05008 - Pensamento Computacional.
 
     Autor: Prof. Lucas N. Alegre 
 |#
@@ -35,7 +35,9 @@ TIPOS-POKEMONS :: List<String> = POKE-GEN1.get-column("type1")
 fun tamanho(lista :: List<Any>) -> Number:
     doc: "Dado uma lista, devolve o tamanho da lista."
     cases (List<Any>) lista:
+        # Caso base: uma lista vazia tem tamanho 0.
         | empty => 0
+        # O tamanho de uma lista não vazia é 1 mais o tamanho do restante.
         | link(first, rest) => 1 + tamanho(rest)
     end
 where:
@@ -55,7 +57,7 @@ fun conta-tipos(lista-tipos :: List<String>, tipo :: String) -> Number:
         | link(first, rest) => 
             if first == tipo:
                 1 + conta-tipos(rest, tipo) 
-            else: 
+            else:
                 conta-tipos(rest, tipo)
             end
     end
