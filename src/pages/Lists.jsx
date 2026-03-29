@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { loadExercises } from '../utils/loadExercises';
+import { getDifficultyStyle } from '../utils/difficultyStyles';
 
 const exercisesData = loadExercises();
 
@@ -25,8 +26,7 @@ const Lists = () => {
                                         fontSize: '0.8rem',
                                         padding: '2px 6px',
                                         borderRadius: '4px',
-                                        backgroundColor: exercise.difficulty === 'Fácil' ? '#d4edda' : exercise.difficulty === 'Médio' ? '#fff3cd' : '#f8d7da',
-                                        color: exercise.difficulty === 'Fácil' ? '#155724' : exercise.difficulty === 'Médio' ? '#856404' : '#721c24'
+                                        ...getDifficultyStyle(exercise.difficulty)
                                     }}>
                                         {exercise.difficulty}
                                     </span>

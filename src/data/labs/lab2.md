@@ -16,6 +16,7 @@ import url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs
 Leia o arquivo `pokemon-lib2.arr` para entender as funções e constantes já disponíveis (ver ao final desta página).
 Você pode acessar as funções e constantes da biblioteca usando o operador `P.`. Exemplo: `P.cria-carta`, `P.POKE-DATA`.
 
+
 Sua missão neste laboratório é **explorar a tabela de Pokémons da primeira geração** usando funções recursivas sobre listas, e ao final **desenhar todas as cartas lado a lado** usando uma lista de imagens definida por você!
 
 > 💡 **INSTRUÇÕES PARA O LABORATÓRIO:**

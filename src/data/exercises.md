@@ -150,6 +150,26 @@ Após, modifique o programa feito para determinar a posição final de um veícu
 use context starter2024
 ```
 
+## Exercício: Área do Triângulo
+**ID:** Expressões Aritméticas-0
+**Dificuldade:** Resolvido
+
+Crie um programa em Pyret que calcule a área de um triângulo dados sua base e altura. A fórmula da área é $A = \frac{base \cdot altura}{2}$.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+fun area-triangulo(base :: Number, altura :: Number) -> Number:
+  doc: "Calcula a área de um triângulo dada sua base e altura"
+  (base * altura) / 2
+where:
+  area-triangulo(6, 4) is 12
+  area-triangulo(10, 5) is 25
+  area-triangulo(3, 8) is 12
+end
+```
+
 # Tópico: Projeto de Algoritmos e Expressões Condicionais
 
 ## Exercício: Divisão ou Multiplicação
@@ -387,13 +407,65 @@ use context starter2024
 
 ## Exercício: Viagem e Combustível
 **ID:** Projeto de Algoritmos e Expressões Condicionais-19
-**Dificuldade:** Difícil
+**Dificuldade:** Resolvido
 
 Considere um motorista que precisa entregar mercadorias em três cidades distintas. A ordem das cidades é determinada antecipadamente. Antes de iniciar sua viagem, o motorista precisa se certificar de que possui combustível suficiente para realizar o percurso. Escreva um programa que, dadas as distâncias a serem percorridas para chegar a cada cidade, o consumo do veículo (em quilômetros por litro de combustível) e a quantidade de combustível disponível, informe quais cidades podem ser visitadas. A saída deverá ser informada ao usuário mediante as strings "Cidade 1", "Cidades 1 e 2" e "Todas as Cidades".
 
 ### Testes
 ```pyret height=500
 use context starter2024
+
+fun combustivel-necessario(distancia :: Number, consumo :: Number) -> Number:
+  doc: "Dado a distância a ser percorrida e o consumo do veículo (em quilômetros por litro de combustível), calcula a quantidade de combustivel necessário para realizar o percurso."
+
+  distancia / consumo
+where:
+  combustivel-necessario(100, 10) is 10
+  combustivel-necessario(100, 20) is 5
+  combustivel-necessario(100, 5) is 20
+end
+
+fun cidades-possiveis(dist1 :: Number, dist2 :: Number, dist3 :: Number, consumo :: Number, combustivel :: Number) -> String:
+  doc: "Dadas as distâncias a serem percorridas para chegar a cada cidade, o consumo do veículo (em quilômetros por litro de combustível) e a quantidade de combustível disponível, informe quais cidades podem ser visitadas. A saída deverá ser informada ao usuário mediante as strings \"Cidade 1\", \"Cidades 1 e 2\" e \"Todas as Cidades\"."
+  
+  ask:
+    | combustivel-necessario(dist1, consumo) > combustivel then: "Nenhuma cidade"
+    | combustivel-necessario(dist1 + dist2, consumo) > combustivel then: "Cidade 1"
+    | combustivel-necessario(dist1 + dist2 + dist3, consumo) > combustivel then: "Cidades 1 e 2"
+    | otherwise: "Todas as Cidades"
+  end
+
+where:
+  cidades-possiveis(100, 100, 100, 10, 10) is "Cidade 1"
+  cidades-possiveis(100, 100, 100, 10, 20) is "Cidades 1 e 2"
+  cidades-possiveis(100, 100, 100, 10, 30) is "Todas as Cidades"
+end
+```
+
+## Exercício: Positivo, Negativo ou Zero
+**ID:** Projeto de Algoritmos e Expressões Condicionais-0
+**Dificuldade:** Resolvido
+
+Escreva uma função em Pyret que receba um número e retorne a string `"positivo"`, `"negativo"` ou `"zero"` conforme o valor recebido.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+fun classifica-numero(n :: Number) -> String:
+  doc: "Retorna 'positivo', 'negativo' ou 'zero' dependendo do valor de n"
+  if n > 0:
+    "positivo"
+  else if n < 0:
+    "negativo"
+  else:
+    "zero"
+  end
+where:
+  classifica-numero(10)  is "positivo"
+  classifica-numero(-5)  is "negativo"
+  classifica-numero(0)   is "zero"
+end
 ```
 
 # Tópico: Tabelas
@@ -498,7 +570,6 @@ where:
 end
 
 fun count-chocolate(table :: Table) -> Number:
-    doc: "Dado uma tabela de doces, conta quantos doces possuem chocolate"
     # Complete aqui
 where:
     count-chocolate(candy-data) is 37
@@ -609,6 +680,34 @@ use context starter2024
 lst :: List<Any> = link(1, link("dois", link("três", link(4, link(6, empty)))))
 ```
 
+## Exercício: Soma de uma lista
+**ID:** Listas-9
+**Dificuldade:** Resolvido
+
+Desenvolva a função `soma-lista :: (lst :: List<Number>) -> Number` que receba uma lista de números e retorne a soma de todos os elementos em posições pares (contando a partir de 0), i.e., o primeiro elemento da lista, o terceiro, o quinto, etc.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+fun soma-lista(lst :: List<Number>, ind-par :: Boolean) -> Number:
+  doc: "Retorna a soma de todos os elementos de uma lista de números"
+  cases (List) lst:
+    | empty => 0
+    | link(primeiro, resto) => 
+        if ind-par:
+          primeiro + soma-lista(resto, false)
+        else:
+          soma-lista(resto, true)
+        end
+  end
+where:
+  soma-lista([list: 1, 2, 3, 4, 5], true) is 9
+  soma-lista([list: 10, -3, 7], true)     is 17
+  soma-lista(empty, true)                 is 0
+end
+```
+
 # Tópico: Dados Estruturados e Dados Condicionais
 
 ## Exercício: Estrutura Aluno Pós
@@ -661,4 +760,28 @@ Uma locadora de veículos precisa de um programa para calcular o valor da diári
 use context starter2024
 ```
 
+## Exercício: Estrutura Ponto 2D (Resolvido)
+**ID:** Dados Estruturados e Dados Condicionais-0
+**Dificuldade:** Resolvido
 
+Defina uma estrutura `Ponto` que representa um ponto no plano cartesiano bidimensional com coordenadas `x` e `y`. Em seguida, escreva a função `distancia` que, dados dois pontos, calcula a distância euclidiana entre eles. A fórmula é $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+data Ponto:
+  # Estrutura para representar um ponto 2D
+  | ponto(x :: Number, y :: Number)
+  # x é a coordenada no eixo-x e y é a coordenada no eixo-y
+end
+
+fun distancia(p1 :: Ponto, p2 :: Ponto) -> Number:
+  doc: "Calcula a distância euclidiana entre dois pontos no plano"
+  num-sqrt(num-expt(p2.x - p1.x, 2) + num-expt(p2.y - p1.y, 2))
+where:
+  distancia(ponto(0, 0), ponto(3, 4)) is 5
+  distancia(ponto(1, 1), ponto(4, 5)) is 5
+  distancia(ponto(0, 0), ponto(0, 0)) is 0
+end
+```

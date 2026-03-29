@@ -5,6 +5,7 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import remarkGfm from 'remark-gfm';
 import PyretEmbed from './PyretEmbed';
+import { getDifficultyStyle } from '../utils/difficultyStyles';
 
 const ExerciseItem = ({ exercise }) => {
     return (
@@ -16,10 +17,7 @@ const ExerciseItem = ({ exercise }) => {
                         padding: '0.25rem 0.5rem',
                         borderRadius: '4px',
                         fontSize: '0.8rem',
-                        backgroundColor: exercise.difficulty === 'Fácil' ? '#d4edda' :
-                            exercise.difficulty === 'Médio' ? '#fff3cd' : '#f8d7da',
-                        color: exercise.difficulty === 'Fácil' ? '#155724' :
-                            exercise.difficulty === 'Médio' ? '#856404' : '#721c24'
+                        ...getDifficultyStyle(exercise.difficulty)
                     }}>
                     {exercise.difficulty}
                 </span>
