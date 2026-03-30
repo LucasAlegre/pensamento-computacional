@@ -10,7 +10,7 @@ include image
 include csv
 include data-source
 # Importa funções e constantes da biblioteca de pokemon
-import url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/pokemon-lib2.arr") as P
+include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/pokemon-lib2.arr")
 
 
 #|
@@ -23,7 +23,7 @@ fun id-primeira-geracao(row :: Row) -> Boolean:
     false
 end
 
-POKE-GEN1 :: Table = P.POKE-DATA
+POKE-GEN1 :: Table = POKE-DATA  # Filtre a tabela para conter apenas pokémons da primeira geração
 
 NOMES-POKEMONS :: List<String> = empty
 TIPOS-POKEMONS :: List<String> = empty
@@ -72,6 +72,7 @@ end
 
 data ListaDeImagens:
     | i-empty
+    # Completar a definição
 end
 
 fun cria-lista-de-cartas(nomes :: List<String>, tipos :: List<String>) -> ListaDeImagens:
