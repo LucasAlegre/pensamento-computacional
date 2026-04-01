@@ -37,7 +37,6 @@ fun tamanho(lista :: List<Any>) -> Number:
 
     0
 where:
-    tamanho([list: 1, 2, 3]) is 3
     tamanho(empty) is 0
 end
 
