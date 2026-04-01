@@ -106,8 +106,10 @@ end
 fun cria-lista-de-cartas(nomes :: List<String>, tipos :: List<String>) -> ListaDeImagens:
     doc: "Dado uma lista de nomes de Pokémons e uma lista dos respectivos tipos, devolve uma lista de imagens de cartas."
     cases (List<String>) nomes:
+        # Caso base: Se a lista de nomes for vazia, devolve uma lista de imagens vazia
         | empty => i-empty
         | link(first, rest) => 
+            # Passo: Se a lista de nomes não for vazia, devolve a primeira imagem ao lado da imagem das cartas do resto da lista
             i-link(
                 # Cria a carta do primeiro Pokémon e adiciona na
                 cria-carta(first, tipos.first),  
@@ -131,4 +133,3 @@ end
 CARTAS = cria-lista-de-cartas(NOMES-POKEMONS, TIPOS-POKEMONS)
 
 desenha-lista-de-cartas(CARTAS)
-

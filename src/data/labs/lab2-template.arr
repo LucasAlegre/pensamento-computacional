@@ -20,7 +20,7 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
 fun id-primeira-geracao(row :: Row) -> Boolean:
     doc: "Dado uma linha de tabela e um número, devolve True se o id da linha for menor que o número dado."
 
-    false
+    false # [implemente a função!]
 end
 
 POKE-GEN1 :: Table = POKE-DATA  # Filtre a tabela para conter apenas pokémons da primeira geração
@@ -78,14 +78,16 @@ where:
     remove-tipos-repetidos(empty) is empty
 end
 
+# tamanho(remove-tipos-repetidos(TIPOS-POKEMONS)) retorna o número de tipos diferentes de pokémons da primeira geração!
+
 
 #|
     Exercício 4
 |#
 
+# Complete a definição abaixo:
 data ListaDeImagens:
     | i-empty
-    # Completar a definição
 end
 
 fun cria-lista-de-cartas():

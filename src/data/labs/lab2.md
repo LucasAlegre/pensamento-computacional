@@ -67,7 +67,6 @@ Implemente a função recursiva `tamanho` que recebe uma lista de qualquer tipo 
 
 Implemente a função recursiva `conta-tipos` que recebe uma lista de tipos (`List<String>`) e um tipo (`String`), e devolve quantas vezes esse tipo aparece na lista.
 
-
 ```
 conta-tipos([list: "FIRE", "WATER", "FIRE"], "FIRE") is 2
 conta-tipos(empty, "FIRE") is 0
