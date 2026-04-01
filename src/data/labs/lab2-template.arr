@@ -18,7 +18,7 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
 |#
 
 fun id-primeira-geracao(row :: Row) -> Boolean:
-    doc: "Dado uma linha de tabela e um número, devolve True se o id da linha for menor que o número dado."
+    doc: "Dado uma linha de tabela, devolve True se o id da linha for menor ou igual que 151."
 
     false # [implemente a função!]
 end
