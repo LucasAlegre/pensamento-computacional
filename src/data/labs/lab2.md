@@ -52,7 +52,7 @@ A biblioteca importada já fornece uma tabela com todos os Pokémons em `POKE-DA
 
 ## 🔢 Exercício 2: Contando o Número de Pokémons
 
-Implemente a função recursiva `tamanho` que recebe uma lista de qualquer tipo (`List<Any>`) e devolve o número de elementos dela, i.e., seu tamanho.
+Implemente a função recursiva `tamanho` que recebe uma lista de strings e devolve o número de elementos dela, i.e., seu tamanho.
 
 - **Caso base:** uma lista vazia tem tamanho `0`.
 - **Caso recursivo:** o tamanho de uma lista não vazia é `1` mais o tamanho do restante (`rest`).
