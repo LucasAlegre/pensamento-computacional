@@ -25,39 +25,53 @@ end
 
 POKE-GEN1 :: Table = POKE-DATA  # Filtre a tabela para conter apenas pokémons da primeira geração
 
-NOMES-POKEMONS :: List<String> = empty
-TIPOS-POKEMONS :: List<String> = empty
+NOMES-POKEMONS :: List<String> = empty # [lista com todos os nomes de pokemons da tabela (coluna `"name"`)]
+TIPOS-POKEMONS :: List<String> = empty # [lista com todos os tipos de pokemons da tabela (coluna `"type1"`)]
 
 #|
     Exercício 2
 |#
 
-fun tamanho(lista :: List<Any>) -> Number:
-    doc: "Dado uma lista, devolve o tamanho da lista."
+fun tamanho(lista :: List<String>) -> Number:
+    doc: "Dado uma lista de strings, devolve o tamanho da lista."
+    # Se a lista for vazia, então seu tamanho é 0
 
+    # Senão, o tamanho da lista é a soma de:
+        # 1
+        # tamanho do resto da lista
+    
     0
 where:
     tamanho(empty) is 0
+    # Complete os testes/exemplos!
 end
 
 #|
     Exercício 3
 |#
 
-fun conta-tipos(lista-tipos :: List<String>, tipo :: String) -> Number:
+fun conta-tipos():
     doc: ```Dado uma lista de tipos de Pokémons e um tipo, 
             devolve o número de vezes que o tipo aparece na lista.```
-    
+    # Se a lista for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
     0
 where:
-    conta-tipos([list: "FIRE", "WATER", "ELECTRIC", "GRASS", "NORMAL", "FIRE"], "FIRE") is 2
-    conta-tipos(empty, "FIRE") is 0
+    # Sempre coloque testes nas suas funções!
+    true is true
 end
 
 
-fun remove-tipos-repetidos(lista-tipos :: List<String>) -> List<String>:
-    doc: "Dado uma lista de tipos de Pokémons, devolve uma lista sem tipos repetidos."
-    
+fun remove-tipos-repetidos():
+    doc: "Dado uma lista de tipos de Pokémons, devolve uma lista sem tipos repetidos, sempre mantendo a última ocorrência de cada tipo na lista original."
+    # Se a lista for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
     empty
 where:
     remove-tipos-repetidos([list: "FIRE", "WATER", "ELECTRIC", "GRASS", "NORMAL", "FIRE"]) is [list: "WATER", "ELECTRIC", "GRASS", "NORMAL", "FIRE"]
@@ -74,18 +88,28 @@ data ListaDeImagens:
     # Completar a definição
 end
 
-fun cria-lista-de-cartas(nomes :: List<String>, tipos :: List<String>) -> ListaDeImagens:
+fun cria-lista-de-cartas():
     doc: "Dado uma lista de nomes de Pokémons e uma lista dos respectivos tipos, devolve uma lista de imagens de cartas."
-    
+    # Se a lista de nomes for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento de cada lista]
+        # [solucionar problem para] [resto de cada lista]
     i-empty
 end
 
-fun desenha-lista-de-cartas(lista-de-cartas :: ListaDeImagens) -> Image:
+fun desenha-lista-de-cartas():
     doc: "Dado uma lista de imagens de cartas, devolve uma imagem com todas as cartas lado a lado."
-    
+    # Se a lista de imagens for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
     empty-image
 end
 
-CARTAS = cria-lista-de-cartas(NOMES-POKEMONS, TIPOS-POKEMONS)
+# Descomente as linhas abaixo ao terminar de implementar as funções:
 
-desenha-lista-de-cartas(CARTAS)
+# CARTAS = cria-lista-de-cartas(NOMES-POKEMONS, TIPOS-POKEMONS)
+
+# desenha-lista-de-cartas(CARTAS)

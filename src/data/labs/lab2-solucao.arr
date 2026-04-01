@@ -32,12 +32,12 @@ TIPOS-POKEMONS :: List<String> = POKE-GEN1.get-column("type1")
     Exercício 2
 |#
 
-fun tamanho(lista :: List<Any>) -> Number:
-    doc: "Dado uma lista, devolve o tamanho da lista."
-    cases (List<Any>) lista:
+fun tamanho(lista :: List<String>) -> Number:
+    doc: "Dado uma lista de strings, devolve o tamanho da lista."
+    cases (List<String>) lista:
         # Caso base: uma lista vazia tem tamanho 0.
         | empty => 0
-        # O tamanho de uma lista não vazia é 1 mais o tamanho do restante.
+        # Passo: O tamanho de uma lista não vazia é 1 mais o tamanho do restante.
         | link(first, rest) => 1 + tamanho(rest)
     end
 where:
@@ -53,11 +53,16 @@ fun conta-tipos(lista-tipos :: List<String>, tipo :: String) -> Number:
     doc: ```Dado uma lista de tipos de Pokémons e um tipo, 
             devolve o número de vezes que o tipo aparece na lista.```
     cases (List<String>) lista-tipos:
+        # Caso base: Uma lista não vazia contém o tipo procurado zero vezes.
         | empty => 0
         | link(first, rest) => 
+        # Caso recursivo: Uma lista não vazia possui o seguinte número de vezes o tipo procurado:
+            # Se o primeiro elemento da lista for do tipo procurado: 
             if first == tipo:
+                # 1 somado ao número de vezes que o tipo aparece no resto da lista
                 1 + conta-tipos(rest, tipo) 
             else:
+                # Caso contrários: o número de vees que o tipo procurado aparece no resto da lista
                 conta-tipos(rest, tipo)
             end
     end
@@ -70,12 +75,16 @@ end
 fun remove-tipos-repetidos(lista-tipos :: List<String>) -> List<String>:
     doc: "Dado uma lista de tipos de Pokémons, devolve uma lista sem tipos repetidos."
     cases (List<String>) lista-tipos:
+        # Caso base: Uma lista vazia não possui tipos repetidos.
         | empty => empty
         | link(first, rest) =>
             ask:
+                # Se o primeiro elemento da lista for do tipo procurado: 
                 | conta-tipos(rest, first) > 0 then: 
+                    # Retorna o resto da lista filtrada (sem o primeiro elemento)
                     remove-tipos-repetidos(rest)
                 | otherwise: 
+                    # Caso contrário: adiciona o primeiro elemento da lista ao resto da lista filtrada
                     link(first, remove-tipos-repetidos(rest))
             end
     end
@@ -110,11 +119,11 @@ end
 fun desenha-lista-de-cartas(lista-de-cartas :: ListaDeImagens) -> Image:
     doc: "Dado uma lista de imagens de cartas, devolve uma imagem com todas as cartas lado a lado."
     cases (ListaDeImagens) lista-de-cartas:
-        # Se a lista é vazia, devolve uma imagem vazia
+        # Caso base: Se a lista é vazia, devolve uma imagem vazia
         | i-empty => empty-image
-        # Se a lista não é vazia, devolve a primeira imagem ao lado da imagem das cartas do resto da lista
+        # Passo: Se a lista L não stiver vazia, colocar a primeira imagem da lista ao lado da imagem gerada com as cartas (imagens) do resto da lista, lado a lado
         | i-link(first, rest) => beside(
-                                    first, 
+                                    first,
                                     desenha-lista-de-cartas(rest))
     end
 end
@@ -122,3 +131,4 @@ end
 CARTAS = cria-lista-de-cartas(NOMES-POKEMONS, TIPOS-POKEMONS)
 
 desenha-lista-de-cartas(CARTAS)
+
