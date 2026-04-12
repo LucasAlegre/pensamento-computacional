@@ -105,6 +105,31 @@ where:
     seleciona-fundo(FIRE) is FUNDO-FIRE
 end
 
+fun string-to-tipo(s :: String) -> TipoPokemon:
+    doc: "Dada uma string, devolve o tipo de pokemon correspondente a esta string (assumir que a string é sempre um tipo válido)."
+    u = string-to-upper(s)
+    
+    ask:
+        | u == "NORMAL" then: NORMAL
+        | u == "FIRE" then: FIRE
+        | u == "WATER" then: WATER
+        | u == "ELECTRIC" then: ELECTRIC
+        | u == "GRASS" then: GRASS
+        | u == "ICE" then: ICE
+        | u == "FIGHTING" then: FIGHTING
+        | u == "POISON" then: POISON
+        | u == "PSYCHIC" then: PSYCHIC
+        | u == "BUG" then: BUG
+        | u == "GROUND" then: GROUND
+        | u == "FAIRY" then: FAIRY
+        | u == "ROCK" then: ROCK
+        | u == "GHOST" then: GHOST
+        | u == "DRAGON" then: DRAGON
+        | u == "STEEL" then: STEEL
+        | u == "FLYING" then: FLYING
+        | otherwise: DARK
+    end
+end
 
 fun id-pokemon(nome :: String) -> Number:
     doc: "Dado o nome de um pokemon, devolve o id deste pokemon."
