@@ -7,7 +7,10 @@ include csv
 include data-source
 include reactors
 
-provide: * end
+provide:
+  *,
+  type *
+end
 
 
 data TipoPokemon:
