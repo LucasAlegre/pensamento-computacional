@@ -14,6 +14,7 @@ end
 
 
 data TipoPokemon:
+    # Um Pokemon ou movimento pode ter um dos tipos abaixo:
     | NORMAL
     | FIRE
     | ELECTRIC
@@ -35,6 +36,14 @@ data TipoPokemon:
 end
 
 
+data Efeito:
+    # Um ataque pode ter um dos efeitos abaixo:
+    | SEM-EFEITO
+    | NAO-EFETIVO
+    | EFETIVO
+    | SUPER-EFETIVO
+end
+
 POKE-URL = "https://gist.githubusercontent.com/armgilles/194bcff35001e7eb53a2a8b441e8b2c6/raw/92200bc0a673d5ce2110aaad4544ed6c4010f687/pokemon.csv"
 
 POKE-DATA =
@@ -46,6 +55,15 @@ POKE-DATA =
     sanitize type2 using string-sanitizer
     sanitize hp using num-sanitizer
   end
+
+
+EFFECTIVE-URL = "https://raw.githubusercontent.com/zonination/pokemon-chart/refs/heads/master/chart.csv"
+
+EFFECTIVE-DATA =
+  load-table: Attacking, Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy
+    source: csv-table-url(EFFECTIVE-URL, default-options)
+  end
+
 
 CARTA-ALT = 175
 CARTA-LAR = 125
@@ -74,10 +92,6 @@ FUNDO-DARK = rectangle(CARTA-LAR, CARTA-ALT, "solid", "black")
 
 ATAQUE = "Attack"
 DEFESA = "Defense"
-EFEITO-SEMEFEITO = "No effect"
-EFEITO-NAOEFETIVO = "Not very effective"
-EFEITO-EFETIVO = "Effective"
-EFEITO-SUPEREFETIVO = "Super-effective!"
 
 
 fun seleciona-fundo(tipo :: TipoPokemon) -> Image:
@@ -134,6 +148,33 @@ fun string-to-tipo(s :: String) -> TipoPokemon:
     end
 end
 
+fun tipo-to-string(tipo :: TipoPokemon) -> String:
+    doc: "Dada um tipo de pokemon, devolve a string correspondente."
+    ask:
+        | tipo == NORMAL then: "Normal"
+        | tipo == FIRE then: "Fire"
+        | tipo == WATER then: "Water"
+        | tipo == ELECTRIC then: "Electric"
+        | tipo == GRASS then: "Grass"
+        | tipo == ICE then: "Ice"
+        | tipo == FIGHTING then: "Fighting"
+        | tipo == POISON then: "Poison"
+        | tipo == PSYCHIC then: "Psychic"
+        | tipo == BUG then: "Bug"
+        | tipo == GROUND then: "Ground"
+        | tipo == FAIRY then: "Fairy"
+        | tipo == ROCK then: "Rock"
+        | tipo == GHOST then: "Ghost"
+        | tipo == DRAGON then: "Dragon"
+        | tipo == STEEL then: "Steel"
+        | tipo == FLYING then: "Flying"
+        | otherwise: "Dark"
+    end
+where:
+    tipo-to-string(NORMAL) is "Normal"
+    tipo-to-string(FIRE) is "Fire"
+end
+
 fun id-pokemon(nome :: String) -> Number:
     doc: "Dado o nome de um pokemon, devolve o id deste pokemon."
     tabela = filter-with(POKE-DATA, lam(row): row["name"] == nome end)
@@ -180,48 +221,25 @@ where:
 end
 
 
-fun testa-superefetivo(tipo-ataque :: TipoPokemon, tipo-defesa :: TipoPokemon) -> Boolean:
-    doc: "Dado o tipo de ataque e o tipo de defesa, true se o ataque for super efetivo e false caso contrário."
-    ask:
-        | (tipo-ataque == FIRE) and (tipo-defesa == GRASS) then: true
-        | (tipo-ataque == WATER) and (tipo-defesa == FIRE) then: true
-        | (tipo-ataque == ELECTRIC) and (tipo-defesa == WATER) then: true
-        | (tipo-ataque == GRASS) and (tipo-defesa == WATER) then: true
-        | otherwise: false
-    end
-where:
-    testa-superefetivo(FIRE, GRASS) is true
-    testa-superefetivo(WATER, FIRE) is true
-    testa-superefetivo(ELECTRIC, WATER) is true
-    testa-superefetivo(GRASS, FIRE) is false
-end
-
-
-fun testa-naoefetivo(tipo-ataque :: TipoPokemon, tipo-defesa :: TipoPokemon) -> Boolean:
-    doc: "Dado o tipo de ataque e o tipo de defesa, true se o ataque for não efetivo e false caso contrário."
-    # um tipo é não efetivo se ele for igual ao tipo de defesa ou se a defesa for super efetiva
-    (tipo-ataque == tipo-defesa) or testa-superefetivo(tipo-defesa, tipo-ataque)
-where:
-    testa-naoefetivo(FIRE, WATER) is true
-    testa-naoefetivo(WATER, ELECTRIC) is true
-    testa-naoefetivo(ELECTRIC, GRASS) is false
-    testa-naoefetivo(GRASS, FIRE) is true
-end
-
-
-fun verifica-efeito(tipo-ataque :: TipoPokemon, tipo-defesa :: TipoPokemon) -> String:
+fun verifica-efeito(tipo-ataque :: TipoPokemon, tipo-defesa :: TipoPokemon) -> Efeito:
     doc: ```Dado o tipo de ataque e o tipo de defesa, devolve uma string indicando o efeito do ataque (sem efeito, não efetivo, efetivo ou super efetivo).
     Tabela de vantagens: https://pokemondb.net/type
     ```
+    str-ataque = tipo-to-string(tipo-ataque)
+    str-defesa = tipo-to-string(tipo-defesa)
+    tabela = filter-with(EFFECTIVE-DATA, lam(row): row["Attacking"] == str-ataque end)
+    num-effect = tabela.row-n(0)[str-defesa]
+
     ask:
-        | testa-superefetivo(tipo-ataque, tipo-defesa) then: EFEITO-SUPEREFETIVO
-        | testa-naoefetivo(tipo-ataque, tipo-defesa) then: EFEITO-NAOEFETIVO
-        | otherwise: EFEITO-EFETIVO  # Em todos outros casos, o efeito é efetivo
+        | num-effect == "0" then: SEM-EFEITO
+        | num-effect == "0.5" then: NAO-EFETIVO
+        | num-effect == "1" then: EFETIVO
+        | num-effect == "2" then: SUPER-EFETIVO
     end
 where:
-    verifica-efeito(FIRE, GRASS) is EFEITO-SUPEREFETIVO
-    verifica-efeito(FIRE, WATER) is EFEITO-NAOEFETIVO
-    verifica-efeito(FIRE, ELECTRIC) is EFEITO-EFETIVO
+    verifica-efeito(FIRE, GRASS) is SUPER-EFETIVO
+    verifica-efeito(FIRE, WATER) is NAO-EFETIVO
+    verifica-efeito(FIRE, ELECTRIC) is EFETIVO
 end
 
 
