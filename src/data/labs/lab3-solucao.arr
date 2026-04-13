@@ -53,6 +53,7 @@ SLEEP = cura("Sleep", 50)
 |#
 
 data Time:
+    # Um Time é uma lista de Pokemons
     | t-empty
     | t-link(first :: Pokemon, rest :: Time)
 end
@@ -114,21 +115,34 @@ end
     Exercício 5
 |#
 
+fun efeito-to-multiplicador(e :: Efeito) -> Number:
+    doc: "Dado um tipo de efeito, devolve o multiplicador de dano correspondente."
+    ask:
+        | e == SEM-EFEITO then: 0
+        | e == NAO-EFETIVO then: 0.5
+        | e == EFETIVO then: 1
+        | e == SUPER-EFETIVO then: 2
+    end
+where:
+    efeito-to-multiplicador(SEM-EFEITO) is 0
+    efeito-to-multiplicador(NAO-EFETIVO) is 0.5
+    efeito-to-multiplicador(EFETIVO) is 1
+    efeito-to-multiplicador(SUPER-EFETIVO) is 2
+end
+
 fun aplica-movimento(p :: Pokemon, m :: Movimento) -> Pokemon:
-    doc: "Dado um pokemon e um movimento, devolve o pokemon resultante de aplicar este movimento sobre este pokemon (considerar que o ataque sempre acerta e que a cura não pode aumentar o hp do pokemon para mais do que 100)."
+    doc: "Dado um pokemon e um movimento, devolve o pokemon resultante de aplicar este movimento sobre este pokemon. Em caso do movimento do tipo Ataque, o dado é multiplicado pelo multiplicador do efeito correspondente."
     cases (Movimento) m:
         | ataque(nome, tipo, poder) => 
-            ask:
-                | verifica-efeito(tipo, p.tipo) == EFEITO-SUPEREFETIVO then: 
-                    cura-ou-dano(p, poder * -2)
-                | verifica-efeito(tipo, p.tipo) == EFEITO-NAOEFETIVO then: 
-                    cura-ou-dano(p, poder * -0.5)
-                | otherwise: 
-                    cura-ou-dano(p, poder * -1)
-            end
+            cura-ou-dano(p, (-1 * poder) * efeito-to-multiplicador(verifica-efeito(tipo, p.tipo)))
         | cura(nome, c) => cura-ou-dano(p, c)
     end
+where:
+    aplica-movimento(BULBASAUR, EMBER) is pokemon("Bulbasaur", 1, GRASS, 0, 45)
+    aplica-movimento(BULBASAUR, TACKLE) is pokemon("Bulbasaur", 1, GRASS, 5, 45)
+    aplica-movimento(BULBASAUR, SLEEP) is pokemon("Bulbasaur", 1, GRASS, 45, 45)
 end
+
 
 #|
     Exercício 6
