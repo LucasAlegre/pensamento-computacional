@@ -187,23 +187,25 @@ where:
 end
 
 
-fun id-to-3-digit-string(pokemon-id :: Number) -> String:
-    doc: "Dado um número, devolve uma string com este número formatado com 3 dígitos (com zeros à esquerda se necessário)."
+fun id-to-4-digit-string(pokemon-id :: Number) -> String:
+    doc: "Dado um número, devolve uma string com este número formatado com 4 dígitos (com zeros à esquerda se necessário)."
     ask:
-        | pokemon-id < 10 then: string-append("00", num-to-string(pokemon-id))
-        | pokemon-id < 100 then: string-append("0", num-to-string(pokemon-id))
+        | pokemon-id < 10 then: string-append("000", num-to-string(pokemon-id))
+        | pokemon-id < 100 then: string-append("00", num-to-string(pokemon-id))
+        | pokemon-id < 1000 then: string-append("0", num-to-string(pokemon-id))
         | otherwise: num-to-string(pokemon-id)
     end
 where:
-    id-to-3-digit-string(1) is "001"
-    id-to-3-digit-string(10) is "010"
-    id-to-3-digit-string(100) is "100"
+    id-to-4-digit-string(1) is "0001"
+    id-to-4-digit-string(10) is "0010"
+    id-to-4-digit-string(100) is "0100"
+    id-to-4-digit-string(1000) is "1000"
 end
 
 
 fun img-pokemon(pokemon-id :: Number) -> Image:
     doc: "Dado o id de um pokemon, devolve a imagem deste pokemon."
-    url = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/" + id-to-3-digit-string(pokemon-id) + ".png"
+    url = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/" + id-to-4-digit-string(pokemon-id) + ".png"
     img = image-url(url)
 
     scale(0.75, img)
