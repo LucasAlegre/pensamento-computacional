@@ -10,7 +10,6 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
 |#
 
 
-
 data Pokemon:
     # Estrutura para representar um Pokemon
     | pokemon # Complete!
@@ -61,6 +60,10 @@ fun desenha-pokemon(p :: Pokemon) -> Image:
     carta-com-hp
 end
 
+
+# Veja o resultado de desenha-pokemon para suas constantes criadas:
+# desenha-pokemon(...)
+# ...
 
 #| 
     Exercício 2: Time Pokémon
