@@ -94,6 +94,7 @@ O dano causado por um `Movimento` depende do poder do ataque e do efeito entre o
 
 1. Implemente a função `aplica-movimento` que, dado um Pokemon e um Movimento, deve retornar um novo Pokemon com o HP atualizado. 
    - Para um ataque: Reduz o HP do pokemon com base no poder do ataque e no efeito entre o tipo do movimento e o tipo do pokemon defensor. Se o efeito for `EFEITO-SUPEREFETIVO`, o dano é duplicado (x2). Se for `EFEITO-NAOEFETIVO`, o dano é reduzido pela metade (*0.5). Se for `EFEITO-SEM-EFEITO`, o dano é zero. Caso contrário, o dano é aplicado normalmente.
+   Faça uso de funções auxiliares para calcular o multiplicador!
 
    - Para cura: Atualiza o HP do pokemon com o valor de cura do movimento.
 

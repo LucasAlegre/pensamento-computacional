@@ -94,7 +94,11 @@ end
 fun cria-time(tabela :: Table, lista-ids :: List<Number>) -> Time:
     doc: "Dada uma tabela de pokemons e uma lista de IDs, devolve um time com todos os pokemons desta tabela."
 
-    # Complete aqui!
+    # Se a lista for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
     -1
 where:
     2 + 2 is 5
@@ -127,7 +131,11 @@ end
 |#
 
 # fun aplica-movimento-no-time(t :: Time, m :: Movimento) -> Time:
-#     ...
+    # Se a lista for vazia, então [...]
+
+    # Senão, []
+        # [fazer algo com] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
 # where:
 #     ...
 # end
