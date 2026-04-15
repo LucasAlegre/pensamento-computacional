@@ -1359,16 +1359,27 @@ SLEEP = cura("Sleep", 50)
 
 fun barra-hp(p :: Pokemon) -> Image:
     doc: "Dado um pokemon, gera uma imagem da sua barra de pontos de vida (HP). A barra é verde se o HP for maior que 75%, amarela se o HP for maior que 25% e vermelha se o HP for menor ou igual a 25%."
+    # Calcula a proporção de vida atual do Pokemon
     porcentagem-vida = p.hp / p.max-hp
+    
+    # Define a cor da barra baseada na porcentagem de vida
     cor = ask:
             | porcentagem-vida > 0.75 then: "green"
             | porcentagem-vida > 0.25 then: "yellow"
             | otherwise: "red"
         end
+        
+    # Cria a borda preta (contorno) para a barra de HP
     borda = rectangle(CARTA-LAR, 20, "outline", "black")
+    
+    # Cria o preenchimento da barra de vida com a cor correspondente 
+    # e a sobrepõe alinhada à esquerda dentro da borda para representar a proporção preenchida
     barra = overlay-align("left", "top", rectangle(CARTA-LAR * porcentagem-vida, 20, "solid", cor), borda)
+    
+    # Cria o texto que indica o HP no formato "Atual / Máximo"
     texto-hp = text("HP: " + num-to-string(p.hp) + " / " + num-to-string(p.max-hp), 10, "black")
 
+    # Centraliza o texto sobre a barra e a retorna
     overlay-align("center", "center", texto-hp, barra)
 end
 
@@ -1416,8 +1427,12 @@ TIME3 = t-link(BULBASAUR, t-link(CHARMANDER, t-link(SQUIRTLE, t-link(GENGAR, t-e
 
 fun extrai-pokemon-tabela(id :: Number, table :: Table) -> Pokemon:
     doc: "Dado um id e uma tabela de pokemons, devolve o pokemon correspondente a este id nesta tabela."
+    # Filtra a tabela procurando as linhas (rows) com o mesmo id fornecido
+    # e assume o primeiro elemento encontrado usando a função .row-n(0)
     row = filter-with(table, lam(row): row["id"] == id end).row-n(0)
 
+    # Cria e retorna a instância do Pokemon utilizando os dados obtidos da linha filtrada
+    # (assumindo que inicialmente o hp atual e o max-hp sejam os mesmos)
     pokemon(row["name"], row["id"], string-to-tipo(row["type1"]), row["hp"], row["hp"])
 where:
     extrai-pokemon-tabela(1, POKE-DATA) is pokemon("Bulbasaur", 1, GRASS, 45, 45)
@@ -1427,11 +1442,14 @@ end
 fun cria-time(tabela :: Table, lista-ids :: List<Number>) -> Time:
     doc: "Dada uma tabela de pokemons e uma lista de IDs, devolve um time com todos os pokemons desta tabela."
     cases (List<Number>) lista-ids:
-        # Se a lista de ids é vazia, gera um time vazio
+        # Se a lista de IDs está vazia, o problema de gerar um time está resolvido: é um time vazio
         | empty => t-empty
+        # Para uma lista de IDs com elementos:
         | link(f, r) => 
             t-link(
+                # Busca-se na tabela o pokemon referente ao primeiro ID (\`f\`)
                 extrai-pokemon-tabela(f, tabela),
+                # E o adiciona na frente do time já criado a partir do resto da lista
                 cria-time(tabela, r))
     end
 where:
@@ -1445,13 +1463,16 @@ end
 
 fun atualiza-hp(p :: Pokemon, valor :: Number) -> Pokemon:
     doc: "Dado um pokemon e um valor (positivo para cura ou negativo para dano), atualiza o hp (vida) do pokemon, respeitando os limites de hp mínimo (0) e máximo (hp-max)."
+    # Calcula o novo hp avaliando se não passa dos limites estipulados de vida
     novo-hp = ask:
-        | (p.hp + valor) < 0 then: 0
-        | (p.hp + valor) > p.max-hp then: p.max-hp
-        | otherwise: p.hp + valor
+        | (p.hp + valor) < 0 then: 0 # Não pode ficar com hp negativo
+        | (p.hp + valor) > p.max-hp then: p.max-hp # Não pode ter mais hp que o máximo permitido
+        | otherwise: p.hp + valor # Atualização normal
     end
+    # Obs: Linha comentada abaixo seria uma forma alternativa para garantir o limite de vida com funções
     # novo-hp = num-min(p.max-hp, num-max(0, p.hp + valor))
 
+    # Reconstrói a estrutura Pokemon mantendo todos os dados e passando a vida ajustada (novo-hp)
     pokemon(p.nome, p.id, p.tipo, novo-hp, p.max-hp)
 where:
     atualiza-hp(BULBASAUR, -10) is pokemon("Bulbasaur", 1, GRASS, 35, 45)
@@ -1467,10 +1488,10 @@ end
 fun efeito-to-multiplicador(e :: Efeito) -> Number:
     doc: "Dado um tipo de efeito, devolve o multiplicador de dano correspondente."
     ask:
-        | e == SEM-EFEITO then: 0
-        | e == NAO-EFETIVO then: 0.5
-        | e == EFETIVO then: 1
-        | e == SUPER-EFETIVO then: 2
+        | e == SEM-EFEITO then: 0       # Absorve tudo (nenhum dano recebido)
+        | e == NAO-EFETIVO then: 0.5    # Recebe apenas metade do dano (resistente)
+        | e == EFETIVO then: 1          # Dano segue normal (neutro)
+        | e == SUPER-EFETIVO then: 2    # Recebe o dobro do dano (fraqueza)
     end
 where:
     efeito-to-multiplicador(SEM-EFEITO) is 0
@@ -1478,13 +1499,17 @@ where:
     efeito-to-multiplicador(EFETIVO) is 1
     efeito-to-multiplicador(SUPER-EFETIVO) is 2
 end
-
 fun aplica-movimento(p :: Pokemon, m :: Movimento) -> Pokemon:
     doc: "Dado um pokemon e um movimento, devolve o pokemon resultante de aplicar este movimento sobre este pokemon. Em caso do movimento do tipo Ataque, o dado é multiplicado pelo multiplicador do efeito correspondente."
     cases (Movimento) m:
         | ataque(nome, tipo, poder) => 
+            # Subtrai o HP transformando o poder do ataque em negativo (-1 * poder)
+            # e multiplicando a quantidade de dano pelo multiplicador obtido das fraquezas e resistências
             atualiza-hp(p, (-1 * poder) * efeito-to-multiplicador(verifica-efeito(tipo, p.tipo)))
-        | cura(nome, c) => atualiza-hp(p, c)
+            
+        | cura(nome, c) => 
+            # Apenas incrementa a vida do pokemon utilizando a quantidade de cura \`c\`
+            atualiza-hp(p, c)
     end
 where:
     aplica-movimento(BULBASAUR, EMBER) is pokemon("Bulbasaur", 1, GRASS, 0, 45)
@@ -1500,10 +1525,14 @@ end
 fun aplica-movimento-no-time(t :: Time, m :: Movimento) -> Time:
     doc: "Dado um time e um movimento, devolve o time resultante de aplicar este movimento sobre todos os pokemons deste time."
     cases (Time) t:
+        # Se o time é vazio, aplicar o movimento sobre ele está resolvido, resultando no próprio time vazio
         | t-empty => t-empty
+        # Para um time com integrantes:
         | t-link(p, rest) => 
             t-link(
+                # Aplica o movimento isoladamente sobre o primeiro pokemon (\`p\`)
                 aplica-movimento(p, m), 
+                # E conecta esse pokemon ao time obtido aplicando o movimento ao resto da lista
                 aplica-movimento-no-time(rest, m))  
     end
 where:
@@ -1515,8 +1544,13 @@ end
 fun desenha-time(t :: Time) -> Image:
     doc: "Dado um time Pokémon, gera uma imagem das cartas dos Pokemons do time lado a lado."
     cases (Time) t:
+        # Se o time é vazio, desenhá-lo é trivial, retornando uma imagem vazia
         | t-empty => empty-image
-        | t-link(f, r) => beside(desenha-pokemon(f), desenha-time(r))
+        # Para um time com integrantes:
+        | t-link(f, r) => 
+            # A imagem do time completo é então construída desenhando a carta do primeiro pokemon (\`f\`)
+            # sendo em seguida colocada lado a lado da imagem já construída do resto da lista
+            beside(desenha-pokemon(f), desenha-time(r))
     end
 end
 
