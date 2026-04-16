@@ -1702,6 +1702,25 @@ end
 # where:
 #     ...
 # end
+
+
+fun desenha-time(t :: Time) -> Image:
+    doc: "Dado um time Pokémon, gera uma imagem das cartas dos Pokemons do time lado a lado."
+    cases (Time) t:
+        # Se o time é vazio, desenhá-lo é trivial, retornando uma imagem vazia
+        | t-empty => empty-image
+        # Para um time com integrantes:
+        | t-link(f, r) => 
+            # A imagem do time completo é então construída desenhando a carta do primeiro pokemon (\`f\`)
+            # sendo em seguida colocada lado a lado da imagem já construída do resto da lista
+            beside(desenha-pokemon(f), desenha-time(r))
+    end
+end
+
+# Ao terminar o Exercício 6, gere uma imagem do resultado de um movimento aplicado em um Time:
+
+#desenha-time(cria-time(POKE-DATA, [list: 42, 120, 133]))
+#desenha-time(aplica-movimento-no-time(TIME1, EMBER))
 `,d_=`use context dcic2024
 
 import color from color
