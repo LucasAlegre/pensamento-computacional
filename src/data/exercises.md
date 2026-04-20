@@ -785,3 +785,133 @@ where:
   distancia(ponto(0, 0), ponto(0, 0)) is 0
 end
 ```
+
+# Tópico: Listas de Estruturas e Alta-Ordem
+
+## Execício: Veículos
+**ID:** Listas de Estruturas e Alta-Ordem-1
+**Dificuldade:** Médio
+ 
+Um veículo é composto por um modelo, marca e ano de fabricação. Uma lista deveículos é composta por elementos do tipo veículo. Escreva uma função que receba umalista de veículos e elimine veículos fabricados antes do ano de 1990.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Veículo Mais Antigo
+**ID:** Listas de Estruturas e Alta-Ordem-2
+**Dificuldade:** Difícil
+
+Desenvolva um programa que consuma uma lista de veículos (exercício anterior) e retorne o veículo mais antigo.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: IMC
+**ID:** Listas de Estruturas e Alta-Ordem-3
+**Dificuldade:** Médio
+
+Escreva  uma  função  que  consuma  uma  lista  de  pessoas  (altura  e  peso) e retorne uma lista de valores correspondentes ao índice de massa corpórea - IMC (IMC = $peso / altura^2$).
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Televisor
+**ID:** Listas de Estruturas e Alta-Ordem-4
+**Dificuldade:** Médio
+
+Uma estrutura televisor possui um tamanho, dado em polegadas e um valor. Escreva uma função que, dada uma lista de televisores, aumente em 7% o valor dos elementos com tamanho maior ou igual a 29 polegadas.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Televisor Ordenado
+**ID:** Listas de Estruturas e Alta-Ordem-5
+**Dificuldade:** Difícil
+
+Escreva uma função que, dada uma lista de televisores (exercício anterior), ordene os elementos ascendentemente de acordo com o tamanho.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Peso em Diferentes Planetas
+**ID:** Listas de Estruturas e Alta-Ordem-6
+**Dificuldade:** Fácil
+
+Considerando que o peso é determinado pelo produto da massa e da gravidade, crie as funções peso-na-terra, peso-na-lua e peso-em-jupiter. As funções deverão calcular o respectivo peso, dadas as gravidades de 9.8 para a Terra, 1.67 para a lua e 22.9 para Júpiter. Crie uma função de alta ordem que, dada a massa de uma pessoa e a função desejada, calcule seu peso.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Seleção de Pessoas
+**ID:** Listas de Estruturas e Alta-Ordem-7
+**Dificuldade:** Difícil
+
+Considere uma estrutura para armazenar dados de uma pessoa (nome, idade, peso e sexo). Crie uma função que, dadas uma função de seleção e uma lista de pessoas, retorne uma lista com as pessoas selecionadas. Por exemplo, a função de seleção pode considerar apenas pessoas do sexo feminino, ou apenas maiores de idade.
+
+### Testes
+```pyret height=500
+use context starter2024
+```
+
+## Exercício: Produtos em Estoque
+**ID:** Listas de Estruturas e Alta-Ordem-0
+**Dificuldade:** Resolvido
+
+Defina uma estrutura `Produto` que possui um nome (String), preço (Number) e quantidade em estoque (Number). 
+
+a) Utilizando a função de alta-ordem `filter` para listas em conjunto com uma expressão lambda, escreva a função `produtos-em-falta` que, dada uma lista de produtos, retorna uma lista contendo apenas os produtos cuja quantidade em estoque seja zero.
+
+b) Utilizando a função de alta-ordem `map` para listas em conjunto com uma expressão lambda, escreva a função `aumenta-preco` que, dada uma lista de produtos e um valor percentual, retorna uma lista com o preço de cada produto aumentado em tal percentual.
+
+### Testes
+```pyret height=1000
+use context starter2024
+
+data Produto:
+  | produto(
+      nome :: String,   # Nome do produto
+      preco :: Number,  # Preço do produto
+      qtd :: Number     # Quantidade em estoque
+    )
+end
+
+P1 = produto("Arroz", 5.50, 10)
+P2 = produto("Feijão", 8.00, 0)
+P3 = produto("Macarrão", 3.20, 0)
+P4 = produto("Óleo", 7.50, 5)
+
+L1 = [list: P1, P2, P3, P4]
+
+fun produtos-em-falta(produtos :: List<Produto>) -> List<Produto>:
+  doc: "Dado uma lista de produtos, retorna apenas os produtos com quantidade em estoque igual a zero."
+  
+  filter(lam(p): p.qtd == 0 end, produtos)
+where:
+  produtos-em-falta(L1) is [list: P2, P3]
+  produtos-em-falta([list: P1, P4]) is empty
+  produtos-em-falta(empty) is empty
+end
+
+fun aumenta-preco(produtos :: List<Produto>, percentual :: Number) -> List<Produto>:
+  doc: "Dada uma lista de produtos e um valor percentual, retorna uma lista com os produtos com o preço aumentado em tal percentual."
+  
+  map(lam(p): produto(p.nome, p.preco * (1 + percentual), p.qtd) end, produtos)
+where:
+  aumenta-preco(L1, 0.1) is [list: produto("Arroz", 6.05, 10), produto("Feijão", 8.8, 0), produto("Macarrão", 3.52, 0), produto("Óleo", 8.25, 5)]
+  aumenta-preco([list: P1, P4], 0.1) is [list: produto("Arroz", 6.05, 10), produto("Óleo", 8.25, 5)]
+  aumenta-preco(empty, 0.1) is empty
+end
+
+```
