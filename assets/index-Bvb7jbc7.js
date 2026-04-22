@@ -2332,11 +2332,11 @@ data Movimento:
         cura :: Number)       # Quantidade de pontos de vida curados
 end
 
-data Time:
-    # Um Time é uma lista de Pokemons
-    | t-empty
-    | t-link(first :: Pokemon, rest :: Time)
-end
+type Time = List<Pokemon>
+#     Um Time é uma lista de Pokemons
+#     | empty
+#     | link(first :: Pokemon, rest :: Time)
+
 
 BULBASAUR = pokemon("Bulbasaur", 1, GRASS, 45, 45)
 CHARMANDER = pokemon("Charmander", 4, FIRE, 39, 39)
@@ -2345,9 +2345,9 @@ MEWTWO = pokemon("Mewtwo", 150, PSYCHIC, 106, 106)
 PSYDUCK = pokemon("Psyduck", 54, WATER, 50, 50)
 GENGAR = pokemon("Gengar", 94, GHOST, 60, 60)
 
-TIME1 = t-link(BULBASAUR, t-link(CHARMANDER, t-link(SQUIRTLE, t-empty)))
-TIME2 = t-link(PSYDUCK, t-link(MEWTWO, t-empty))
-TIME3 = t-link(BULBASAUR, t-link(CHARMANDER, t-link(SQUIRTLE, t-link(GENGAR, t-empty))))
+TIME1 = link(BULBASAUR, link(CHARMANDER, link(SQUIRTLE, empty)))
+TIME2 = link(PSYDUCK, link(MEWTWO, empty))
+TIME3 = link(BULBASAUR, link(CHARMANDER, link(SQUIRTLE, link(GENGAR, empty))))
 
 EMBER = ataque("Ember", FIRE, 40)
 TACKLE = ataque("Tackle", NORMAL, 40)
@@ -2617,17 +2617,17 @@ fun cria-time(tabela :: Table, lista-ids :: List<Number>) -> Time:
     doc: "Dada uma tabela de pokemons e uma lista de IDs, devolve um time com todos os pokemons desta tabela."
     cases (List<Number>) lista-ids:
         # Se a lista de IDs está vazia, o problema de gerar um time está resolvido: é um time vazio
-        | empty => t-empty
+        | empty => empty
         # Para uma lista de IDs com elementos:
         | link(f, r) => 
-            t-link(
+            link(
                 # Busca-se na tabela o pokemon referente ao primeiro ID (\`f\`)
                 extrai-pokemon-tabela(f, tabela),
                 # E o adiciona na frente do time já criado a partir do resto da lista
                 cria-time(tabela, r))
     end
 where:
-    cria-time(POKE-DATA, [list: 1, 4, 7]) is t-link(BULBASAUR, t-link(CHARMANDER, t-link(SQUIRTLE, t-empty)))
+    cria-time(POKE-DATA, [list: 1, 4, 7]) is link(BULBASAUR, link(CHARMANDER, link(SQUIRTLE, empty)))
 end
 
 fun efeito-to-multiplicador(e :: Efeito) -> Number:
@@ -2686,27 +2686,27 @@ fun aplica-movimento-no-time(t :: Time, m :: Movimento) -> Time:
     doc: "Dado um time e um movimento, devolve o time resultante de aplicar este movimento sobre todos os pokemons deste time."
     cases (Time) t:
         # Se o time é vazio, aplicar o movimento sobre ele está resolvido, resultando no próprio time vazio
-        | t-empty => t-empty
+        | empty => empty
         # Para um time com integrantes:
-        | t-link(p, rest) => 
-            t-link(
+        | link(p, rest) => 
+            link(
                 # Aplica o movimento isoladamente sobre o primeiro pokemon (\`p\`)
                 aplica-movimento(p, m), 
                 # E conecta esse pokemon ao time obtido aplicando o movimento ao resto da lista
                 aplica-movimento-no-time(rest, m))  
     end
 where:
-    aplica-movimento-no-time(t-empty, EMBER) is t-empty
-    aplica-movimento-no-time(TIME1, EMBER) is t-link(pokemon("Bulbasaur", 1, GRASS, 0, 45), t-link(pokemon("Charmander", 4, FIRE, 19, 39), t-link(pokemon("Squirtle", 7, WATER, 24, 44), t-empty)))
+    aplica-movimento-no-time(empty, EMBER) is empty
+    aplica-movimento-no-time(TIME1, EMBER) is link(pokemon("Bulbasaur", 1, GRASS, 0, 45), link(pokemon("Charmander", 4, FIRE, 19, 39), link(pokemon("Squirtle", 7, WATER, 24, 44), empty)))
 end
 
 fun desenha-time(t :: Time) -> Image:
     doc: "Dado um time Pokémon, gera uma imagem das cartas dos Pokemons do time lado a lado."
     cases (Time) t:
         # Se o time é vazio, desenhá-lo é trivial, retornando uma imagem vazia
-        | t-empty => empty-image
+        | empty => empty-image
         # Para um time com integrantes:
-        | t-link(f, r) => 
+        | link(f, r) => 
             # A imagem do time completo é então construída desenhando a carta do primeiro pokemon (\`f\`)
             # sendo em seguida colocada lado a lado da imagem já construída do resto da lista
             beside(desenha-pokemon(f), desenha-time(r))
