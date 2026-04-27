@@ -23,7 +23,7 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
   Exercício 2 - Filter
 |#
 
-# Complete o contrato, o objetiv, corpo e os exemplos da função abaixo.
+# Complete o contrato, o objetivo, corpo e os exemplos da função abaixo.
 fun testa-tipo(p, tipo):
     false
 end
