@@ -15,7 +15,7 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
 
 Leia o arquivo `pokemon-lib4.arr` (ao final desta página) para entender as funções, tipos de dados e constantes já disponíveis que você poderá reutilizar.
 
-Seu objetivo neste laboratório é criar funções genéricas para manipulação de times de Pokémon, usando **funções de alta-ordem**.
+Seu objetivo neste laboratório é criar funções genéricas para manipulação de times de Pokémon, usando **funções de alta-ordem** e **expressões lambda**.
 
 > 💡 **INSTRUÇÕES PARA O LABORATÓRIO:**
 > - Siga as dicas de estilo de código do Pyret: https://lucasalegre.github.io/pensamento-computacional/topics/style-guide
@@ -46,7 +46,10 @@ file: src/data/labs/lab4-template.arr
 1. Escreva uma função `testa-tipo` que, dado um Pokemon e um TipoPokemon, devolve `true` se o Pokemon for do TipoPokemon informado, e `false` caso contrário.
 2. Escreva uma função `my-filter(f :: (Pokemon -> Boolean), t :: Time) -> Time` que, dado um Time e uma função de critério (que recebe um pokemon e devolve um booleano), devolve um novo Time com apenas os pokemons deste time para os quais esta função devolve `true`.
 3. Escreva a função `filtra-tipos(t :: Time, tipo :: TipoPokemon) -> Time` que, dado um Time e um TipoPokemon, devolve um novo Time com apenas os pokemons deste time do tipo informado.
-> 🛠️ **Dica:** Reutilize as funções `my-filter` e `testa-tipo` no item 3.
+
+> 🛠️ **Dica:**
+>- Reutilize as funções `my-filter` e `testa-tipo` no item 3.
+>- A função `testa-tipo` recebe dois argumentos, porém a função de argumento `f` de `my-filter` recebe apenas um argumento. Pense em como fazer para que `testa-tipo` possa ser usada em `my-filter` utilizando uma expressão lambda.
 
 ---
 
@@ -60,9 +63,12 @@ file: src/data/labs/lab4-template.arr
 
 ## 📦 Exercício 4: Fold
 
-1. Escreva a função `my-fold(f :: (Pokemon, Any -> Any), acc :: Any, t :: Time) -> Any` que, dado um time, uma função (que recebe um pokemon e um valor de um determinado tipo, 
+1. Escreva a função `my-fold<T>(f :: (T, T -> T), acc :: T, l :: List<T>) -> T` que, dado uma função (que recebe dois valores de um determinado tipo e devolve um valor do mesmo tipo), um valor inicial para o acumulador, e uma lista, devolve o resultado de aplicar esta função sequencialmente a todos os elementos da lista, dois a dois (acumulador e primeiro elemento, resultado e segundo elemento, ...).
 2. Escreva a função `desenha-pokemons-tipo(t :: Time, tipo :: TipoPokemon) -> Image` que, dado um time e um tipo de pokemon, gera uma imagem com as cartas dos pokemons deste tipo no time, dispostas lado a lado.
-> 🛠️ **Dica:** Combine as funções `my-fold`, `beside`, `my-map`, `desenha-pokemon` e `filtra-tipos`. Lembre-se que o valor inicial do acumulador de uma imagem será `empty-image`.
+
+> 🛠️ **Dica:**
+>- Combine as funções `my-fold`, `beside`, `my-map`, `desenha-pokemon` e `filtra-tipos`.
+>- Lembre-se que o valor inicial do acumulador de uma imagem será `empty-image`.
 
 ---
 
