@@ -89,6 +89,7 @@ fun my-fold<T>(f :: (T, T -> T), acc :: T, l :: List<T>) -> T:
     # [Se lista não vazia, acumula o resultado da função (aplicada ao primeiro pokemon e o acumulador) com o resto da lista]
 where:
     my-fold(lam(a, b): a + b end, 0, [list: 1, 2, 3, 4, 5]) is 15
+    my-fold(lam(a, b): a * b end, 1, [list: 1, 2, 3]) is 6
 end
 
 fun desenha-pokemons-tipo(t :: Time, tipo :: TipoPokemon) -> Image:
@@ -96,7 +97,7 @@ fun desenha-pokemons-tipo(t :: Time, tipo :: TipoPokemon) -> Image:
     # Complete:
     # my-fold(
       #
-      # 
+      empty-image 
       #
     #)
 end
