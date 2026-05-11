@@ -59,7 +59,10 @@ fun my-map(f :: (Pokemon -> Any), t :: Time) -> List<Any>:
     doc: "Dado um time e uma função que recebe um pokemon e devolve um pokemon, devolve um time com os pokemons deste time transformados por esta função."
     cases (Time) t:
         | empty => empty
-        | link(first, rest) => link(f(first), my-map(f, rest))
+        | link(first, rest) => 
+          link(
+            f(first), 
+            my-map(f, rest))
     end
 end
 
@@ -88,11 +91,10 @@ end
 
 fun desenha-pokemons-tipo(t :: Time, tipo :: TipoPokemon) -> Image:
     doc: "Dado um time e um tipo de pokemon, gera uma imagem com os pokemons deste tipo do time um ao lado do outro."
-    my-fold(
-      beside,
-      empty-image,
-      my-map(desenha-pokemon, filtra-tipos(t, tipo))
-    )
+    lista-tipos :: List<Pokemon> = filtra-tipos(t, tipo)
+    lista-imagens :: List<Image> = my-map(desenha-pokemon, lista-tipos)
+
+    my-fold(beside, empty-image, lista-imagens)
 end
 
 desenha-pokemons-tipo(TIME, ELECTRIC)
