@@ -1782,7 +1782,10 @@ fun my-map(f :: (Pokemon -> Any), t :: Time) -> List<Any>:
     doc: "Dado um time e uma função que recebe um pokemon e devolve um pokemon, devolve um time com os pokemons deste time transformados por esta função."
     cases (Time) t:
         | empty => empty
-        | link(first, rest) => link(f(first), my-map(f, rest))
+        | link(first, rest) => 
+          link(
+            f(first), 
+            my-map(f, rest))
     end
 end
 
@@ -1811,11 +1814,10 @@ end
 
 fun desenha-pokemons-tipo(t :: Time, tipo :: TipoPokemon) -> Image:
     doc: "Dado um time e um tipo de pokemon, gera uma imagem com os pokemons deste tipo do time um ao lado do outro."
-    my-fold(
-      beside,
-      empty-image,
-      my-map(desenha-pokemon, filtra-tipos(t, tipo))
-    )
+    lista-tipos :: List<Pokemon> = filtra-tipos(t, tipo)
+    lista-imagens :: List<Image> = my-map(desenha-pokemon, lista-tipos)
+
+    my-fold(beside, empty-image, lista-imagens)
 end
 
 desenha-pokemons-tipo(TIME, ELECTRIC)
@@ -3687,6 +3689,7 @@ use context starter2024
 **Dificuldade:** Difícil
 
 Escreva uma função que, dada uma lista de televisores (exercício anterior), ordene os elementos ascendentemente de acordo com o tamanho.
+Para tal, leia a documentação e use a função sort-by do Pyret: https://pyret.org/docs/latest/lists.html#%28part._lists_.List_shared._methods_sort-by%29
 
 ### Testes
 \`\`\`pyret height=500
@@ -3762,6 +3765,166 @@ where:
   aumenta-preco(L1, 0.1) is [list: produto("Arroz", 6.05, 10), produto("Feijão", 8.8, 0), produto("Macarrão", 3.52, 0), produto("Óleo", 8.25, 5)]
   aumenta-preco([list: P1, P4], 0.1) is [list: produto("Arroz", 6.05, 10), produto("Óleo", 8.25, 5)]
   aumenta-preco(empty, 0.1) is empty
+end
+
+\`\`\`
+
+# Tópico: Árvores Binárias e de Pesquisa
+
+## Exercício: Árvore Espelhada
+**ID:** Árvores (Autorreferência e Referência Mútua)-1
+**Dificuldade:** Médio
+
+Escreva a função \`arvore-espelhada\` que cria uma imagem de espelho de uma árvore binária (AB). Dado uma determinada AB, esta função deverá gerar uma nova AB, de modo que os nós esquerda e direita de um mesmo nível da árvore sejam permutados.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+
+data AB:
+  | vazio
+  | no(id :: String, nivel :: Number, esq :: AB, dir :: AB)
+end
+
+\`\`\`
+
+## Exercício: Operações sobre Árvore Binária
+**ID:** Árvores (Autorreferência e Referência Mútua)-2
+**Dificuldade:** Difícil
+
+Considere a estrutura de nó utilizada no exercício anterior para construir uma árvore binária (AB). O nível de um nó representa a sua altura em relação ao nó raiz da AB (nó raiz possui nível zero). A partir desta descrição, faça o que é pedido:
+
+(a) Desenvolva uma função para computar a altura da árvore.
+
+(b) Desenvolva uma função para computar o nível em que se encontra o nó de menor nível que possui ambos os filhos vazios.
+
+(c) Modifique a função do item (b) para que ela encontre o nó de maior ou menor nível que não possui filhos. Utilize função de alta ordem para que a rotina se torne genérica.
+
+(d) Modifique o atributo \`nivel\` de todos os nós da árvore de modo que seus valores não correspondam com os seus reais níveis. Em seguida, crie um programa que percorra todos os nós da AB e atualize o nível em que cada nó se encontra.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Idade Média em Árvore Genealógica
+**ID:** Árvores (Autorreferência e Referência Mútua)-3
+**Dificuldade:** Médio
+
+Considere uma árvore genealógica onde cada elemento (pessoa) armazena o nome, idade, sexo, seu pai e sua mãe. Crie um programa que percorra a árvore e informe a idade média dos indivíduos.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Ancestral Mulher com Mais de 40 Anos
+**ID:** Árvores (Autorreferência e Referência Mútua)-4
+**Dificuldade:** Fácil
+
+Considere uma árvore genealógica onde cada elemento (pessoa) armazena o nome, idade, sexo, seu pai e sua mãe. Escreva uma função que, dada uma pessoa, verifique se algum dos seus ancestrais consiste em uma mulher com mais de 40 anos de idade.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Lista de IDs Pares em AB
+**ID:** Árvores (Autorreferência e Referência Mútua)-5
+**Dificuldade:** Médio
+
+Crie uma função que receba uma AB cujo \`id\` dos elementos seja um número inteiro. A função deve retornar uma lista contendo todos os ids pares da árvore.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Inserção em ABP
+**ID:** Árvores (Autorreferência e Referência Mútua)-6
+**Dificuldade:** Difícil
+
+Crie uma função que recebe uma Árvore Binária de Pesquisa (ABP) e os dados de um novo nó. A função deverá inserir o novo nó na respectiva posição da árvore.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Soma de IDs Maiores que N em ABP
+**ID:** Árvores (Autorreferência e Referência Mútua)-7
+**Dificuldade:** Médio
+
+Desenvolva um programa que receba uma Árvore Binária de Pesquisa (ABP) e um número. A função deverá retornar a soma de todos os ids maiores que o número passado.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Descendente Mulher com Mais de 40 Anos
+**ID:** Árvores (Autorreferência e Referência Mútua)-8
+**Dificuldade:** Fácil
+
+Considere uma árvore genealógica onde cada elemento (pessoa) armazena o nome, idade, sexo, seu pai e sua mãe. Escreva uma função que, dada uma pessoa, verifique se algum dos seus descendentes consiste em uma mulher com mais de 40 anos de idade.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Contar Descendentes com Mais de 30 Anos
+**ID:** Árvores (Autorreferência e Referência Mútua)-9
+**Dificuldade:** Médio
+
+Crie uma função que receba uma árvore genealógica e conte quantos descendentes possuem mais de 30 anos de idade.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+\`\`\`
+
+## Exercício: Atualizar Idade na Árvore Genealógica
+**ID:** Árvores (Autorreferência e Referência Mútua)-10
+**Dificuldade:** Resolvido
+
+Crie uma função que, dada uma árvore genealógica, aumente a idade em 5 anos da pessoa cujo nome seja passado como parâmetro.
+
+### Testes
+\`\`\`pyret height=500
+use context starter2024
+
+data Pessoa:
+  | vazio
+  | pessoa(
+      nome :: String,   # Nome da pessoa
+      idade :: Number,  # Idade da pessoa
+      sexo :: String,   # Sexo da pessoa ("masculino" ou "feminino")
+      pai :: Pessoa,    # Referência para o pai (ou vazio se desconhecido)
+      mae :: Pessoa     # Referência para a mãe (ou vazio se desconhecido)
+    )
+end
+
+FRED = pessoa("Fred", 50, "masculino", vazio, vazio)
+MARY = pessoa("Mary", 48, "feminino", vazio, vazio)
+JOHN = pessoa("John", 25, "masculino", FRED, MARY)
+
+fun atualiza-idade(arvore :: Pessoa, nome :: String) -> Pessoa:
+  doc: "Dada uma árvore genealógica, aumenta a idade em 5 anos da pessoa cujo nome seja passado como parâmetro."
+  
+  cases (Pessoa) arvore:
+    | vazio => vazio
+    | pessoa(n, i, s, p, m) =>
+        if n == nome:
+          pessoa(n, i + 5, s, atualiza-idade(p, nome), atualiza-idade(m, nome))
+        else:
+          pessoa(n, i, s, atualiza-idade(p, nome), atualiza-idade(m, nome))
+        end
+  end
+where:
+  atualiza-idade(JOHN, "John") is pessoa("John", 30, "masculino", FRED, MARY)
+  atualiza-idade(JOHN, "Fred") is pessoa("John", 25, "masculino", pessoa("Fred", 55, "masculino", vazio, vazio), MARY)
+  atualiza-idade(JOHN, "Mary") is pessoa("John", 25, "masculino", FRED, pessoa("Mary", 53, "feminino", vazio, vazio))
 end
 
 \`\`\`
