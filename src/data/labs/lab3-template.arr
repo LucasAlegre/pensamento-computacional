@@ -1,5 +1,11 @@
 use context dcic2024
 
+#|
+    Este arquivo contém o template para a solução dos exercícios do Laboratório 3 de INF05008 - Pensamento Computacional.
+
+    Autor: Prof. Lucas N. Alegre 
+|#
+
 include image
 # Importa funções e constantes da biblioteca de pokemon
 include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/pokemon-lib3.arr")
