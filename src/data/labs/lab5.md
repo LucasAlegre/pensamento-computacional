@@ -114,11 +114,6 @@ Ao final, chame `mostra-nodo(MINHA-POKEDEX)` para visualizar a Pokédex de exemp
 
 ![Pokédex visualizada em árvore](images/lab5/pokedex.png)
 
-> 🛠️ **Dica:** Para indentar o conteúdo de um diretório, use `beside` com um espaçador branco à esquerda:
-> ```pyret
-> beside(rectangle(20, 1, "solid", "white"), mostra-conteudo(c))
-> ```
-
 ---
 
 ## ➕ Exercício 4: Inclusão de Arquivos e Diretórios
