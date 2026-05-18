@@ -145,6 +145,12 @@ fun mostra-nodo(nodo :: Nodo) -> Image:
     doc: "Dado um nodo, se for um arquivo, gera uma imagem mostrando o nome deste arquivo e a carta do pokemon contido neste arquivo. Se for um diretório, gera uma imagem mostrando o nome deste diretório e seu conteúdo abaixo indentado."
     # cases (Nodo) nodo:
         # Arquivo: mostra "├── nome" em verde e a carta do pokemon abaixo (indentada)
+        
+        # Dica:
+        #above-align("left",
+        #        text("├── " + n, 18, "darkgreen"),
+        #        ...
+
         # Diretório: mostra "├── nome/" em azul e o conteúdo abaixo (indentado)
     # end
     empty-image
@@ -155,6 +161,13 @@ fun mostra-conteudo(c :: Conteudo) -> Image:
     # cases (Conteudo) c:
         # Se o conteúdo for vazio, gera uma imagem vazia
         # Se não, mostra o primeiro nodo e o restante do conteúdo abaixo
+
+        # Dica: 
+        #   above-align("left",
+        #        text("├── " + n + "/", 18, "darkblue"),
+        #        beside(
+        #            text("       ", 20, "white"),
+        #            ...
     # end
     empty-image
 end
