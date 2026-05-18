@@ -2,11 +2,12 @@
 
 ## 🎯 Contexto e Objetivos
 
-Neste laboratório, vamos trabalhar com **estruturas com recursão mútua**. A ideia é modelar um sistema de arquivos, onde um **nodo** pode ser um arquivo (com um Pokémon dentro) ou um **diretório** (que contém outros nodos, podendo inclusive ter subdiretórios).
+Neste laboratório, vamos trabalhar com **estruturas com recursão mútua**. 
+Em particular, iremos modelar um sistema de arquivos, onde um **nodo** pode ser um arquivo (com um Pokémon dentro) ou um **diretório** (que contém outros nodos, podendo inclusive ter subdiretórios).
 
 <br>
 
-Esse modelo é chamado de **árvore** em computação, e é amplamente usado no dia a dia: o seu computador organiza todos os seus arquivos exatamente assim! 
+Esse modelo é chamado de **árvore** em computação, e é amplamente usado no dia a dia: o seu computador organiza todos os seus arquivos exatamente assim!
 Vamos usar o universo de [Pokémon](https://pt.wikipedia.org/wiki/Pok%C3%A9mon) para tornar isso mais concreto — cada arquivo da nossa Pokédex contém um Pokémon.
 
 <br>
@@ -54,7 +55,7 @@ As definições de dados e constantes já estão prontas no template. Leia e ent
 
 - As constantes `P-BULBASAUR`, `P-CHARMANDER`, etc. representam os Pokémon iniciais das três primeiras gerações, obtidos com `extrai-pokemon-tabela`.
 
-- `MINHA-POKEDEX` é um diretório com três subdiretórios (`"Kanto"`, `"Johto"`, `"Hoenn"`), cada um contendo os respectivos arquivos `.pkm`.
+- `MINHA-POKEDEX` é uma constante do tipo `Nodo` que representa uma Pokédex de exemplo, com um diretório "Pokedex" contendo um subdiretório chamado "Iniciais" com os arquivos dos Pokémon iniciais. Note que um diretório pode conter tanto arquivos quanto outros diretórios.
 
 > 💡 **Não é necessário escrever código neste exercício.** Certifique-se de entender a estrutura antes de prosseguir para os próximos exercícios.
 
@@ -66,13 +67,13 @@ Vamos implementar funções para verificar se um arquivo ou diretório existe na
 
 1. Implemente a função `encontra-no-nivel(conteudo :: Conteudo, nome :: String) -> Boolean` que, dados o conteúdo de um diretório e um nome, verifica se existe um nodo com esse nome **no nível imediato** — **sem entrar em subdiretórios**.
 
-2. Implemente a função `encontra-na-entrada(entrada :: Nodo, nome :: String) -> Boolean` que, dado um nodo e um nome:
+2. Implemente a função `encontra-no-nodo(nodo :: Nodo, nome :: String) -> Boolean` que, dado um nodo e um nome:
    - Se o nodo for um **arquivo**, verifica se é o arquivo procurado.
    - Se for um **diretório**, verifica se é o diretório procurado **ou** se o nome existe em algum lugar dentro dele (em qualquer profundidade).
 
 3. Implemente a função `encontra-no-conteudo(conteudo :: Conteudo, nome :: String) -> Boolean` que, dado um conteúdo e um nome, verifica se existe um nodo com esse nome em qualquer nível — percorrendo subdiretórios recursivamente.
 
-> 🛠️ **Dica:** As duas funções são mutuamente recursivas: `encontra-na-entrada` chama `encontra-no-conteudo`, que chama `encontra-na-entrada`. Implemente-as nessa ordem e reutilize-as entre si.
+> 🛠️ **Dica:** As duas funções são mutuamente recursivas: `encontra-no-nodo` chama `encontra-no-conteudo`, que chama `encontra-no-nodo`. Implemente-as nessa ordem e reutilize-as entre si.
 
 ---
 
@@ -80,7 +81,7 @@ Vamos implementar funções para verificar se um arquivo ou diretório existe na
 
 Vamos contar quantos **arquivos** existem num nodo, considerando todos os subdiretórios.
 
-1. Implemente a função `conta-arquivos-na-entrada(entrada :: Nodo) -> Number` que:
+1. Implemente a função `conta-arquivos-no-nodo(nodo :: Nodo) -> Number` que:
    - Se o nodo for um **arquivo**, conta `1`.
    - Se for um **diretório**, conta o total de arquivos dentro dele (recursivamente).
 
@@ -103,13 +104,13 @@ Vamos gerar uma **imagem** da Pokédex no estilo do comando `tree` do terminal, 
         ...
 ```
 
-1. Implemente a função `mostra-entrada(entrada :: Nodo) -> Image` que:
+1. Implemente a função `mostra-nodo(nodo :: Nodo) -> Image` que:
    - Para um **arquivo**: gera uma imagem com `"├── nome"` em verde acima da carta do Pokémon (indentada).
    - Para um **diretório**: gera uma imagem com `"├── nome/"` em azul acima do conteúdo (indentado).
 
 2. Implemente a função `mostra-conteudo(c :: Conteudo) -> Image` que empilha verticalmente (`above-align`) as imagens de cada nodo do conteúdo.
 
-Ao final, chame `mostra-entrada(MINHA-POKEDEX)` para visualizar a Pokédex de exemplo:
+Ao final, chame `mostra-nodo(MINHA-POKEDEX)` para visualizar a Pokédex de exemplo:
 
 ![Pokédex visualizada em árvore](images/lab5/pokedex.png)
 
@@ -124,13 +125,13 @@ Ao final, chame `mostra-entrada(MINHA-POKEDEX)` para visualizar a Pokédex de ex
 
 Vamos implementar funções para **inserir** novos nodos na Pokédex, sem duplicar nodos com o mesmo nome.
 
-1. Implemente a função `insere-na-entrada(nova-entrada :: Nodo, entrada :: Nodo) -> Nodo` que:
+1. Implemente a função `insere-no-nodo(novo-nodo :: Nodo, nodo :: Nodo) -> Nodo` que:
    - Se o nodo de destino for um **arquivo**, retorna o nodo sem alterações (não é possível inserir dentro de um arquivo).
-   - Se for um **diretório**, insere `nova-entrada` no seu conteúdo — **apenas se não existir** outro nodo com o mesmo nome naquele nível.
+   - Se for um **diretório**, insere `novo-nodo` no seu conteúdo — **apenas se não existir** outro nodo com o mesmo nome naquele nível.
 
-2. Implemente a função `insere-no-conteudo(nova-entrada :: Nodo, conteudo :: Conteudo) -> Conteudo` que:
-   - Se o conteúdo for vazio, retorna uma lista com apenas `nova-entrada`.
-   - Caso contrário, insere `nova-entrada` no início do conteúdo — **apenas se não houver** outro nodo com o mesmo nome naquele nível.
+2. Implemente a função `insere-no-conteudo(novo-nodo :: Nodo, conteudo :: Conteudo) -> Conteudo` que:
+   - Se o conteúdo for vazio, retorna uma lista com apenas `novo-nodo`.
+   - Caso contrário, insere `novo-nodo` no início do conteúdo — **apenas se não houver** outro nodo com o mesmo nome naquele nível.
 
 > 🛠️ **Dica:** Use `encontra-no-nivel` (do Exercício 1) para verificar se já existe um nodo com o mesmo nome antes de inserir.
 
@@ -144,13 +145,13 @@ Vamos gerar automaticamente uma Pokédex a partir de um time de Pokémons.
    - Se o time for **vazio**, retorna um diretório `"Pokedex"` vazio.
    - Para cada Pokémon do time, cria um arquivo `"<nome>.pkm"` e o insere recursivamente na Pokédex construída com o restante do time.
 
-2. Use `cria-time(POKE-DATA, range(1, 151))` para criar um time com todos os Pokémons da primeira geração e chame `mostra-entrada` para visualizar a Pokédex gerada.
+2. Use `cria-time(POKE-DATA, range(1, 151))` para criar um time com todos os Pokémons da primeira geração e chame `mostra-nodo` para visualizar a Pokédex gerada.
 
 ---
 
 ## Desafio: Mostra Caminho
 
-Implemente a função `mostra-caminho(entrada :: Nodo, nome :: String) -> String` que, dado um nodo e um nome de arquivo, retorna o caminho até este arquivo a partir deste nodo, caso exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo. O caminho deve ser uma string com o nome de cada diretório seguido de uma barra (/) e, no final, o nome do arquivo. Caso não exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo, retorna a string `"Arquivo não encontrado"`.
+Implemente a função `mostra-caminho(nodo :: Nodo, nome :: String) -> String` que, dado um nodo e um nome de arquivo, retorna o caminho até este arquivo a partir deste nodo, caso exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo. O caminho deve ser uma string com o nome de cada diretório seguido de uma barra (/) e, no final, o nome do arquivo. Caso não exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo, retorna a string `"Arquivo não encontrado"`.
 
 > **Exemplo:** `mostra-caminho(MINHA-POKEDEX, "Mudkip.pkm")` deve retornar `"Pokedex/Hoenn/Mudkip.pkm"`.
 

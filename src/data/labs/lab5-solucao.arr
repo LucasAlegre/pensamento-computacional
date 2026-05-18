@@ -88,9 +88,9 @@ where:
     encontra-no-nivel(MINHA-POKEDEX.conteudo, "Pikachu.pkm") is false
 end
 
-fun encontra-na-entrada(entrada :: Nodo, nome :: String) -> Boolean:
+fun encontra-no-nodo(nodo :: Nodo, nome :: String) -> Boolean:
     doc: "Dado um nodo e um nome de arquivo/diretório, se o nodo for um arquivo, verifica se é o arquivo procurado; se for um diretório verifica se é o diretório procurado ou o arquivo procurado está dentro do diretório (ou subdiretório)."
-    cases (Nodo) entrada:
+    cases (Nodo) nodo:
         # Se o nodo for um arquivo, verifica se é o arquivo procurado
         | arquivo(nome-a, p) => nome-a == nome
         # Se o nodo for um diretório, verifica se o arquivo procurado está dentro do conteúdo do diretório
@@ -103,8 +103,8 @@ fun encontra-na-entrada(entrada :: Nodo, nome :: String) -> Boolean:
             end
     end
 where:
-    encontra-na-entrada(MINHA-POKEDEX, "Iniciais") is true
-    encontra-na-entrada(MINHA-POKEDEX, "Psyduck.pkm") is false
+    encontra-no-nodo(MINHA-POKEDEX, "Iniciais") is true
+    encontra-no-nodo(MINHA-POKEDEX, "Psyduck.pkm") is false
 end
 
 fun encontra-no-conteudo(conteudo :: Conteudo, nome :: String) -> Boolean:
@@ -115,7 +115,7 @@ fun encontra-no-conteudo(conteudo :: Conteudo, nome :: String) -> Boolean:
         # Se não, verifica se o arquivo está
         | link(f, r) =>
             # no primeiro elemento do conteudo, ou 
-            encontra-na-entrada(f, nome) or
+            encontra-no-nodo(f, nome) or
             # no restante do conteudo 
             encontra-no-conteudo(r, nome)
     end
@@ -127,16 +127,16 @@ end
 
 # Exercício 2 - Contagem de Arquivos
 
-fun conta-arquivos-na-entrada(entrada :: Nodo) -> Number:
+fun conta-arquivos-no-nodo(nodo :: Nodo) -> Number:
     doc: "Dado um nodo, conta o número de arquivos neste nodo, considerando também os subdiretórios."
-    cases (Nodo) entrada:
+    cases (Nodo) nodo:
         # Se o nodo for um arquivo, conta como 1
         | arquivo(nomeA, p) => 1
         # Se o nodo for um diretório, conta o número de arquivos no conteúdo deste diretório
         | diretorio(nomeD, conteudoD) => conta-arquivos-no-conteudo(conteudoD)
     end
 where:
-    conta-arquivos-na-entrada(MINHA-POKEDEX) is 11
+    conta-arquivos-no-nodo(MINHA-POKEDEX) is 11
 end
 
 fun conta-arquivos-no-conteudo(conteudo :: Conteudo) -> Number:
@@ -145,7 +145,7 @@ fun conta-arquivos-no-conteudo(conteudo :: Conteudo) -> Number:
         # Se o conteudo for vazio, não há arquivos
         | empty => 0
         # Senão, o total de arquivos é a soma do número de arquivos no primeiro elemento do conteúdo com o número de arquivos no restante do conteúdo
-        | link(f, r) => conta-arquivos-na-entrada(f) + conta-arquivos-no-conteudo(r)
+        | link(f, r) => conta-arquivos-no-nodo(f) + conta-arquivos-no-conteudo(r)
     end
 where:
     conta-arquivos-no-conteudo(empty) is 0
@@ -155,9 +155,9 @@ end
 
 # Exercício 3 - Visualização da Pokedex
 
-fun mostra-entrada(entrada :: Nodo) -> Image:
+fun mostra-nodo(nodo :: Nodo) -> Image:
     doc: "Dado um nodo, se for um arquivo, gera uma imagem mostrando o nome deste arquivo e a carta do pokemon contido neste arquivo. Se for um diretório, gera uma imagem mostrando o nome deste diretório e seu conteúdo abaixo indentado."
-    cases (Nodo) entrada:
+    cases (Nodo) nodo:
         # Arquivo: mostra "├── nome" em verde e a carta do pokemon abaixo (indentada)
         | arquivo(n, p) =>
             above-align("left",
@@ -183,50 +183,50 @@ fun mostra-conteudo(c :: Conteudo) -> Image:
         # Se não, mostra o primeiro nodo e o restante do conteúdo abaixo
         | link(f, r) =>
             above-align("left",
-                mostra-entrada(f),
+                mostra-nodo(f),
                 mostra-conteudo(r))
     end
 end
 
 #save-image(
-    mostra-entrada(MINHA-POKEDEX)
+    mostra-nodo(MINHA-POKEDEX)
 #, "images/lab5/pokedex.png")
 
 
 # Exercício 4 - Inclusão de Arquivos e Diretórios
 
 
-fun insere-na-entrada(nova-entrada :: Nodo, entrada :: Nodo) -> Nodo:
+fun insere-no-nodo(novo-nodo :: Nodo, nodo :: Nodo) -> Nodo:
     doc: "Dado um novo nodo (arquivo/diretorio) e um nodo, devolve um novo nodo igual a este nodo mas com este arquivo/diretorio adicionado a este nodo. Caso já exista um arquivo/diretório com o nome deste novo nodo, retorna o nodo sem alterações."
-    cases (Nodo) entrada:
+    cases (Nodo) nodo:
         # Se o nodo for um arquivo, retorna o nodo sem alterações
-        | arquivo(n, p) => entrada
+        | arquivo(n, p) => nodo
         # Se o nodo for um diretório,
         | diretorio(n, c) =>
             ask:
                 # Se já existir um arquivo com o nome deste arquivo neste diretório (mesmo nível) retorna o nodo sem alterações
-                | encontra-no-nivel(c, nova-entrada.nome) then: entrada
+                | encontra-no-nivel(c, novo-nodo.nome) then: nodo
                 # Caso contrário, adiciona este arquivo ao conteúdo deste diretório e retorna o nodo atualizado
-                | otherwise: diretorio(n, insere-no-conteudo(nova-entrada, c))
+                | otherwise: diretorio(n, insere-no-conteudo(novo-nodo, c))
             end
     end
 where:
-    insere-na-entrada(arquivo("Psyduck.pkm", P-PIKACHU), arquivo("Bulbasaur.pkm", P-BULBASAUR)) is arquivo("Bulbasaur.pkm", P-BULBASAUR)
-    insere-na-entrada(arquivo("Psyduck.pkm", P-PIKACHU), diretorio("Kanto", empty)) is diretorio("Kanto", [list: arquivo("Psyduck.pkm", P-PIKACHU)])
+    insere-no-nodo(arquivo("Psyduck.pkm", P-PIKACHU), arquivo("Bulbasaur.pkm", P-BULBASAUR)) is arquivo("Bulbasaur.pkm", P-BULBASAUR)
+    insere-no-nodo(arquivo("Psyduck.pkm", P-PIKACHU), diretorio("Kanto", empty)) is diretorio("Kanto", [list: arquivo("Psyduck.pkm", P-PIKACHU)])
 end
 
-fun insere-no-conteudo(nova-entrada :: Nodo, conteudo :: Conteudo) -> Conteudo:
+fun insere-no-conteudo(novo-nodo :: Nodo, conteudo :: Conteudo) -> Conteudo:
     doc: "Dado um novo nodo (arquivo/diretorio) e um conteudo, devolve um novo conteudo igual a este conteudo mas com este nodo adicionado a este conteudo, caso já não exista um nodo com o nome deste novo nodo neste conteudo (considerando também os subdiretórios)."
     cases (Conteudo) conteudo:
         # Se o conteúdo for vazio, retorna uma lista com apenas este nodo
-        | empty => [list: nova-entrada]
+        | empty => [list: novo-nodo]
         # Se não,
         | link(f, r) =>
             ask:
                 # Se já existir um nodo no nível deste conteúdo com o nome deste novo nodo, não insere este novo nodo e retorna o conteúdo sem alterações
-                | encontra-no-nivel(conteudo, nova-entrada.nome) then: conteudo
+                | encontra-no-nivel(conteudo, novo-nodo.nome) then: conteudo
                 # Caso contrário, adiciona este arquivo na primeira posição do conteúdo e retorna o conteúdo atualizado
-                | otherwise: link(nova-entrada, conteudo)
+                | otherwise: link(novo-nodo, conteudo)
             end
     end
 where:
@@ -244,9 +244,9 @@ fun cria-pokedex(time :: Time) -> Nodo:
         | empty => diretorio("Pokedex", empty)
         | link(first, rest) =>
             # Cria um arquivo para este pokemon
-            nova-entrada = arquivo(first.nome + ".pkm", first)
+            novo-nodo = arquivo(first.nome + ".pkm", first)
             # Insere este arquivo na pokedex criada com o resto do time
-            insere-na-entrada(nova-entrada, cria-pokedex(rest))
+            insere-no-nodo(novo-nodo, cria-pokedex(rest))
     end
 where:
     cria-pokedex(empty) is diretorio("Pokedex", empty)
@@ -256,14 +256,14 @@ end
 POKEMONS :: Time = cria-time(POKE-DATA, range(1, 151))
 
 POKEDEX = cria-pokedex(POKEMONS)
-mostra-entrada(POKEDEX)
+mostra-nodo(POKEDEX)
 
 
 # Desafio - Mostra caminho até um arquivo
 
-fun mostra-caminho(entrada :: Nodo, nome :: String) -> String:
+fun mostra-caminho(nodo :: Nodo, nome :: String) -> String:
     doc: "Dado um nodo e um nome de arquivo, retorna o caminho até este arquivo a partir deste nodo, caso exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo. O caminho deve ser uma string com o nome de cada diretório seguido de uma barra (/) e, no final, o nome do arquivo. Caso não exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo, retorna a string 'Arquivo não encontrado'."
-    cases (Nodo) entrada:
+    cases (Nodo) nodo:
         # Se o nodo for um arquivo, verifica se é o arquivo procurado
         | arquivo(nome-a, p) =>
             ask:
