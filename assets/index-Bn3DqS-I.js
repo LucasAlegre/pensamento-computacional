@@ -2194,7 +2194,7 @@ where:\r
     cria-pokedex([list: P-PIKACHU]) is diretorio("Pokedex", [list: arquivo(P-PIKACHU.nome + ".pkm", P-PIKACHU)])\r
 end\r
 \r
-POKEMONS :: Time = cria-time(POKE-DATA, range(1, 151))\r
+POKEMONS :: Time = cria-time(POKE-DATA, range(1, 151))  # range(a, b) gera uma lista de números de a até b-1\r
 \r
 POKEDEX = cria-pokedex(POKEMONS)\r
 mostra-nodo(POKEDEX)\r
@@ -2472,7 +2472,7 @@ where:
     cria-pokedex([list: P-PIKACHU]) is diretorio("Pokedex", [list: arquivo(P-PIKACHU.nome + ".pkm", P-PIKACHU)])
 end
 
-POKEMONS :: Time = cria-time(POKE-DATA, range(1, 151))
+POKEMONS :: Time = cria-time(POKE-DATA, range(1, 151))  # range(a, b) gera uma lista de números de a até b-1
 
 POKEDEX = cria-pokedex(POKEMONS)
 mostra-nodo(POKEDEX)
