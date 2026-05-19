@@ -143,7 +143,6 @@ end
 
 fun mostra-nodo(nodo :: Nodo) -> Image:
     doc: "Dado um nodo, se for um arquivo, gera uma imagem mostrando o nome deste arquivo e a carta do pokemon contido neste arquivo. Se for um diretório, gera uma imagem mostrando o nome deste diretório e seu conteúdo abaixo indentado."
-    # cases (Nodo) nodo:
         # Arquivo: mostra "├── nome" em verde e a carta do pokemon abaixo (indentada)
         
         # Dica:
@@ -158,9 +157,8 @@ end
 
 fun mostra-conteudo(c :: Conteudo) -> Image:
     doc: "Dado um conteudo, gera uma imagem mostrando o conteúdo deste diretório, onde cada nodo do conteúdo é mostrado um abaixo do outro."
-    # cases (Conteudo) c:
-        # Se o conteúdo for vazio, gera uma imagem vazia
-        # Se não, mostra o primeiro nodo e o restante do conteúdo abaixo
+        # Se o conteúdo for vazio, ...
+        # Se não,...
 
         # Dica: 
         #   above-align("left",
@@ -179,12 +177,7 @@ mostra-nodo(MINHA-POKEDEX)
 
 fun insere-no-nodo(novo-nodo :: Nodo, nodo :: Nodo) -> Nodo:
     doc: "Dado um novo nodo (arquivo/diretorio) e um nodo, devolve um novo nodo igual a este nodo mas com este arquivo/diretorio adicionado a este nodo. Caso já exista um arquivo/diretório com o nome deste novo nodo, retorna o nodo sem alterações."
-    # cases (Nodo) nodo:
-        # Se o nodo for um arquivo, retorna o nodo sem alterações
-        # Se o nodo for um diretório,
-            # Se já existir um arquivo com o nome deste arquivo neste diretório (mesmo nível) retorna o nodo sem alterações
-            # Caso contrário, adiciona este arquivo ao conteúdo deste diretório e retorna o nodo atualizado
-    # end
+
     arquivo("0", P-PIKACHU)
 where:
     insere-no-nodo(arquivo("Psyduck.pkm", P-PIKACHU), arquivo("Bulbasaur.pkm", P-BULBASAUR)) is arquivo("Bulbasaur.pkm", P-BULBASAUR)
@@ -193,12 +186,7 @@ end
 
 fun insere-no-conteudo(novo-nodo :: Nodo, conteudo :: Conteudo) -> Conteudo:
     doc: "Dado um novo nodo (arquivo/diretorio) e um conteudo, devolve um novo conteudo igual a este conteudo mas com este nodo adicionado a este conteudo, caso já não exista um nodo com o nome deste novo nodo neste conteudo (considerando também os subdiretórios)."
-    # cases (Conteudo) conteudo:
-        # Se o conteúdo for vazio, retorna uma lista com apenas este nodo
-        # Se não,
-            # Se já existir um nodo no nível deste conteúdo com o nome deste novo nodo, não insere este novo nodo e retorna o conteúdo sem alterações
-            # Caso contrário, adiciona este arquivo na primeira posição do conteúdo e retorna o conteúdo atualizado
-    # end
+    
     empty
 where:
     insere-no-conteudo(arquivo("Psyduck.pkm", P-PIKACHU), empty) is [list: arquivo("Psyduck.pkm", P-PIKACHU)]
@@ -208,14 +196,9 @@ end
 
 # Exercício 5 - Criação de Pokedex a partir de um Time
 
-fun cria-pokedex(time :: Time) -> Nodo:
+fun cria-pokedex(time): # Complete o contrato
     doc: "Dado um time, cria um nodo de diretório representando uma pokedex com um arquivo para cada pokemon deste time, onde o nome de cada arquivo é o nome do pokemon seguido da extensão .pkm."
-    # cases (Time) time:
-        # Se o time for vazio, retorna um diretório pokedex com conteúdo vazio
-        # Se não,
-            # Cria um arquivo para este pokemon
-            # Insere este arquivo na pokedex criada com o resto do time
-    # end
+
     arquivo("0", P-PIKACHU)
 where:
     cria-pokedex(empty) is diretorio("Pokedex", empty)
@@ -236,14 +219,7 @@ mostra-nodo(POKEDEX)
 
 fun mostra-caminho(nodo :: Nodo, nome :: String) -> String:
     doc: "Dado um nodo e um nome de arquivo, retorna o caminho até este arquivo a partir deste nodo, caso exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo. O caminho deve ser uma string com o nome de cada diretório seguido de uma barra (/) e, no final, o nome do arquivo. Caso não exista um arquivo com este nome neste nodo ou em algum subdiretório deste nodo, retorna a string 'Arquivo não encontrado'."
-    # cases (Nodo) nodo:
-        # Se o nodo for um arquivo, verifica se é o arquivo procurado
-                # Se esse arquivo for o arquivo procurado, retorna o nome deste arquivo
-                # Caso contrário, retorna "Arquivo não encontrado"
-        # Se o nodo for um diretório, verifica se o arquivo procurado está dentro do conteúdo do diretório
-                # Se o nome deste diretório for o nome procurado, retorna o nome deste diretório seguido de uma barra e o nome do arquivo procurado
-                # Se o arquivo procurado está no conteúdo deste diretório, retorna o nome deste diretório seguido de uma barra e o caminho até este arquivo a partir do conteúdo deste diretório
-                # Senão, retorna "Arquivo não encontrado"
+ 
     "Arquivo não encontrado"
 where:
     mostra-caminho(MINHA-POKEDEX, "Digimon.pkm") is "Arquivo não encontrado"
@@ -252,12 +228,7 @@ end
 
 fun mostra-caminho-conteudo(conteudo :: Conteudo, nome :: String) -> String:
     doc: "Dado um conteudo e um nome de arquivo, retorna o caminho até este arquivo a partir deste conteudo, caso exista um arquivo com este nome neste conteudo ou em algum subdiretório deste conteudo. O caminho deve ser uma string com o nome de cada diretório seguido de uma barra (/) e, no final, o nome do arquivo. Caso não exista um arquivo com este nome neste conteudo ou em algum subdiretório deste conteudo, retorna a string 'Arquivo não encontrado'."
-    # cases (Conteudo) conteudo:
-        # Se o conteúdo for vazio, retorna "Arquivo não encontrado"
-        # Se não, verifica se o arquivo está
-                # Se o arquivo procurado está no primeiro elemento do conteúdo, retorna o caminho até este arquivo a partir deste elemento
-                # Verifica se o arquivo procurado está no restante do conteúdo e, caso esteja, retorna o caminho até este arquivo a partir do restante do conteúdo
-                # Caso contrário, retorna "Arquivo não encontrado"
+
     "Arquivo não encontrado"
 where:
     mostra-caminho-conteudo(MINHA-POKEDEX.conteudo, "Charmander.pkm") is "Iniciais/Kanto/Rota-1/Charmander.pkm"
