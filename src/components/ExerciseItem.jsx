@@ -7,6 +7,8 @@ import remarkGfm from 'remark-gfm';
 import PyretEmbed from './PyretEmbed';
 import { getDifficultyStyle } from '../utils/difficultyStyles';
 
+const localImages = import.meta.glob('../data/images/**/*.{png,jpg,jpeg,svg}', { eager: true, import: 'default' });
+
 const ExerciseItem = ({ exercise }) => {
     return (
         <div className="exercise-item section" style={{ marginBottom: '2rem' }}>
@@ -28,6 +30,20 @@ const ExerciseItem = ({ exercise }) => {
                     remarkPlugins={[remarkMath, remarkGfm]}
                     rehypePlugins={[rehypeKatex]}
                     components={{
+                        img({ src, ...props }) {
+                            let finalSrc = src;
+                            const mapKey = `../data/${src}`;
+                            if (localImages[mapKey]) {
+                                finalSrc = localImages[mapKey];
+                            }
+                            return (
+                                <img
+                                    src={finalSrc}
+                                    style={{ maxWidth: '100%', borderRadius: '8px', marginTop: '1rem', display: 'block' }}
+                                    {...props}
+                                />
+                            );
+                        },
                         code({ node, inline, className, children, ...props }) {
                             const match = /language-(\w+)/.exec(className || '')
                             const isPyret = !inline && match && match[1] === 'pyret';

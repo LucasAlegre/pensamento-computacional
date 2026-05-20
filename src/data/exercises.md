@@ -1118,7 +1118,7 @@ Considerando as definições de dados do exercício anterior, desenvolva uma fun
 
 **Obs:** Note que para construir esta função é interessante usar funções de alta-ordem e usar a função construída no exercício anterior.
 
-![Exemplo de estrelas com funcionários destaque](exemplo-estrelas.png)
+![Exemplo de estrelas com funcionários destaque](images/exemplo-estrelas.png)
 
 ### Testes
 ```pyret height=500
@@ -1170,7 +1170,7 @@ Considerando as definições da questão anterior, gere uma imagem com o desenho
 
 > **Dica:** Pode-se usar a função `frame` para colocar um retângulo em volta de uma imagem, e a função `image-width` para calcular a largura de uma imagem.
 
-![Exemplo da estrutura da página web](exemplo-pagweb.png)
+![Exemplo da estrutura da página web](images/exemplo-pagweb.png)
 
 ### Testes
 ```pyret height=500
