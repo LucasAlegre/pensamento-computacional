@@ -1077,6 +1077,8 @@ end
 
 ```
 
+# Tópico: Estruturas com Recursão Mútua
+
 ## Exercício: Listar funcionários destaque
 **ID:** Árvores (Autorreferência e Referência Mútua)-11
 **Dificuldade:** Médio
@@ -1106,7 +1108,9 @@ data Nodo:
     )
 end
 ```
+
 ## Exercício: Gerar estrelas com funcionários destaque
+
 **ID:** Árvores (Autorreferência e Referência Mútua)-12
 **Dificuldade:** Difícil
 
@@ -1123,6 +1127,7 @@ include image
 
 # Sua implementação aqui
 ```
+
 ## Exercício: Listar imagens de uma página web
 **ID:** Árvores (Autorreferência e Referência Mútua)-13
 **Dificuldade:** Médio
@@ -1157,6 +1162,7 @@ end
 ```
 
 ## Exercício: Mostrar a estrutura da página web
+
 **ID:** Árvores (Autorreferência e Referência Mútua)-14
 **Dificuldade:** Difícil
 
@@ -1174,4 +1180,4 @@ include image
 # Sua implementação aqui
 ```
 
-#
+# Tópico: Grafos
