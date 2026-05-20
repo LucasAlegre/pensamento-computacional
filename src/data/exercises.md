@@ -1076,3 +1076,102 @@ where:
 end
 
 ```
+
+## Exercício: Listar funcionários destaque
+**ID:** Árvores (Autorreferência e Referência Mútua)-11
+**Dificuldade:** Médio
+
+Neste exercício vamos construir uma árvore para representar a estrutura de setores e funcionários de uma empresa. Cada nó da árvore pode ser um funcionário ou um setor, que por sua vez pode ter outros funcionários e setores. Use as definições de dados a seguir, e construa uma função que, dada uma árvore de setores e funcionários da empresa, gera uma lista com os funcionários-destaque.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+# TIPO MEMBROSSETOR:
+# =================
+type MembrosSetor = List<Nodo>
+
+# TIPO NODO:
+# =========
+# Um Nodo pode ser um funcionário ou um setor:
+data Nodo:
+  | funcionario(
+      nome :: String, # nome do funcionário
+      anos :: Number, # número de anos na empresa
+      destaque :: Boolean # funcionário tem menção de destaque?
+    )
+  | setor(
+      nome :: String, # nome do setor
+      membros :: List<MembrosSetor> # funcionários ou subsetores
+    )
+end
+```
+## Exercício: Gerar estrelas com funcionários destaque
+**ID:** Árvores (Autorreferência e Referência Mútua)-12
+**Dificuldade:** Difícil
+
+Considerando as definições de dados do exercício anterior, desenvolva uma função que, dada a árvore de funcionários e setores da empresa, devolve uma imagem com os nomes dos funcionários-destaque dentro de estrelas. A estrela deve ser dourada caso o funcionário tenha mais que 10 anos de empresa, prateada caso tenha mais que 5 e bronze, caso contrário. 
+
+**Obs:** Note que para construir esta função é interessante usar funções de alta-ordem e usar a função construída no exercício anterior.
+
+![Exemplo de estrelas com funcionários destaque](exemplo-estrelas.png)
+
+### Testes
+```pyret height=500
+use context dcid2024
+include image
+
+# Sua implementação aqui
+```
+## Exercício: Listar imagens de uma página web
+**ID:** Árvores (Autorreferência e Referência Mútua)-13
+**Dificuldade:** Médio
+
+Neste exercício vamos construir árvores para representar a estrutura de páginas web hierárquicas (sem referências cruzadas). Cada página pode conter texto (strings), imagens, ou subpáginas. Use as definições de dados a seguir, e monte uma função que, dada uma página web, devolve uma imagem contendo todas as imagens da página e suas subpáginas, lado a lado, tendo abaixo de cada imagem o nome da página na qual a imagem se encontra.
+
+### Testes
+```pyret height=500
+use context dcic2024
+include image
+
+# TIPO CONTEUDO:
+# =================
+type Conteudo = List<StrPag>
+
+# TIPO PAGINA:
+# =========
+data Pagina:
+  | pagina(
+      nome :: String, # nome da página
+      cont :: Conteudo # conteudo da página
+    )
+end
+
+# TIPO STRPAG:
+# ===========
+data StrPag:
+  | pag(p :: Pagina) 
+  | str(s :: String)
+  | img(i :: Image)
+end
+```
+
+## Exercício: Mostrar a estrutura da página web
+**ID:** Árvores (Autorreferência e Referência Mútua)-14
+**Dificuldade:** Difícil
+
+Considerando as definições da questão anterior, gere uma imagem com o desenho de uma página web, conforme o exemplo abaixo. 
+
+> **Dica:** Pode-se usar a função `frame` para colocar um retângulo em volta de uma imagem, e a função `image-width` para calcular a largura de uma imagem.
+
+![Exemplo da estrutura da página web](exemplo-pagweb.png)
+
+### Testes
+```pyret height=500
+use context dcic2024
+include image
+
+# Sua implementação aqui
+```
+
+#
