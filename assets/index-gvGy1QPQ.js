@@ -4640,6 +4640,8 @@ end
 
 \`\`\`
 
+# Tópico: Estruturas com Recursão Mútua
+
 ## Exercício: Listar funcionários destaque
 **ID:** Árvores (Autorreferência e Referência Mútua)-11
 **Dificuldade:** Médio
@@ -4669,7 +4671,9 @@ data Nodo:
     )
 end
 \`\`\`
+
 ## Exercício: Gerar estrelas com funcionários destaque
+
 **ID:** Árvores (Autorreferência e Referência Mútua)-12
 **Dificuldade:** Difícil
 
@@ -4686,6 +4690,7 @@ include image
 
 # Sua implementação aqui
 \`\`\`
+
 ## Exercício: Listar imagens de uma página web
 **ID:** Árvores (Autorreferência e Referência Mútua)-13
 **Dificuldade:** Médio
@@ -4720,6 +4725,7 @@ end
 \`\`\`
 
 ## Exercício: Mostrar a estrutura da página web
+
 **ID:** Árvores (Autorreferência e Referência Mútua)-14
 **Dificuldade:** Difícil
 
@@ -4737,7 +4743,7 @@ include image
 # Sua implementação aqui
 \`\`\`
 
-#
+# Tópico: Grafos
 `,Vb=()=>{const e=Mw.split(`
 `),t=[];let n=null,i=null,u=null;return e.forEach(s=>{if(s.startsWith("# Tópico: "))n&&(i&&n.exercises.push(i),t.push(n)),n={topic:s.replace("# Tópico: ","").trim(),exercises:[]},i=null,u=null;else if(s.startsWith("## Exercício: "))i&&n.exercises.push(i),i={title:s.replace("## Exercício: ","").trim(),id:"",difficulty:"",statement:"",testCode:"",testHeight:void 0},u="statement";else if(s.startsWith("**ID:** "))i&&(i.id=s.replace("**ID:** ","").trim());else if(s.startsWith("**Dificuldade:** "))i&&(i.difficulty=s.replace("**Dificuldade:** ","").trim());else if(s.startsWith("### Testes"))u="testCode";else if(i&&u==="statement")s.startsWith("### Testes")||(i.statement+=s+`
 `);else if(i&&u==="testCode"){if(s.trim().startsWith("```")){const c=/^\s*```pyret\s+height=(\d+)/.exec(s);c&&(i.testHeight=parseInt(c[1],10));return}i.testCode+=s+`
