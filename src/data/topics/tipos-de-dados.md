@@ -215,7 +215,7 @@ end
 Em notação matemática, este tipo de dado de conjunto de tuplas equivale a descrever este agrupamento usando um *Produto Cartesiano*:
 `Posn = Número × Número` ou `Posn = {(make-posn x y) | x ∈ Número e y ∈ Número}`
 
-### Funções Automáticas de Estrutura
+### Funções sobre Estruturas
 
 Ao declararmos esse bloco `data`, o **Pyret** constrói funções utilitárias embutidas de forma invisível. Suponha a definição da estrutura acima `Notas`.
 
@@ -404,7 +404,366 @@ Outros métodos acoplados incluem `.length()` (tamanho da lista), `.push(...)` (
 
 ---
 
-## 6. Tipos Compostos: Cenas
+## 6. Árvores Binárias
+
+**Árvores Binárias** (AB) são estruturas de dados recursivas em que cada nó possui no máximo dois filhos: um filho à esquerda e um filho à direita. Assim como as listas, a definição de árvores binárias é **recursiva**: uma árvore binária é ou **vazia**, ou um **nó** que contém um valor e duas sub-árvores (esquerda e direita), cada uma também sendo uma árvore binária.
+
+A definição formal em Pyret para uma árvore binária de números seria:
+
+```pyret
+# Uma Árvore Binária (AB) é:
+data AB:
+  | vazio
+  | no(val :: Number, esq :: AB, dir :: AB)
+end
+```
+
+Note que `vazio` é o caso base (sem filhos) e `no` é o caso recursivo, referenciando o próprio tipo `AB` nos campos `esq` e `dir`.
+
+### Construindo Árvores
+
+Uma árvore pode ser construída aninhando chamadas aos construtores. Por exemplo, a árvore abaixo:
+
+```
+      5
+     / \
+    3   8
+   / \
+  1   4
+```
+
+É representada em Pyret como:
+
+```pyret
+minha-arvore = no(5,
+                 no(3,
+                   no(1, vazio, vazio),
+                   no(4, vazio, vazio)),
+                 no(8, vazio, vazio))
+
+# Acesso a campos funciona da mesma forma que em estruturas:
+
+minha-arvore.val  # is 5
+minha-arvore.esq  # is no(3, no(1, vazio, vazio), no(4, vazio, vazio))
+minha-arvore.dir  # is no(8, vazio, vazio)
+```
+
+### Funções sobre Árvores Binárias
+
+Funções sobre árvores seguem o mesmo padrão de projeto que funções sobre listas: usamos `cases` para tratar o caso vazio (base) e o caso do nó (recursivo). A função recursiva é chamada sobre `esq` e `dir`.
+
+**Contando nós:**
+
+```pyret
+fun conta-nos(ab :: AB) -> Number:
+  doc: "Conta o número de nós em uma árvore binária."
+  cases (AB) ab:
+    | vazio => 0
+    | no(val, esq, dir) => 1 + conta-nos(esq) + conta-nos(dir)
+  end
+where:
+  conta-nos(vazio) is 0
+  conta-nos(no(5, vazio, vazio)) is 1
+  conta-nos(minha-arvore) is 5
+end
+```
+
+**Altura da árvore:**
+
+A altura de uma árvore é o número de arestas no caminho mais longo da raiz até uma folha.
+
+```pyret
+fun altura(ab :: AB) -> Number:
+  doc: "Retorna a altura de uma árvore binária."
+  cases (AB) ab:
+    | vazio => 0
+    | no(val, esq, dir) => 1 + num-max(altura(esq), altura(dir))
+  end
+where:
+  altura(vazio) is 0
+  altura(no(5, vazio, vazio)) is 1
+  altura(minha-arvore) is 3
+end
+```
+
+**Soma dos valores:**
+
+```pyret
+fun soma(ab :: AB) -> Number:
+  doc: "Retorna a soma de todos os valores em uma árvore binária."
+  cases (AB) ab:
+    | vazio => 0
+    | no(val, esq, dir) => val + soma(esq) + soma(dir)
+  end
+where:
+  soma(vazio) is 0
+  soma(no(5, vazio, vazio)) is 5
+  soma(minha-arvore) is 21
+end
+```
+
+### Árvore Binária de Pesquisa (ABP)
+
+Uma **Árvore Binária de Pesquisa** (ABP) é uma árvore binária com uma propriedade de ordenação: para todo nó, os valores na sub-árvore **esquerda** são **menores** e os valores na sub-árvore **direita** são **maiores**. Isso torna a busca muito eficiente.
+
+```
+      5
+     / \
+    3   8
+   / \   \
+  1   4   9
+```
+
+**Busca em ABP:**
+
+```pyret
+fun busca(ab :: AB, alvo :: Number) -> Boolean:
+  doc: "Verifica se um valor está presente em uma ABP."
+  cases (AB) ab:
+    | vazio => false
+    | no(val, esq, dir) =>
+      if alvo == val: true
+      else if alvo < val: busca(esq, alvo)
+      else: busca(dir, alvo)
+      end
+  end
+where:
+  abp = no(5, no(3, no(1, vazio, vazio), no(4, vazio, vazio)), no(8, vazio, no(9, vazio, vazio)))
+  busca(abp, 4) is true
+  busca(abp, 7) is false
+  busca(abp, 9) is true
+end
+```
+
+---
+
+## 7. Árvores N-árias e Recursão Mútua
+
+Uma **Árvore N-ária** é uma generalização da árvore binária em que cada nó pode ter um número arbitrário de filhos — não apenas dois. Isso é natural para representar estruturas hierárquicas do mundo real, como árvores genealógicas, sistemas de arquivos ou organogramas de empresa.
+
+### Recursão Mútua
+
+Na árvore binária, o tipo `AB` se referenciava a si mesmo diretamente (autorreferência). Numa árvore N-ária, um nó contém uma **lista de filhos**, e cada filho é por sua vez um nó. Isso cria uma **recursão mútua** entre dois tipos:
+
+- `Pessoa` referencia `ListaDeFilhos`
+- `ListaDeFilhos` é uma `List<Pessoa>`, que referencia `Pessoa`
+
+Nenhum dos dois tipos pode ser definido de forma independente do outro — eles se definem mutuamente. Em Pyret, usamos `type` para criar um apelido de tipo e `data` para o tipo recursivo:
+
+```pyret
+type ListaDeFilhos = List<Pessoa>
+# ListaDeFilhos é equivalente a:
+# | empty
+# | link(first :: Pessoa, rest :: ListaDeFilhos)
+
+data Pessoa:
+    | pessoa(
+        nome :: String,         # Nome da pessoa
+        ano :: Number,          # Ano de nascimento da pessoa
+        tipo-sang :: String,    # Tipo sanguíneo da pessoa
+        filhos :: ListaDeFilhos # Filhos da pessoa (pode ser empty)
+    )
+end
+```
+
+### Construindo uma Árvore Genealógica
+
+A família abaixo pode ser representada diretamente, construindo os nós folha primeiro (sem filhos) e subindo até a raiz:
+
+```
+Carlos (1926, A)
+├── João  (1952, A)
+├── Maria (1955, B)
+└── Eva   (1958, O)
+    ├── Sofia   (1986, O)
+    └── Gustavo (1988, A)
+```
+
+```pyret
+JOAO    = pessoa("João",    1952, "A", empty)
+MARIA   = pessoa("Maria",   1955, "B", empty)
+SOFIA   = pessoa("Sofia",   1986, "O", empty)
+GUSTAVO = pessoa("Gustavo", 1988, "A", empty)
+
+LF-EVA    = [list: SOFIA, GUSTAVO]
+EVA       = pessoa("Eva",    1958, "O", LF-EVA)
+
+LF-CARLOS = [list: JOAO, MARIA, EVA]
+CARLOS    = pessoa("Carlos", 1926, "A", LF-CARLOS)
+```
+
+Ou de forma aninhada, em uma única expressão:
+
+```pyret
+pessoa("Carlos", 1926, "A",
+  [list: pessoa("João",  1952, "A", empty),
+         pessoa("Maria", 1955, "B", empty),
+         pessoa("Eva",   1958, "O",
+           [list: pessoa("Sofia",   1986, "O", empty),
+                  pessoa("Gustavo", 1988, "A", empty)])])
+```
+
+### Funções sobre Árvores N-árias
+
+Como há dois tipos envolvidos (`Pessoa` e `ListaDeFilhos`), as funções também são definidas mutuamente: uma função sobre `Pessoa` chama a função sobre `ListaDeFilhos`, que por sua vez chama a função sobre `Pessoa`.
+
+**Contando descendentes:**
+
+```pyret
+use context dcic2024
+
+type ListaDeFilhos = List<Pessoa>
+# ListaDeFilhos é equivalente a:
+# | empty
+# | link(first :: Pessoa, rest :: ListaDeFilhos)
+
+data Pessoa:
+    | pessoa(
+        nome :: String,         # Nome da pessoa
+        ano :: Number,          # Ano de nascimento da pessoa
+        tipo-sang :: String,    # Tipo sanguíneo da pessoa
+        filhos :: ListaDeFilhos # Filhos da pessoa (pode ser empty)
+    )
+end
+
+JOAO    = pessoa("João",    1952, "A", empty)
+MARIA   = pessoa("Maria",   1955, "B", empty)
+SOFIA   = pessoa("Sofia",   1986, "O", empty)
+GUSTAVO = pessoa("Gustavo", 1988, "A", empty)
+
+LF-EVA    = [list: SOFIA, GUSTAVO]
+EVA       = pessoa("Eva",    1958, "O", LF-EVA)
+
+LF-CARLOS = [list: JOAO, MARIA, EVA]
+CARLOS    = pessoa("Carlos", 1926, "A", LF-CARLOS)
+
+
+fun conta-descendentes(p :: Pessoa) -> Number:
+  doc: "Conta o número total de descendentes de uma pessoa (não inclui ela mesma)."
+  conta-descendentes-lista(p.filhos)
+where:
+  conta-descendentes(JOAO)   is 0
+  conta-descendentes(EVA)    is 2
+  conta-descendentes(CARLOS) is 5
+end
+
+fun conta-descendentes-lista(lf :: ListaDeFilhos) -> Number:
+  doc: "Conta o número total de pessoas em uma lista de filhos e seus descendentes."
+  cases (List) lf:
+    | empty => 0
+    | link(f, r) => 1 + conta-descendentes(f) + conta-descendentes-lista(r)
+  end
+end
+```
+
+Note o padrão: `conta-descendentes` delega para `conta-descendentes-lista`, que percorre a lista chamando `conta-descendentes` em cada elemento. As duas funções se chamam mutuamente, espelhando a estrutura recursiva mútua dos tipos.
+
+---
+
+## 8. Grafos
+
+Um **Grafo** é uma estrutura composta por um conjunto de **nodos** (ou vértices) e um conjunto de **arestas** que conectam pares de nodos. Grafos são usados para modelar redes de relacionamentos: mapas de cidades, redes sociais, dependências entre tarefas, etc.
+
+Diferentemente das árvores, um grafo não tem hierarquia nem raiz definida — dois nodos quaisquer podem estar conectados, e podem existir ciclos.
+
+### Representação em Pyret
+
+A forma mais natural de representar um grafo em Pyret é por **lista de adjacência**: cada nodo armazena seu identificador e a lista dos identificadores de seus vizinhos diretos.
+
+```pyret
+use context dcic2024
+
+data Nodo:
+    nodo(
+        id :: String,            # Identificador do nodo
+        vizinhos :: List<String> # Identificadores dos nodos vizinhos
+    )
+end
+
+type Grafo = List<Nodo>
+# Um Grafo é uma lista de nodos:
+# | empty
+# | link(first :: Nodo, rest :: Grafo)
+
+
+### Construindo Grafos
+
+# A --- B
+# |   / |
+# |  /  |
+# C --- D
+
+G :: Grafo = [list:
+  nodo("A", [list: "B", "C"]),
+  nodo("B", [list: "A", "C", "D"]),
+  nodo("C", [list: "A", "B", "D"]),
+  nodo("D", [list: "B", "C"])]
+```
+
+### Funções sobre Grafos
+
+O padrão de projeto segue o mesmo de listas: `cases` sobre o grafo (que é uma `List<Nodo>`).
+
+**Verificando se existe um caminho (Busca em Largura):**
+
+```pyret
+use context dcic2024
+
+data Nodo:
+    nodo(
+        id :: String,            # Identificador do nodo
+        vizinhos :: List<String> # Identificadores dos nodos vizinhos
+    )
+end
+
+type Grafo = List<Nodo>
+# Um Grafo é uma lista de nodos:
+# | empty
+# | link(first :: Nodo, rest :: Grafo)
+
+G :: Grafo = [list:
+  nodo("A", [list: "B", "C"]),
+  nodo("B", [list: "A", "C", "D"]),
+  nodo("C", [list: "A", "B", "D"]),
+  nodo("D", [list: "B", "C"])]
+  
+fun vizinhos(g :: Grafo, id :: String) -> List<String>:
+  doc: "Retorna a lista de vizinhos do nodo com identificador id."
+  cases (Grafo) g:
+    | empty => empty
+    | link(f, r) =>
+      if f.id == id: f.vizinhos
+      else: vizinhos(r, id)
+      end
+  end
+where:
+  vizinhos(G, "A") is [list: "B", "C"]
+  vizinhos(G, "X") is empty
+end
+
+fun existe-caminho(g :: Grafo, origem :: String, destino :: String) -> Boolean:
+  doc: "Retorna true se existe um caminho entre origem e destino no grafo g."
+  fun bfs(fila :: List<String>, visitados :: List<String>) -> Boolean:
+    cases (List) fila:
+      | empty => false
+      | link(atual, resto) =>
+        ask:
+          | atual == destino then: true
+          | visitados.member(atual) then: bfs(resto, visitados)
+          | otherwise: bfs(resto + vizinhos(g, atual), link(atual, visitados))
+        end
+    end
+  end
+  bfs([list: origem], empty)
+where:
+  existe-caminho(G, "A", "D") is true
+  existe-caminho(G, "A", "A") is true
+end
+```
+
+---
+
+## 9. Tipos Compostos: Cenas
 
 A linguagem Pyret (através do pacote de `image`) também provê recursos de processamento para interagir com uma **Cena** (o tipo Canvas de fundo limitante gerado). Uma cena é composta por várias imagens organizadas através de coordenadas, usualmente colocadas sobre uma tela inicialmente vazia (`empty-scene`). 
 

@@ -1181,3 +1181,158 @@ include image
 ```
 
 # Tópico: Grafos
+
+## Exercício: Grau de um Nodo
+**ID:** Grafos-1
+**Dificuldade:** Fácil
+
+O **grau** de um nodo em um grafo não-dirigido é o número de vizinhos que ele possui (ou seja, o tamanho da sua lista de vizinhos). Implemente a função `grau-nodo` que, dados um grafo e o identificador de um nodo, retorna o grau desse nodo. Caso o nodo não exista no grafo, retorne 0.
+
+Em seguida, implemente `nodo-maior-grau` que retorna o identificador do nodo com maior grau no grafo. Assuma que o grafo não é vazio.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+data Nodo:
+    nodo(
+        id :: String,
+        vizinhos :: List<String>
+    )
+end
+
+type Grafo = List<Nodo>
+
+G1 :: Grafo = [list:
+  nodo("A", [list: "B", "E"]),
+  nodo("B", [list: "E", "F"]),
+  nodo("C", [list: "D"]),
+  nodo("D", empty),
+  nodo("E", [list: "C", "F"]),
+  nodo("F", [list: "D", "G"]),
+  nodo("G", empty)]
+
+fun grau-nodo(g :: Grafo, id :: String) -> Number:
+  doc: "Retorna o grau (número de vizinhos) do nodo com identificador id no grafo g. Retorna 0 se o nodo não existir."
+  cases (Grafo) g:
+    | empty => 0
+    | link(f, r) =>
+      if f.id == id:
+        f.vizinhos.length()
+      else:
+        grau-nodo(r, id)
+      end
+  end
+where:
+  grau-nodo(G1, "A") is 2
+  grau-nodo(G1, "D") is 0
+  grau-nodo(G1, "X") is 0
+end
+
+fun nodo-maior-grau(g :: Grafo) -> String:
+  doc: "Retorna o identificador do nodo com maior grau no grafo g."
+  # Sua implementação aqui
+  ...
+where:
+  nodo-maior-grau(G1) is "F"
+end
+```
+
+## Exercício: Grafo Conectado
+
+**ID:** Grafos-2
+**Dificuldade:** Resolvido
+
+Dizemos que um grafo **não-dirigido** é **conectado** quando existe um caminho entre qualquer par de nodos. Implemente a função `grafo-conectado` que recebe um grafo não-dirigido e retorna `true` se ele for conectado e `false` caso contrário.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+data Nodo:
+    nodo(
+        id :: String,
+        vizinhos :: List<String>
+    )
+end
+
+type Grafo = List<Nodo>
+
+# Grafo conectado
+G :: Grafo = [list:
+  nodo("A", [list: "B", "C"]),
+  nodo("B", [list: "A", "C"]),
+  nodo("C", [list: "B", "D"]),
+  nodo("D", [list: "C"])]
+
+# Grafo desconectado: {A,B} e {C,D} são componentes separados
+G2 :: Grafo = [list:
+  nodo("A", [list: "B"]),
+  nodo("B", [list: "A"]),
+  nodo("C", [list: "D"]),
+  nodo("D", [list: "C"])]
+
+fun vizinhos(g :: Grafo, id :: String) -> List<String>:
+  cases (Grafo) g:
+    | empty => empty
+    | link(f, r) =>
+      if f.id == id: f.vizinhos
+      else: vizinhos(r, id)
+      end
+  end
+end
+
+fun esta-na-lista(l :: List<String>, id :: String) -> Boolean:
+  cases (List) l:
+    | empty => false
+    | link(f, r) =>
+      if f == id: true
+      else: esta-na-lista(r, id)
+      end
+  end
+end
+
+fun ids-grafo(g :: Grafo) -> List<String>:
+  doc: "Retorna a lista de identificadores de todos os nodos do grafo."
+  cases (Grafo) g:
+    | empty => empty
+    | link(f, r) => link(f.id, ids-grafo(r))
+  end
+end
+
+fun bfs(g :: Grafo, fila :: List<String>, visitados :: List<String>) -> List<String>:
+  doc: "Executa BFS no grafo g a partir de uma fila, retornando a lista de nodos visitados."
+  cases (List) fila:
+    | empty => visitados
+    | link(first, rest) =>
+      if esta-na-lista(visitados, first):
+        bfs(g, rest, visitados)
+      else:
+        bfs(g, rest + vizinhos(g, first), link(first, visitados))
+      end
+  end
+end
+
+fun todos-visitados(ids :: List<String>, visitados :: List<String>) -> Boolean:
+  doc: "Verifica se todos os ids estão na lista de visitados."
+  cases (List) ids:
+    | empty => true
+    | link(id, r) =>
+      esta-na-lista(visitados, id) and todos-visitados(r, visitados)
+  end
+end
+
+fun grafo-conectado(g :: Grafo) -> Boolean:
+  doc: "Retorna true se o grafo não-dirigido g for conectado."
+  ids = ids-grafo(g)
+  cases (List) ids:
+    | empty => true
+    | link(primeiro, _) =>
+      visitados = bfs(g, [list: primeiro], empty)
+      todos-visitados(ids, visitados)
+  end
+where:
+  grafo-conectado(G)  is true
+  grafo-conectado(G2) is false
+end
+```
