@@ -1353,6 +1353,7 @@ end
 ```pyret height=500
 use context dcic2024
 
+include timing
 
 fun mdc-e(a :: Number, b :: Number) -> Number:
   doc: "Retorna o máximo divisor comum (MDC) entre a e b usando recursão estrutural."
@@ -1395,5 +1396,9 @@ where:
   mdc-g(101, 10) is 1
 end
 # Terminação: A cada chamada recursiva da função `euclides`, o segundo argumento (menor) é substituído pelo resultado de `num-modulo(maior, menor)`, que é sempre um número menor que `menor`. Portanto, a sequência de chamadas recursivas gera uma série de números cada vez menores, e eventualmente, o segundo argumento se tornará zero. Quando isso acontecer, a função retornará o valor do primeiro argumento (maior), que é o MDC. Assim, a recursão termina quando o segundo argumento atinge zero, garantindo que o processo não seja infinito.
+
+# Tempo em milisegundos para calcular o MDC de 101135853 e 123456 usando os dois algoritmos:
+time-only({(): mdc-e(101135853, 123456)})
+time-only({(): mdc-g(101135853, 123456)})
 
 ```
