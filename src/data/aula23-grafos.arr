@@ -2,7 +2,6 @@ use context dcic2024
 
 # INF05008 - Pensamento Computacional
 # Autor: Prof. Lucas N. Alegre
-
 data Nodo:
     nodo(
         id :: String,              # Identificador do nodo
@@ -184,9 +183,13 @@ fun gera-todos-caminhos(g :: Grafo, origem :: String, destino :: String) -> List
             | empty => empty # Se fila vazia, retorna lista vazia
             | link(first :: List<String>, rest :: List<List<String>>) =>  
                 no = first.first # O nó atual é o primeiro elemento do caminho no início da fila
+                resto-do-caminho = first.rest # O resto do caminho é o caminho sem o nó atual
                 ask:
                     # Se o nó atual é o destino, adiciona caminho (invertido para a ordem correta) à lista de caminhos encontrados no resto da fila
-                    | no == destino then: link(reverse(first), gera-todos-caminhos-busca-em-largura(rest))  
+                    | no == destino then: link(reverse(first), gera-todos-caminhos-busca-em-largura(rest))
+                    # Se o nó atual já está no caminho (gerou ciclo), descarta caminho e procura no resto da fila
+                    | esta-na-lista(resto-do-caminho, no) then: 
+                        gera-todos-caminhos-busca-em-largura(rest) 
                     | otherwise:
                         # Estende caminho atual com os vizinhos do nó atual e adiciona os novos caminhos à fila para exploração
                         novos-caminhos = estende-caminho(vizinhos(g, no), first)
