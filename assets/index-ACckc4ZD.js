@@ -4899,7 +4899,67 @@ where:
   grafo-conectado(G2) is false
 end
 \`\`\`
-`,Kb=()=>{const e=zw.split(`
+
+# Tópico: Recursão Generativa
+
+## Exercício: Máximo Divisor Coumum (MDC)
+**ID:** Recursão Generativa-1
+**Dificuldade:** Resolvido
+
+1) Desenvolva a função \`mdc-e\` que, dados dois números positivos maiores que zero, retorna o máximo diviso comum (MDC) entre eles. Use recursão estrutural.
+
+2) Desenvolva a função \`mdc-g\` que, dados dois números positivos maiores que zero, retorna o máximo diviso comum (MDC) entre eles. Use recursão generativa, em particular, o algoritmo de Euclides: \`mdc(maior, menor) = mdc(menor, num-modulo(maior, menor))\`.
+
+3) Apresente um argumento de terminação para cada um dos algoritmos dos itens anteriores.
+
+### Testes
+\`\`\`pyret height=500
+use context dcic2024
+
+
+fun mdc-e(a :: Number, b :: Number) -> Number:
+  doc: "Retorna o máximo divisor comum (MDC) entre a e b usando recursão estrutural."
+
+  fun primeiro-divisor(i :: Number) -> Number:
+  doc: "Retorna o maior número menor ou igual a i que divide a e b."
+    ask:
+      | i == 1 then: 1
+      | (num-modulo(a, i) == 0) and (num-modulo(b, i) == 0) then: i
+      | otherwise: primeiro-divisor(i - 1)
+    end
+  end
+  
+  # procura o maior divisor de a e b iniciando a busca pelo menor entre eles.
+  primeiro-divisor(num-min(a, b))
+
+where:
+  mdc-e(48, 18) is 6
+  mdc-e(56, 98) is 14
+  mdc-e(101, 10) is 1
+end
+# Terminação: A função \`primeiro-divisor\` é chamada com um valor \`i\` que começa como o menor entre \`a\` e \`b\` e é decrementado a cada chamada recursiva. O valor de \`i\` é sempre um número inteiro positivo, e a cada chamada recursiva, \`i\` diminui em 1. Portanto, eventualmente, \`i\` chegará a 1, momento em que a função retornará 1, garantindo que a recursão termine. Segue a definição recursiva dos números inteiros até chegar ao caso base.
+
+fun mdc-g(a :: Number, b :: Number) -> Number:
+  doc: "Retorna o máximo divisor comum (MDC) entre a e b usando recursão generativa (algoritmo de Euclides)."
+  
+  fun euclides(maior :: Number, menor :: Number) -> Number:
+    doc: "Retorna o MDC entre maior e menor usando o algoritmo de Euclides."
+    if menor == 0:
+      maior
+    else:
+      euclides(menor, num-modulo(maior, menor))
+    end
+  end
+
+  euclides(num-max(a, b), num-min(a, b))
+where:
+  mdc-g(48, 18) is 6
+  mdc-g(56, 98) is 14
+  mdc-g(101, 10) is 1
+end
+# Terminação: A cada chamada recursiva da função \`euclides\`, o segundo argumento (menor) é substituído pelo resultado de \`num-modulo(maior, menor)\`, que é sempre um número menor que \`menor\`. Portanto, a sequência de chamadas recursivas gera uma série de números cada vez menores, e eventualmente, o segundo argumento se tornará zero. Quando isso acontecer, a função retornará o valor do primeiro argumento (maior), que é o MDC. Assim, a recursão termina quando o segundo argumento atinge zero, garantindo que o processo não seja infinito.
+
+\`\`\``,Kb=()=>{const e=zw.split(`
 `),t=[];let n=null,i=null,s=null;return e.forEach(u=>{if(u.startsWith("# Tópico: "))n&&(i&&n.exercises.push(i),t.push(n)),n={topic:u.replace("# Tópico: ","").trim(),exercises:[]},i=null,s=null;else if(u.startsWith("## Exercício: "))i&&n.exercises.push(i),i={title:u.replace("## Exercício: ","").trim(),id:"",difficulty:"",statement:"",testCode:"",testHeight:void 0},s="statement";else if(u.startsWith("**ID:** "))i&&(i.id=u.replace("**ID:** ","").trim());else if(u.startsWith("**Dificuldade:** "))i&&(i.difficulty=u.replace("**Dificuldade:** ","").trim());else if(u.startsWith("### Testes"))s="testCode";else if(i&&s==="statement")u.startsWith("### Testes")||(i.statement+=u+`
 `);else if(i&&s==="testCode"){if(u.trim().startsWith("```")){const c=/^\s*```pyret\s+height=(\d+)/.exec(u);c&&(i.testHeight=parseInt(c[1],10));return}i.testCode+=u+`
 `}}),i&&n.exercises.push(i),n&&t.push(n),t.forEach(u=>{u.exercises.forEach(c=>{c.statement=c.statement.trim(),c.testCode=c.testCode.trim()})}),t},qw=Kb(),Fw=()=>{const{id:e}=U3();let t=null,n="";for(const i of qw){const s=i.exercises.find(u=>u.id===e);if(s){t=s,n=i.topic;break}}return t?I.jsxs("div",{className:"page-content",children:[I.jsx(Pt,{to:"/exercises",className:"back-link",style:{display:"inline-block",marginBottom:"1rem",textDecoration:"none",color:"#666"},children:"← Voltar para a lista"}),I.jsxs("div",{className:"exercise-page-header",style:{marginBottom:"2rem"},children:[I.jsx("span",{className:"topic-tag",style:{fontSize:"0.9rem",color:"#888",textTransform:"uppercase",letterSpacing:"1px"},children:n}),I.jsx("h1",{style:{marginTop:"0.5rem"},children:t.title})]}),I.jsx(Bw,{exercise:t})]}):I.jsxs("div",{className:"page-content",children:[I.jsx(Pt,{to:"/exercises",className:"back-link",children:"← Voltar para a lista"}),I.jsx("h1",{children:"Exercício não encontrado"}),I.jsx("p",{children:"O exercício solicitado não foi encontrado."})]})},Uw=Kb(),Hw=()=>I.jsxs("div",{className:"page-content",children:[I.jsx("h1",{children:"Exercícios"}),I.jsx("p",{children:"Selecione um exercício para resolver."}),I.jsx("div",{className:"lists-container",children:Uw.map((e,t)=>I.jsxs("div",{className:"topic-section",style:{marginBottom:"2rem"},children:[I.jsx("h2",{children:e.topic}),I.jsx("ul",{className:"exercise-links",style:{listStyle:"none",padding:0},children:e.exercises.map((n,i)=>I.jsxs("li",{style:{marginBottom:"0.5rem"},children:[I.jsxs(Pt,{to:`/exercises/${encodeURIComponent(n.id)}`,style:{textDecoration:"none",color:"#0066cc",fontSize:"1.1rem"},children:[i+1," - ",n.title]}),I.jsx("span",{style:{marginLeft:"10px",fontSize:"0.8rem",padding:"2px 6px",borderRadius:"4px",...Vb(n.difficulty)},children:n.difficulty})]},n.id))})]},t))})]}),jw=()=>I.jsxs("div",{className:"page-content",children:[I.jsx("h1",{children:"Tópicos"}),I.jsx("p",{children:"Selecione um tópico para estudar:"}),I.jsxs("div",{className:"topics-grid",style:{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))",gap:"2rem",marginTop:"2rem"},children:[I.jsxs(Pt,{to:"/topics/learning",className:"topic-card",style:{display:"block",padding:"2rem",backgroundColor:"white",borderRadius:"8px",boxShadow:"0 4px 6px rgba(0,0,0,0.1)",textDecoration:"none",color:"inherit",transition:"transform 0.2s, box-shadow 0.2s"},children:[I.jsx("h2",{style:{color:"#00509e",marginBottom:"1rem"},children:"Aprendendo a Programar"}),I.jsx("p",{style:{color:"#666"},children:"Dicas e diretrizes sobre como aprender a programar e estudar para a disciplina."})]}),I.jsxs(Pt,{to:"/topics/style-guide",className:"topic-card",style:{display:"block",padding:"2rem",backgroundColor:"white",borderRadius:"8px",boxShadow:"0 4px 6px rgba(0,0,0,0.1)",textDecoration:"none",color:"inherit",transition:"transform 0.2s, box-shadow 0.2s"},children:[I.jsx("h2",{style:{color:"#00509e",marginBottom:"1rem"},children:"Guia de Estilo"}),I.jsx("p",{style:{color:"#666"},children:"Boas práticas de testes, design e clareza em Pyret."})]}),I.jsxs(Pt,{to:"/topics/tipos-de-dados",className:"topic-card",style:{display:"block",padding:"2rem",backgroundColor:"white",borderRadius:"8px",boxShadow:"0 4px 6px rgba(0,0,0,0.1)",textDecoration:"none",color:"inherit",transition:"transform 0.2s, box-shadow 0.2s"},children:[I.jsx("h2",{style:{color:"#00509e",marginBottom:"1rem"},children:"Tipos de Dados"}),I.jsx("p",{style:{color:"#666"},children:"Aprenda sobre os principais tipos de dados em Pyret."})]}),I.jsxs(Pt,{to:"/topics/functions",className:"topic-card",style:{display:"block",padding:"2rem",backgroundColor:"white",borderRadius:"8px",boxShadow:"0 4px 6px rgba(0,0,0,0.1)",textDecoration:"none",color:"inherit",transition:"transform 0.2s, box-shadow 0.2s"},children:[I.jsx("h2",{style:{color:"#00509e",marginBottom:"1rem"},children:"Funções"}),I.jsx("p",{style:{color:"#666"},children:"Entenda como definir e utilizar funções para reutilizar código."})]})]})]}),C3=Object.assign({"../codigos_pyret/aula04-projeto-de-algoritmos.arr":Yb,"../codigos_pyret/aula05-condicionais.arr":Gb}),Yw=()=>{const[e,t]=re.useState(""),n=Object.keys(C3).map(s=>({path:s,name:s.split("/").pop()}));re.useEffect(()=>{n.length>0&&!e&&t(n[0].path)},[n]);const i=e?C3[e]:"";return I.jsxs("div",{className:"code-viewer",children:[I.jsxs("div",{className:"file-selector",style:{marginBottom:"1rem"},children:[I.jsx("label",{htmlFor:"file-select",style:{marginRight:"0.5rem",fontWeight:"bold"},children:"Escolha um exemplo:"}),I.jsx("select",{id:"file-select",value:e,onChange:s=>t(s.target.value),style:{padding:"0.5rem",borderRadius:"4px",border:"1px solid #ccc"},children:n.map(s=>I.jsx("option",{value:s.path,children:s.name},s.path))})]}),e&&I.jsxs("div",{className:"code-display",children:[I.jsx("h3",{children:n.find(s=>s.path===e)?.name}),I.jsx(ur,{code:i})]})]})},Gw=()=>I.jsxs("div",{className:"page-content",children:[I.jsx("h1",{children:"Exemplos de Aula"}),I.jsx("p",{children:"Abaixo você pode visualizar e executar os códigos trabalhados em sala de aula."}),I.jsx("div",{className:"section",children:I.jsx(Yw,{})})]}),Vw=`# Aprendendo Pensamento Computacional
