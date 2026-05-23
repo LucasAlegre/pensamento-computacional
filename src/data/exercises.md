@@ -1336,3 +1336,64 @@ where:
   grafo-conectado(G2) is false
 end
 ```
+
+# Tópico: Recursão Generativa
+
+## Exercício: Máximo Divisor Coumum (MDC)
+**ID:** Recursão Generativa-1
+**Dificuldade:** Resolvido
+
+1) Desenvolva a função `mdc-e` que, dados dois números positivos maiores que zero, retorna o máximo diviso comum (MDC) entre eles. Use recursão estrutural.
+
+2) Desenvolva a função `mdc-g` que, dados dois números positivos maiores que zero, retorna o máximo diviso comum (MDC) entre eles. Use recursão generativa, em particular, o algoritmo de Euclides: `mdc(maior, menor) = mdc(menor, num-modulo(maior, menor))`.
+
+3) Apresente um argumento de terminação para cada um dos algoritmos dos itens anteriores.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+
+fun mdc-e(a :: Number, b :: Number) -> Number:
+  doc: "Retorna o máximo divisor comum (MDC) entre a e b usando recursão estrutural."
+
+  fun primeiro-divisor(i :: Number) -> Number:
+  doc: "Retorna o maior número menor ou igual a i que divide a e b."
+    ask:
+      | i == 1 then: 1
+      | (num-modulo(a, i) == 0) and (num-modulo(b, i) == 0) then: i
+      | otherwise: primeiro-divisor(i - 1)
+    end
+  end
+  
+  # procura o maior divisor de a e b iniciando a busca pelo menor entre eles.
+  primeiro-divisor(num-min(a, b))
+
+where:
+  mdc-e(48, 18) is 6
+  mdc-e(56, 98) is 14
+  mdc-e(101, 10) is 1
+end
+# Terminação: A função `primeiro-divisor` é chamada com um valor `i` que começa como o menor entre `a` e `b` e é decrementado a cada chamada recursiva. O valor de `i` é sempre um número inteiro positivo, e a cada chamada recursiva, `i` diminui em 1. Portanto, eventualmente, `i` chegará a 1, momento em que a função retornará 1, garantindo que a recursão termine. Segue a definição recursiva dos números inteiros até chegar ao caso base.
+
+fun mdc-g(a :: Number, b :: Number) -> Number:
+  doc: "Retorna o máximo divisor comum (MDC) entre a e b usando recursão generativa (algoritmo de Euclides)."
+  
+  fun euclides(maior :: Number, menor :: Number) -> Number:
+    doc: "Retorna o MDC entre maior e menor usando o algoritmo de Euclides."
+    if menor == 0:
+      maior
+    else:
+      euclides(menor, num-modulo(maior, menor))
+    end
+  end
+
+  euclides(num-max(a, b), num-min(a, b))
+where:
+  mdc-g(48, 18) is 6
+  mdc-g(56, 98) is 14
+  mdc-g(101, 10) is 1
+end
+# Terminação: A cada chamada recursiva da função `euclides`, o segundo argumento (menor) é substituído pelo resultado de `num-modulo(maior, menor)`, que é sempre um número menor que `menor`. Portanto, a sequência de chamadas recursivas gera uma série de números cada vez menores, e eventualmente, o segundo argumento se tornará zero. Quando isso acontecer, a função retornará o valor do primeiro argumento (maior), que é o MDC. Assim, a recursão termina quando o segundo argumento atinge zero, garantindo que o processo não seja infinito.
+
+```
