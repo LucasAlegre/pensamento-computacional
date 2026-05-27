@@ -1402,3 +1402,280 @@ time-only({(): mdc-e(101135853, 123456)})
 time-only({(): mdc-g(101135853, 123456)})
 
 ```
+
+# Tópico: Transformação e Reúso
+
+## Exercício: Ordenação de Letras
+**ID:** Transformação e Reúso-1
+**Dificuldade:** Resolvido
+
+Dada uma lista de letras, escreva um programa que devolva a lista ordenada. Para isso, use a técnica de transformação e reúso, para reduzir o problema de ordenação de letras para o problema de ordenação de números, e reutilize o algoritmo de ordenação Quicksort.
+
+### Testes
+```pyret height=500
+use context starter2024
+
+#==========================================================================
+# PASSO 1: TRANSFORMAÇÃO (Redução do Problema)
+# =========================================================================
+
+fun letra-num(s:: String) -> Number:
+  doc: "Dada uma string contendo uma letra, traduz para seu código ASCII"
+  string-to-code-point(s)
+where:
+  letra-num("A") is 65
+end
+
+# ========================================================================
+# PASSO 2: REUSO (Algoritmo  Quicksort)
+# ========================================================================
+fun quicksort(l :: List<Number>) -> List<Number>:
+  doc: ```Dada uma lista de números, ordena a lista em ordem crescente.
+
+    Terminação: As definições locais menores e maiores-igual sempre são listas com tamanhos menores que o da lista original (porque pelo menos o primeiro elemento da lista é retirado). Portanto, cada chamada recursiva de quicksort é realizada sobre uma lista estritamente menor que a lista original. Como a lista original é finita, este processo gerará um dia uma chamada sobre a lista vazia, que é o caso trivial deste programa (não envolve recursão). Assim, assumindo que as funções/expressões "+", "filter", "cases", e "link" terminam, qualquer chamada de quicksort sempre terminará.
+    ```
+  cases (List<Number>) l:
+    # Se a lista l for vazia, retornar a lista vazia.
+    | empty => empty
+    # Senão,
+    | link(f, r) =>
+      menores = filter(lam(x): x < f end, r)
+      maiores-igual = filter(lam(x): x >= f end, r)
+      
+      # Juntar as seguintes listas:
+      # 1. A lista ordenada dos elementos menores que o primeiro.
+      # 2. A lista contendo apenas o primeiro elemento.
+      # 3. A lista ordenada dos elementos maiores ou iguais ao primeiro.      
+      quicksort(menores) + [list: f] + quicksort(maiores-igual)
+  end
+where:
+    quicksort(empty) is empty
+    quicksort([list: 3, 4, 1, 5, 1, 2]) is [list: 1, 1, 2, 3, 4, 5]
+end
+
+
+# ========================================================================
+# PASSO 3: DECODIFICAR A SOLUÇÃO
+# ========================================================================
+fun num-letra(n:: Number) -> String:
+  doc: "Gera a letra correspondente a um código ASCII"
+  string-from-code-point(n)
+where:
+  num-letra(65) is "A"
+end
+
+
+# ========================================================================
+# SOLUÇÃO USANDO A TÉCNICA DE TRANSFORMAÇÃO
+# ========================================================================
+
+fun ordena-letras(l:: List<String>)-> List<String>:
+  doc:"Dada uma lista de letras, devolve a lista ordenada"
+  ln = map(letra-num, l) # codificação (transformação)
+  lord = quicksort(ln)   # usar a solução do outro problema
+  
+  map(num-letra, lord)   # decodificação, gerando a solução
+where:
+  ordena-letras([list: "A", "X", "L", "M", "C", "A"]) is [list: "A", "A", "C", "L", "M", "X"]
+end
+```
+
+
+## Exercício: Problema do Agendamento
+**ID:** Transformação e Reúso-2
+**Dificuldade:** Resolvido
+
+Resolva o problema de agendamento de reuniões usando a técnica de transformação e reúso, reduzindo o problema de agendamento para o problema de coloração de grafos. Para isso, use as definições de dados a seguir, e construa um programa que, dadas uma lista de reuniões e uma lista de conflitos entre reuniões, devolve uma atribuição de horários (cores) para cada reunião, de modo que reuniões em conflito não sejam atribuídas ao mesmo horário (cor).
+
+```pyret height=500
+use context starter2024
+
+# ==============================================================================
+# ESTRUTURAS DE DADOS 
+# ==============================================================================
+
+# Tipo Reunião:
+data Reuniao:
+    reuniao(nome:: String, sala:: Number)
+end
+    
+
+# Tipo Conflito: cada par representa um conflito entre reuniões (ex: as reuniões A e B não podem ocorrer ao mesmo tempo)
+data Conflito:
+  | conf(evento1 :: String, evento2 :: String)
+end
+
+# Representa um nó do grafo com sua cor 
+data Nodo:
+  | nodo(
+      nome :: String,           # nome do nodo
+      vizinhos :: List<String>, # lista de nomes de nodos vizinhos
+      cor :: Number)            # cor do nodo
+end
+
+# Um Grafo é uma lista de nodos (com arestas/vizinhos)
+type Grafo = List<Nodo>
+
+# Exemplos:
+N1a = nodo("A", [list: "B", "C", "E", "F"], -1)
+N2a = nodo("B", [list: "A", "F", "D", "C"], -1)
+N3a = nodo("C", [list: "B", "D", "A", "E"], -1)
+N4a = nodo("D", [list: "C","E", "B", "F"], -1)
+N5a = nodo("E", [list: "D","F", "C", "A"], -1)
+N6a = nodo("F", [list: "A","E", "B ", "D"], -1)
+
+G1 = [list: N1a, N2a, N3a, N4a, N5a, N6a]
+
+N1b = nodo("A", [list: "B", "E", "F"], -1)
+N2b = nodo("B", [list: "A", "G", "C"],-1)
+N3b = nodo("C", [list: "B", "H", "D"],-1)
+N4b = nodo("D", [list: "C", "I", "E"],-1)
+N5b = nodo("E", [list: "D", "J", "A"],-1)
+N6b = nodo("F", [list: "A", "H", "I"],-1)
+N7b = nodo("G", [list: "B", "J", "I"],-1)
+N8b = nodo("H", [list: "C", "F", "J"],-1)
+N9b = nodo("I", [list: "D", "G", "F"],-1)
+N10b = nodo("J", [list: "E", "G", "H"],-1)
+
+G2 = [list: N1b, N2b, N3b, N4b, N5b, N6b, N7b, N8b, N9b, N10b]
+
+
+# Nos exemplos a seguir, usamos letras nos nomes das reuniões representando
+# as pessoas que precisam participar de cada reunião:
+REUNIOES =[list: 
+  "Reunião ABC", "Reunião AFG", "Reunião DE", 
+  "Reunião IJK", "Reunião BE", "Reunião ADK"]
+ 
+# os conflitos existem quando alguém precisa participar de diferentes reuniões
+# (ou seja, sempre que a mesma letra aparecer no nome das duas reuniões):
+CONFLITOS = [list: 
+  conf("Reunião ABC", "Reunião AFG"),
+  conf("Reunião DE", "Reunião BE"),
+  conf("Reunião ABC", "Reunião BE"),
+  conf("Reunião ABC", "Reunião ADK"),
+  conf("Reunião AFG", "Reunião ADK"),
+  conf("Reunião DE", "Reunião ADK"),
+  conf("Reunião IJK", "Reunião ADK")]
+    
+# =========================================================================
+# PASSO 1: TRANSFORMAÇÃO (Redução do Problema)
+# =========================================================================
+# Vamos transformar uma instância do problema de definir horários para reuniões em uma instância do problema de coloraçào de grafos.  
+
+fun transformar-conflitos-em-grafo(conflitos :: List<Conflito>, eventos :: List<String>) -> List<Nodo>:
+  doc: "Cria uma representação de grafo (lista de adjacências) a partir de conflitos entre reuniões."
+  
+  # Para cada evento da lista, é gerado um nodo do grafo:
+  map(
+    lam(evento): cria-nodo(evento, conflitos) end,
+    eventos)
+end
+
+fun cria-nodo(evento :: String, conflitos :: List<Conflito>) -> Nodo:
+  doc: "Dado um evento e uma lista de conflitos, gera o nodo correspondente do grafo"
+  #Filtrar os conflitos nos quais o evento aparece
+  # para descobrir seus vizinhos (arestas):
+  vizinhos-do-evento = 
+    filter(
+      lam(c): (c.evento1 == evento) or (c.evento2 == evento) end, 
+      conflitos)
+      
+  # Extrair apenas os nomes dos vizinhos:
+  lista-vizinhos = 
+    map(
+      lam(c): if c.evento1 == evento: c.evento2 else: c.evento1 end end,
+      vizinhos-do-evento)
+      
+  # Montar o nodo inicializado com a cor 0 (sem cor/horário definido)
+  nodo(evento, lista-vizinhos, 0)
+end
+
+# ========================================================================
+# PASSO 2: REUSO (Algoritmo  de Coloração Gulosa)
+# ========================================================================
+# Algoritmo de coloração de grafos que será usado
+
+fun cor-disponivel(cor:: Number, max-cor:: Number, lc:: List<Number>) -> Number:
+  doc: "Dada uma cor, uma cor máxima (max-cor) e uma lista de cores usadas, devolve a menor cor entre cor e max-cor  que não está na lista de cores usadas. Senão houver, devolve  max-cor + 1. Se a lista de cores estiver vazia, devolve zero."
+  ask:
+      # se a lista de cores de vizinhos é vazia, a cor é zero
+    | lc == empty then: 0
+      # se a cor for maior que max-cor, então devolver a próxima cor
+    | cor > max-cor then: max-cor + 1
+      # se a cor está na lista, verificar se a próxima cor é disponível
+    | member(lc, cor) then: cor-disponivel(cor + 1, max-cor,  lc)
+      # se a cor não está na lista, devolver esta cor
+    | otherwise: cor
+  end
+end
+
+fun encontra-vizinhos(lnomes:: List<String>, lnodo:: List<Nodo>) -> List<Nodo>:
+  doc:"Dada uma lista de nomes de nodos e uma lista de nodos, filtra os nodos cujos nomes estão nessa lista de nomes"
+  # Filtra os nodos que cujos nomes estão na lista de vizinhos:
+  filter(lam(n): member(lnomes,n.nome) end, lnodo)
+end
+
+
+fun colorir-grafo(grafo :: List<Nodo>) -> List<Nodo>:
+  doc: "Atribui cores (números) aos nós garantindo que vizinhos tenham cores diferentes."
+
+  cases (List<Nodo>) grafo:
+    # se o grafo estiver vazio, devolve o grafo vazio
+    | empty => empty
+      # para cada nodo do grafo:  
+    | link(prim-no, resto-nos) => 
+      # se for o último nodo, atribui a cor zero
+      if resto-nos == empty:
+        [list: nodo(prim-no.nome, prim-no.vizinhos, 0)]
+      else: # senão
+        # assume que o resto do grafo já está colorido:
+        resto-colorido = colorir-grafo(resto-nos)
+        # encontra as cores usadas nos vizinhos do primeiro elemento nesse grafo já colorido:
+        vizinhos = encontra-vizinhos(prim-no.vizinhos, resto-colorido)
+        cores-vizinhos = map(_.cor, vizinhos)
+        # encontra a próxima cor disponível entre 0 e a maior cor usada nos vizinhos e usa esta cor para colorir o primeiro nodo:
+        max-cor =foldl(num-max,0,cores-vizinhos)
+        prox-cor = cor-disponivel(0, max-cor,cores-vizinhos) 
+        prim-colorido = nodo(prim-no.nome, prim-no.vizinhos, prox-cor)
+       
+        # devolve um grafo com o primeiro nodo com esta próxima cor e o resto do grafo colorido:
+        link(prim-colorido, resto-colorido)
+      end
+  end           
+end
+
+# =========================================================================
+# PASSO 3: DECODIFICAR A SOLUÇÃO
+# =========================================================================
+# Decodificamos o grafo para gerar o agendamento de horários.
+
+fun transformar-grafo-em-reunioes(grafo :: List<Nodo>) -> List<Reuniao>:
+  doc: "Cria uma representação de reunioes a partir de um grafo."
+  
+  # Para cada no, geramos um horário para esta reunião
+  map(lam(n): reuniao(n.nome,n.cor) end, grafo)
+  
+end
+
+
+# =========================================================================
+# SOLUÇÃO USANDO A TÉCNICA DE TRANSFORMAÇÃO
+# =========================================================================
+
+fun agenda-reunioes(reunioes :: List<Reuniao>, conflitos :: List<Conflito>) -> List<Reuniao>:
+  doc: "Dadas uma lista de reuniões e uma lista de conflitos, gera uma lista de reuniões com horários"
+
+  # 1. Transformar o problema do agendamento em um Grafo:
+  grafo-reunioes = transformar-conflitos-em-grafo(conflitos, reunioes)
+    
+  # 2. Reusar a coloração para achar os horários (Cores iguais = mesmo horário):     
+  agenda-reunioes-grafo = colorir-grafo(grafo-reunioes)
+
+  # 3. Decodificar o grafo para gerar o agendamento: 
+  transformar-grafo-em-reunioes(agenda-reunioes-grafo)
+end
+
+# Exemplo de chamada:
+agenda-reunioes(REUNIOES, CONFLITOS)
+
+```
