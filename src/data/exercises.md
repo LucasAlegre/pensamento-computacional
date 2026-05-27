@@ -1430,10 +1430,7 @@ end
 # PASSO 2: REUSO (Algoritmo  Quicksort)
 # ========================================================================
 fun quicksort(l :: List<Number>) -> List<Number>:
-  doc: ```Dada uma lista de números, ordena a lista em ordem crescente.
-
-    Terminação: As definições locais menores e maiores-igual sempre são listas com tamanhos menores que o da lista original (porque pelo menos o primeiro elemento da lista é retirado). Portanto, cada chamada recursiva de quicksort é realizada sobre uma lista estritamente menor que a lista original. Como a lista original é finita, este processo gerará um dia uma chamada sobre a lista vazia, que é o caso trivial deste programa (não envolve recursão). Assim, assumindo que as funções/expressões "+", "filter", "cases", e "link" terminam, qualquer chamada de quicksort sempre terminará.
-    ```
+  doc: "Dada uma lista de números, ordena a lista em ordem crescente."
   cases (List<Number>) l:
     # Se a lista l for vazia, retornar a lista vazia.
     | empty => empty
