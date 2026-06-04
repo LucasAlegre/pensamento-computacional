@@ -2484,7 +2484,7 @@ where:
     mostra-caminho-conteudo(MINHA-POKEDEX.conteudo, "Charmander.pkm") is "Iniciais/Kanto/Rota-1/Charmander.pkm"
     mostra-caminho-conteudo(MINHA-POKEDEX.conteudo, "Digimon.pkm") is "Arquivo não encontrado"
 end
-`,gw=`use context dcic2024
+`,gw=`use context starter2024
 
 import color from color
 import color as C
@@ -2563,25 +2563,20 @@ end
 
 fun colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean:
     doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário."
-    # Calcula as bordas dos pokemons com base em suas coordenadas e dimensões da imagem
-    left1 = p1.x - (image-width(p1.img) / 2)
-    right1 = p1.x + (image-width(p1.img) / 2)
-    top1 = p1.y - (image-height(p1.img) / 2)
-    bottom1 = p1.y + (image-height(p1.img) / 2)
+    distancia = sqrt(sqr((p1.x - p2.x)) + sqr((p1.y - p2.y)))
 
-    left2 = p2.x - (image-width(p2.img) / 2)
-    right2 = p2.x + (image-width(p2.img) / 2)
-    top2 = p2.y - (image-height(p2.img) / 2)
-    bottom2 = p2.y + (image-height(p2.img) / 2)
-
-    # Verifica se as bordas dos pokemons se sobrepõem
-    not( 
-        (right1 < left2) or (left1 > right2) or (bottom1 < top2) or (top1 > bottom2) 
-    )
+    distancia <= ((image-width(p1.img) / 2) + (image-width(p2.img) / 2))
+where:
+    colidiu(
+        pokemon("Pikachu", 25, ELECTRIC, 50, 50, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), 
+        pokemon("Bulbasaur", 1, GRASS, 55, 50, 0, 0, 0, 45, 45, img-pokemon(1), ataque("Vine Whip", GRASS, 45))) is true
+    colidiu(
+        pokemon("Pikachu", 25, ELECTRIC, 50, 50, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), 
+        pokemon("Bulbasaur", 1, GRASS, 200, 200, 0, 0, 0, 45, 45, img-pokemon(1), ataque("Vine Whip", GRASS, 45))) is false
 end
 
 fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
-    doc: "Dado um time, uma cena e um nome de time, gera uma imagem com os pokemons deste time um ao lado do outro."
+    doc: "Dado um time, uma cena e um nome de time, gera uma imagem com os pokemons deste time sobre a cena, colocando o nome do time acima de cada pokémon."
     cases (Time) t:
         | empty => cena
         | link(first, rest) => 
@@ -2589,9 +2584,16 @@ fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
                     | nome-time == "Jogador 1" then: "blue"
                     | otherwise: "red"
                 end
-            desenho-pokemon = above(text-font(nome-time, 10, cor, "Arial", "system", "normal", "normal", false), desenha-pokemon(first))
+            desenho-pokemon = 
+                above(
+                    text-font(nome-time, 10, cor, "Arial", "system", "normal", "normal", false), 
+                    desenha-pokemon(first))
         
-        place-image(desenho-pokemon, first.x, first.y, desenha-time(rest, cena, nome-time))
+        place-image(
+            desenho-pokemon, 
+            first.x, 
+            first.y, 
+            desenha-time(rest, cena, nome-time))
     end
 end
 
