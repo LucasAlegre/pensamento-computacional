@@ -261,7 +261,7 @@ fun desenha-pokemon(p :: Pokemon) -> Image:
         above(
             above(
                 text-font(p.nome + " - " + tipo-to-string(p.tipo), 15, "black", "Arial", "system", "normal", "normal", false),
-                text(" | ", 5, "black")), # Espaçamento entre o nome e a barra de HP,
+                text(" | ", 2, "black")), # Espaçamento entre o nome e a barra de HP,
             barra-hp(p)),
         p.img)
 end
