@@ -249,7 +249,7 @@ fun barra-hp(p :: Pokemon) -> Image:
     barra = overlay-align("left", "top", rectangle(image-width(p.img) * porcentagem-vida, 20, "solid", cor), borda)
     
     # Cria o texto que indica o HP no formato "Atual / Máximo"
-    texto-hp = text("HP: " + num-to-string(p.hp) + " / " + num-to-string(p.max-hp), 10, "black")
+    texto-hp = text-font("HP: " + num-to-string(p.hp) + " / " + num-to-string(p.max-hp), 13, "black", "Arial", "system", "normal", "normal", false)
 
     # Centraliza o texto sobre a barra e a retorna
     overlay-align("center", "center", texto-hp, barra)
@@ -257,7 +257,13 @@ end
 
 fun desenha-pokemon(p :: Pokemon) -> Image:
     doc: "Dado um Pokemon, devolve uma imagem deste Pokemon."
-    above(barra-hp(p), p.img)
+    above(
+        above(
+            above(
+                text-font(p.nome + " - " + tipo-to-string(p.tipo), 15, "black", "Arial", "system", "normal", "normal", false),
+                text(" | ", 5, "black")), # Espaçamento entre o nome e a barra de HP,
+            barra-hp(p)),
+        p.img)
 end
 
 fun um-ou-menos-1() -> Number:
