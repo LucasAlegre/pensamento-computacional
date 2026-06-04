@@ -63,7 +63,7 @@ data Pokemon:
         hp :: Number,         # Quantidade de pontos de vida (HP) do pokemon
         max-hp :: Number,     # Quantidade máxima de pontos de vida (HP) do pokemon
         img :: Image,         # Imagem do pokemon
-        movimentos :: Movimento)  # Movimento do pokemon
+        movimento :: Movimento)  # Movimento do pokemon
 end
 
 data Movimento:
@@ -335,7 +335,7 @@ fun atualiza-hp(p :: Pokemon, valor :: Number) -> Pokemon:
     # novo-hp = num-min(p.max-hp, num-max(0, p.hp + valor))
 
     # Reconstrói a estrutura Pokemon mantendo todos os dados e passando a vida ajustada (novo-hp)
-    pokemon(p.nome, p.id, p.tipo, p.x, p.y, p.dx, p.dy, p.speed, novo-hp, p.max-hp, p.img, p.movimentos)
+    pokemon(p.nome, p.id, p.tipo, p.x, p.y, p.dx, p.dy, p.speed, novo-hp, p.max-hp, p.img, p.movimento)
 where:
     atualiza-hp(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), -10) is pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 25, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))
     atualiza-hp(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 5, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), -10) is pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 0, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))
