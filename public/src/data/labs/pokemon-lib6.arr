@@ -271,6 +271,17 @@ fun um-ou-menos-1() -> Number:
     if random(2) < 1:  1 else: -1 end
 end
 
+fun lista-aleatoria(n :: Number, min :: Number, max :: Number) -> List<Number>:
+    doc: "Gera uma lista de n números aleatórios no intervalo [min, max]."
+    ask:
+        | n == 0 then: empty
+        | otherwise:
+            link(
+                random((max - min) + 1) + min,
+                lista-aleatoria(n - 1, min, max))
+    end
+end
+
 fun extrai-pokemon-tabela(id :: Number, table :: Table) -> Pokemon:
     doc: "Dado um id e uma tabela de pokemons, devolve o pokemon correspondente a este id nesta tabela."
     # Filtra a tabela procurando as linhas (rows) com o mesmo id fornecido
@@ -346,4 +357,36 @@ where:
     atualiza-hp(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), -10) is pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 25, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))
     atualiza-hp(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 5, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), -10) is pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 0, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))
     atualiza-hp(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 30, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), +10) is pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))
+end
+
+#|
+    Reatores
+|#
+
+fun run-game(w :: World) -> World:
+    doc: "Função para rodar o jogo, utilizando um reator para atualizar o mundo a cada tick, desenhar o mundo e verificar quando o jogo acabou."
+    r = reactor:
+        init: w, # Estado inicial do mundo
+        on-tick: lam(x): atualiza-mundo(x) end, # Função para atualizar o mundo a cada tick
+        to-draw: desenha-mundo, # Função para desenhar o mundo
+        stop-when: acabou-jogo, # Função para verificar quando o jogo acabou
+        title: "Pokémon Battle Game - Pensamento Computacional" # Título da janela do jogo
+    end
+
+    interact(r)
+end
+
+fun run-movie(fps :: Number, frames :: List<Image>):
+    doc: "Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."
+    LEN = length(frames)
+    r = reactor:
+            init: 0,
+            on-tick: lam(i): i + 1 end,
+            to-draw: lam(i): frames.get(i) end,
+            seconds-per-tick: 1 / fps,
+            stop-when: lam(i): i >= (LEN - 1) end,
+            close-when-stop: true,
+    end
+
+    interact(r)
 end
