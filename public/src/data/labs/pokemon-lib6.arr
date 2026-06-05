@@ -363,19 +363,6 @@ end
     Reatores
 |#
 
-fun run-game(w :: World) -> World:
-    doc: "Função para rodar o jogo, utilizando um reator para atualizar o mundo a cada tick, desenhar o mundo e verificar quando o jogo acabou."
-    r = reactor:
-        init: w, # Estado inicial do mundo
-        on-tick: lam(x): atualiza-mundo(x) end, # Função para atualizar o mundo a cada tick
-        to-draw: desenha-mundo, # Função para desenhar o mundo
-        stop-when: acabou-jogo, # Função para verificar quando o jogo acabou
-        title: "Pokémon Battle Game - Pensamento Computacional" # Título da janela do jogo
-    end
-
-    interact(r)
-end
-
 fun run-movie(fps :: Number, frames :: List<Image>):
     doc: "Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."
     LEN = length(frames)
