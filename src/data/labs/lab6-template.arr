@@ -2,7 +2,7 @@ use context starter2024
 
 
 #|
-    Este arquivo contém a solução dos exercícios do Laboratório 6 de INF05008 - Pensamento Computacional.
+    Este arquivo contém o modelo da solução dos exercícios do Laboratório 6 de INF05008 - Pensamento Computacional.
 
     Autor: Prof. Lucas N. Alegre
 |#
@@ -32,18 +32,14 @@ CHARMANDER = extrai-pokemon-tabela(4, POKE-DATA)
 
 fun move-pokemon(p :: Pokemon) -> Pokemon:
     doc: "Dado um pokemon, devolve o pokemon resultante de movê-lo de acordo com sua velocidade (speed) e direção (dx, dy)."
-    NOVO-X = p.x + (p.dx * p.speed)
-    NOVO-Y = p.y + (p.dy * p.speed)
-    NOVO-DX = ask:
-        | (NOVO-X < 0) or (NOVO-X > LARG) then: -1 * p.dx # Inverte a direção horizontal se ultrapassar o limite esquerdo ou direito
-        | otherwise: p.dx # Mantém a direção horizontal
-    end
-    NOVO-DY = ask:
-        | (NOVO-Y < 0) or (NOVO-Y > ALT) then: -1 * p.dy # Inverte a direção vertical se ultrapassar o limite superior ou inferior
-        | otherwise: p.dy # Mantém a direção vertical
-    end
-    # Reconstrói a estrutura Pokemon mantendo todos os dados e passando as novas coordenadas e direções ajustadas
+    # Calcule as novas coordenadas do pokemon utilizando sua velocidade, direção e velocidade (speed)
+    NOVO-X = p.x
+    NOVO-Y = p.y
+    # Se o pokemon estiver for dos limites, deve trocar o sentido de sua direção (dx, dy) e ser movido de acordo com a nova direção
+    NOVO-DX = 0
+    NOVO-DY = 0
 
+    # Reconstrói a estrutura Pokemon mantendo todos os dados e passando as novas coordenadas e direções ajustadas
     pokemon(p.nome, p.id, p.tipo, NOVO-X, NOVO-Y, NOVO-DX, NOVO-DY, p.speed, p.hp, p.max-hp, p.img, p.movimento)
 end
 
@@ -65,20 +61,21 @@ end
 
 fun ataque-pokemon(p-atacante :: Pokemon, p-defensor :: Pokemon) -> Pokemon:
     doc: "Dado um pokemon atacante e um pokemon defensor, devolve o pokemon defensor resultante de ser atacado pelo pokemon atacante utilizando seu movimento."
-    aplica-movimento(p-defensor, p-atacante.movimento)
+    p-defensor # COMPLETE AQUI
 end
 
 fun inverte-direcao(p :: Pokemon) -> Pokemon:
     doc: "Dado um pokemon, devolve o pokemon resultante de inverter sua direção (dx, dy)."
     # Reconstrói a estrutura Pokemon mantendo todos os dados e passando as direções invertidas
-    pokemon(p.nome, p.id, p.tipo, p.x, p.y, -1 * p.dx, -1 * p.dy, p.speed, p.hp, p.max-hp, p.img, p.movimento)
+    # Corrija o código abaixo para inverter as direções dx e dy do pokemon:
+    pokemon(p.nome, p.id, p.tipo, p.x, p.y, p.dx, p.dy, p.speed, p.hp, p.max-hp, p.img, p.movimento)
 end
 
 fun colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean:
-    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário."
-    distancia = sqrt(sqr((p1.x - p2.x)) + sqr((p1.y - p2.y)))
+    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário. O critério para colisão é se a distância euclidiana entre as coordenadas dos pokemons for menor image-width(p1.img)."
+    distancia = -1
 
-    distancia <= 115
+    false
 where:
     colidiu(
         pokemon("Pikachu", 25, ELECTRIC, 50, 50, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40)), 
@@ -88,9 +85,21 @@ where:
         pokemon("Bulbasaur", 1, GRASS, 200, 200, 0, 0, 0, 45, 45, img-pokemon(1), ataque("Vine Whip", GRASS, 45))) is false
 end
 
+fun processa-ataque-pokemon(p :: Pokemon, inimigo :: Pokemon) -> Pokemon:
+    doc: "Dado um pokemon e um pokemon inimigo, devolve o pokemon atualizado após processar o ataque do pokemon inimigo. O pokemon é atacado pelo pokemon inimigo se eles colidirem, e a direção do pokemon é invertida a cada ataque sofrido."
+    ask:
+        | colidiu(p, inimigo) then: 
+            # Aplica o ataque do pokemon inimigo sobre o pokemon e inverte sua direção
+            p # COMPLETE AQUI
+        | otherwise: 
+            # Se não colidiu, o pokemon não é atacado e é retornado sem alterações
+            p
+    end
+end
+
 fun esta-vivo(p :: Pokemon) -> Boolean:
     doc: "Dado um pokemon, devolve true se o hp deste pokemon for maior que 0, e false caso contrário."
-    p.hp > 0
+    true
 where:
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is true
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 0, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is false
@@ -98,7 +107,7 @@ end
 
 fun acabou-jogo-v0(w :: Worldv0) -> Boolean:
     doc: "Dado um mundo, devolve true se o jogo acabou (ou seja, se um dos pokemons não está mais vivo) e false caso contrário."
-    not(esta-vivo(w.pokemon1)) or not(esta-vivo(w.pokemon2))
+    false
 end
 
 fun desenha-mundo-v0(w :: Worldv0) -> Image:
@@ -108,18 +117,6 @@ fun desenha-mundo-v0(w :: Worldv0) -> Image:
         place-image(
             desenha-pokemon(w.pokemon2), w.pokemon2.x, w.pokemon2.y,
             CENARIO))
-end
-
-fun processa-ataque-pokemon(p :: Pokemon, inimigo :: Pokemon) -> Pokemon:
-    doc: "Dado um pokemon e um pokemon inimigo, devolve o pokemon atualizado após processar o ataque do pokemon inimigo. O pokemon é atacado pelo pokemon inimigo se eles colidirem, e a direção do pokemon é invertida a cada ataque sofrido."
-    ask:
-        | colidiu(p, inimigo) then: 
-            # Aplica o ataque do pokemon inimigo sobre o pokemon e inverte sua direção
-            inverte-direcao(ataque-pokemon(inimigo, p))
-        | otherwise: 
-            # Se não colidiu, o pokemon não é atacado e é retornado sem alterações
-            p
-    end
 end
 
 fun atualiza-mundo-v0(w :: Worldv0) -> Worldv0:
@@ -135,7 +132,7 @@ fun atualiza-mundo-v0(w :: Worldv0) -> Worldv0:
 end
 
 fun gera-video-v0(w :: Worldv0, max-frames :: Number) -> List<Image>:
-    doc: "Dado um mundo, gera uma lista de imagens representando a sequência de estados deste mundo ao longo do tempo, até que o jogo acabe."
+    doc: "Dado um mundo e um número máximo de frames, gera uma lista de imagens representando a sequência de estados deste mundo ao longo do tempo, até que o jogo acabe ou chegue no limite de frames."
     ask:
         # Se o jogo acabou, a lista de imagens é vazia
         | acabou-jogo-v0(w) or (max-frames == 0) then: empty
@@ -152,16 +149,18 @@ end
 wv0 = worldv0(BULBASAUR, CHARMANDER)
 
 # Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento max-frames seja positivo:
-#FRAMES = gera-video-v0(wv0, 10000)
-#run-movie(120, FRAMES)
+FRAMES = gera-video-v0(wv0, 2000)
+run-movie(120, FRAMES)
 
 # Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento max-frames seja negativo:
-#FRAMES2 = gera-video-v0(wv0, -1)
-#run-movie(120, FRAMES2)
+# FRAMES2 = gera-video-v0(wv0, -1)
+# run-movie(120, FRAMES2)
 
 
 #|
     Batalha entre 2 Times de Pokémon
+
+    Vamos agora expandir o jogo para considerar dois times de Pokemon batalhando!
 |#
 
 data World:
@@ -200,14 +199,13 @@ end
 fun desenha-mundo(w :: World) -> Image:
     doc: "Dado um mundo, gera uma imagem representando o estado deste mundo. Para isso, basta desenhar os times dos jogadores sobre o cenário."
     # Desenha o cenário e sobrepõe as imagens dos times dos jogadores
-    CENA = desenha-time(w.time-jogador1, CENARIO, "Jogador 1")
-
-    desenha-time(w.time-jogador2, CENA, "Jogador 2")
+    CENARIO # COMPLETE AQUI
 end
 
 fun acabou-jogo(w :: World) -> Boolean:
     doc: "Dado um mundo, devolve true se o jogo acabou (ou seja, se um dos jogadores não tem mais pokemons vivos) e false caso contrário."
-    is-empty(w.time-jogador1) or is-empty(w.time-jogador2)
+
+    false # COMPLETE AQUI
 where:
     acabou-jogo(world(empty, TIME1)) is true
     acabou-jogo(world(TIME1, empty)) is true
@@ -225,6 +223,8 @@ fun atualiza-mundo(w :: World) -> World:
         filter(esta-vivo, processa-ataques(NOVO-TIME2, NOVO-TIME1))
     )
 end
+# Complexidade de tempo da função `atualiza-mundo` em termos do tamanho dos times dos jogadores (N):
+# COMPLETE AQUI
 
 fun processa-ataque(p :: Pokemon, time-inimigo :: Time) -> Pokemon:
     doc: "Dado um pokemon e um time inimigo, devolve o pokemon atualizado após processar os ataques do time inimigo. O pokemon é atacado pelo primeiro pokemon do time inimigo que colidir com ele, e a direção do pokemon é invertida a cada ataque sofrido."
@@ -268,8 +268,11 @@ fun gera-video(w :: World) -> List<Image>:
     end
 end
 
-TIME-JOGADOR1 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
-TIME-JOGADOR2 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
+# Argumento de Terminação para a função `gera-video`:
+# COMPLETE AQUI
 
-WORLD = world(TIME-JOGADOR1, TIME-JOGADOR2)
-run-movie(20, gera-video(WORLD))
+# TIME-JOGADOR1 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
+# TIME-JOGADOR2 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
+
+# WORLD = world(TIME-JOGADOR1, TIME-JOGADOR2)
+# run-movie(120, gera-video(WORLD))
