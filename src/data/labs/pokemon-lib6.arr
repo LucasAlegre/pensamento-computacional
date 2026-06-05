@@ -13,6 +13,10 @@ provide:
 end
 
 
+#|
+    Definições de Dados
+|#
+
 LARG = 800
 ALT = 800
 
@@ -105,7 +109,9 @@ EFFECTIVE-DATA =
     source: csv-table-url(EFFECTIVE-URL, default-options)
   end
 
-
+#|
+    Funções Auxiliares
+|#
   
 fun string-to-tipo(s :: String) -> TipoPokemon:
     doc: "Dada uma string, devolve o tipo de pokemon correspondente a esta string (assumir que a string é sempre um tipo válido)."
@@ -171,7 +177,6 @@ where:
     id-pokemon("Venusaur") is 3
 end
 
-
 fun id-to-4-digit-string(pokemon-id :: Number) -> String:
     doc: "Dado um número, devolve uma string com este número formatado com 4 dígitos (com zeros à esquerda se necessário)."
     ask:
@@ -187,7 +192,6 @@ where:
     id-to-4-digit-string(1000) is "1000"
 end
 
-
 fun img-pokemon(pokemon-id :: Number) -> Image:
     doc: "Dado o id de um pokemon, devolve a imagem deste pokemon."
     url = "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/" + id-to-4-digit-string(pokemon-id) + ".png"
@@ -195,7 +199,6 @@ fun img-pokemon(pokemon-id :: Number) -> Image:
 
     scale(0.75, img)
 end
-
 
 fun name-pokemon(pokemon-id :: Number) -> String:
     doc: "Dado o id de um pokemon, devolve o nome deste pokemon."
@@ -206,7 +209,6 @@ where:
     name-pokemon(1) is "Bulbasaur"
     name-pokemon(2) is "Ivysaur"
 end
-
 
 fun verifica-efeito(tipo-ataque :: TipoPokemon, tipo-defesa :: TipoPokemon) -> Efeito:
     doc: ```Dado o tipo de ataque e o tipo de defesa, devolve uma string indicando o efeito do ataque (sem efeito, não efetivo, efetivo ou super efetivo).
@@ -283,7 +285,7 @@ fun lista-aleatoria(n :: Number, min :: Number, max :: Number) -> List<Number>:
 end
 
 fun extrai-pokemon-tabela(id :: Number, table :: Table) -> Pokemon:
-    doc: "Dado um id e uma tabela de pokemons, devolve o pokemon correspondente a este id nesta tabela."
+    doc: "Dado um id e uma tabela de pokemons, devolve o pokemon correspondente a este id nesta tabela. As coordenadas (x, y) e os deslocamentos (dx, dy) do pokemon são gerados aleatoriamente, e o movimento do pokemon é um ataque do tipo do pokemon com poder igual a 1/10 do valor de ataque deste pokemon na tabela."
     # Filtra a tabela procurando as linhas (rows) com o mesmo id fornecido
     # e assume o primeiro elemento encontrado usando a função .row-n(0)
     row = filter-with(table, lam(row): row["id"] == id end).row-n(0)
@@ -306,7 +308,7 @@ fun extrai-pokemon-tabela(id :: Number, table :: Table) -> Pokemon:
         row["hp"],
         row["hp"],
         img-pokemon(row["id"]),
-        ataque("Tackle", TIPO, row["attack"] / 10)
+        ataque("Ataque", TIPO, row["attack"] / 10)
     )
 end
 
