@@ -49,7 +49,7 @@ fun aplica-movimento(p :: Pokemon, m :: Movimento) -> Pokemon:
         | ataque(nome, tipo, poder) => 
             # Subtrai o HP transformando o poder do ataque em negativo (-1 * poder)
             # e multiplicando a quantidade de dano pelo multiplicador obtido das fraquezas e resistências
-            dano = -1 * (poder * efeito-to-multiplicador(verifica-efeito(tipo, p.tipo)))
+            dano = 0 # COMPLETE AQUI calcule o dano usando as funções verifica-efeito e efeito-to-multiplicador e o poder do ataque
 
             atualiza-hp(p, dano)
             
@@ -67,12 +67,12 @@ end
 fun inverte-direcao(p :: Pokemon) -> Pokemon:
     doc: "Dado um pokemon, devolve o pokemon resultante de inverter sua direção (dx, dy)."
     # Reconstrói a estrutura Pokemon mantendo todos os dados e passando as direções invertidas
-    # Corrija o código abaixo para inverter as direções dx e dy do pokemon:
+    # CORRIJA o código abaixo para inverter as direções dx e dy do pokemon:
     pokemon(p.nome, p.id, p.tipo, p.x, p.y, p.dx, p.dy, p.speed, p.hp, p.max-hp, p.img, p.movimento)
 end
 
 fun colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean:
-    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário. O critério para colisão é se a distância euclidiana entre as coordenadas dos pokemons for menor image-width(p1.img)."
+    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário. O critério para colisão é se a distância euclidiana entre as coordenadas dos pokemons for menor que image-width(p1.img)."
     distancia = -1
 
     false
@@ -98,8 +98,8 @@ fun processa-ataque-pokemon(p :: Pokemon, inimigo :: Pokemon) -> Pokemon:
 end
 
 fun esta-vivo(p :: Pokemon) -> Boolean:
-    doc: "Dado um pokemon, devolve true se o hp deste pokemon for maior que 0, e false caso contrário."
-    true
+    doc: "Dado um pokemon, devolve true se o mesmo está vivo (ou seja, se seu hp for maior que 0), e false caso contrário."
+    true # COMPLETE AQUI
 where:
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is true
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 0, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is false
@@ -107,7 +107,7 @@ end
 
 fun acabou-jogo-v0(w :: Worldv0) -> Boolean:
     doc: "Dado um mundo, devolve true se o jogo acabou (ou seja, se um dos pokemons não está mais vivo) e false caso contrário."
-    false
+    false # COMPLETE AQUI
 end
 
 fun desenha-mundo-v0(w :: Worldv0) -> Image:
@@ -177,7 +177,9 @@ TIME2 = link(CHARMANDER, empty)
 fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
     doc: "Dado um time, uma cena e um nome de time, gera uma imagem com os pokemons deste time sobre a cena, colocando o nome do time acima de cada pokémon."
     cases (Time) t:
+        # Se o time estiver vazio, a imagem é apenas a cena
         | empty => cena
+        # Senão,
         | link(first, rest) => 
             cor = ask:
                     | nome-time == "Jogador 1" then: "blue"
@@ -187,12 +189,10 @@ fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
                 above(
                     text-font(nome-time, 10, cor, "Arial", "system", "normal", "normal", false), 
                     desenha-pokemon(first))
-        
-        place-image(
-            desenho-pokemon, 
-            first.x, 
-            first.y, 
-            desenha-time(rest, cena, nome-time))
+
+            # Desenha o pokemon first na sua posição sobre a cena resultante de desenhar o resto do time sobre a cena:
+            desenho-pokemon
+            # COMPLETE aqui usando a função place-image
     end
 end
 
@@ -215,8 +215,9 @@ end
 
 fun atualiza-mundo(w :: World) -> World:
     doc: "Atualiza o mundo a cada tick do jogo, movendo os pokemons de ambos os jogadores e processando os ataques entre eles. O resultado é um novo mundo com os pokemons atualizados."
-    NOVO-TIME1 = map(move-pokemon, w.time-jogador1)
-    NOVO-TIME2 = map(move-pokemon, w.time-jogador2)
+    # COMPLETE AQUI: movimente os pokemons do time do jogador 1 usando a função move-pokemon. Dica: use a função map para aplicar move-pokemon a cada pokemon do time.
+    NOVO-TIME1 = w.time-jogador1 
+    NOVO-TIME2 = w.time-jogador2
 
     world(
         filter(esta-vivo, processa-ataques(NOVO-TIME1, NOVO-TIME2)),

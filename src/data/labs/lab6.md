@@ -8,8 +8,8 @@ Neste laboratório, vamos construir um **jogo de batalha entre Pokémon**!
 
 <br>
 
-Neste jogo, cada Pokémon tem suas coordenadas x e y, seu deslocamento em ambas direções, uma velocidade, um movimento (ataque ou cura) e seus pontos de vida (HP). 
-O jogo acontece em um cenário onde os Pokémon se movem e colidem, causando dano uns aos outros. O jogo acaba quando algum dos jogadores não tem mais Pokémon vivos.
+O jogo acontece em um cenário onde os Pokémon de cada time se movem livremente. Quando dois Pokémon de times adversários colidem, eles se atacam, causando dano uns aos outros. 
+O jogo acaba quando algum dos jogadores não tem mais Pokémon vivos.
 
 Primeiro, vamos modelar a disputa entre dois Pokémon. Depois, vamos expandir a solução para trabalhar com dois **times de Pokémon**.
 
@@ -62,7 +62,9 @@ data Pokemon:
 end
 ```
 
-O mundo do jogo é representado por uma estrutura `World`, que guarda os times dos dois jogadores.
+Veja na biblioteca como a função `extrai-pokemon-tabela :: Number, Table -> Pokemon` constrói um `Pokemon` a partir de uma linha da tabela de dados dos Pokémon atribuindo coordenadas iniciais aleatórias.
+
+O estado do jogo é representado por uma estrutura chamada `World`, que possui como atributos os times dos dois jogadores.
 
 Leia as definições de `Pokemon` e `World` no arquivo `pokemon-lib6.arr` para entender melhor a estrutura dos dados que serão usadas nos exercícios seguintes.
 
@@ -82,7 +84,7 @@ Em cada passo de tempo (tick):
 
 1. Cada Pokémon se move de acordo com sua direção (`dx`, `dy`) e velocidade (`speed`).
 2. Se um Pokémon encostar na borda da tela, ele inverte a direção correspondente.
-3. Se os dois Pokémon colidirem, um ataca o outro.
+3. Se os dois Pokémon colidirem, um ataca o outro e ambos invertem a direção.
 4. O jogo termina quando pelo menos um lado não tiver mais Pokémon vivos.
 
 ### Funções que devem ser completadas no template
@@ -103,7 +105,7 @@ Ao ultrapassar limites do cenário (`LARG` e `ALT`), inverta só a componente da
 
 5. `colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean`
 Objetivo: detectar se dois Pokémon se sobrepõem.
-Use distância euclidiana entre os centros:
+Use distância euclidiana entre as coordenadas dos Pokémon para determinar colisão:
 
     `dist = sqrt((x1 - x2)^2 + (y1 - y2)^2)`
 
@@ -121,7 +123,7 @@ Objetivo: desenhar o estado atual do jogo na tela.
 9. `atualiza-mundo(w :: World) -> World`
 Objetivo: produzir o próximo estado do jogo aplicando movimento e ataques.
 
-10. `gera-video(w :: World) -> List<Image>`
+10.  `gera-video(w :: World) -> List<Image>`
 Objetivo: gerar recursivamente a sequência de frames do jogo até o término.
 
 **Esta é a função principal do jogo.**
@@ -130,14 +132,12 @@ Objetivo: gerar recursivamente a sequência de frames do jogo até o término.
 
 ## 🧠 Exercício 2: Argumento de Terminação
 
-Escreva um argumento de terminação para o programa do Exercício 1, considerando a função principal `gera-video`.
+Escreva um argumento de terminação para o programa do Exercício 1, considerando a função principal `gera-video-v0`.
 
-1. Explique por que a função recursiva `gera-video` sempre termina quando o jogo for configurado com Pokémon que perdem vida ao colidir.
+1. Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento `max-frames` seja positivo:
 
-2. Justifique qual medida diminui a cada passo do processo até atingir o caso de parada.
-
-3. Indique claramente qual é a condição de parada.
-
+2. Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento `max-frames` seja negativo. 
+Considere na sua resposta: existe um caso base para a recursão? Que premissas são necessárias para garantir que o caso base será atingido eventualmente?
 
 ---
 
@@ -149,55 +149,48 @@ Complete as funções abaixo no template para suportar múltiplos Pokémon por j
 
 1. `desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image`
 Objetivo: desenhar todos os Pokémon de um time na cena.
-Não óbvio: percorra a lista recursivamente e use `place-image` para sobrepor cada Pokémon na posição correta.
 
-2. `processa-ataque(p :: Pokemon, time-inimigo :: Time) -> Pokemon`
+1. `processa-ataque(p :: Pokemon, time-inimigo :: Time) -> Pokemon`
 Objetivo: processar o ataque que `p` sofre de um time inimigo.
-Não óbvio: percorra o time inimigo até achar o primeiro Pokémon que colide com `p`; quando colidir, aplique ataque e inverta direção.
+Percorre o time inimigo até achar o primeiro Pokémon que colide com `p`; quando colidir, aplica o ataque e inverte a direção.
 
-3. `processa-ataques(time1 :: Time, time2 :: Time) -> Time`
+1. `processa-ataques(time1 :: Time, time2 :: Time) -> Time`
 Objetivo: atualizar cada Pokémon de `time1` recebendo ataques de `time2`.
-Não óbvio: mapeie `processa-ataque` sobre `time1`, passando `time2` como argumento fixo.
 
-4. `atualiza-mundo(w :: World) -> World`
-Objetivo: atualizar os dois times em um tick.
+1. `atualiza-mundo(w :: World) -> World`
+Objetivo: atualizar os dois times em um frame.
 Ela deve:
 - Mover os pokemon dos dois times;
 - Processar ataques dos dois lados;
 - Filtrar os Pokémon sem vida com `filter(esta-vivo, ...)`.
 
-5. `gera-video(w :: World) -> List<Image>`
-Objetivo: Manter a geração recursiva dos frames agora com times.
+1. `gera-video(w :: World) -> List<Image>`
+Objetivo: Manter a geração recursiva dos frames, agora com times.
 
 ---
 
 ## ♾️ Exercício 4: Terminação com Times
 
-Atualize o argumento de terminação do Exercício 2 para o programa com times.
+Atualize o argumento de terminação do Exercício 2 para o programa com times. Explique por que o programa continua terminando quando cada jogador possui uma lista finita de Pokémon.
 
-1. Explique por que o programa continua terminando quando cada jogador possui uma lista finita de Pokémon.
-
-2. Mostre qual é a medida que diminui ao longo da execução: a vida total dos Pokémon, o número de Pokémon vivos, ou outra medida adequada.
-
-3. Especifique o papel da filtragem dos Pokémon sem vida no caso de parada.
-
-> **Dica:** Pense na quantidade de pontos de vida restante ou na quantidade de Pokémon vivos no mundo.
+> **Dica:** Pense na quantidade de pontos de vida restante ou na quantidade de Pokémon vivos no mundo. Especifique o papel da filtragem dos Pokémon sem vida no caso de parada.
 
 ---
 
 ## Exercício 5: Custo de Execução
 
-Indique o custo de execução da função principal do programa (`gera-video`).
-
 1. Analise a complexidade assintótica de `atualiza-mundo(w :: World)`, em função do tamanho dos times de entrada (N).
 
 2. Considere o custo das funções auxiliares chamadas por `atualiza-mundo`, como movimentação, detecção de colisão e processamento de ataques.
 
-3. Relacione esse custo com `gera-video`, considerando o número de frames gerados até o fim do jogo.
-
-4. Escreva o resultado final em notação assintótica (big O), explicando em uma frase curta o raciocínio usado.
+3. Escreva o resultado final em notação assintótica (big O), explicando em uma frase curta o raciocínio usado.
 
 ---
+
+## Desafios Bônus:
+
+Neste lab, cada Pokemon é inicializado com um movimento de ataque na função `extrai-pokemon-tabela`. 
+Adapte o jogo para tratar colisões entre Pokémon do mesmo time: quando dois Pokémon do mesmo time colidirem, eles podem se curar caso possuam um movimento de cura.
 
 ## pokemon-lib6.arr
 
