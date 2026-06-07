@@ -2810,7 +2810,7 @@ fun aplica-movimento(p :: Pokemon, m :: Movimento) -> Pokemon:
         | ataque(nome, tipo, poder) => 
             # Subtrai o HP transformando o poder do ataque em negativo (-1 * poder)
             # e multiplicando a quantidade de dano pelo multiplicador obtido das fraquezas e resistências
-            dano = -1 * (poder * efeito-to-multiplicador(verifica-efeito(tipo, p.tipo)))
+            dano = 0 # COMPLETE AQUI calcule o dano usando as funções verifica-efeito e efeito-to-multiplicador e o poder do ataque
 
             atualiza-hp(p, dano)
             
@@ -2828,12 +2828,12 @@ end
 fun inverte-direcao(p :: Pokemon) -> Pokemon:
     doc: "Dado um pokemon, devolve o pokemon resultante de inverter sua direção (dx, dy)."
     # Reconstrói a estrutura Pokemon mantendo todos os dados e passando as direções invertidas
-    # Corrija o código abaixo para inverter as direções dx e dy do pokemon:
+    # CORRIJA o código abaixo para inverter as direções dx e dy do pokemon:
     pokemon(p.nome, p.id, p.tipo, p.x, p.y, p.dx, p.dy, p.speed, p.hp, p.max-hp, p.img, p.movimento)
 end
 
 fun colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean:
-    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário. O critério para colisão é se a distância euclidiana entre as coordenadas dos pokemons for menor image-width(p1.img)."
+    doc: "Dado dois pokemons, devolve true se eles colidiram (ou seja, se suas imagens se sobrepõem) e false caso contrário. O critério para colisão é se a distância euclidiana entre as coordenadas dos pokemons for menor que image-width(p1.img)."
     distancia = -1
 
     false
@@ -2859,8 +2859,8 @@ fun processa-ataque-pokemon(p :: Pokemon, inimigo :: Pokemon) -> Pokemon:
 end
 
 fun esta-vivo(p :: Pokemon) -> Boolean:
-    doc: "Dado um pokemon, devolve true se o hp deste pokemon for maior que 0, e false caso contrário."
-    true
+    doc: "Dado um pokemon, devolve true se o mesmo está vivo (ou seja, se seu hp for maior que 0), e false caso contrário."
+    true # COMPLETE AQUI
 where:
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 35, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is true
     esta-vivo(pokemon("Pikachu", 25, ELECTRIC, 0, 0, 0, 0, 0, 0, 35, img-pokemon(25), ataque("Tackle", NORMAL, 40))) is false
@@ -2868,7 +2868,7 @@ end
 
 fun acabou-jogo-v0(w :: Worldv0) -> Boolean:
     doc: "Dado um mundo, devolve true se o jogo acabou (ou seja, se um dos pokemons não está mais vivo) e false caso contrário."
-    false
+    false # COMPLETE AQUI
 end
 
 fun desenha-mundo-v0(w :: Worldv0) -> Image:
@@ -2938,7 +2938,9 @@ TIME2 = link(CHARMANDER, empty)
 fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
     doc: "Dado um time, uma cena e um nome de time, gera uma imagem com os pokemons deste time sobre a cena, colocando o nome do time acima de cada pokémon."
     cases (Time) t:
+        # Se o time estiver vazio, a imagem é apenas a cena
         | empty => cena
+        # Senão,
         | link(first, rest) => 
             cor = ask:
                     | nome-time == "Jogador 1" then: "blue"
@@ -2948,12 +2950,10 @@ fun desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image:
                 above(
                     text-font(nome-time, 10, cor, "Arial", "system", "normal", "normal", false), 
                     desenha-pokemon(first))
-        
-        place-image(
-            desenho-pokemon, 
-            first.x, 
-            first.y, 
-            desenha-time(rest, cena, nome-time))
+
+            # Desenha o pokemon first na sua posição sobre a cena resultante de desenhar o resto do time sobre a cena:
+            desenho-pokemon
+            # COMPLETE aqui usando a função place-image
     end
 end
 
@@ -2976,8 +2976,9 @@ end
 
 fun atualiza-mundo(w :: World) -> World:
     doc: "Atualiza o mundo a cada tick do jogo, movendo os pokemons de ambos os jogadores e processando os ataques entre eles. O resultado é um novo mundo com os pokemons atualizados."
-    NOVO-TIME1 = map(move-pokemon, w.time-jogador1)
-    NOVO-TIME2 = map(move-pokemon, w.time-jogador2)
+    # COMPLETE AQUI: movimente os pokemons do time do jogador 1 usando a função move-pokemon. Dica: use a função map para aplicar move-pokemon a cada pokemon do time.
+    NOVO-TIME1 = w.time-jogador1 
+    NOVO-TIME2 = w.time-jogador2
 
     world(
         filter(esta-vivo, processa-ataques(NOVO-TIME1, NOVO-TIME2)),
@@ -4496,8 +4497,8 @@ Neste laboratório, vamos construir um **jogo de batalha entre Pokémon**!
 
 <br>
 
-Neste jogo, cada Pokémon tem suas coordenadas x e y, seu deslocamento em ambas direções, uma velocidade, um movimento (ataque ou cura) e seus pontos de vida (HP). 
-O jogo acontece em um cenário onde os Pokémon se movem e colidem, causando dano uns aos outros. O jogo acaba quando algum dos jogadores não tem mais Pokémon vivos.
+O jogo acontece em um cenário onde os Pokémon de cada time se movem livremente. Quando dois Pokémon de times adversários colidem, eles se atacam, causando dano uns aos outros. 
+O jogo acaba quando algum dos jogadores não tem mais Pokémon vivos.
 
 Primeiro, vamos modelar a disputa entre dois Pokémon. Depois, vamos expandir a solução para trabalhar com dois **times de Pokémon**.
 
@@ -4550,7 +4551,9 @@ data Pokemon:
 end
 \`\`\`
 
-O mundo do jogo é representado por uma estrutura \`World\`, que guarda os times dos dois jogadores.
+Veja na biblioteca como a função \`extrai-pokemon-tabela :: Number, Table -> Pokemon\` constrói um \`Pokemon\` a partir de uma linha da tabela de dados dos Pokémon atribuindo coordenadas iniciais aleatórias.
+
+O estado do jogo é representado por uma estrutura chamada \`World\`, que possui como atributos os times dos dois jogadores.
 
 Leia as definições de \`Pokemon\` e \`World\` no arquivo \`pokemon-lib6.arr\` para entender melhor a estrutura dos dados que serão usadas nos exercícios seguintes.
 
@@ -4570,7 +4573,7 @@ Em cada passo de tempo (tick):
 
 1. Cada Pokémon se move de acordo com sua direção (\`dx\`, \`dy\`) e velocidade (\`speed\`).
 2. Se um Pokémon encostar na borda da tela, ele inverte a direção correspondente.
-3. Se os dois Pokémon colidirem, um ataca o outro.
+3. Se os dois Pokémon colidirem, um ataca o outro e ambos invertem a direção.
 4. O jogo termina quando pelo menos um lado não tiver mais Pokémon vivos.
 
 ### Funções que devem ser completadas no template
@@ -4591,7 +4594,7 @@ Ao ultrapassar limites do cenário (\`LARG\` e \`ALT\`), inverta só a component
 
 5. \`colidiu(p1 :: Pokemon, p2 :: Pokemon) -> Boolean\`
 Objetivo: detectar se dois Pokémon se sobrepõem.
-Use distância euclidiana entre os centros:
+Use distância euclidiana entre as coordenadas dos Pokémon para determinar colisão:
 
     \`dist = sqrt((x1 - x2)^2 + (y1 - y2)^2)\`
 
@@ -4609,7 +4612,7 @@ Objetivo: desenhar o estado atual do jogo na tela.
 9. \`atualiza-mundo(w :: World) -> World\`
 Objetivo: produzir o próximo estado do jogo aplicando movimento e ataques.
 
-10. \`gera-video(w :: World) -> List<Image>\`
+10.  \`gera-video(w :: World) -> List<Image>\`
 Objetivo: gerar recursivamente a sequência de frames do jogo até o término.
 
 **Esta é a função principal do jogo.**
@@ -4618,14 +4621,12 @@ Objetivo: gerar recursivamente a sequência de frames do jogo até o término.
 
 ## 🧠 Exercício 2: Argumento de Terminação
 
-Escreva um argumento de terminação para o programa do Exercício 1, considerando a função principal \`gera-video\`.
+Escreva um argumento de terminação para o programa do Exercício 1, considerando a função principal \`gera-video-v0\`.
 
-1. Explique por que a função recursiva \`gera-video\` sempre termina quando o jogo for configurado com Pokémon que perdem vida ao colidir.
+1. Dê um argumento de terminação para a função \`gera-video-v0\`, assumindo que o valor do argumento \`max-frames\` seja positivo:
 
-2. Justifique qual medida diminui a cada passo do processo até atingir o caso de parada.
-
-3. Indique claramente qual é a condição de parada.
-
+2. Dê um argumento de terminação para a função \`gera-video-v0\`, assumindo que o valor do argumento \`max-frames\` seja negativo. 
+Considere na sua resposta: existe um caso base para a recursão? Que premissas são necessárias para garantir que o caso base será atingido eventualmente?
 
 ---
 
@@ -4637,55 +4638,48 @@ Complete as funções abaixo no template para suportar múltiplos Pokémon por j
 
 1. \`desenha-time(t :: Time, cena :: Image, nome-time :: String) -> Image\`
 Objetivo: desenhar todos os Pokémon de um time na cena.
-Não óbvio: percorra a lista recursivamente e use \`place-image\` para sobrepor cada Pokémon na posição correta.
 
-2. \`processa-ataque(p :: Pokemon, time-inimigo :: Time) -> Pokemon\`
+1. \`processa-ataque(p :: Pokemon, time-inimigo :: Time) -> Pokemon\`
 Objetivo: processar o ataque que \`p\` sofre de um time inimigo.
-Não óbvio: percorra o time inimigo até achar o primeiro Pokémon que colide com \`p\`; quando colidir, aplique ataque e inverta direção.
+Percorre o time inimigo até achar o primeiro Pokémon que colide com \`p\`; quando colidir, aplica o ataque e inverte a direção.
 
-3. \`processa-ataques(time1 :: Time, time2 :: Time) -> Time\`
+1. \`processa-ataques(time1 :: Time, time2 :: Time) -> Time\`
 Objetivo: atualizar cada Pokémon de \`time1\` recebendo ataques de \`time2\`.
-Não óbvio: mapeie \`processa-ataque\` sobre \`time1\`, passando \`time2\` como argumento fixo.
 
-4. \`atualiza-mundo(w :: World) -> World\`
-Objetivo: atualizar os dois times em um tick.
+1. \`atualiza-mundo(w :: World) -> World\`
+Objetivo: atualizar os dois times em um frame.
 Ela deve:
 - Mover os pokemon dos dois times;
 - Processar ataques dos dois lados;
 - Filtrar os Pokémon sem vida com \`filter(esta-vivo, ...)\`.
 
-5. \`gera-video(w :: World) -> List<Image>\`
-Objetivo: Manter a geração recursiva dos frames agora com times.
+1. \`gera-video(w :: World) -> List<Image>\`
+Objetivo: Manter a geração recursiva dos frames, agora com times.
 
 ---
 
 ## ♾️ Exercício 4: Terminação com Times
 
-Atualize o argumento de terminação do Exercício 2 para o programa com times.
+Atualize o argumento de terminação do Exercício 2 para o programa com times. Explique por que o programa continua terminando quando cada jogador possui uma lista finita de Pokémon.
 
-1. Explique por que o programa continua terminando quando cada jogador possui uma lista finita de Pokémon.
-
-2. Mostre qual é a medida que diminui ao longo da execução: a vida total dos Pokémon, o número de Pokémon vivos, ou outra medida adequada.
-
-3. Especifique o papel da filtragem dos Pokémon sem vida no caso de parada.
-
-> **Dica:** Pense na quantidade de pontos de vida restante ou na quantidade de Pokémon vivos no mundo.
+> **Dica:** Pense na quantidade de pontos de vida restante ou na quantidade de Pokémon vivos no mundo. Especifique o papel da filtragem dos Pokémon sem vida no caso de parada.
 
 ---
 
 ## Exercício 5: Custo de Execução
 
-Indique o custo de execução da função principal do programa (\`gera-video\`).
-
 1. Analise a complexidade assintótica de \`atualiza-mundo(w :: World)\`, em função do tamanho dos times de entrada (N).
 
 2. Considere o custo das funções auxiliares chamadas por \`atualiza-mundo\`, como movimentação, detecção de colisão e processamento de ataques.
 
-3. Relacione esse custo com \`gera-video\`, considerando o número de frames gerados até o fim do jogo.
-
-4. Escreva o resultado final em notação assintótica (big O), explicando em uma frase curta o raciocínio usado.
+3. Escreva o resultado final em notação assintótica (big O), explicando em uma frase curta o raciocínio usado.
 
 ---
+
+## Desafios Bônus:
+
+Neste lab, cada Pokemon é inicializado com um movimento de ataque na função \`extrai-pokemon-tabela\`. 
+Adapte o jogo para tratar colisões entre Pokémon do mesmo time: quando dois Pokémon do mesmo time colidirem, eles podem se curar caso possuam um movimento de cura.
 
 ## pokemon-lib6.arr
 
