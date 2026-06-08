@@ -146,14 +146,14 @@ fun gera-video-v0(w :: Worldv0, max-frames :: Number) -> List<Image>:
     end
 end
 
-wv0 = worldv0(BULBASAUR, CHARMANDER)
+W-V0 = worldv0(BULBASAUR, CHARMANDER)
 
 # Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento max-frames seja positivo:
-FRAMES = gera-video-v0(wv0, 2000)
+FRAMES = gera-video-v0(W-V0, 2000)
 run-movie(120, FRAMES)
 
 # Dê um argumento de terminação para a função `gera-video-v0`, assumindo que o valor do argumento max-frames seja negativo:
-# FRAMES2 = gera-video-v0(wv0, -1)
+# FRAMES2 = gera-video-v0(W-V0, -1)
 # run-movie(120, FRAMES2)
 
 
