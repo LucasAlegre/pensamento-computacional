@@ -302,4 +302,4 @@ TIME-JOGADOR1 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
 TIME-JOGADOR2 = cria-time(POKE-DATA, lista-aleatoria(6, 1, 721))
 
 WORLD = world(TIME-JOGADOR1, TIME-JOGADOR2)
-# run-movie(20, gera-video(WORLD))
+run-movie(20, gera-video(WORLD))
