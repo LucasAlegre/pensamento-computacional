@@ -23,7 +23,6 @@ const Layout = ({ children }) => {
                             </li>
                             <li><NavLink to="/labs" className={({ isActive }) => isActive ? "active" : ""}>Laboratórios</NavLink></li>
                             <li><NavLink to="/exercises" className={({ isActive }) => isActive ? "active" : ""}>Exercícios</NavLink></li>
-                            <li><NavLink to="/examples" className={({ isActive }) => isActive ? "active" : ""}>Exemplos</NavLink></li>
                         </ul>
                     </nav>
                 </div>

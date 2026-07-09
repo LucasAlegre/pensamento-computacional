@@ -403,3 +403,39 @@ footer {
   color: var(--primary-color);
   transform: translateX(3px);
 }
+
+/* Semester sections on Laboratories page */
+.semester-section {
+  margin-top: 2.5rem;
+}
+
+.semester-section:first-of-type {
+  margin-top: 1.5rem;
+}
+
+.semester-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #eaeaea;
+  color: var(--primary-color);
+}
+
+.semester-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  background: linear-gradient(135deg, #e8f0fe, #f0f4ff);
+  padding: 0.4rem 1.2rem;
+  border-radius: 2rem;
+  border: 1px solid #c8d8f0;
+}
+
+.semester-section + .semester-section {
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
