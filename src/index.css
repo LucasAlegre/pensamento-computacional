@@ -439,3 +439,45 @@ footer {
   padding-top: 2rem;
   border-top: 1px solid #eee;
 }
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem 0;
+    gap: 0.5rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .page-container {
+    flex-direction: column;
+  }
+
+  .toc-sidebar {
+    width: 100%;
+    min-width: 100%;
+    position: static;
+    height: auto;
+    max-height: 350px;
+    margin-bottom: 2rem;
+  }
+
+  .section {
+    padding: 1.5rem 1rem;
+  }
+
+  .main-content {
+    padding: 1rem 0;
+  }
+}
