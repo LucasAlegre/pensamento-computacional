@@ -1,10 +1,10 @@
-# Aprendendo Pensamento Computacional
+# Aprendendo o Pensamento Computacional
 
 Texto adaptado da Profa. Kathi Fisler (Brown University). [https://hackmd.io/@cs111/learning-f22](https://hackmd.io/@cs111/learning-f22)
 
 <br>
 
-Existe muita pesquisa sobre como as pessoas aprendem, tanto em geral quanto em Ciência da Computação. Aprender Ciência da Computação é um pouco diferente de outras disciplinas, então aqui estão algumas diretrizes.
+Existe muita pesquisa sobre como as pessoas aprendem, não somente de forma geral mas também especificamente Ciência da Computação. Aprender Ciência da Computação é um pouco diferente de outras disciplinas, então aqui estão algumas diretrizes.
 
 ## Aprendizado nas Aulas e Laboratórios
 
@@ -52,11 +52,11 @@ Entendemos os conceitos ao construirmos modelos de como eles operam. Pense num m
 
 ***Dica:** Nós demonstraremos uma variedade de modelos sobre como os programas agem e de que forma integram os dados. Pratique a aplicação desses modelos em programas específicos, até sentir-se seguro e dominá-los por completo. O trabalho guiado com modelos foca na base estrutural da aptidão central de aprender a programar.*
 
-### Não acredite em um "gene nerd": você pode aprender isso com prática
+### Não acredite em um "gene nerd": você pode aprender a programar com prática
 
-As pessoas frequentemente acreditam que programação e ciência da computação são coisas para as quais algumas pessoas "nascem" com o dom, enquanto outras não. Neste nível, essa ideia é falsa. É verdade que diferentes pessoas absorvem as técnicas mais rápido do que outras, mas isso não significa que apenas aqueles com o "gene nerd" podem se sair bem na Computação. Enxergue a Computação como algo que você pode aprender com prática; não diga a si mesmo "Eu não consigo fazer isso porque eu não sou bom com Computação". Existe muita pesquisa interessante que diz que, se você pressupõe que a inteligência é fixa e imutável, você passa a interagir de outra forma com o aprendizado.
+As pessoas frequentemente acreditam que programação e ciência da computação são coisas para as quais algumas pessoas "nascem" com o dom, enquanto outras não. Neste nível, essa ideia é falsa. É verdade que diferentes pessoas absorvem as técnicas mais rápido do que outras, mas isso não significa que apenas aqueles com o "gene nerd" podem se sair bem na Computação. Enxergue a Computação como algo que você pode aprender com prática; não diga a si mesmo "Eu não consigo fazer isso porque eu não sou bom com Computação". Existe muita pesquisa que diz que, se você pressupõe que a inteligência é fixa e imutável, você passa a interagir de outra forma com o aprendizado.
 
-***Dica:** Não caia na armadilha de achar que não consegue aprender isso. Alguns dos seus colegas já programaram em algum momento. Como era de se esperar, isso significa que eles são melhores nisso do que você neste momento. Mas isso não significa que você também não seja capaz de aprender. Trabalhe com os problemas práticos e a equipe da disciplina.*
+***Dica:** Não caia na armadilha de achar que não consegue aprender a programar. Alguns dos seus colegas já programaram em algum momento. Como era de se esperar, isso significa que eles são melhores nisso do que você neste momento. Mas isso não significa que você também não seja capaz de aprender. Trabalhe com os problemas práticos e a equipe da disciplina.*
 
 ### Não tenha medo de errar e de pedir ajuda
 

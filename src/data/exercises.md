@@ -27,11 +27,17 @@ use context starter2024
 **ID:** Expressões Aritméticas-2
 **Dificuldade:** Fácil
 
-Faça um programa que, dados os valores para os catetos de um triângulo retângulo, calcule o valor da hipotenusa. A hipotenusa é calculada pelo Teorema de Pitágoras que é dado pela expressão $a^{2}=b^{2}+c^{2}$, onde $b$ e $c$ são os catetos e $a$ a hipotenusa.
+Faça uma função chamada *calcula-hipotenusa* que, dados os valores para os catetos de um triângulo retângulo, calcule o valor da hipotenusa. A hipotenusa é calculada pelo Teorema de Pitágoras que é dado pela expressão $a^{2}=b^{2}+c^{2}$, onde $b$ e $c$ são os catetos e $a$ a hipotenusa.
 
 ### Testes
 ```pyret height=500
 use context starter2024
+
+
+check:
+  calcula-hipotenusa(3, 4) is 5
+  calcula-hipotenusa(5, 12) is 13
+end
 ```
 
 ## Exercício: Cálculo de Cateto
@@ -181,6 +187,17 @@ Escreva uma função em Pyret que consome uma variável numérica. Caso o númer
 ### Testes
 ```pyret height=500
 use context starter2024
+
+fun div-ou-mult(n :: Number) -> Number:
+  doc: "Divide por 5 se n for maior que 100, senão multiplica por 3"
+  # Complete aqui
+  n
+end
+
+check:
+  div-ou-mult(150) is 30
+  div-ou-mult(50) is 150
+end
 ```
 
 ## Exercício: Par ou Ímpar
@@ -680,8 +697,23 @@ use context starter2024
 lst :: List<Any> = link(1, link("dois", link("três", link(4, link(6, empty)))))
 ```
 
-## Exercício: Soma de uma lista
+## Exercício: Atualiza Lista de Strings
+
 **ID:** Listas-9
+**Dificuldade:** Difícil
+
+Desenvolva uma função que, dado uma lista de strings, retorne uma nova lista onde foi adicionado "!" ao final de cada string. Adicionalmente, a função deve remover todas as strings que possuam menos de 4 caracteres.
+
+### Testes
+```pyret height=500
+check:
+  atualiza-lista(empty) is empty
+  atualiza-lista([list: "oi", "tchau", "ola", "hello"]) is [list: "tchau!", "hello!"]
+end
+```
+
+## Exercício: Soma Índices Pares
+**ID:** Listas-10
 **Dificuldade:** Resolvido
 
 Desenvolva a função `soma-lista :: (lst :: List<Number>) -> Number` que receba uma lista de números e retorne a soma de todos os elementos em posições pares (contando a partir de 0), i.e., o primeiro elemento da lista, o terceiro, o quinto, etc.
@@ -691,7 +723,7 @@ Desenvolva a função `soma-lista :: (lst :: List<Number>) -> Number` que receba
 use context starter2024
 
 fun soma-lista(lst :: List<Number>, ind-par :: Boolean) -> Number:
-  doc: "Retorna a soma de todos os elementos de uma lista de números"
+  doc: "Retorna a soma de todos os elementos de uma lista de números em posições pares (contando a partir de 0)."
   cases (List) lst:
     | empty => 0
     | link(primeiro, resto) => 
@@ -788,11 +820,11 @@ end
 
 # Tópico: Listas de Estruturas e Alta-Ordem
 
-## Execício: Veículos
+## Exercício: Veículos
 **ID:** Listas de Estruturas e Alta-Ordem-1
 **Dificuldade:** Médio
  
-Um veículo é composto por um modelo, marca e ano de fabricação. Uma lista deveículos é composta por elementos do tipo veículo. Escreva uma função que receba umalista de veículos e elimine veículos fabricados antes do ano de 1990.
+Um veículo é composto por um modelo, marca e ano de fabricação. Uma lista de veículos é composta por elementos do tipo veículo. Escreva uma função que receba uma lista de veículos e elimine veículos fabricados antes do ano de 1990.
 
 ### Testes
 ```pyret height=500
@@ -1339,8 +1371,133 @@ end
 
 # Tópico: Recursão Generativa
 
-## Exercício: Máximo Divisor Coumum (MDC)
+## Exercício: Triângulo de Sierpinski
+
 **ID:** Recursão Generativa-1
+**Dificuldade:** Médio
+
+Fractais são imagens que possuem um padrão na sua construção, no qual as partes refletem o padrão do todo. A seguir, alguns exemplos de fractais:
+
+![Exemplo de fractais](images/fractais.png)
+
+A imagem mais à esquerda da lista se chama **triângulo de Sierpinksi**. Esta imagem é gerada colocando-se
+um triângulo de Sierpinski menor (com a metade do lado) acima de dois outros triângulo de Sierpinski menores,
+e repetindo este processo até que o lado do triângulo seja pequeno demais, neste caso, é apenas desenhado um
+triângulo e a figura não é mais subdividida. Ou seja, o algoritmo que gera esta imagem é o seguinte:
+
+- Dado um tamanho de lado L
+- Se o lado L for pequeno demais, desenhar um triângulo (não preenchido) com lado L
+- Senão, colocar um triângulo de Sierpinski com lado L/2 acima de dois triângulos de Sierpinski com lado L/2, lado a lado.
+
+Note que, de acordo com este algoritmo, o único triângulo que será desenhado de fato é o muito pequeno,
+portanto na figura acima a linha lateral do triângulo mais externo não é desenhada em uma única linha, essa
+linha é construída pelas das laterais de todos os triângulos pequenos que compõem a imagem. Além disso, os
+triângulos invertidos que aparecem na imagem não são desenhados, eles são o espaço vazio que se forma a partir dos desenhos dos 3 triângulos em cada etapa.
+
+O código da função **sierpinski** está pronto no modelo de solução. Esta função recebe o tamanho do lado e
+uma cor, e desenha um triângulo de Sierpinski desta cor cujo lado do triângulo externo é o lado passado como
+argumento. Neste exercício usaremos cores no formato RGB.
+Aplique esta função a vários argumentos diferentes para gerar triângulos de Sierpinski. Esta função pára de
+desenhar quando o lado do triângulo é menor ou igual a 5 (este é o caso trivial deste programa). Modifique o
+caso trivial do programa para outros valores para ver o que acontece.
+
+<br>
+
+1. Podemos usar definições de nomes locais para facilitar a construção de soluções, bem como para torná-las
+mais eficientes. Um exemplo é a definição da função sierpinski, na qual definimos o nome **triangulo**
+localmente para usa-lo na construção do desenho que queríamos montar. No entanto, podemos construir
+uma função que retorna o mesmo resultado sem utilizar definições locais. Construa a função
+**sierpinski-sem-def-local**, que deve ter exatamente o mesmo comportamento da função sierpinski,
+mas não pode ter definições locais.
+
+### Testes
+```pyret height=500
+use context dcic2024
+
+import color as C
+
+fun sierpinski(lado :: Number, cor :: C.Color) -> Image:
+  doc: "Dados o tamanho do lado e uma cor, desenha um triângulo de Sierpinski desta cor cujo lado do triângulo externo é o lado passado como argumento."
+  if lado <= 5:
+    # Caso trivial: desenha um triângulo (não preenchido) com lado 'lado'
+    triangle(lado, "solid", cor)
+  else:
+    # Caso recursivo: desenha três triângulos de Sierpinski menores
+    triangulo = sierpinski(lado / 2, cor)
+    final = above(triangulo, 
+                      beside(triangulo, triangulo))
+
+    final
+  end
+end
+
+sierpinski(100, color-named("red")) # Triângulo vermelho
+
+fun sierpinski-sem-def-local(lado :: Number, cor :: C.Color) -> Image:
+    doc: "Desenha um triângulo de Sierpinski com lado 'lado' e cor 'cor'."
+    # COMPLETE
+    triangle(lado, "solid", cor)
+end
+
+```
+
+## Exercício: Tapete de Sierpinski
+**ID:** Recursão Generativa-2
+**Dificuldade:** Difícil
+
+Complete o código da função **tapete-sierpinski** que, dados o tamanho do lado e uma cor (tipo Color),
+desenha um tapete de Sierpinski com esta cor inicial cujo lado externo é o número passado como argumento.
+Quando o lado passado como argumento tiver dimensões muito pequenas (você escolhe o que é "dimensão
+muito pequena"), somente desenha um quadrado na cor preta. Sua função deve variar a cor a cada iteração,
+para isso use as funções fun-muda-cor e aleatorio, que estão disponíveis no modelo da solução. Você
+DEVE necessariamente usar definições locais no seu código para tornar o código mais legível e a execução
+mais eficiente. Exemplos de tapetes de Sierpinski na imagem a seguir:
+
+![Exemplo de tapetes de Sierpinski](images/tapete-sierpinski.png)
+
+> Dica: Um tapete de Sierpinski é construído a partir de 9 tapetes menores, sendo que o tapete central é um quadrado "normal", e os outros 8 são tapetes de Sierpinski menores.
+
+### Testes
+
+```pyret height=500
+use context dcic2024
+
+import color as C
+
+fun aleatorio() -> Number:
+  doc: "Devolve um novo número aleatorio entre 0 e 255."
+  num-random(255 + 1)
+end
+
+fun gera-cor() -> C.Color:
+  doc: "Retorna uma nova cor aleatória."
+  r = aleatorio()
+  g = aleatorio()
+  b = aleatorio()
+  
+  C.color(r, g, b, 1)
+end
+
+fun tapete-sierpinski(lado :: Number, cor :: C.Color) -> Image:
+  doc: "Dados o tamanho do lado e uma cor inicial, desenha um tapete de Sierpinski com o quadrado central desta cor e lado do quadrado externo igual ao lado passado como argumento. A variação de cor para os passos sucessivos é randômica."
+  
+  if lado <= 5:
+    # Caso trivial: desenha um quadrado preto
+    square(lado, "solid", color-named("black"))
+  else:
+    # Caso recursivo: desenha nove tapetes de Sierpinski menores
+    novo-cor = gera-cor()
+  
+    # COMPLETE:
+    square(lado / 3, "solid", cor)
+  end
+end
+
+tapete-sierpinski(200, color-named("red"))
+```
+
+## Exercício: Máximo Divisor Coumum (MDC)
+**ID:** Recursão Generativa-3
 **Dificuldade:** Resolvido
 
 1) Desenvolva a função `mdc-e` que, dados dois números positivos maiores que zero, retorna o máximo diviso comum (MDC) entre eles. Use recursão estrutural.
