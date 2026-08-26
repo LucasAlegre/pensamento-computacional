@@ -213,4 +213,19 @@ fun desenha-cenario(valor1 :: Number, naipe1 :: String, valor2 :: Number, naipe2
   )
 end
 
-desenha-cenario(1, NAIPE-ESPADAS, 7, NAIPE-OUROS)
+# Teste a sua função de construir cartas:
+carta-teste = cria-carta(1, NAIPE-ESPADAS)
+carta-teste
+
+# Imagem do cenário de duelo 1
+cenario-teste = desenha-cenario(1, NAIPE-ESPADAS, 7, NAIPE-OUROS)
+cenario-teste
+
+# Imagem do cenário de duelo 2
+cenario-teste2 = desenha-cenario(3, NAIPE-PAUS, 3, NAIPE-COPAS)
+cenario-teste2
+
+# Salvar imagens para o roteiro
+save-image(carta-teste, "espadilha_card.png")
+save-image(cenario-teste, "cenario1.png")
+save-image(cenario-teste2, "cenario2.png")

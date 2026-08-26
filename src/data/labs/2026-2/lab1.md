@@ -148,10 +148,14 @@ Implemente a função **`cria-carta(valor :: Number, naipe :: String) -> Image`*
   - A moldura externa adicionada via `adiciona-borda`.
 
 *Teste sua função executando:*
-```
+```pyret
 cria-carta(1, NAIPE-ESPADAS)
 cria-carta(7, NAIPE-OUROS)
 ```
+
+A sua carta formatada deverá se parecer com o exemplo abaixo:
+
+![Exemplo de Carta Pronta](images/lab1/espadilha_card.png)
 
 ---
 
@@ -193,4 +197,8 @@ Vamos estruturar o duelo da rodada utilizando composição direta de funções:
 > - `beside(img1, img2)`: posiciona as imagens lado a lado.
 > - `overlay-align("middle", "middle", duelo, MESA)`: centraliza o duelo sobre a mesa.
 
-Descomente as chamadas no final do template e admire o resultado do duelo gaudério na sua tela! 🧉
+Seu cenário final deverá se parecer com os exemplos abaixo:
+
+![Exemplo de Cenário 1](images/lab1/cenario1.png)
+![Exemplo de Cenário 2](images/lab1/cenario2.png)
+
