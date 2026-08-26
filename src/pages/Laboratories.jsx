@@ -29,7 +29,7 @@ const Laboratories = () => {
                                 transition: 'transform 0.2s, box-shadow 0.2s'
                             }}>
                                 <h3 style={{ color: '#00509e', marginBottom: '1rem' }}>{lab.title}</h3>
-                                <p style={{ color: '#666' }}>Acesse o roteiro da aula prática {lab.id}.</p>
+                                <p style={{ color: '#666' }}>Acesse o enunciado do Lab {lab.id}.</p>
                             </Link>
                         ))}
                     </div>
