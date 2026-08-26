@@ -1028,7 +1028,7 @@ Implemente a função **\`cria-carta(valor :: Number, naipe :: String) -> Image\
   - A moldura externa adicionada via \`adiciona-borda\`.
 
 *Teste sua função executando:*
-\`\`\`pyret
+\`\`\`
 cria-carta(1, NAIPE-ESPADAS)
 cria-carta(7, NAIPE-OUROS)
 \`\`\`
