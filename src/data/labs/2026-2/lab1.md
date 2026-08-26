@@ -30,13 +30,15 @@ Sua missão neste laboratório é **construir visualmente as cartas do baralho e
 
 ---
 
-## Template
+## Template e Entrega
 
-Copie o template para o seu ambiente de desenvolvimento ([code.pyret.org](https://code.pyret.org) ou VS Code com extensão Pyret):
+Copie o template para o seu ambiente de desenvolvimento (VS Code ou code.pyret.org):
 
 ```pyret
 file: src/data/labs/2026-2/lab1-template.arr
 ```
+
+Durante a aula de laboratório, espera-se que você realize até o **Exercício 5** (montagem visual da carta). Submeta a sua solução parcial (arquivo `.arr`) no **Moodle** ao final da aula. O que não conseguir concluir em sala, você deve finalizar em casa e reenviar no Moodle até a data limite da entrega.
 
 ---
 
@@ -111,6 +113,9 @@ Antes de trabalhar com lógica condicional, vamos criar duas funções auxiliare
 
 2. **`adiciona-borda(carta :: Image) -> Image`**:
    - Recebe a imagem de uma carta e adiciona a borda externa, alinhando ao centro o `frame(carta)` sobre a `BORDA` usando `overlay-align("middle", "middle", frame(carta), BORDA)`.
+
+
+> Você pode consultar a documentação completa da biblioteca de imagens do Pyret em: https://pyret.org/docs/latest/image.html
 
 ---
 
