@@ -10,7 +10,7 @@ include image
 include csv
 include data-source
 # Importa funções e constantes da biblioteca de heróis
-include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/2026-2/herois-lib2.arr")
+include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/herois-lib2.arr")
 
 
 #|
