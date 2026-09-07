@@ -17,16 +17,9 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
     Exercício 1
 |#
 
-fun eh-marvel(row :: Row) -> Boolean:
-    doc: "Dado uma linha de tabela, devolve True se o publisher da linha for \"Marvel Comics\"."
-
-    row["publisher"] == "Marvel Comics"
-end
-
-HEROIS-MARVEL :: Table = filter-with(HEROI-DATA, eh-marvel)
-
-NOMES-HEROIS :: List<String> = HEROIS-MARVEL.get-column("name")
-ALINHAMENTOS-HEROIS :: List<String> = HEROIS-MARVEL.get-column("alignment")
+NOMES-HEROIS :: List<String> = coluna-heroi("name")
+ALINHAMENTOS-HEROIS :: List<String> = coluna-heroi("alignment")
+RACAS-HEROIS :: List<String> = coluna-heroi("race")
 
 #|
     Exercício 2
@@ -49,51 +42,51 @@ end
     Exercício 3
 |#
 
-fun conta-alinhamentos(lista-alinhamentos :: List<String>, alinhamento :: String) -> Number:
-    doc: ```Dado uma lista de alinhamentos de heróis e um alinhamento,
-            devolve o número de vezes que o alinhamento aparece na lista.```
-    cases (List<String>) lista-alinhamentos:
-        # Caso base: Uma lista vazia contém o alinhamento procurado zero vezes.
+fun conta-racas(lista-racas :: List<String>, raca :: String) -> Number:
+    doc: ```Dado uma lista de raças de heróis e uma raça,
+            devolve o número de vezes que a raça aparece na lista.```
+    cases (List<String>) lista-racas:
+        # Caso base: Uma lista vazia contém a raça procurada zero vezes.
         | empty => 0
         | link(first, rest) =>
-        # Caso recursivo: Uma lista não vazia possui o seguinte número de vezes o alinhamento procurado:
-            # Se o primeiro elemento da lista for o alinhamento procurado:
-            if first == alinhamento:
-                # 1 somado ao número de vezes que o alinhamento aparece no resto da lista
-                1 + conta-alinhamentos(rest, alinhamento)
+        # Caso recursivo: Uma lista não vazia possui o seguinte número de vezes a raça procurada:
+            # Se o primeiro elemento da lista for a raça procurada:
+            if first == raca:
+                # 1 somado ao número de vezes que a raça aparece no resto da lista
+                1 + conta-racas(rest, raca)
             else:
-                # Caso contrário: o número de vezes que o alinhamento procurado aparece no resto da lista
-                conta-alinhamentos(rest, alinhamento)
+                # Caso contrário: o número de vezes que a raça procurada aparece no resto da lista
+                conta-racas(rest, raca)
             end
     end
 where:
-    conta-alinhamentos([list: "good", "bad", "good", "neutral", "bad"], "good") is 2
-    conta-alinhamentos(empty, "good") is 0
+    conta-racas([list: "Human", "Mutant", "Alien", "Mutant", "Human"], "Human") is 2
+    conta-racas(empty, "Human") is 0
 end
 
 
-fun remove-alinhamentos-repetidos(lista-alinhamentos :: List<String>) -> List<String>:
-    doc: "Dado uma lista de alinhamentos de heróis, devolve uma lista sem alinhamentos repetidos, sempre mantendo a última ocorrência de cada alinhamento na lista original."
-    cases (List<String>) lista-alinhamentos:
-        # Caso base: Uma lista vazia não possui alinhamentos repetidos.
+fun remove-racas-repetidas(lista-racas :: List<String>) -> List<String>:
+    doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
+    cases (List<String>) lista-racas:
+        # Caso base: Uma lista vazia não possui raças repetidas.
         | empty => empty
         | link(first, rest) =>
             ask:
                 # Se o primeiro elemento ainda aparecer no resto da lista, ele será mantido mais adiante:
-                | conta-alinhamentos(rest, first) > 0 then:
+                | conta-racas(rest, first) > 0 then:
                     # Retorna o resto da lista filtrada (sem o primeiro elemento)
-                    remove-alinhamentos-repetidos(rest)
+                    remove-racas-repetidas(rest)
                 | otherwise:
                     # Caso contrário: adiciona o primeiro elemento da lista ao resto da lista filtrada
-                    link(first, remove-alinhamentos-repetidos(rest))
+                    link(first, remove-racas-repetidas(rest))
             end
     end
 where:
-    remove-alinhamentos-repetidos([list: "good", "bad", "good", "neutral", "bad"]) is [list: "good", "neutral", "bad"]
-    remove-alinhamentos-repetidos(empty) is empty
+    remove-racas-repetidas([list: "Human", "Mutant", "Alien", "Mutant", "Human"]) is [list: "Alien", "Mutant", "Human"]
+    remove-racas-repetidas(empty) is empty
 end
 
-# tamanho(remove-alinhamentos-repetidos(ALINHAMENTOS-HEROIS)) retorna o número de alinhamentos diferentes entre os heróis da Marvel!
+# tamanho(remove-racas-repetidas(RACAS-HEROIS)) retorna o número de raças diferentes entre os heróis da Marvel!
 
 
 #|

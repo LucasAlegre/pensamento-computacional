@@ -17,16 +17,9 @@ include url("https://lucasalegre.github.io/pensamento-computacional/src/data/lab
     Exercício 1
 |#
 
-fun eh-marvel(row :: Row) -> Boolean:
-    doc: "Dado uma linha de tabela, devolve True se o publisher da linha for \"Marvel Comics\"."
-
-    false # [implemente a função!]
-end
-
-HEROIS-MARVEL :: Table = HEROI-DATA  # Filtre a tabela para conter apenas heróis da Marvel
-
-NOMES-HEROIS :: List<String> = empty # [lista com todos os nomes de heróis da tabela (coluna `"name"`)]
-ALINHAMENTOS-HEROIS :: List<String> = empty # [lista com todos os alinhamentos de heróis da tabela (coluna `"alignment"`)]
+NOMES-HEROIS :: List<String> = empty # [lista com os nomes de todos os heróis da Marvel (coluna `"name"`)]
+ALINHAMENTOS-HEROIS :: List<String> = empty # [lista com os alinhamentos de todos os heróis da Marvel (coluna `"alignment"`)]
+RACAS-HEROIS :: List<String> = empty # [lista com as raças de todos os heróis da Marvel (coluna `"race"`)]
 
 #|
     Exercício 2
@@ -50,9 +43,9 @@ end
     Exercício 3
 |#
 
-fun conta-alinhamentos():
-    doc: ```Dado uma lista de alinhamentos de heróis e um alinhamento,
-            devolve o número de vezes que o alinhamento aparece na lista.```
+fun conta-racas():
+    doc: ```Dado uma lista de raças de heróis e uma raça,
+            devolve o número de vezes que a raça aparece na lista.```
     # Se a lista for vazia, então [...]
 
     # Senão, []
@@ -65,8 +58,8 @@ where:
 end
 
 
-fun remove-alinhamentos-repetidos():
-    doc: "Dado uma lista de alinhamentos de heróis, devolve uma lista sem alinhamentos repetidos, sempre mantendo a última ocorrência de cada alinhamento na lista original."
+fun remove-racas-repetidas():
+    doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
     # Se a lista for vazia, então [...]
 
     # Senão, []
@@ -74,11 +67,11 @@ fun remove-alinhamentos-repetidos():
         # [solucionar problem para] [resto da lista]
     empty
 where:
-    remove-alinhamentos-repetidos([list: "good", "bad", "good", "neutral", "bad"]) is [list: "good", "neutral", "bad"]
-    remove-alinhamentos-repetidos(empty) is empty
+    remove-racas-repetidas([list: "Human", "Mutant", "Alien", "Mutant", "Human"]) is [list: "Alien", "Mutant", "Human"]
+    remove-racas-repetidas(empty) is empty
 end
 
-# tamanho(remove-alinhamentos-repetidos(ALINHAMENTOS-HEROIS)) retorna o número de alinhamentos diferentes entre os heróis da Marvel!
+# tamanho(remove-racas-repetidas(RACAS-HEROIS)) retorna o número de raças diferentes entre os heróis da Marvel!
 
 
 #|

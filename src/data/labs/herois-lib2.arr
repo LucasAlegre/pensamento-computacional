@@ -28,6 +28,20 @@ HEROI-DATA =
     sanitize image_url using string-sanitizer
   end
 
+# Filtra a tabela completa para conter apenas os heróis publicados pela Marvel Comics
+HEROIS-MARVEL = filter-with(HEROI-DATA, lam(row): row["publisher"] == "Marvel Comics" end)
+
+
+fun coluna-heroi(nome-coluna :: String) -> List<String>:
+    doc: ```Dado o nome de uma coluna da tabela de heróis da Marvel (por exemplo, "name", "alignment" ou "race"),
+            devolve todos os valores desta coluna como uma lista de strings.```
+
+    HEROIS-MARVEL.get-column(nome-coluna)
+where:
+    coluna-heroi("name").length() is coluna-heroi("alignment").length()
+    coluna-heroi("name").first is "A-Bomb"
+end
+
 CARTA-ALT = 190
 CARTA-LAR = 130
 
