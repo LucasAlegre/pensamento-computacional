@@ -68,11 +68,17 @@ where:
 end
 
 
-fun id-heroi(nome :: String) -> Number:
-    doc: "Dado o nome de um herói, devolve o id deste herói."
+fun linha-heroi(nome :: String) -> Row:
+    doc: "Dado o nome de um herói, devolve a linha correspondente na tabela de heróis."
     tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
 
-    tabela.row-n(0)["id"]
+    tabela.row-n(0)
+end
+
+
+fun id-heroi(nome :: String) -> Number:
+    doc: "Dado o nome de um herói, devolve o id deste herói."
+    linha-heroi(nome)["id"]
 where:
     id-heroi("A-Bomb") is 1
     id-heroi("Abe Sapien") is 2
@@ -81,23 +87,26 @@ end
 
 fun img-heroi(nome :: String) -> Image:
     doc: "Dado o nome de um herói, devolve a imagem deste herói."
-    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
-    url = tabela.row-n(0)["image_url"]
-
-    scale(0.7, image-url(url))
+    scale(0.7, image-url(linha-heroi(nome)["image_url"]))
 end
 
 
-fun cria-carta(nome :: String, alinhamento :: String) -> Image:
-    doc: "Dado o nome do herói e o seu alinhamento, devolve uma imagem com a carta montada."
+fun cria-carta(nome :: String) -> Image:
+    doc: "Dado o nome do herói, devolve uma imagem com a carta montada, buscando o seu alinhamento e raça na tabela."
 
     # Definições Locais:
+    # Busca a linha do herói na tabela para extrair o alinhamento e a raça
+    linha = linha-heroi(nome)
+    alinhamento = linha["alignment"]
+    raca = linha["race"]
     # Gera imagem do herói sobre o círculo
     heroi-sobre-circulo = overlay(img-heroi(nome), circle(60, "solid", "white"))
     # Gera fundo com o herói
     fundo-com-heroi = overlay(heroi-sobre-circulo, seleciona-fundo(alinhamento))
-    # Gera carta com o alinhamento
-    carta-com-alinhamento = overlay-align("middle", "bottom", text(alinhamento, 16, "black"), fundo-com-heroi)
+    # Gera o alinhamento ao lado da raça
+    alinhamento-e-raca = beside(text(raca, 16, "black"), text(" - " + alinhamento, 14, "black"))
+    # Gera carta com o alinhamento e a raça
+    carta-com-alinhamento = overlay-align("middle", "bottom", alinhamento-e-raca, fundo-com-heroi)
     # Gera carta com o nome
     carta-com-nome = overlay-align("middle", "top", text(nome, 14, "black"), carta-com-alinhamento)
     # Gera carta final com a borda

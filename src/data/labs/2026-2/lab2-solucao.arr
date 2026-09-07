@@ -64,6 +64,11 @@ where:
     conta-racas(empty, "Human") is 0
 end
 
+conta-racas(RACAS-HEROIS, "Human")
+conta-racas(RACAS-HEROIS, "Mutant")
+conta-racas(RACAS-HEROIS, "Alien")
+
+
 
 fun remove-racas-repetidas(lista-racas :: List<String>) -> List<String>:
     doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
@@ -86,7 +91,7 @@ where:
     remove-racas-repetidas(empty) is empty
 end
 
-# tamanho(remove-racas-repetidas(RACAS-HEROIS)) retorna o número de raças diferentes entre os heróis da Marvel!
+tamanho(remove-racas-repetidas(RACAS-HEROIS)) # retorna o número de raças diferentes entre os heróis da Marvel!
 
 
 #|
@@ -98,8 +103,8 @@ data ListaDeImagens:
     | i-link(first :: Image, rest :: ListaDeImagens)
 end
 
-fun cria-lista-de-cartas(nomes :: List<String>, alinhamentos :: List<String>) -> ListaDeImagens:
-    doc: "Dado uma lista de nomes de heróis e uma lista dos respectivos alinhamentos, devolve uma lista de imagens de cartas."
+fun cria-lista-de-cartas(nomes :: List<String>) -> ListaDeImagens:
+    doc: "Dado uma lista de nomes de heróis, devolve uma lista de imagens de cartas."
     cases (List<String>) nomes:
         # Caso base: Se a lista de nomes for vazia, devolve uma lista de imagens vazia
         | empty => i-empty
@@ -107,9 +112,9 @@ fun cria-lista-de-cartas(nomes :: List<String>, alinhamentos :: List<String>) ->
             # Passo: Se a lista de nomes não for vazia, devolve a primeira imagem seguida da lista com as cartas do resto da lista
             i-link(
                 # Cria a carta do primeiro herói e adiciona na
-                cria-carta(first, alinhamentos.first),
+                cria-carta(first),
                 # lista com as imagens dos heróis restantes
-                cria-lista-de-cartas(rest, alinhamentos.rest))
+                cria-lista-de-cartas(rest))
     end
 end
 
@@ -125,6 +130,6 @@ fun desenha-lista-de-cartas(lista-de-cartas :: ListaDeImagens) -> Image:
     end
 end
 
-CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
+CARTAS = cria-lista-de-cartas(NOMES-HEROIS)
 
 desenha-lista-de-cartas(CARTAS)

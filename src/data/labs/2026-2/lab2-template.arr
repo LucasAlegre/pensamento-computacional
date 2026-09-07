@@ -84,7 +84,7 @@ data ListaDeImagens:
 end
 
 fun cria-lista-de-cartas():
-    doc: "Dado uma lista de nomes de heróis e uma lista dos respectivos alinhamentos, devolve uma lista de imagens de cartas."
+    doc: "Dado uma lista de nomes de heróis, devolve uma lista de imagens de cartas."
     # Se a lista de nomes for vazia, então [...]
 
     # Senão, []
@@ -105,6 +105,6 @@ end
 
 # Descomente as linhas abaixo ao terminar de implementar as funções:
 
-# CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
+# CARTAS = cria-lista-de-cartas(NOMES-HEROIS)
 
 # desenha-lista-de-cartas(CARTAS)
