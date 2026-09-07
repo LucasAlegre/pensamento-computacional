@@ -5375,6 +5375,11 @@ where:
     conta-racas(empty, "Human") is 0
 end
 
+conta-racas(RACAS-HEROIS, "Human")
+conta-racas(RACAS-HEROIS, "Mutant")
+conta-racas(RACAS-HEROIS, "Alien")
+
+
 
 fun remove-racas-repetidas(lista-racas :: List<String>) -> List<String>:
     doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
@@ -5397,7 +5402,7 @@ where:
     remove-racas-repetidas(empty) is empty
 end
 
-# tamanho(remove-racas-repetidas(RACAS-HEROIS)) retorna o número de raças diferentes entre os heróis da Marvel!
+tamanho(remove-racas-repetidas(RACAS-HEROIS)) # retorna o número de raças diferentes entre os heróis da Marvel!
 
 
 #|
@@ -5409,8 +5414,8 @@ data ListaDeImagens:
     | i-link(first :: Image, rest :: ListaDeImagens)
 end
 
-fun cria-lista-de-cartas(nomes :: List<String>, alinhamentos :: List<String>) -> ListaDeImagens:
-    doc: "Dado uma lista de nomes de heróis e uma lista dos respectivos alinhamentos, devolve uma lista de imagens de cartas."
+fun cria-lista-de-cartas(nomes :: List<String>) -> ListaDeImagens:
+    doc: "Dado uma lista de nomes de heróis, devolve uma lista de imagens de cartas."
     cases (List<String>) nomes:
         # Caso base: Se a lista de nomes for vazia, devolve uma lista de imagens vazia
         | empty => i-empty
@@ -5418,9 +5423,9 @@ fun cria-lista-de-cartas(nomes :: List<String>, alinhamentos :: List<String>) ->
             # Passo: Se a lista de nomes não for vazia, devolve a primeira imagem seguida da lista com as cartas do resto da lista
             i-link(
                 # Cria a carta do primeiro herói e adiciona na
-                cria-carta(first, alinhamentos.first),
+                cria-carta(first),
                 # lista com as imagens dos heróis restantes
-                cria-lista-de-cartas(rest, alinhamentos.rest))
+                cria-lista-de-cartas(rest))
     end
 end
 
@@ -5436,7 +5441,7 @@ fun desenha-lista-de-cartas(lista-de-cartas :: ListaDeImagens) -> Image:
     end
 end
 
-CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
+CARTAS = cria-lista-de-cartas(NOMES-HEROIS)
 
 desenha-lista-de-cartas(CARTAS)
 `,BI=`use context dcic2024
@@ -5525,7 +5530,7 @@ data ListaDeImagens:
 end
 
 fun cria-lista-de-cartas():
-    doc: "Dado uma lista de nomes de heróis e uma lista dos respectivos alinhamentos, devolve uma lista de imagens de cartas."
+    doc: "Dado uma lista de nomes de heróis, devolve uma lista de imagens de cartas."
     # Se a lista de nomes for vazia, então [...]
 
     # Senão, []
@@ -5546,7 +5551,7 @@ end
 
 # Descomente as linhas abaixo ao terminar de implementar as funções:
 
-# CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
+# CARTAS = cria-lista-de-cartas(NOMES-HEROIS)
 
 # desenha-lista-de-cartas(CARTAS)
 `,zI=`use context dcic2024
@@ -5619,11 +5624,17 @@ where:
 end
 
 
-fun id-heroi(nome :: String) -> Number:
-    doc: "Dado o nome de um herói, devolve o id deste herói."
+fun linha-heroi(nome :: String) -> Row:
+    doc: "Dado o nome de um herói, devolve a linha correspondente na tabela de heróis."
     tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
 
-    tabela.row-n(0)["id"]
+    tabela.row-n(0)
+end
+
+
+fun id-heroi(nome :: String) -> Number:
+    doc: "Dado o nome de um herói, devolve o id deste herói."
+    linha-heroi(nome)["id"]
 where:
     id-heroi("A-Bomb") is 1
     id-heroi("Abe Sapien") is 2
@@ -5632,23 +5643,26 @@ end
 
 fun img-heroi(nome :: String) -> Image:
     doc: "Dado o nome de um herói, devolve a imagem deste herói."
-    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
-    url = tabela.row-n(0)["image_url"]
-
-    scale(0.7, image-url(url))
+    scale(0.7, image-url(linha-heroi(nome)["image_url"]))
 end
 
 
-fun cria-carta(nome :: String, alinhamento :: String) -> Image:
-    doc: "Dado o nome do herói e o seu alinhamento, devolve uma imagem com a carta montada."
+fun cria-carta(nome :: String) -> Image:
+    doc: "Dado o nome do herói, devolve uma imagem com a carta montada, buscando o seu alinhamento e raça na tabela."
 
     # Definições Locais:
+    # Busca a linha do herói na tabela para extrair o alinhamento e a raça
+    linha = linha-heroi(nome)
+    alinhamento = linha["alignment"]
+    raca = linha["race"]
     # Gera imagem do herói sobre o círculo
     heroi-sobre-circulo = overlay(img-heroi(nome), circle(60, "solid", "white"))
     # Gera fundo com o herói
     fundo-com-heroi = overlay(heroi-sobre-circulo, seleciona-fundo(alinhamento))
-    # Gera carta com o alinhamento
-    carta-com-alinhamento = overlay-align("middle", "bottom", text(alinhamento, 16, "black"), fundo-com-heroi)
+    # Gera o alinhamento ao lado da raça
+    alinhamento-e-raca = beside(text(raca, 16, "black"), text(" - " + alinhamento, 14, "black"))
+    # Gera carta com o alinhamento e a raça
+    carta-com-alinhamento = overlay-align("middle", "bottom", alinhamento-e-raca, fundo-com-heroi)
     # Gera carta com o nome
     carta-com-nome = overlay-align("middle", "top", text(nome, 14, "black"), carta-com-alinhamento)
     # Gera carta final com a borda
