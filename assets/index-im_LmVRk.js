@@ -4929,100 +4929,6 @@ fun run-movie(fps :: Number, frames :: List<Image>):
 end
 `,LI=`use context dcic2024
 
-import color from color
-import color as C
-include image
-include csv
-include data-source
-include reactors
-
-provide: * end
-
-ALINHAMENTO-BOM = "good"
-ALINHAMENTO-MAU = "bad"
-ALINHAMENTO-NEUTRO = "neutral"
-
-
-HEROI-URL = "https://raw.githubusercontent.com/lucasalegre/pensamento-computacional/main/src/data/labs/2026-2/herois.csv"
-
-HEROI-DATA =
-  load-table: id, name, publisher, alignment, gender, race, image_url
-    source: csv-table-url(HEROI-URL, default-options)
-    sanitize id using num-sanitizer
-    sanitize name using string-sanitizer
-    sanitize publisher using string-sanitizer
-    sanitize alignment using string-sanitizer
-    sanitize gender using string-sanitizer
-    sanitize race using string-sanitizer
-    sanitize image_url using string-sanitizer
-  end
-
-CARTA-ALT = 190
-CARTA-LAR = 130
-
-BORDA = rectangle(CARTA-LAR + 10, CARTA-ALT + 10, "outline", "black")
-
-FUNDO-BOM = rectangle(CARTA-LAR, CARTA-ALT, "solid", "royal-blue")
-FUNDO-MAU = rectangle(CARTA-LAR, CARTA-ALT, "solid", "fire-brick")
-FUNDO-NEUTRO = rectangle(CARTA-LAR, CARTA-ALT, "solid", "dim-gray")
-FUNDO-DESCONHECIDO = rectangle(CARTA-LAR, CARTA-ALT, "solid", "lightgray")
-
-
-fun seleciona-fundo(alinhamento :: String) -> Image:
-    doc: "Dado o alinhamento de um herói, devolve a imagem de fundo correspondente a este alinhamento."
-    ask:
-        | alinhamento == ALINHAMENTO-BOM then: FUNDO-BOM
-        | alinhamento == ALINHAMENTO-MAU then: FUNDO-MAU
-        | alinhamento == ALINHAMENTO-NEUTRO then: FUNDO-NEUTRO
-        | otherwise: FUNDO-DESCONHECIDO
-    end
-where:
-    seleciona-fundo(ALINHAMENTO-BOM) is FUNDO-BOM
-    seleciona-fundo(ALINHAMENTO-MAU) is FUNDO-MAU
-    seleciona-fundo(ALINHAMENTO-NEUTRO) is FUNDO-NEUTRO
-end
-
-
-fun id-heroi(nome :: String) -> Number:
-    doc: "Dado o nome de um herói, devolve o id deste herói."
-    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
-
-    tabela.row-n(0)["id"]
-where:
-    id-heroi("A-Bomb") is 1
-    id-heroi("Abe Sapien") is 2
-end
-
-
-fun img-heroi(nome :: String) -> Image:
-    doc: "Dado o nome de um herói, devolve a imagem deste herói."
-    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
-    url = tabela.row-n(0)["image_url"]
-
-    scale(0.7, image-url(url))
-end
-
-
-fun cria-carta(nome :: String, alinhamento :: String) -> Image:
-    doc: "Dado o nome do herói e o seu alinhamento, devolve uma imagem com a carta montada."
-
-    # Definições Locais:
-    # Gera imagem do herói sobre o círculo
-    heroi-sobre-circulo = overlay(img-heroi(nome), circle(60, "solid", "white"))
-    # Gera fundo com o herói
-    fundo-com-heroi = overlay(heroi-sobre-circulo, seleciona-fundo(alinhamento))
-    # Gera carta com o alinhamento
-    carta-com-alinhamento = overlay-align("middle", "bottom", text(alinhamento, 16, "black"), fundo-com-heroi)
-    # Gera carta com o nome
-    carta-com-nome = overlay-align("middle", "top", text(nome, 14, "black"), carta-com-alinhamento)
-    # Gera carta final com a borda
-    carta-final = overlay-align("center", "center", carta-com-nome, BORDA)
-
-    # Expressão:
-    carta-final
-end
-`,MI=`use context dcic2024
-
 include image
 
 #|
@@ -5251,7 +5157,7 @@ cenario-teste2
 # Salvar imagens para o roteiro
 save-image(carta-teste, "espadilha_card.png")
 save-image(cenario-teste, "cenario1.png")
-save-image(cenario-teste2, "cenario2.png")`,PI=`use context starter2024
+save-image(cenario-teste2, "cenario2.png")`,MI=`use context starter2024
 
 #|
     Este arquivo contém um modelo para a solução dos exercícios do Laboratório 1 de INF05008 - Pensamento Computacional.
@@ -5403,7 +5309,7 @@ end
 # Após implementar tudo, remova os comentários da linha abaixo e veja o resultado do duelo na mesa!
 # desenha-cenario(1, NAIPE-ESPADAS, 7, NAIPE-OUROS)
 # desenha-cenario(3, NAIPE-PAUS, 3, NAIPE-COPAS)
-`,BI=`use context dcic2024
+`,PI=`use context dcic2024
 
 #|
     Este arquivo contém a solução dos exercícios do Laboratório 2 de INF05008 - Pensamento Computacional.
@@ -5415,7 +5321,7 @@ include image
 include csv
 include data-source
 # Importa funções e constantes da biblioteca de heróis
-include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/2026-2/herois-lib2.arr")
+include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/herois-lib2.arr")
 
 
 #|
@@ -5540,7 +5446,7 @@ end
 CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
 
 desenha-lista-de-cartas(CARTAS)
-`,zI=`use context dcic2024
+`,BI=`use context dcic2024
 
 #|
     Este arquivo contém o template para a solução dos exercícios do Laboratório 2 de INF05008 - Pensamento Computacional.
@@ -5552,7 +5458,7 @@ include image
 include csv
 include data-source
 # Importa funções e constantes da biblioteca de heróis
-include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/2026-2/herois-lib2.arr")
+include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/herois-lib2.arr")
 
 
 #|
@@ -5657,7 +5563,101 @@ end
 # CARTAS = cria-lista-de-cartas(NOMES-HEROIS, ALINHAMENTOS-HEROIS)
 
 # desenha-lista-de-cartas(CARTAS)
-`,qI="/pensamento-computacional/assets/cenario1-BfcYUSeW.png",UI="/pensamento-computacional/assets/cenario2-BptqxDEn.png",FI="/pensamento-computacional/assets/bulbasaur_card-D-qmjmKU.png",HI="/pensamento-computacional/assets/cenario1-BR7QwVHw.png",jI="/pensamento-computacional/assets/cenario2-8baOV3LS.png",GI="/pensamento-computacional/assets/charmander_card-CtRL3wW8.png",YI="/pensamento-computacional/assets/squirtle_card-BWrJUUcF.png",VI="/pensamento-computacional/assets/time1_ember-B9YmtCFV.png",KI="/pensamento-computacional/assets/time1_ember-B9YmtCFV.png",XI="/pensamento-computacional/assets/pokedex-Dez3N3N3.png",QI="/pensamento-computacional/assets/battle-game-DFh_SPbT.png",WI="/pensamento-computacional/assets/copas-8UlTA0ws.jpg",$I="/pensamento-computacional/assets/espadas-WalXjcyU.jpg",JI="/pensamento-computacional/assets/cenario1-C4xOX5tL.png",ZI="/pensamento-computacional/assets/cenario2-bZPIjjWv.png",ew="/pensamento-computacional/assets/espadilha_card-DvxXeLaU.png",tw="/pensamento-computacional/assets/sete_ouros_card-BhH5dJFT.png",nw="/pensamento-computacional/assets/ouros-CkynhN1U.jpg",aw="/pensamento-computacional/assets/paus-C2Gzt7Ac.jpg",rw=Object.assign({"../data/labs/2026-1/lab1.md":rI,"../data/labs/2026-1/lab2.md":oI,"../data/labs/2026-1/lab3.md":iI,"../data/labs/2026-1/lab4.md":sI,"../data/labs/2026-1/lab5.md":uI,"../data/labs/2026-1/lab6.md":lI,"../data/labs/2026-2/lab1.md":cI,"../data/labs/2026-2/lab2.md":dI,"../data/labs/2026-2/lab3.md":mI,"../data/labs/2026-2/lab4.md":fI,"../data/labs/2026-2/lab5.md":pI,"../data/labs/2026-2/lab6.md":hI}),Hm=Object.assign({"../codigos_pyret/aula04-projeto-de-algoritmos.arr":gI,"../codigos_pyret/aula05-condicionais.arr":bI,"../data/labs/2026-1/lab1-solucao.arr":vI,"../data/labs/2026-1/lab1-template.arr":EI,"../data/labs/2026-1/lab2-solucao.arr":TI,"../data/labs/2026-1/lab2-template.arr":AI,"../data/labs/2026-1/lab3-solucao.arr":yI,"../data/labs/2026-1/lab3-template.arr":xI,"../data/labs/2026-1/lab4-solucao.arr":SI,"../data/labs/2026-1/lab4-template.arr":kI,"../data/labs/2026-1/lab5-solucao.arr":CI,"../data/labs/2026-1/lab5-template.arr":NI,"../data/labs/2026-1/lab6-solucao.arr":OI,"../data/labs/2026-1/lab6-template.arr":RI,"../data/labs/2026-1/pokemon-lib2.arr":DI,"../data/labs/2026-1/pokemon-lib3.arr":II,"../data/labs/2026-1/pokemon-lib4.arr":wI,"../data/labs/2026-1/pokemon-lib6.arr":_I,"../data/labs/2026-2/herois-lib2.arr":LI,"../data/labs/2026-2/lab1-solucao.arr":MI,"../data/labs/2026-2/lab1-template.arr":PI,"../data/labs/2026-2/lab2-solucao.arr":BI,"../data/labs/2026-2/lab2-template.arr":zI}),Wl=Object.assign({"../data/labs/2026-1/cenario1.png":qI,"../data/labs/2026-1/cenario2.png":UI,"../data/labs/2026-1/images/lab1/bulbasaur_card.png":FI,"../data/labs/2026-1/images/lab1/cenario1.png":HI,"../data/labs/2026-1/images/lab1/cenario2.png":jI,"../data/labs/2026-1/images/lab1/charmander_card.png":GI,"../data/labs/2026-1/images/lab3/squirtle_card.png":YI,"../data/labs/2026-1/images/lab3/time1_ember.png":VI,"../data/labs/2026-1/images/lab3/time3_ember.png":KI,"../data/labs/2026-1/images/lab5/pokedex.png":XI,"../data/labs/2026-1/images/lab6/battle-game.png":QI,"../data/labs/2026-2/images/copas.jpg":WI,"../data/labs/2026-2/images/espadas.jpg":$I,"../data/labs/2026-2/images/lab1/cenario1.png":JI,"../data/labs/2026-2/images/lab1/cenario2.png":ZI,"../data/labs/2026-2/images/lab1/espadilha_card.png":ew,"../data/labs/2026-2/images/lab1/sete_ouros_card.png":tw,"../data/labs/2026-2/images/ouros.jpg":nw,"../data/labs/2026-2/images/paus.jpg":aw}),ow=()=>{const{semesterId:e,labId:t}=U3(),n=`../data/labs/${e}/lab${t}.md`,o=rw[n];return o?M.jsxs("div",{className:"page-content",children:[M.jsx(Pt,{to:"/labs",className:"back-link",style:{display:"inline-block",marginBottom:"1rem",textDecoration:"none",color:"#666"},children:"← Voltar para Laboratórios"}),M.jsx("div",{className:"section",children:M.jsx(cu,{remarkPlugins:[vu,du],rehypePlugins:[hu,P0],components:{code({node:s,inline:u,className:c,children:d,...m}){const p=/language-(\w+)/.exec(c||"");if(!u&&p&&p[1]==="pyret"){let v=String(d).replace(/\n$/,"");const x=v.match(/^file:\s*(.+)$/);if(x){const B=x[1].trim(),I=Object.keys(Hm).find(_=>{const F=_.replace(/^\.\.\//,"src/");return F===B||F.endsWith(B)});if(I)v=Hm[I];else{const _=Object.keys(Hm).map(F=>F.replace(/^\.\.\//,"src/")).join(", ");v=`# Erro: Arquivo não encontrado: ${B}
+`,zI=`use context dcic2024
+
+import color from color
+import color as C
+include image
+include csv
+include data-source
+include reactors
+
+provide: * end
+
+ALINHAMENTO-BOM = "good"
+ALINHAMENTO-MAU = "bad"
+ALINHAMENTO-NEUTRO = "neutral"
+
+
+HEROI-URL = "https://raw.githubusercontent.com/lucasalegre/pensamento-computacional/main/src/data/labs/2026-2/herois.csv"
+
+HEROI-DATA =
+  load-table: id, name, publisher, alignment, gender, race, image_url
+    source: csv-table-url(HEROI-URL, default-options)
+    sanitize id using num-sanitizer
+    sanitize name using string-sanitizer
+    sanitize publisher using string-sanitizer
+    sanitize alignment using string-sanitizer
+    sanitize gender using string-sanitizer
+    sanitize race using string-sanitizer
+    sanitize image_url using string-sanitizer
+  end
+
+CARTA-ALT = 190
+CARTA-LAR = 130
+
+BORDA = rectangle(CARTA-LAR + 10, CARTA-ALT + 10, "outline", "black")
+
+FUNDO-BOM = rectangle(CARTA-LAR, CARTA-ALT, "solid", "royal-blue")
+FUNDO-MAU = rectangle(CARTA-LAR, CARTA-ALT, "solid", "fire-brick")
+FUNDO-NEUTRO = rectangle(CARTA-LAR, CARTA-ALT, "solid", "dim-gray")
+FUNDO-DESCONHECIDO = rectangle(CARTA-LAR, CARTA-ALT, "solid", "lightgray")
+
+
+fun seleciona-fundo(alinhamento :: String) -> Image:
+    doc: "Dado o alinhamento de um herói, devolve a imagem de fundo correspondente a este alinhamento."
+    ask:
+        | alinhamento == ALINHAMENTO-BOM then: FUNDO-BOM
+        | alinhamento == ALINHAMENTO-MAU then: FUNDO-MAU
+        | alinhamento == ALINHAMENTO-NEUTRO then: FUNDO-NEUTRO
+        | otherwise: FUNDO-DESCONHECIDO
+    end
+where:
+    seleciona-fundo(ALINHAMENTO-BOM) is FUNDO-BOM
+    seleciona-fundo(ALINHAMENTO-MAU) is FUNDO-MAU
+    seleciona-fundo(ALINHAMENTO-NEUTRO) is FUNDO-NEUTRO
+end
+
+
+fun id-heroi(nome :: String) -> Number:
+    doc: "Dado o nome de um herói, devolve o id deste herói."
+    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
+
+    tabela.row-n(0)["id"]
+where:
+    id-heroi("A-Bomb") is 1
+    id-heroi("Abe Sapien") is 2
+end
+
+
+fun img-heroi(nome :: String) -> Image:
+    doc: "Dado o nome de um herói, devolve a imagem deste herói."
+    tabela = filter-with(HEROI-DATA, lam(row): row["name"] == nome end)
+    url = tabela.row-n(0)["image_url"]
+
+    scale(0.7, image-url(url))
+end
+
+
+fun cria-carta(nome :: String, alinhamento :: String) -> Image:
+    doc: "Dado o nome do herói e o seu alinhamento, devolve uma imagem com a carta montada."
+
+    # Definições Locais:
+    # Gera imagem do herói sobre o círculo
+    heroi-sobre-circulo = overlay(img-heroi(nome), circle(60, "solid", "white"))
+    # Gera fundo com o herói
+    fundo-com-heroi = overlay(heroi-sobre-circulo, seleciona-fundo(alinhamento))
+    # Gera carta com o alinhamento
+    carta-com-alinhamento = overlay-align("middle", "bottom", text(alinhamento, 16, "black"), fundo-com-heroi)
+    # Gera carta com o nome
+    carta-com-nome = overlay-align("middle", "top", text(nome, 14, "black"), carta-com-alinhamento)
+    # Gera carta final com a borda
+    carta-final = overlay-align("center", "center", carta-com-nome, BORDA)
+
+    # Expressão:
+    carta-final
+end
+`,qI="/pensamento-computacional/assets/cenario1-BfcYUSeW.png",UI="/pensamento-computacional/assets/cenario2-BptqxDEn.png",FI="/pensamento-computacional/assets/bulbasaur_card-D-qmjmKU.png",HI="/pensamento-computacional/assets/cenario1-BR7QwVHw.png",jI="/pensamento-computacional/assets/cenario2-8baOV3LS.png",GI="/pensamento-computacional/assets/charmander_card-CtRL3wW8.png",YI="/pensamento-computacional/assets/squirtle_card-BWrJUUcF.png",VI="/pensamento-computacional/assets/time1_ember-B9YmtCFV.png",KI="/pensamento-computacional/assets/time1_ember-B9YmtCFV.png",XI="/pensamento-computacional/assets/pokedex-Dez3N3N3.png",QI="/pensamento-computacional/assets/battle-game-DFh_SPbT.png",WI="/pensamento-computacional/assets/copas-8UlTA0ws.jpg",$I="/pensamento-computacional/assets/espadas-WalXjcyU.jpg",JI="/pensamento-computacional/assets/cenario1-C4xOX5tL.png",ZI="/pensamento-computacional/assets/cenario2-bZPIjjWv.png",ew="/pensamento-computacional/assets/espadilha_card-DvxXeLaU.png",tw="/pensamento-computacional/assets/sete_ouros_card-BhH5dJFT.png",nw="/pensamento-computacional/assets/ouros-CkynhN1U.jpg",aw="/pensamento-computacional/assets/paus-C2Gzt7Ac.jpg",rw=Object.assign({"../data/labs/2026-1/lab1.md":rI,"../data/labs/2026-1/lab2.md":oI,"../data/labs/2026-1/lab3.md":iI,"../data/labs/2026-1/lab4.md":sI,"../data/labs/2026-1/lab5.md":uI,"../data/labs/2026-1/lab6.md":lI,"../data/labs/2026-2/lab1.md":cI,"../data/labs/2026-2/lab2.md":dI,"../data/labs/2026-2/lab3.md":mI,"../data/labs/2026-2/lab4.md":fI,"../data/labs/2026-2/lab5.md":pI,"../data/labs/2026-2/lab6.md":hI}),Hm=Object.assign({"../codigos_pyret/aula04-projeto-de-algoritmos.arr":gI,"../codigos_pyret/aula05-condicionais.arr":bI,"../data/labs/2026-1/lab1-solucao.arr":vI,"../data/labs/2026-1/lab1-template.arr":EI,"../data/labs/2026-1/lab2-solucao.arr":TI,"../data/labs/2026-1/lab2-template.arr":AI,"../data/labs/2026-1/lab3-solucao.arr":yI,"../data/labs/2026-1/lab3-template.arr":xI,"../data/labs/2026-1/lab4-solucao.arr":SI,"../data/labs/2026-1/lab4-template.arr":kI,"../data/labs/2026-1/lab5-solucao.arr":CI,"../data/labs/2026-1/lab5-template.arr":NI,"../data/labs/2026-1/lab6-solucao.arr":OI,"../data/labs/2026-1/lab6-template.arr":RI,"../data/labs/2026-1/pokemon-lib2.arr":DI,"../data/labs/2026-1/pokemon-lib3.arr":II,"../data/labs/2026-1/pokemon-lib4.arr":wI,"../data/labs/2026-1/pokemon-lib6.arr":_I,"../data/labs/2026-2/lab1-solucao.arr":LI,"../data/labs/2026-2/lab1-template.arr":MI,"../data/labs/2026-2/lab2-solucao.arr":PI,"../data/labs/2026-2/lab2-template.arr":BI,"../data/labs/herois-lib2.arr":zI}),Wl=Object.assign({"../data/labs/2026-1/cenario1.png":qI,"../data/labs/2026-1/cenario2.png":UI,"../data/labs/2026-1/images/lab1/bulbasaur_card.png":FI,"../data/labs/2026-1/images/lab1/cenario1.png":HI,"../data/labs/2026-1/images/lab1/cenario2.png":jI,"../data/labs/2026-1/images/lab1/charmander_card.png":GI,"../data/labs/2026-1/images/lab3/squirtle_card.png":YI,"../data/labs/2026-1/images/lab3/time1_ember.png":VI,"../data/labs/2026-1/images/lab3/time3_ember.png":KI,"../data/labs/2026-1/images/lab5/pokedex.png":XI,"../data/labs/2026-1/images/lab6/battle-game.png":QI,"../data/labs/2026-2/images/copas.jpg":WI,"../data/labs/2026-2/images/espadas.jpg":$I,"../data/labs/2026-2/images/lab1/cenario1.png":JI,"../data/labs/2026-2/images/lab1/cenario2.png":ZI,"../data/labs/2026-2/images/lab1/espadilha_card.png":ew,"../data/labs/2026-2/images/lab1/sete_ouros_card.png":tw,"../data/labs/2026-2/images/ouros.jpg":nw,"../data/labs/2026-2/images/paus.jpg":aw}),ow=()=>{const{semesterId:e,labId:t}=U3(),n=`../data/labs/${e}/lab${t}.md`,o=rw[n];return o?M.jsxs("div",{className:"page-content",children:[M.jsx(Pt,{to:"/labs",className:"back-link",style:{display:"inline-block",marginBottom:"1rem",textDecoration:"none",color:"#666"},children:"← Voltar para Laboratórios"}),M.jsx("div",{className:"section",children:M.jsx(cu,{remarkPlugins:[vu,du],rehypePlugins:[hu,P0],components:{code({node:s,inline:u,className:c,children:d,...m}){const p=/language-(\w+)/.exec(c||"");if(!u&&p&&p[1]==="pyret"){let v=String(d).replace(/\n$/,"");const x=v.match(/^file:\s*(.+)$/);if(x){const B=x[1].trim(),I=Object.keys(Hm).find(_=>{const F=_.replace(/^\.\.\//,"src/");return F===B||F.endsWith(B)});if(I)v=Hm[I];else{const _=Object.keys(Hm).map(F=>F.replace(/^\.\.\//,"src/")).join(", ");v=`# Erro: Arquivo não encontrado: ${B}
 # Tente usar o caminho completo (ex: src/...) ou apenas o nome do arquivo.
 # Arquivos disponíveis: ${_}`}}const A=s?.data?.meta||"";let N;const R=/height=(\d+)/.exec(A);return R&&(N=parseInt(R[1],10)),M.jsx(Vr,{code:v,height:N})}return!u&&p?M.jsx("pre",{className:c,children:M.jsx("code",{className:c,...m,children:d})}):M.jsx("code",{className:c,...m,children:d})},img({node:s,className:u,src:c,...d}){let m=c,p=c;if(p&&p.startsWith("./")&&(p=p.substring(2)),p&&p.startsWith("images/")){const b=`../data/labs/${e}/${p}`;Wl[b]&&(m=Wl[b])}else if(p&&!p.startsWith("http")&&!p.startsWith("/")){const b=`../data/labs/${e}/${p}`;Wl[b]&&(m=Wl[b])}else if(p&&p.startsWith("public/")){p=p.substring(7);const b="/pensamento-computacional/";m=`${b.endsWith("/")?b.slice(0,-1):b}/${p}`}return M.jsx("img",{className:u,src:m,style:{maxWidth:"100%",borderRadius:"8px",marginTop:"1rem",display:"block"},...d})}},children:o})})]}):M.jsxs("div",{className:"page-content",children:[M.jsx("h1",{children:"Laboratório não encontrado"}),M.jsx(Pt,{to:"/labs",children:"Voltar para Laboratórios"})]})},iw="/pensamento-computacional/assets/exemplo-estrelas-C7NAhPzp.png",sw="/pensamento-computacional/assets/exemplo-pagweb-BP2bhgFB.png",uw="/pensamento-computacional/assets/fractais-Bz4paT5S.png",lw="/pensamento-computacional/assets/grass-BKa0n1sv.png",cw="/pensamento-computacional/assets/tapete-sierpinski-D_7brlGP.png",j6=e=>{switch((e||"").toLowerCase().trim()){case"fácil":return{backgroundColor:"#d4edda",color:"#155724"};case"médio":return{backgroundColor:"#fff3cd",color:"#856404"};case"resolvido":return{backgroundColor:"#e7f3ff",color:"#0056b3"};default:return{backgroundColor:"#f8d7da",color:"#721c24"}}},S3=Object.assign({"../data/images/exemplo-estrelas.png":iw,"../data/images/exemplo-pagweb.png":sw,"../data/images/fractais.png":uw,"../data/images/grass.png":lw,"../data/images/tapete-sierpinski.png":cw}),dw=({exercise:e})=>M.jsxs("div",{className:"exercise-item section",style:{marginBottom:"2rem"},children:[M.jsxs("div",{className:"exercise-header",style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"1rem"},children:[M.jsx("span",{className:"exercise-id",style:{fontWeight:"bold",color:"#666"},children:e.id}),M.jsx("span",{className:`difficulty-tag ${e.difficulty.toLowerCase()}`,style:{padding:"0.25rem 0.5rem",borderRadius:"4px",fontSize:"0.8rem",...j6(e.difficulty)},children:e.difficulty})]}),M.jsx("div",{className:"exercise-statement",style:{marginBottom:"1rem",lineHeight:"1.6"},children:M.jsx(cu,{remarkPlugins:[vu,du],rehypePlugins:[hu],components:{img({src:t,...n}){let o=t;const s=`../data/${t}`;return S3[s]&&(o=S3[s]),M.jsx("img",{src:o,style:{maxWidth:"100%",borderRadius:"8px",marginTop:"1rem",display:"block"},...n})},code({node:t,inline:n,className:o,children:s,...u}){const c=/language-(\w+)/.exec(o||"");if(!n&&c&&c[1]==="pyret"){let m=String(s).replace(/\n$/,"");const p=t?.data?.meta||"";let b;const v=/height=(\d+)/.exec(p);return v&&(b=parseInt(v[1],10)),M.jsx(Vr,{code:m,height:b})}return!n&&c?M.jsx("pre",{className:o,children:M.jsx("code",{className:o,...u,children:s})}):M.jsx("code",{className:o,...u,children:s})}},children:e.statement})}),M.jsx("div",{className:"exercise-code",children:M.jsx(Vr,{code:e.testCode,height:e.testHeight})})]}),mw=`# Tópico: Expressões Aritméticas
 
