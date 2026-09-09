@@ -95,6 +95,7 @@ Implemente a função `cria-lista-de-cartas` que, dada uma lista contendo os nom
 ### Parte C — `desenha-lista-de-cartas`
 
 Implemente a função `desenha-lista-de-cartas` que recebe uma `ListaDeImagens` e devolve uma única `Image` com todas as cartas posicionadas **lado a lado**.
+Implemente a função recursiva `desenha-lista-de-cartas` que recebe uma `ListaDeImagens` e devolve uma única `Image` com todas as cartas posicionadas **lado a lado**.
 
 - **Caso base:** Se a lista estiver vazia, devolver a imagem vazia (`empty-image`).
 - **Passo:** Se a lista não estiver vazia, colocar a primeira imagem da lista ao lado da imagem gerada com as cartas (imagens) do resto da lista, lado a lado.
@@ -102,8 +103,10 @@ Implemente a função `desenha-lista-de-cartas` que recebe uma `ListaDeImagens` 
 Por fim, crie a constante `CARTAS` usando a aplicação de função `cria-lista-de-cartas(NOMES-HEROIS)` e exiba o resultado com a chamada `desenha-lista-de-cartas(CARTAS)`.
 
 > 🛠️ **Dicas:**
+> 🛠️ **Dica de Funções Gráficas:**
 > - `beside(img1 :: Image, img2 :: Image) -> Image`: coloca `img1` imediatamente à esquerda de `img2`.
 > - `empty-image`: uma imagem de largura e altura zero, útil como caso base para `beside`.
+> - `empty-image`: imagem de largura e altura zero.
 
 
 ## herois-lib2.arr

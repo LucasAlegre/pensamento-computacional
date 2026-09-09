@@ -48,8 +48,9 @@ fun conta-racas():
             devolve o número de vezes que a raça aparece na lista.```
     # Se a lista for vazia, então [...]
 
-    # Senão, []
-        # [fazer algo com] [primeiro elemento da lista]
+    # Senão, combinar: 
+    # []
+        # [solucionar problema para] [primeiro elemento da lista]
         # [solucionar problem para] [resto da lista]
     0
 where:
@@ -66,8 +67,9 @@ fun remove-racas-repetidas():
     doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
     # Se a lista for vazia, então [...]
 
-    # Senão, []
-        # [fazer algo com] [primeiro elemento da lista]
+    # Senão, combinar: 
+    # []
+        # [solucionar problema para] [primeiro elemento da lista]
         # [solucionar problem para] [resto da lista]
     empty
 where:
@@ -92,9 +94,10 @@ fun cria-lista-de-cartas():
     doc: "Dado uma lista de nomes de heróis, devolve uma lista de imagens de cartas."
     # Se a lista de nomes for vazia, então [...]
 
-    # Senão, []
-        # [fazer algo com] [primeiro elemento de cada lista]
-        # [solucionar problem para] [resto de cada lista]
+    # Senão, combinar: 
+    # []
+        # [solucionar problema para] [primeiro elemento da lista]
+        # [solucionar problem para] [resto da lista]
     i-empty
 end
 
@@ -102,8 +105,9 @@ fun desenha-lista-de-cartas():
     doc: "Dado uma lista de imagens de cartas, devolve uma imagem com todas as cartas lado a lado."
     # Se a lista de imagens for vazia, então [...]
 
-    # Senão, []
-        # [fazer algo com] [primeiro elemento da lista]
+    # Senão, combinar: 
+    # []
+        # [solucionar problema para] [primeiro elemento da lista]
         # [solucionar problem para] [resto da lista]
     empty-image
 end
