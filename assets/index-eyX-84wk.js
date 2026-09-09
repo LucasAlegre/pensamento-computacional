@@ -5574,7 +5574,7 @@ ALINHAMENTO-MAU = "bad"
 ALINHAMENTO-NEUTRO = "neutral"
 
 
-HEROI-URL = "https://raw.githubusercontent.com/lucasalegre/pensamento-computacional/main/src/data/labs/2026-2/herois.csv"
+HEROI-URL = "https://cdn.jsdelivr.net/gh/lucasalegre/pensamento-computacional@main/src/data/labs/2026-2/herois.csv"
 
 HEROI-DATA =
   load-table: id, name, publisher, alignment, gender, race, image_url
