@@ -57,6 +57,10 @@ where:
     true is true
 end
 
+# Descomente as chamadas abaixo para descobrir o número de humanos, mutantes e aliens nos dados:
+# conta-racas(RACAS-HEROIS, "Human")
+# conta-racas(RACAS-HEROIS, "Mutant")
+# conta-racas(RACAS-HEROIS, "Alien")
 
 fun remove-racas-repetidas():
     doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
@@ -71,7 +75,8 @@ where:
     remove-racas-repetidas(empty) is empty
 end
 
-# tamanho(remove-racas-repetidas(RACAS-HEROIS)) retorna o número de raças diferentes entre os heróis da Marvel!
+# remove-racas-repetidas(RACAS-HEROIS) # retorn o nome de todas as raçãs sem repetição
+# tamanho(remove-racas-repetidas(RACAS-HEROIS)) # retorna o número de raças diferentes entre os heróis da Marvel!
 
 
 #|

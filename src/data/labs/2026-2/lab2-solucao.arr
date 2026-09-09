@@ -69,7 +69,6 @@ conta-racas(RACAS-HEROIS, "Mutant")
 conta-racas(RACAS-HEROIS, "Alien")
 
 
-
 fun remove-racas-repetidas(lista-racas :: List<String>) -> List<String>:
     doc: "Dado uma lista de raças de heróis, devolve uma lista sem raças repetidas, sempre mantendo a última ocorrência de cada raça na lista original."
     cases (List<String>) lista-racas:
@@ -91,6 +90,7 @@ where:
     remove-racas-repetidas(empty) is empty
 end
 
+remove-racas-repetidas(RACAS-HEROIS) # retorn o nome de todas as raçãs sem repetição
 tamanho(remove-racas-repetidas(RACAS-HEROIS)) # retorna o número de raças diferentes entre os heróis da Marvel!
 
 
