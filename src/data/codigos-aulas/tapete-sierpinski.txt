@@ -1,0 +1,39 @@
+import color as C
+
+fun aleatorio() -> Number:
+  doc: "Devolve um novo número aleatorio entre 0 e 255."
+  num-random(255 + 1)
+end
+
+fun gera-cor() -> C.Color:
+  doc: "Retorna uma nova cor aleatória."
+  r = aleatorio()
+  g = aleatorio()
+  b = aleatorio()
+  
+  C.color(r, g, b, 1)
+end
+
+fun tapete-sierpinski(lado :: Number, cor :: C.Color) -> Image:
+  doc: "Dados o tamanho do lado e uma cor inicial, desenha um tapete de Sierpinski com o quadrado central desta cor e lado do quadrado externo igual ao lado passado como argumento. A variação de cor para os passos sucessivos é randômica."
+  
+  if lado <= 5:
+    # Caso trivial: desenha um quadrado preto
+    square(lado, "solid", color-named("black"))
+  else:
+    # Caso recursivo: desenha nove tapetes de Sierpinski menores
+    novo-cor = gera-cor()
+    tapete-menor = tapete-sierpinski(lado / 3, novo-cor)
+    tapete-central = square(lado / 3, "solid", cor)
+    linha = beside(tapete-menor, beside(tapete-menor, tapete-menor))
+    
+    above(
+      above(
+        linha,
+        beside(tapete-menor, 
+          beside(tapete-central, tapete-menor))),
+      linha)           
+  end
+end
+
+tapete-sierpinski(200, color-named("red"))
