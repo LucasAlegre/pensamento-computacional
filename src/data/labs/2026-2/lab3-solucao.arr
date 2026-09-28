@@ -105,7 +105,7 @@ fun adiciona-no-fim(lista :: List<Mensagem>, m :: Mensagem) -> List<Mensagem>:
   cases (List<Mensagem>) lista:
     # Caso base: Se a lista for vazia, a nova lista contém apenas m
     | empty => [list: m]
-    # Caso recursivo: Mantém o primeiro e adiciona m no final do restante
+    # Caso recursivo: Mantém o primeiro e adiciona m no final do restante da lista
     | link(first, rest) => link(first, adiciona-no-fim(rest, m))
   end
 where:
@@ -221,6 +221,7 @@ fun desenha-balao(conteudo :: Image, cor :: String) -> Image:
   fundo = rectangle(largura, altura, "solid", cor)
   borda = rectangle(largura, altura, "outline", "lightgray")
   conteudo-com-margem = beside(espaco(8, cor), conteudo)
+
   overlay-align("middle", "middle", borda, overlay-align("left", "middle", conteudo-com-margem, fundo))
 end
 
@@ -279,9 +280,9 @@ fun desenha-mensagens(mensagens :: List<Mensagem>) -> Image:
     | empty => empty-image
     # Passo recursivo: Posiciona o desenho da primeira mensagem acima do restante das mensagens
     | link(first, rest) => 
-    above(
-      desenha-mensagem(first), 
-      desenha-mensagens(rest))
+        above(
+          desenha-mensagem(first), 
+          desenha-mensagens(rest))
   end
 end
 
