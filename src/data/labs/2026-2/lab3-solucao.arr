@@ -52,12 +52,10 @@ MSG-TESTE-3 = msg-imagem("Ana", "09:02", square(30, "solid", "blue"), "Exemplo d
 CHAT-TESTE = chat(CONTATO-ANA, [list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3])
 
 
-#|
-    Carregamento do Chat Longo da Tabela Online (Código fornecido)
-    Lê a tabela online de 20 mensagens reais e cria a constante CHAT-LONGO.
-|#
+# As funções abaixo são usadas para criar uma constante (CHAT-LONGO, abaixo) a partir de uma tabela (csv)
 
 fun cria-msg-tabela(id :: Number) -> Mensagem:
+  doc: "Dado o ID de uma mensagem na tabela chat.csv, consulta a biblioteca e constrói a estrutura Mensagem correspondente (msg-texto ou msg-imagem)."
   if tipo-msg(id) == "texto":
     msg-texto(autor-msg(id), horario-msg(id), texto-msg(id))
   else:
@@ -66,14 +64,15 @@ fun cria-msg-tabela(id :: Number) -> Mensagem:
 end
 
 fun cria-historico-tabela(ids :: List<Number>) -> List<Mensagem>:
+  doc: "Dada uma lista de IDs de mensagens da tabela online, constrói recursivamente a lista de estruturas Mensagem correspondentes."
   cases (List<Number>) ids:
     | empty => empty
     | link(first, rest) => link(cria-msg-tabela(first), cria-historico-tabela(rest))
   end
 end
 
-# Constante com o chat longo contendo as 20 mensagens da tabela online:
-CHAT-LONGO = chat(usuario("Ana", avatar-contato("Ana"), status-contato("Ana")), cria-historico-tabela(IDS-MENSAGENS-TABELA))
+# Constante com o chat longo contendo as 20 mensagens da tabela:
+CHAT-LONGO = chat(usuario("Ana", avatar-contato("Ana"), true), cria-historico-tabela(IDS-MENSAGENS-TABELA))
 
 
 #| 
@@ -124,40 +123,40 @@ end
 
 
 #| 
-    Exercício 4: Filtrando um Chat
+    Exercício 4: Editando uma Mensagem do Chat
 |#
 
-fun filtra-mensagens-autor(mensagens :: List<Mensagem>, autor :: String) -> List<Mensagem>:
-  doc: "Dada uma lista de mensagens e um autor, devolve uma lista contendo apenas as mensagens enviadas por esse autor."
+fun edita-por-horario(mensagens :: List<Mensagem>, horario :: String, novo-texto :: String) -> List<Mensagem>:
+  doc: "Dada uma lista de mensagens, um horário e um novo texto, devolve a lista com a mensagem enviada nesse horário editada para o novo texto."
   cases (List<Mensagem>) mensagens:
-    # Caso base: Lista vazia não possui mensagens
+    # Caso base: Lista vazia não possui mensagens para editar
     | empty => empty
-    # Caso recursivo: Verifica se o primeiro elemento foi enviado pelo autor procurado
+    # Caso recursivo: Verifica se a primeira mensagem foi enviada no horário procurado
     | link(first, rest) =>
-      autor-da-msg = cases (Mensagem) first:
-        | msg-texto(a, h, t) => a
-        | msg-imagem(a, h, img, leg) => a
-      end
-      if autor-da-msg == autor:
-        link(first, filtra-mensagens-autor(rest, autor))
+      if first.horario == horario:
+        # Se o horário for igual, edita a primeira mensagem
+        link(
+          edita-mensagem(first, novo-texto), 
+          edita-por-horario(rest, horario, novo-texto))
       else:
-        filtra-mensagens-autor(rest, autor)
+        # Senão, mantém a primeira mensagem como está
+        link(first, edita-por-horario(rest, horario, novo-texto))
       end
   end
 where:
-  filtra-mensagens-autor(empty, "Ana") is empty
-  filtra-mensagens-autor([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "Ana") is [list: MSG-TESTE-1, MSG-TESTE-3]
-  filtra-mensagens-autor([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "Eu") is [list: MSG-TESTE-2]
-  filtra-mensagens-autor([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "Lucas") is empty
+  edita-por-horario(empty, "09:00", "Olá!") is empty
+  edita-por-horario([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "09:01", "Tudo certo!") is [list: MSG-TESTE-1, msg-texto("Eu", "09:01", "Tudo certo!"), MSG-TESTE-3]
+  edita-por-horario([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "09:02", "Nova legenda") is [list: MSG-TESTE-1, MSG-TESTE-2, msg-imagem("Ana", "09:02", square(30, "solid", "blue"), "Nova legenda")]
+  edita-por-horario([list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3], "10:00", "Olá!") is [list: MSG-TESTE-1, MSG-TESTE-2, MSG-TESTE-3]
 end
 
-fun filtra-chat(c :: Chat, autor :: String) -> Chat:
-  doc: "Dado um chat e o nome de um autor, devolve um novo Chat contendo apenas as mensagens desse autor."
-  chat(c.contato, filtra-mensagens-autor(c.mensagens, autor))
+fun edita-chat(c :: Chat, horario :: String, novo-texto :: String) -> Chat:
+  doc: "Dado um chat, um horário e um novo texto, devolve um novo Chat com a mensagem enviada nesse horário editada."
+  chat(c.contato, edita-por-horario(c.mensagens, horario, novo-texto))
 where:
-  filtra-chat(CHAT-TESTE, "Ana") is chat(CONTATO-ANA, [list: MSG-TESTE-1, MSG-TESTE-3])
-  filtra-chat(CHAT-TESTE, "Eu") is chat(CONTATO-ANA, [list: MSG-TESTE-2])
-  filtra-chat(CHAT-TESTE, "Lucas") is chat(CONTATO-ANA, empty)
+  edita-chat(CHAT-TESTE, "09:00", "Olá! Tudo bem?") is chat(CONTATO-ANA, [list: msg-texto("Ana", "09:00", "Olá! Tudo bem?"), MSG-TESTE-2, MSG-TESTE-3])
+  edita-chat(CHAT-TESTE, "09:02", "Nova legenda") is chat(CONTATO-ANA, [list: MSG-TESTE-1, MSG-TESTE-2, msg-imagem("Ana", "09:02", square(30, "solid", "blue"), "Nova legenda")])
+  edita-chat(CHAT-TESTE, "10:00", "Olá!") is CHAT-TESTE
 end
 
 
@@ -169,63 +168,106 @@ end
 
 fun desenha-avatar(u :: Usuario) -> Image:
   doc: "Dado um usuario, devolve a imagem do avatar com indicador de online (verde) ou offline (cinza)."
-  indicador = if u.online: circle(5, "solid", "limegreen") else: circle(5, "solid", "gray") end
+  indicador = if u.online: 
+    circle(5, "solid", "limegreen") 
+  else: 
+    circle(5, "solid", "gray") 
+  end
+
   overlay-align("right", "bottom", indicador, u.avatar)
 end
 
-fun desenha-mensagem(m :: Mensagem) -> Image:
-  doc: "Dada uma mensagem, gera a imagem do balão de conversa correspondente."
-  is-eu = cases (Mensagem) m:
-    | msg-texto(a, h, t) => a == "Eu"
-    | msg-imagem(a, h, img, leg) => a == "Eu"
-  end
-  cor-balao = if is-eu: COR-BALAO-EU else: COR-BALAO-OUTRO end
-  alinhamento = if is-eu: "right" else: "left" end
+fun espaco(largura :: Number, cor :: String) -> Image:
+  doc: "Devolve um retângulo de altura 1 usado como espaçamento horizontal."
+  rectangle(largura, 1, "solid", cor)
+end
 
+fun eh-minha-mensagem(m :: Mensagem) -> Boolean:
+  doc: "Devolve true se a mensagem foi enviada pelo próprio usuário (autor \"Eu\")."
+  cases (Mensagem) m:
+    | msg-texto(autor, horario, texto) => autor == "Eu"
+    | msg-imagem(autor, horario, img, legenda) => autor == "Eu"
+  end
+end
+
+fun desenha-autor(autor :: String) -> Image:
+  doc: "Desenha o nome do autor da mensagem, ou uma imagem vazia se o autor for \"Eu\"."
+  if autor == "Eu":
+    empty-image
+  else:
+    text(autor, 11, "darkgreen")
+  end
+end
+
+fun empilha-conteudo(txt-autor :: Image, conteudo :: Image, horario :: String) -> Image:
+  doc: "Empilha o autor, o conteúdo e o horário da mensagem, alinhados à esquerda."
+  above-align("left", txt-autor, above-align("left", conteudo, text(horario, 10, "gray")))
+end
+
+fun desenha-conteudo(m :: Mensagem) -> Image:
+  doc: "Dada uma mensagem, desenha o que vai dentro do balão: autor, texto (ou imagem com legenda) e horário."
   cases (Mensagem) m:
     | msg-texto(autor, horario, texto) =>
-      txt-conteudo = text(texto, 13, "black")
-      txt-hora = text(horario, 10, "gray")
-      txt-autor = if is-eu: empty-image else: text(autor, 11, "darkgreen") end
-      
-      conteudo-balao = above-align("left", txt-autor, above-align("left", txt-conteudo, txt-hora))
-      largura-conteudo = image-width(conteudo-balao) + 16
-      altura-conteudo = image-height(conteudo-balao) + 12
-      
-      fundo-balao = rectangle(num-max(largura-conteudo, 80), altura-conteudo, "solid", cor-balao)
-      borda-balao = rectangle(num-max(largura-conteudo, 80), altura-conteudo, "outline", "lightgray")
-      balao = overlay(borda-balao, overlay-align("center", "center", conteudo-balao, fundo-balao))
-      
-      linha = rectangle(LARGURA-CHAT, altura-conteudo + 8, "solid", "transparent")
-      overlay-align(alinhamento, "middle", balao, linha)
-
+      empilha-conteudo(desenha-autor(autor), text(texto, 13, "black"), horario)
     | msg-imagem(autor, horario, img, legenda) =>
-      txt-autor = if is-eu: empty-image else: text(autor, 11, "darkgreen") end
-      txt-legenda = text(legenda, 12, "black")
-      txt-hora = text(horario, 10, "gray")
-      
-      conteudo-balao = above-align("left", txt-autor, above-align("left", img, above-align("left", txt-legenda, txt-hora)))
-      largura-conteudo = image-width(conteudo-balao) + 16
-      altura-conteudo = image-height(conteudo-balao) + 12
-      
-      fundo-balao = rectangle(largura-conteudo, altura-conteudo, "solid", cor-balao)
-      borda-balao = rectangle(largura-conteudo, altura-conteudo, "outline", "lightgray")
-      balao = overlay(borda-balao, overlay-align("center", "center", conteudo-balao, fundo-balao))
-      
-      linha = rectangle(LARGURA-CHAT, altura-conteudo + 8, "solid", "transparent")
-      overlay-align(alinhamento, "middle", balao, linha)
+      empilha-conteudo(desenha-autor(autor), above-align("left", img, text(legenda, 12, "black")), horario)
   end
+end
+
+fun desenha-balao(conteudo :: Image, cor :: String) -> Image:
+  doc: "Dado o conteúdo de uma mensagem e uma cor de fundo, desenha o balão com margem interna e borda cinza."
+  largura = num-max(image-width(conteudo) + 16, 80)
+  altura = image-height(conteudo) + 12
+  fundo = rectangle(largura, altura, "solid", cor)
+  borda = rectangle(largura, altura, "outline", "lightgray")
+  conteudo-com-margem = beside(espaco(8, cor), conteudo)
+  overlay-align("middle", "middle", borda, overlay-align("left", "middle", conteudo-com-margem, fundo))
+end
+
+fun posiciona-balao(balao :: Image, a-direita :: Boolean) -> Image:
+  doc: "Posiciona o balão na linha do chat, encostado à direita ou à esquerda, com margem de 10 pixels."
+  fundo-linha = rectangle(LARGURA-CHAT, image-height(balao) + 8, "solid", COR-FUNDO-CHAT)
+  margem = espaco(10, COR-FUNDO-CHAT)
+
+  if a-direita:
+    overlay-align("right", "middle", beside(balao, margem), fundo-linha)
+  else:
+    overlay-align("left", "middle", beside(margem, balao), fundo-linha)
+  end
+end
+
+fun desenha-mensagem(m :: Mensagem) -> Image:
+  doc: "Dada uma mensagem, gera a imagem do balão de conversa correspondente posicionado na linha do chat."
+  minha = eh-minha-mensagem(m)
+  cor-balao = if minha: COR-BALAO-EU else: COR-BALAO-OUTRO end
+
+  posiciona-balao(desenha-balao(desenha-conteudo(m), cor-balao), minha)
+end
+
+fun desenha-status(online :: Boolean) -> Image:
+  doc: "Desenha o status do contato: \"online\" em verde claro ou \"offline\" em cinza claro."
+  if online:
+    text("online", 11, "lightgreen")
+  else:
+    text("offline", 11, "lightgray")
+  end
+end
+
+fun desenha-info-contato(u :: Usuario) -> Image:
+  doc: "Desenha o nome do contato com o status logo abaixo."
+  above-align("left", 
+    text(u.nome, 16, "white"), 
+    desenha-status(u.online))
 end
 
 fun desenha-cabecalho(u :: Usuario) -> Image:
   doc: "Dado um usuario de contato, desenha a barra superior verde escura do chat."
   barra = rectangle(LARGURA-CHAT, 55, "solid", COR-CABECALHO)
-  avatar-img = desenha-avatar(u)
-  txt-nome = text(u.nome, 16, "white")
-  txt-status = text(if u.online: "online" else: "offline" end, 11, if u.online: "lightgreen" else: "lightgray" end)
-  info-contato = above-align("left", txt-nome, txt-status)
-  cabecalho-conteudo = beside-align("center", avatar-img, beside-align("center", rectangle(10, 1, "solid", "transparent"), info-contato))
-  overlay-align("left", "center", beside(rectangle(12, 1, "solid", "transparent"), cabecalho-conteudo), barra)
+  conteudo = beside-align("middle", desenha-avatar(u), beside(espaco(10, COR-CABECALHO), desenha-info-contato(u)))
+
+  overlay-align("left", "middle", 
+    beside(espaco(15, COR-CABECALHO), conteudo), 
+  barra)
 end
 
 # --- Implementação do aluno ---
@@ -236,23 +278,20 @@ fun desenha-mensagens(mensagens :: List<Mensagem>) -> Image:
     # Caso base: Se a lista for vazia, devolve imagem vazia
     | empty => empty-image
     # Passo recursivo: Posiciona o desenho da primeira mensagem acima do restante das mensagens
-    | link(first, rest) => above(desenha-mensagem(first), desenha-mensagens(rest))
+    | link(first, rest) => 
+    above(
+      desenha-mensagem(first), 
+      desenha-mensagens(rest))
   end
 end
 
 fun desenha-chat(c :: Chat) -> Image:
-  doc: "Dado um Chat, desenha a interface completa da conversa."
-  mensagens-montadas = desenha-mensagens(c.mensagens)
-  fundo-mensagens = rectangle(LARGURA-CHAT, image-height(mensagens-montadas) + 20, "solid", COR-FUNDO-CHAT)
-  corpo-chat = overlay-align("center", "top", mensagens-montadas, fundo-mensagens)
-  above(desenha-cabecalho(c.contato), corpo-chat)
+  doc: "Dado um Chat, desenha a interface completa da conversa combinando cabecalho e mensagens."
+  above(
+    desenha-cabecalho(c.contato), 
+    desenha-mensagens(c.mensagens))
 end
 
-# Visualizando o chat de teste:
-# desenha-chat(CHAT-TESTE)
 
 # Visualizando o chat longo completo:
-# desenha-chat(CHAT-LONGO)
-
-# Visualizando o chat longo filtrado apenas com as mensagens da Ana:
-# desenha-chat(filtra-chat(CHAT-LONGO, "Ana"))
+desenha-chat(CHAT-LONGO)

@@ -21,3 +21,17 @@ where:
     adiciona-exclamacao(link("a", link("b", empty))) is [list: "a!", "b!"]
 end
 
+data EstadoSemaforo:
+    | VERMELHO
+    | AMARELO
+    | VERDE
+end
+
+fun aviso-semaforo(e :: EstadoSemaforo) -> String:
+    doc: "Dado um estado de semáforo, retorna o aviso correspondente."
+    cases (EstadoSemaforo) e:
+        | VERMELHO => "Pare!"
+        | AMARELO => "Atenção!"
+        | VERDE => "Vá!"
+    end
+end

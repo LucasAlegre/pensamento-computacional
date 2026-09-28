@@ -1,6 +1,6 @@
 id,remetente,horario,tipo,texto,url_imagem,legenda
-1,Ana,09:00,texto,"Bom dia! Tudo bem?",,
-2,Eu,09:01,texto,"Bom dia Ana! Tudo certo e você?",,
+1,Ana,09:00,texto,"oi",,
+2,Eu,09:01,texto,"oi",,
 3,Ana,09:02,texto,"Tudo bem! Você viu que saiu o Lab 3 de Pensamento Computacional?",,
 4,Eu,09:03,texto,"Vi sim! É sobre estruturas de dados e um aplicativo de mensagens.",,
 5,Ana,09:05,imagem,,"https://raw.githubusercontent.com/lucasalegre/pensamento-computacional/main/src/data/labs/2026-2/images/lab1/cenario1.png","Relembrando o Lab 1 de Truco!"
@@ -15,7 +15,7 @@ id,remetente,horario,tipo,texto,url_imagem,legenda
 14,Ana,09:22,texto,"Agora vou testar a função de adicionar mensagem no chat.",,
 15,Eu,09:25,texto,"Lembre que as estruturas são imutáveis no Pyret!",,
 16,Ana,09:27,texto,"Verdade, precisa devolver um novo Chat com a lista atualizada.",,
-17,Eu,09:30,texto,"Terminei a função de filtrar o chat por autor também.",,
+17,Eu,09:30,texto,"Terminei a função de trocar oi por Oi! no chat também.",,
 18,Ana,09:32,texto,"Show! Podemos rodar no chat longo para ver quantas mensagens enviamos.",,
 19,Eu,09:35,texto,"O visual com os balões verdes e brancos ficou muito bonito.",,
 20,Ana,09:40,texto,"Demais! Bons estudos por aí!",,
