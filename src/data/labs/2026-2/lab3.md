@@ -129,7 +129,7 @@ Sua tarefa consiste em implementar duas funções:
    ```
    desenha-chat(c :: Chat) -> Image
    ```
-   Dado um `Chat`, combina o cabeçalho no topo (`desenha-cabecalho(c.contato)`) com o histórico de mensagens sobreposto a um fundo retangular cinza (`COR-FUNDO-CHAT`), devolvendo a imagem completa da janela do aplicativo.
+   Dado um `Chat`, desenha o cabeçalho com o avatar e nome do contato, seguido abaixo da lista de mensagens desenhadas.
 
 Ao finalizar, descomente e execute as chamadas no painel de interações:
 ```
