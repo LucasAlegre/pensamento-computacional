@@ -34,7 +34,7 @@ Leia o arquivo `pokemon-lib6.arr` (ao final desta página) para entender os tipo
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab6-template.arr
+file: src/data/labs/2026-1/lab6-template.arr
 ```
 
 ---
@@ -197,5 +197,5 @@ Adapte o jogo para tratar colisões entre Pokémon do mesmo time: quando dois Po
 Biblioteca de Pokémon importada para o Laboratório 6.
 
 ```pyret
-file: src/data/labs/pokemon-lib6.arr
+file: src/data/labs/2026-1/pokemon-lib6.arr
 ```

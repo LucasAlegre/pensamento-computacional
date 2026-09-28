@@ -23,7 +23,7 @@ Sua missão é **construir visualmente as cartas** de diferentes Pokémon e **si
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab1-template.arr
+file: src/data/labs/2026-1/lab1-template.arr
 ```
 
 ## 🛠️ Exercício 1: Constantes de Texto

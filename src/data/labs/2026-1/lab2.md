@@ -29,7 +29,7 @@ Seu objetivo neste laboratório é **explorar a tabela de Pokémons da primeira 
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab2-template.arr
+file: src/data/labs/2026-1/lab2-template.arr
 ```
 
 ---
@@ -116,5 +116,5 @@ Por fim, crie a constante `CARTAS` usando a aplicação de função `cria-lista-
 Biblioteca de Pokémon para o Laboratório 2.
 
 ```pyret
-file: src/data/labs/pokemon-lib2.arr
+file: src/data/labs/2026-1/pokemon-lib2.arr
 ```

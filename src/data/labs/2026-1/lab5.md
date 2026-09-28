@@ -31,7 +31,7 @@ Leia o arquivo `pokemon-lib4.arr` (ao final desta página) para entender as fun�
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab5-template.arr
+file: src/data/labs/2026-1/lab5-template.arr
 ```
 
 ---
@@ -157,5 +157,5 @@ Implemente a função `mostra-caminho(nodo :: Nodo, nome :: String) -> String` q
 Biblioteca de Pokémon importada para o Laboratório 5.
 
 ```pyret
-file: src/data/labs/pokemon-lib4.arr
+file: src/data/labs/2026-1/pokemon-lib4.arr
 ```

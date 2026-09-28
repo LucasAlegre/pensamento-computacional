@@ -28,7 +28,7 @@ Seu objetivo neste laboratório é criar funções genéricas para manipulação
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab4-template.arr
+file: src/data/labs/2026-1/lab4-template.arr
 ```
 
 ---
@@ -77,5 +77,5 @@ file: src/data/labs/lab4-template.arr
 Biblioteca de Pokémon importada para o Laboratório 4.
 
 ```pyret
-file: src/data/labs/pokemon-lib4.arr
+file: src/data/labs/2026-1/pokemon-lib4.arr
 ```

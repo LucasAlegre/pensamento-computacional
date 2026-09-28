@@ -27,7 +27,7 @@ Seu objetivo neste laboratório é criar a representação dos Pokémons por mei
 Copie o template para o seu ambiente de desenvolvimento (code.pyret.org ou VS Code). Não esqueça de salvar o seu arquivo!
 
 ```pyret
-file: src/data/labs/lab3-template.arr
+file: src/data/labs/2026-1/lab3-template.arr
 ```
 
 ---
@@ -119,5 +119,5 @@ Abaixo, veja um exemplo da aplicação do movimento `ataque("Ember", FIRE, 40)` 
 Biblioteca de Pokémon importada para o Laboratório 3.
 
 ```pyret
-file: src/data/labs/pokemon-lib3.arr
+file: src/data/labs/2026-1/pokemon-lib3.arr
 ```
