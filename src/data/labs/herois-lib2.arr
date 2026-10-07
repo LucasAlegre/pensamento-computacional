@@ -104,7 +104,7 @@ fun cria-carta(nome :: String) -> Image:
     # Gera fundo com o herói
     fundo-com-heroi = overlay(heroi-sobre-circulo, seleciona-fundo(alinhamento))
     # Gera o alinhamento ao lado da raça
-    alinhamento-e-raca = beside(text(raca, 16, "black"), text(" - " + alinhamento, 14, "black"))
+    alinhamento-e-raca = beside(text(alinhamento, 16, "black"), text(" - " + raca, 14, "black"))
     # Gera carta com o alinhamento e a raça
     carta-com-alinhamento = overlay-align("middle", "bottom", alinhamento-e-raca, fundo-com-heroi)
     # Gera carta com o nome

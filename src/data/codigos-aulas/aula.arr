@@ -1,37 +1,36 @@
 use context starter2024
 
-data Playlist:
-    | vazia
-    | b(f :: String, r :: Playlist)
+fun calculadora(x :: Number, y :: Number, op :: (Number, Number -> Number)) -> Number:
+    op(x, y)
 end
 
-b("Musica", b("Musica 2", vazia))
 
-fun adiciona-exclamacao(l :: List<Number>) -> List<String>:
-    doc: "Dado uma lista de strings, adiciona ! a todas as strings."
+fun soma(x :: Number, y :: Number) -> Number:
+    x + y
+end
 
-    cases (List<String>) l:
-        | empty => empty
-        | link(f, r) => 
-            link(number-to-string(f), adiciona-exclamacao(r))
+fun mult(x :: Number, y :: Number) -> Number:
+    x * y
+end
+
+fun divisao(x :: Number, y :: Number) -> Number:
+    x / y
+end
+
+
+fun mapeia(op :: (Number -> Number), l :: List<Number>) -> List<Number>:
+    cases (List<Number>) l:
+    | empty => empty
+    | link(f, r) =>
+        link(
+            op(f),
+            mapeia(op, r))
     end
-
 where:
-    adiciona-exclamacao(empty) is empty
-    adiciona-exclamacao(link("a", link("b", empty))) is [list: "a!", "b!"]
+    mapeia(sqr, [list: 1, 2, 4]) is [list: 1, 4, 16]
 end
 
-data EstadoSemaforo:
-    | VERMELHO
-    | AMARELO
-    | VERDE
-end
 
-fun aviso-semaforo(e :: EstadoSemaforo) -> String:
-    doc: "Dado um estado de semáforo, retorna o aviso correspondente."
-    cases (EstadoSemaforo) e:
-        | VERMELHO => "Pare!"
-        | AMARELO => "Atenção!"
-        | VERDE => "Vá!"
-    end
+fun g(x :: Number) -> Number:
+    sqr((x * 2) + 7)
 end

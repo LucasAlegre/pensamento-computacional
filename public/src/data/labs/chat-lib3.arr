@@ -86,27 +86,10 @@ end
 fun avatar-contato(nome :: String) -> Image:
   doc: "Dado o nome de um contato, gera um avatar circular colorido com a inicial do seu nome."
   letra = string-substring(nome, 0, 1)
-  cor = ask:
-    | nome == "Ana" then: "darkorchid"
-    | nome == "Lucas" then: "dodgerblue"
-    | nome == "Prof. Lucas" then: "dodgerblue"
-    | nome == "Alex" then: "darkorange"
-    | otherwise: "teal"
-  end
-  fundo = circle(20, "solid", cor)
+  fundo = circle(20, "solid", "darkorchid")
   letra-img = text(letra, 18, "white")
-  overlay(letra-img, fundo)
-end
 
-fun status-contato(nome :: String) -> Boolean:
-  doc: "Dado o nome de um contato, devolve true se o contato estiver online ou false caso contrário."
-  ask:
-    | nome == "Ana" then: true
-    | nome == "Lucas" then: true
-    | nome == "Prof. Lucas" then: true
-    | nome == "Alex" then: false
-    | otherwise: false
-  end
+  overlay(letra-img, fundo)
 end
 
 
