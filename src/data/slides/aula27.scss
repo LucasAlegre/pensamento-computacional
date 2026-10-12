@@ -1,0 +1,99 @@
+/*-- scss:defaults --*/
+
+// Complementos da Aula 26 (Limites da Computação).
+// Cores tiradas do pptx original.
+
+$a26-azul:       #0070c0;
+$a26-laranja:    #ed7d31;   // "P" e textos "Obj:" dos cartões de problema
+$a26-ciano:      #00a2ff;   // redução / transformação
+$a26-vermelho2:  #ee220c;   // problema A
+$a26-verde2:     #1db100;   // problema B
+
+/*-- scss:rules --*/
+
+.reveal .laranja { color: $a26-laranja; }
+.reveal .ciano   { color: $a26-ciano; }
+.reveal .verm-a  { color: $a26-vermelho2; }
+.reveal .verde-b { color: $a26-verde2; }
+// Negrito sem a cor azul que o tema impõe a **texto**
+.reveal .b       { font-weight: 700; }
+
+// ── Cartão de problema (nome + Obj/Entrada/Saída) ──────────────────────────
+// ::: {.problema .p1}
+// ::: {.nome}
+// P1: ...
+// :::
+// [Obj:]{.azul} [...]{.laranja}
+// ...
+// :::
+.reveal .problema {
+  --cab: #2e75b6;
+  --fundo: #deebf7;
+  position: relative;
+  margin: 1.15em 0.2em 0.5em 0.6em;
+  padding: 1.25em 0.9em 0.45em;
+  font-size: 0.72em;
+  background: var(--fundo);
+  border: 2px solid $a26-azul;
+  border-radius: 22px;
+}
+.reveal .problema > p {
+  margin: 0.4em 0;
+  padding: 0.15em 0.5em;
+  line-height: 1.35;
+  text-align: left;
+  background: #fff;
+  border: 2px solid #4472c4;
+}
+.reveal .problema > .nome {
+  position: absolute;
+  top: -0.95em;
+  left: -0.6em;
+  width: 48%;
+}
+.reveal .nome {
+  --cab: #2e75b6;
+  padding: 0.2em 0.8em;
+  color: #fff;
+  font-size: 1.15em;
+  text-align: center;
+  background: var(--cab);
+  border: 2px solid $a26-azul;
+  border-radius: 9px;
+}
+.reveal .nome p { margin: 0; }
+
+.reveal .p1     { --cab: #c00000; --fundo: #fbe5d6; }
+.reveal .p2     { --cab: #00b050; --fundo: #e2f0d9; }
+.reveal .p3     { --cab: #0070c0; --fundo: #deebf7; }
+.reveal .p4     { --cab: #c55a11; --fundo: #f4b183; }
+.reveal .p-para { --cab: #0070c0; --fundo: #deebf7; }
+
+// Grade com os quatro nomes de problemas (slide "Quais destes problemas...")
+.reveal .grade-problemas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8em 1.6em;
+  margin: 0.6em 0 1em;
+  font-size: 0.75em;
+}
+
+// ── Caixa de destaque azul-clara (respostas, perguntas de seção) ───────────
+.reveal .caixa {
+  margin: 0.6em auto;
+  padding: 0.5em 0.9em;
+  color: $a26-azul;
+  text-align: center;
+  line-height: 1.35;
+  background: #deebf7;
+  border: 2px solid $a26-azul;
+  border-radius: 18px;
+}
+.reveal .caixa p { margin: 0.2em 0; }
+
+// Nota de rodapé em itálico (slide "Testando Terminação")
+.reveal .nota {
+  font-size: 0.6em;
+  font-style: italic;
+  color: #953735;
+}

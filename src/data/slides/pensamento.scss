@@ -1,0 +1,144 @@
+/*-- scss:defaults --*/
+
+// Complementos do tema metropolis.scss específicos de Pensamento Computacional.
+// O metropolis.scss é uma cópia do tema de PAA; mantenha as mudanças aqui.
+
+$pc-azul:     #0070c0;
+$pc-roxo:     #7030a0;
+$pc-vermelho: #c00000;
+$pc-verde:    #3a7a10;
+
+/*-- scss:rules --*/
+
+// ── Cores de destaque usadas nos slides originais ──────────────────────────
+.reveal .azul     { color: $pc-azul; }
+.reveal .roxo     { color: $pc-roxo; }
+.reveal .vermelho { color: $pc-vermelho; }
+.reveal .verde    { color: $pc-verde; }
+
+// Texto explicativo ao lado dos modelos de função
+.reveal .explicacao {
+  font-size: 0.85em;
+  text-align: center;
+  line-height: 1.4;
+}
+
+// Símbolo λ grande (slide de seção de expressões lambda)
+.reveal .lambda-grande {
+  font-size: 6em;
+  line-height: 1;
+  color: #888;
+  font-family: "Times New Roman", serif;
+}
+
+// ── Tabela de exercícios com os padrões (filtrar, mapear, juntar, ...) ─────
+// Cada slide escolhe o que mostrar pelas classes do título, ex.:
+//   ## Exercícios {.mostra-filtrar .destaca-mapear}
+// "destaca-X" mostra o rótulo do padrão X e pinta as linhas do grupo.
+.reveal table.tabela-padroes {
+  font-size: 0.58em;
+  width: 100%;
+}
+.reveal table.tabela-padroes td:first-child {
+  text-align: right;
+  color: #2e75b6;
+  width: 2.5em;
+}
+.reveal table.tabela-padroes td.padrao {
+  visibility: hidden;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  width: 8em;
+}
+
+$pc-padroes: (filtrar: $pc-azul, mapear: $pc-roxo, juntar: $pc-vermelho, combinacao: $pc-verde);
+@each $nome, $cor in $pc-padroes {
+  .reveal table.tabela-padroes td.p-#{$nome} { color: $cor; }
+  .reveal .mostra-#{$nome} table.tabela-padroes td.p-#{$nome},
+  .reveal .destaca-#{$nome} table.tabela-padroes td.p-#{$nome} { visibility: visible; }
+  .reveal .destaca-#{$nome} table.tabela-padroes tr.g-#{$nome} td { background: rgba($cor, 0.12); }
+}
+
+// Balão sobreposto ao conteúdo do slide
+.reveal .balao {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 62%;
+  transform: translate(-50%, -50%);
+  padding: 0.6em 1em;
+  background: #fff;
+  border: 2px solid #2e75b6;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+// ── Código Pyret: cores do tema Pyret Light (ver pyret-highlight.html) ──────
+// Valores de semanticTokenColors em
+// code.pyret.org/pyret-light-theme/themes/pyret-light-color-theme.json
+$pyret-light: (
+  keyword:  #b91c1c,
+  comment:  #d97706,
+  string:   #14532d,
+  number:   #1d4ed8,
+  function: #0066cc,
+  type:     #5b21b6,
+  variable: #15803d,
+  builtin:  #111827,
+  constant: #0a192f,
+);
+.reveal code.pyret-cm {
+  color: #111827;
+}
+@each $nome, $cor in $pyret-light {
+  .reveal code.pyret-cm .pyret-#{$nome} { color: $cor; }
+}
+.reveal code.pyret-cm .pyret-comment {
+  font-style: italic;
+}
+.reveal div.sourceCode:has(> pre.pyret),
+.reveal pre.sourceCode.pyret {
+  background-color: #ffffff;
+}
+.reveal pre.sourceCode.pyret code > span > a:first-child::before {
+  color: #9ca3af;
+}
+
+// ── Editor Pyret sob demanda (ver pyret-live.html) ─────────────────────────
+.reveal .pyret-live {
+  position: relative;
+}
+.reveal .pyret-live-btn {
+  position: absolute;
+  top: 0.35em;
+  right: 0.35em;
+  z-index: 2;
+  padding: 0.15em 0.7em;
+  font: inherit;
+  font-size: 0.45em;
+  color: #fff;
+  background: #2e75b6;
+  border: 1px solid #2e75b6;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.reveal .pyret-live.aberto .pyret-live-btn {
+  position: static;
+  display: block;
+  margin: 0 0 0.3em auto;
+}
+.reveal .pyret-live.aberto div.sourceCode {
+  display: none;
+}
+.reveal .pyret-live-editor {
+  border: 1px solid rgba(35, 55, 59, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.reveal .pyret-live-erro {
+  padding: 1em;
+  color: $pc-vermelho;
+  font-size: 0.6em;
+}

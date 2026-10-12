@@ -67,6 +67,16 @@ All exercises live in a single file, `src/data/exercises.md`. `src/utils/loadExe
 ### Topic pages
 Each topic is a hand-wired page. `Learning.jsx`, `DataTypes.jsx` and `PyretStyleGuide.jsx` each render one file from `src/data/topics/*.md`, with a duplicated ReactMarkdown setup and a `TableOfContents` sidebar (which scrapes `h2`/`h3` from the DOM). `Functions.jsx` is inline JSX. To add a topic, you need a page component, a route in `App.jsx`, a dropdown link in `components/Layout.jsx` and a card in `pages/Topics.jsx`.
 
+### Lecture slides and the Turma C schedule (`/turma-c`)
+- `src/data/slides/aulaNN-*.qmd` are Quarto revealjs decks, numbered by the 2026/2 schedule. `npm run slides` (needs `quarto`) renders them into `public/slides/`, which Vite publishes as static files. CI does not run Quarto, so re-render and commit `public/slides/` after editing a deck.
+- Shared deck files in `src/data/slides/`:
+  - `metropolis.scss`: a verbatim copy of the instructor's PAA theme.
+  - `pensamento.scss`: course helpers and the Pyret Light colors.
+  - Per-deck extras: `aulaNN.scss`.
+  - Pyret support: `pyret.xml` (Pandoc highlighting and line structure), `pyret-highlight.html` + `pyret-mode.js` (CodeMirror tokenizer, a verbatim copy of code.pyret.org's `pyret-light-theme/pyret.js`), and `pyret-live.html` (the click-to-run editor in `.pyret-live` blocks).
+- Lectures not yet converted are linked as PDFs from `public/slides-pdf/`. The originals live in `src/data/slides/pptx/`, which is gitignored (local only).
+- `src/data/cronogramaTurmaC.js` holds the schedule rendered by `pages/TurmaC.jsx`. The page is specific to Turma C (Prof. Lucas Nunes Alegre), so the schedule lives on this page (linked from the navbar) and not on the home page.
+
 ### Not part of the site
 - `src/data/codigos-aulas/`: lecture code archive. It is not imported anywhere.
 - `pages/Examples.jsx` and `components/CodeViewer.jsx`: unrouted; they read `src/codigos_pyret/`.

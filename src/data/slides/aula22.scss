@@ -1,0 +1,239 @@
+/*-- scss:defaults --*/
+
+// Estilos específicos da Aula 21 (Estruturas com Referência Mútua).
+// Diagramas recriados do PowerPoint: árvores genealógicas, modelo da solução,
+// decomposição, ficha de função e código anotado.
+
+$a21-laranja: #ff8000;
+
+/*-- scss:rules --*/
+
+.reveal .laranja { color: $a21-laranja; }
+
+// SVGs gerados (árvores e código anotado) ocupam a largura do contêiner
+.reveal svg.arvore,
+.reveal svg.codigo-anotado {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+// ── Balão elíptico "Como representar esta informação?" ─────────────────────
+.reveal .balao-elipse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8.5em;
+  height: 6.5em;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #ffe699;
+  border: 2px solid #bf8f00;
+  color: #262626;
+  font-weight: 700;
+  font-size: 0.85em;
+  line-height: 1.3;
+  text-align: center;
+}
+
+// ── Pergunta destacada (Árvores N-árias) ──────────────────────────────────
+.reveal .pergunta {
+  margin-top: 1.2em;
+  padding: 0.6em 1em;
+  background: #dae3f3;
+}
+
+// ── Código com rótulo à esquerda (Dados / Função) ──────────────────────────
+.reveal .rotulo-codigo {
+  font-size: 0.9em;
+  text-align: center;
+}
+.reveal .borda-azul pre { border: 2px solid #0070c0; }
+.reveal .borda-vermelha pre { border: 2px solid #c00000; }
+
+// ── Nota sobre código (setas apontando para linhas) ────────────────────────
+.reveal .nota-codigo {
+  font-size: 0.75em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.reveal .nota-codigo .caixa-nota {
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  border: 1.5px solid currentColor;
+  background: #fff;
+}
+
+// ── Modelo da solução de ancestral-tipo-o ──────────────────────────────────
+.reveal .modelo-solucao {
+  font-size: 0.68em;
+  line-height: 1.25;
+  .dado { font-style: italic; margin: 0 0 0.4em; font-size: 1.15em; }
+  .faixa { padding: 0.35em 0.6em 0.6em; margin-bottom: 0.35em; }
+  .trivial { background: #fff2cc; }
+  .dificil { background: #fce4d6; }
+  .titulo-faixa { font-weight: 700; margin-bottom: 0.25em; }
+  .trivial .titulo-faixa { color: #bf8f00; }
+  .dificil .titulo-faixa { color: #c65911; }
+  .linha { display: flex; align-items: center; gap: 0.6em; margin-top: 0.35em; }
+  .rotulo { width: 2.2em; flex: none; }
+  .combinar { color: #7030a0; font-weight: 700; width: 10.5em; flex: none; white-space: nowrap; }
+  .campo {
+    flex: none;
+    min-height: 1.6em;
+    padding: 0.15em 0.5em;
+    background: #fff;
+    border: 1.5px solid #bf8f00;
+    font-style: italic;
+    text-align: center;
+  }
+  .dificil .campo { border-color: #c55a11; }
+  .sub { flex: none; font-size: 0.95em; color: #262626; }
+}
+
+// ── Decomposição / modelo da solução (caixas amarelas e laranjas) ──────────
+.reveal .decomposicao {
+  font-size: 0.7em;
+  line-height: 1.2;
+  .dado { margin: 0 0 0.2em; font-size: 1.15em; }
+  .titulo-faixa { font-size: 1.05em; margin: 0.2em 0 0.1em 1.2em; }
+  .faixa {
+    margin-left: 1.2em;
+    padding: 0.3em 1em 0.6em;
+    border-radius: 1em;
+  }
+  .trivial { background: #f5f7fc; }
+  .dificil { background: #eaeff8; }
+  .linha { display: flex; align-items: flex-end; gap: 0.6em; margin-top: 0.15em; }
+  .se { width: 4em; text-align: right; padding-bottom: 0.45em; flex: none; }
+  .virgula { padding-bottom: 0.45em; flex: none; }
+  .campo { width: 15em; flex: none; text-align: center; }
+  .recuo1 { margin-left: 5.5em; }
+  .recuo2 { margin-left: 7.5em; }
+  .legenda {
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.72em;
+    color: #000;
+    margin-bottom: 0.1em;
+  }
+  .caixa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.1em;
+    padding: 0.1em 0.3em;
+    border: 3px solid #f5d53a;
+    border-radius: 3px;
+    color: #0070c0;
+    font-size: 1.15em;
+  }
+  .dificil .caixa { border-color: #f7941d; }
+  .caixa.pequena { font-size: 0.9em; }
+}
+
+// Símbolo de "não permitido" (subproblema que não existe)
+.reveal .proibido {
+  display: inline-block;
+  position: relative;
+  width: 1.3em;
+  height: 1.3em;
+  border: 0.22em solid #000;
+  border-radius: 50%;
+  box-sizing: border-box;
+  vertical-align: middle;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 120%;
+    height: 0.22em;
+    background: #000;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+
+// ── Ficha da função (objetivo, entrada, saída) ─────────────────────────────
+.reveal .ficha {
+  position: relative;
+  margin: 0.9em 0.4em 0.6em;
+  padding: 2em 1em 0.8em;
+  background: #ddeaf6;
+  border: 2px solid #2e75b5;
+  border-radius: 1.2em;
+  font-size: 0.75em;
+  .aba {
+    position: absolute;
+    top: -0.9em;
+    left: -1em;
+    width: 48%;
+    padding: 0.35em 0;
+    background: #2e75b5;
+    border-radius: 0.3em;
+    color: #fff;
+    text-align: center;
+    font-size: 1.1em;
+  }
+  .item {
+    margin-top: 0.35em;
+    padding: 0.3em 0.5em;
+    background: #fff;
+    border: 2px solid #4472c4;
+  }
+}
+.reveal .funcao-caixa-preta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.7em;
+  line-height: 1.1;
+  .seta { font-size: 1.6em; color: #000; line-height: 1; }
+  .caixa-funcao {
+    padding: 0.45em 1.4em;
+    background: #2e75b5;
+    border: 1px solid #1f4e79;
+    border-radius: 0.3em;
+    color: #fff;
+    font-size: 1.6em;
+  }
+}
+
+// ── Nota do slide-resumo ───────────────────────────────────────────────────
+.reveal .nota-resumo {
+  padding: 1.2em 1em;
+  background: #dae3f3;
+  text-align: center;
+  font-size: 0.8em;
+}
+
+// ── Setas desenhadas com CSS para as notas sobre o código ──────────────────
+.reveal .seta-esq,
+.reveal .seta-dir {
+  display: inline-block;
+  position: relative;
+  width: 3em;
+  height: 2px;
+  background: currentColor;
+  vertical-align: middle;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+  }
+}
+.reveal .seta-esq {
+  margin-right: 0.3em;
+  &::before { left: -0.2em; border-right: 0.55em solid currentColor; }
+}
+.reveal .seta-dir {
+  margin-right: 0.5em;
+  &::before { right: -0.2em; border-left: 0.55em solid currentColor; }
+}
+
+// Quebra de linhas longas (doc:) nos blocos marcados com .code-overflow-wrap
+.reveal pre.code-overflow-wrap code { white-space: pre-wrap; }

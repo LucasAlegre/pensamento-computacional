@@ -481,3 +481,88 @@ footer {
     padding: 1rem 0;
   }
 }
+/* Cronograma da Turma C (pages/TurmaC.jsx) */
+.cron-aviso {
+  background-color: #fff8e1;
+  border-left: 4px solid var(--secondary-color);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.cron-scroll {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.cron-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  font-size: 0.92rem;
+}
+
+.cron-tabela th {
+  background-color: #495057;
+  color: #fff;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  white-space: nowrap;
+}
+
+.cron-tabela td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+
+.cron-tabela .cron-semana {
+  background-color: #e9ecef;
+  text-align: center;
+  font-weight: 700;
+  border-right: 2px solid #adb5bd;
+}
+
+.cron-tabela .cron-num {
+  text-align: center;
+}
+
+.cron-tabela .cron-data {
+  white-space: nowrap;
+}
+
+.cron-tabela .cron-assunto {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.cron-tabela tr.cron-lab { background-color: #fdebd3; }
+.cron-tabela tr.cron-prova { background-color: #e8f5e9; }
+.cron-tabela tr.cron-exame { background-color: #fce4ec; }
+.cron-tabela tr.cron-evento { background-color: #f3f4f6; color: #6b7280; font-style: italic; }
+.cron-tabela tr.cron-lab .cron-assunto,
+.cron-tabela tr.cron-prova .cron-assunto,
+.cron-tabela tr.cron-exame .cron-assunto { color: var(--text-color); }
+.cron-tabela tr.cron-evento .cron-assunto { color: #6b7280; font-weight: 400; }
+
+.cron-slides {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-md);
+  background-color: var(--primary-color);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cron-slides:hover {
+  color: #fff;
+  opacity: 0.85;
+}
+
+.cron-slides.pdf {
+  background-color: #6b7280;
+}

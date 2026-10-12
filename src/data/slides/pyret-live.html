@@ -1,0 +1,59 @@
+<script type="module">
+// Blocos `::: {.pyret-live}` ganham um botão que troca o código estático por um
+// editor Pyret executável (mesma biblioteca usada no site). O editor só é carregado
+// sob demanda, então a apresentação continua funcionando offline.
+// Atributos opcionais no bloco: data-height="420" (altura em px), data-autorun="false".
+const EMBED_URL = "https://cdn.jsdelivr.net/npm/@ironm00n/pyret-embed@0.0.1/dist/pyret.js";
+
+function codigoDo(box) {
+  const codigo = [...box.querySelectorAll("pre code")]
+    .map((c) => c.textContent.trimEnd())
+    .join("\n\n");
+  return /^\s*use context/.test(codigo) ? codigo : `use context starter2024\n\n${codigo}`;
+}
+
+async function abrir(box, botao) {
+  botao.disabled = true;
+  botao.textContent = "Carregando…";
+  const editor = document.createElement("div");
+  editor.className = "pyret-live-editor";
+  editor.style.height = `${box.dataset.height || 420}px`;
+  box.append(editor);
+  box.classList.add("aberto");
+  try {
+    const { makeEmbedConfig } = await import(EMBED_URL);
+    const embed = await makeEmbedConfig({
+      container: editor,
+      state: {
+        editorContents: codigoDo(box),
+        replContents: "",
+        definitionsAtLastRun: "",
+        interactionsSinceLastRun: [],
+      },
+      options: { footerStyle: "hide", warnOnExit: false },
+    });
+    if (box.dataset.autorun !== "false") embed.runDefinitions();
+  } catch (erro) {
+    editor.innerHTML = `<p class="pyret-live-erro">Não foi possível carregar o editor Pyret (${erro.message}).</p>`;
+  }
+  botao.disabled = false;
+  botao.textContent = "✕ Fechar editor";
+}
+
+function fechar(box, botao) {
+  box.querySelector(".pyret-live-editor")?.remove();
+  box.classList.remove("aberto");
+  botao.textContent = "▶ Executar no Pyret";
+}
+
+for (const box of document.querySelectorAll(".pyret-live")) {
+  const botao = document.createElement("button");
+  botao.type = "button";
+  botao.className = "pyret-live-btn";
+  botao.textContent = "▶ Executar no Pyret";
+  botao.addEventListener("click", () =>
+    box.classList.contains("aberto") ? fechar(box, botao) : abrir(box, botao),
+  );
+  box.prepend(botao);
+}
+</script>

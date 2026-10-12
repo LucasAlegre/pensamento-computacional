@@ -24,3 +24,12 @@ dist-ssr
 *.sw?
 
 notas
+
+# Cache do Quarto (slides)
+.quarto/
+
+# Originais dos slides (PowerPoint/PDF), grandes demais para o repositório
+src/data/slides/pptx/
+
+# Repositório separado das provas (LaTeX)
+provas-pensamento-computacional/

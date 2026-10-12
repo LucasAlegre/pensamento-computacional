@@ -1,0 +1,21 @@
+```{=html}
+<table class="tabela-padroes">
+<thead><tr><th></th><th style="text-align:left">Exercício</th><th>Padrão</th></tr></thead>
+<tbody>
+<tr class="g-filtrar"><td>1.</td><td>Dada uma lista de formas, devolve todos os retângulos da lista.</td><td class="padrao p-filtrar" rowspan="4">Filtrar</td></tr>
+<tr class="g-filtrar"><td>2.</td><td>Dada uma lista de formas, devolve todos os triângulos da lista.</td></tr>
+<tr class="g-filtrar"><td>3.</td><td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td></tr>
+<tr class="g-filtrar"><td>4.</td><td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td></tr>
+<tr class="g-mapear"><td>5.</td><td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td><td class="padrao p-mapear" rowspan="4">Mapear</td></tr>
+<tr class="g-mapear"><td>6.</td><td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td></tr>
+<tr class="g-mapear"><td>7.</td><td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td></tr>
+<tr class="g-mapear"><td>8.</td><td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td></tr>
+<tr class="g-juntar"><td>9.</td><td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td><td class="padrao p-juntar" rowspan="4">Juntar</td></tr>
+<tr class="g-juntar"><td>10.</td><td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td></tr>
+<tr class="g-juntar"><td>11.</td><td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td></tr>
+<tr class="g-juntar"><td>12.</td><td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td></tr>
+<tr class="g-combinacao"><td>13.</td><td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td><td class="padrao p-combinacao" rowspan="2">Combinação</td></tr>
+<tr class="g-combinacao"><td>14.</td><td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td></tr>
+</tbody>
+</table>
+```

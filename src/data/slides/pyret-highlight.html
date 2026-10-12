@@ -1,0 +1,130 @@
+<!--
+  Destaque de sintaxe Pyret com o tokenizer real do code.pyret.org, como faz a extensão
+  pyret-light-theme. pyret-mode.js é uma cópia sem alterações de
+  code.pyret.org/pyret-light-theme/pyret.js (confira com `cmp` ao atualizar).
+  As cores ficam em pensamento.scss (classes .pyret-*). Se este script falhar, continua
+  valendo o destaque estático do Pandoc (pyret.xml).
+-->
+<script>
+  // pyret.js chama CodeMirror.defineMode; capturamos o modo sem carregar o CodeMirror.
+  window.CodeMirror = {
+    defineMode(name, factory) {
+      if (name === "pyret") window.pyretMode = factory({}, {});
+    },
+  };
+</script>
+<script src="pyret-mode.js"></script>
+<script>
+(() => {
+  delete window.CodeMirror;
+  const mode = window.pyretMode;
+  if (!mode) return;
+
+  // Emulação mínima do StringStream do CodeMirror (a mesma da extensão).
+  class Stream {
+    constructor(line) { this.string = line; this.pos = 0; this.start = 0; }
+    eol() { return this.pos >= this.string.length; }
+    sol() { return this.pos === 0; }
+    peek() { return this.string[this.pos]; }
+    next() { if (this.pos < this.string.length) return this.string[this.pos++]; }
+    eat(match) {
+      const ch = this.string[this.pos];
+      if (ch === undefined) return undefined;
+      const ok = typeof match === "string" ? ch === match
+               : match instanceof RegExp ? match.test(ch)
+               : match(ch);
+      if (ok) { this.pos++; return ch; }
+    }
+    eatWhile(match) { const s = this.pos; while (this.eat(match) !== undefined) {} return this.pos > s; }
+    eatSpace() {
+      const s = this.pos;
+      while (this.pos < this.string.length && /\s/.test(this.string[this.pos])) this.pos++;
+      return this.pos > s;
+    }
+    skipToEnd() { this.pos = this.string.length; }
+    skipTo(ch) { const i = this.string.indexOf(ch, this.pos); if (i > -1) { this.pos = i; return true; } }
+    match(pattern, consume) {
+      if (typeof pattern === "string") {
+        if (!this.string.startsWith(pattern, this.pos)) return null;
+        if (consume !== false) this.pos += pattern.length;
+        return [pattern];
+      }
+      const re = new RegExp(pattern.source, pattern.flags.replace(/[gy]/g, ""));
+      const m = re.exec(this.string.slice(this.pos));
+      if (!m || m.index !== 0) return null;
+      if (consume !== false) this.pos += m[0].length;
+      return m;
+    }
+    current() { return this.string.slice(this.start, this.pos); }
+    backUp(n) { this.pos -= n; }
+    column() { return this.pos; }
+    indentation() { return 0; }
+  }
+
+  // Estilo do CodeMirror → classe CSS, com o mesmo agrupamento da extensão.
+  const CLASSES = {
+    keyword: "keyword", boolean: "keyword",
+    comment: "comment",
+    string: "string", "unterminated-string": "string",
+    number: "number", roughnum: "number", "roughnum-start": "number", "bad-number": "number",
+    "function-name": "function",
+    type: "type",
+    variable: "variable", parameter: "variable",
+    builtin: "builtin",
+    constant: "constant",
+  };
+
+  // Tokeniza as linhas de um bloco, mantendo o estado entre linhas.
+  function tokenize(lines) {
+    const state = mode.startState(0);
+    return lines.map((line) => {
+      if (line.trim() === "") {
+        mode.blankLine(state);
+        return [{ text: line }];
+      }
+      const stream = new Stream(line);
+      const tokens = [];
+      while (!stream.eol()) {
+        stream.start = stream.pos;
+        let style = null;
+        try { style = mode.token(stream, state); } catch { /* caractere inesperado */ }
+        if (stream.pos === stream.start) stream.next();
+        tokens.push({ text: line.slice(stream.start, stream.pos), cls: CLASSES[style] });
+      }
+      return tokens;
+    });
+  }
+
+  function render(tokens) {
+    const frag = document.createDocumentFragment();
+    for (const { text, cls } of tokens) {
+      if (!cls) { frag.append(text); continue; }
+      const span = document.createElement("span");
+      span.className = `pyret-${cls}`;
+      span.textContent = text;
+      frag.append(span);
+    }
+    return frag;
+  }
+
+  function highlight(code) {
+    // Blocos: uma <span id> por linha, com a âncora da numeração no início.
+    const lines = [...code.children].filter((el) => el.matches("span[id]"));
+    if (lines.length) {
+      tokenize(lines.map((el) => el.textContent)).forEach((tokens, i) => {
+        const anchor = lines[i].querySelector(":scope > a");
+        lines[i].replaceChildren(...(anchor ? [anchor] : []), render(tokens));
+      });
+    } else {
+      // Código inline (`...`{.pyret})
+      code.replaceChildren(...tokenize(code.textContent.split("\n"))
+        .flatMap((tokens, i) => (i ? ["\n", render(tokens)] : [render(tokens)])));
+    }
+    code.classList.add("pyret-cm");
+  }
+
+  const run = () => document.querySelectorAll("code.sourceCode.pyret").forEach(highlight);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+})();
+</script>

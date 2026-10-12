@@ -1,0 +1,206 @@
+/*-- scss:defaults --*/
+
+// Complementos específicos da Aula 20 (Árvores Binárias e de Pesquisa).
+// Cores dos slides originais: caixas "trivial" (amarelo) e "difícil" (laranja),
+// cartões, exercícios e passos numerados.
+
+$a20-ouro:        #bf8f00;
+$a20-ouro-fundo:  #fff2cc;
+$a20-laranja:     #c65911;
+$a20-laranja-fundo: #fce4d6;
+$a20-cinza-borda: #d9d9d9;
+$a20-azul-escuro: #1f4e79;
+$a20-verde:       #548235;
+$a20-vermelho:    #c00000;
+
+/*-- scss:rules --*/
+
+.reveal .forte { font-weight: 700; }
+.reveal .mono  { font-family: "Source Code Pro", Consolas, monospace; }
+.reveal .italico { font-style: italic; }
+
+// Ícone grande dos slides de seção
+.reveal .icone-secao {
+  font-size: 4.5em;
+  line-height: 1.15;
+  text-align: center;
+}
+
+// ── Caixas ──────────────────────────────────────────────────────────────────
+.reveal .caixa,
+.reveal .caixa-azul,
+.reveal .caixa-trivial,
+.reveal .caixa-dificil,
+.reveal .caixa-verde,
+.reveal .caixa-vermelha {
+  padding: 0.35em 0.75em;
+  margin: 0.35em 0;
+  border: 1px solid $a20-cinza-borda;
+  border-radius: 4px;
+  background: #fafafa;
+}
+.reveal .caixa-azul     { background: #eff5fb; border: 2px solid #2e75b6; }
+.reveal .caixa-trivial  { background: $a20-ouro-fundo; border-color: $a20-ouro; }
+.reveal .caixa-dificil  { background: $a20-laranja-fundo; border-color: $a20-laranja; }
+.reveal .caixa-verde    { background: rgba($a20-verde, 0.12); border: 2px solid $a20-verde; }
+.reveal .caixa-vermelha { background: rgba($a20-vermelho, 0.08); border: 2px solid $a20-vermelho; }
+.reveal .caixa > p:first-child,
+.reveal .caixa-azul > p:first-child { margin-top: 0; }
+.reveal .caixa > p:last-child,
+.reveal .caixa-azul > p:last-child { margin-bottom: 0; }
+
+.reveal .titulo-trivial { color: $a20-ouro; font-weight: 700; }
+.reveal .titulo-dificil { color: $a20-laranja; font-weight: 700; }
+.reveal .titulo-azul    { color: $a20-azul-escuro; font-weight: 700; }
+
+// ── Cartões (slide "Árvores estão por toda parte") ─────────────────────────
+.reveal .cartoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6em;
+  margin-top: 0.6em;
+}
+.reveal .cartao {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.6em 0.8em;
+  min-height: 5.2em;
+  background: #fafafa;
+  border: 1px solid $a20-cinza-borda;
+  border-radius: 4px;
+}
+.reveal .cartao p { margin: 0; }
+.reveal .cartao .emoji { font-size: 2.6em; line-height: 1; }
+.reveal .cartao .titulo { color: $a20-vermelho; font-weight: 700; }
+.reveal .cartao .desc { color: #595959; font-size: 0.8em; }
+
+// ── Passos (Passo 1, 2, 3) ─────────────────────────────────────────────────
+.reveal .passos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5em;
+  margin: 0.5em 0;
+}
+.reveal .passo {
+  padding: 0.35em 0.6em;
+  background: #fff8e1;
+  border: 2px solid $a20-ouro;
+  font-size: 0.8em;
+}
+.reveal .passo p { margin: 0.15em 0; }
+.reveal .passo .rotulo {
+  color: $a20-ouro;
+  font-weight: 700;
+  font-family: "Source Code Pro", Consolas, monospace;
+  letter-spacing: 0.15em;
+  font-size: 0.85em;
+}
+
+// ── Exercícios ─────────────────────────────────────────────────────────────
+.reveal .exercicio {
+  position: relative;
+  margin: 1.4em auto 0.8em;
+  width: 82%;
+  padding: 1.7em 1.6em 1.2em;
+  background: #fff8e1;
+  border: 2px solid $a20-ouro;
+}
+.reveal .exercicio .etiqueta {
+  position: absolute;
+  top: -0.95em;
+  left: -2px;
+  padding: 0.2em 1em;
+  background: $a20-vermelho;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.7em;
+  letter-spacing: 0.12em;
+}
+.reveal .exercicio p:first-child { margin-top: 0; }
+.reveal .dica {
+  text-align: center;
+  font-style: italic;
+  color: #595959;
+  font-size: 0.7em;
+}
+
+// ── Modelo da solução (Trivial: resolver / Difícil: decompor) ─────────────
+.reveal .modelo {
+  font-size: 0.8em;
+}
+.reveal .modelo .caixa-trivial,
+.reveal .modelo .caixa-dificil {
+  border: none;
+  border-radius: 0;
+  margin: 0.3em 0;
+  padding: 0.25em 0.6em 0.45em;
+}
+.reveal .modelo p {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0.25em 0;
+}
+.reveal .modelo .campo {
+  position: relative;
+  display: inline-block;
+  min-width: 8em;
+  padding: 0.12em 0.6em;
+  background: #fff;
+  border: 1.5px solid $a20-ouro;
+  font-style: italic;
+  text-align: center;
+  line-height: 1.25;
+}
+.reveal .modelo .caixa-dificil .campo { border-color: $a20-laranja; }
+.reveal .modelo .campo.mono { font-style: normal; }
+.reveal .modelo .campo[data-rotulo] { margin-top: 1.1em; }
+.reveal .modelo .campo[data-rotulo]::before {
+  content: attr(data-rotulo);
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  font-size: 0.72em;
+  font-style: normal;
+  color: #262626;
+  white-space: nowrap;
+}
+.reveal .modelo .recuo { margin-left: 2.2em; }
+.reveal .modelo .nota  { color: #595959; font-style: italic; font-size: 0.85em; margin-left: 2.2em; }
+.reveal .modelo .var   { color: #3a7a10; font-style: italic; }
+
+// ── Listas numeradas com círculos (Recapitulando, busca em ABP) ───────────
+.reveal .circulos > ol {
+  list-style: none;
+  counter-reset: circ;
+  margin-left: 0;
+  padding-left: 0;
+}
+.reveal .circulos > ol > li {
+  counter-increment: circ;
+  position: relative;
+  padding-left: 2.5em;
+  margin-bottom: 1em;
+  min-height: 1.8em;
+}
+.reveal .circulos > ol > li::before {
+  content: counter(circ);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75em;
+  height: 1.75em;
+  line-height: 1.75em;
+  border-radius: 50%;
+  background: $a20-vermelho;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+.reveal .circulos.busca > ol > li::before { background: $a20-ouro; }
+.reveal .circulos.busca > ol > li:last-child::before { background: $a20-verde; }
+.reveal .circulos > ol .sub { display: block; color: #595959; font-size: 0.8em; }
+.reveal .circulos.busca > ol .sub { font-family: "Source Code Pro", Consolas, monospace; color: $a20-ouro; }
+.reveal .circulos.busca > ol > li:last-child .sub { color: $a20-verde; }

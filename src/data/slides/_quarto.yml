@@ -1,0 +1,11 @@
+# Renderiza os slides para public/slides/, que o Vite publica junto com o site.
+# Uso: npm run slides (ou `quarto render` nesta pasta).
+project:
+  output-dir: ../../../public/slides
+  render:
+    - "aula*.qmd"
+  resources:
+    - pyret-mode.js
+  # Junta as bibliotecas do reveal.js de todos os decks em public/slides/libs/.
+  post-render: compartilha-libs.py
+

@@ -1,0 +1,140 @@
+/*-- scss:defaults --*/
+
+// Complementos específicos da Aula 23 (Grafos): receitas de função, diagramas de
+// decomposição (trivial/difícil) e cores extras usadas nos slides originais.
+
+$a23-laranja:   #ed7d31;   // fila f, "Obj:" das receitas
+$a23-ouro:      #bf9000;   // lista de visitados
+$a23-violeta:   #9900ff;   // vizinhos do primeiro nodo
+$a23-verde-esc: #385723;   // primeiro caminho
+$a23-azul:      #0070c0;
+$a23-caixa:     #2e75b6;
+
+/*-- scss:rules --*/
+
+.reveal .laranja   { color: $a23-laranja; }
+.reveal .ouro      { color: $a23-ouro; }
+.reveal .violeta   { color: $a23-violeta; }
+.reveal .verde-esc { color: $a23-verde-esc; }
+
+// ── Receita de função (Obj / Entrada / Saída) ──────────────────────────────
+.reveal .receita {
+  position: relative;
+  margin: 1.1em 0.6em 0.5em 1.2em;
+  padding: 1.5em 1em 0.7em;
+  background: #dee8f4;
+  border: 2px solid $a23-caixa;
+  border-radius: 26px;
+  font-size: 0.85em;
+}
+.reveal .receita .receita-titulo {
+  position: absolute;
+  top: -0.9em;
+  left: -1.2em;
+  width: 46%;
+  padding: 0.15em 0;
+  background: $a23-caixa;
+  border: 2px solid #2a6aa5;
+  border-radius: 9px;
+  color: #ffffff;
+  text-align: center;
+  font-size: 1.2em;
+}
+.reveal .receita .receita-item {
+  margin: 0.4em 0;
+  padding: 0.15em 0.5em;
+  background: #ffffff;
+  border: 2px solid #4472c4;
+}
+.reveal .receita p { margin: 0; }
+
+// ── Decomposição de problemas (Trivial: resolver / Difícil: Decompor) ──────
+.reveal .decomp {
+  font-size: 0.66em;
+  line-height: 1.25;
+}
+.reveal .decomp p { margin: 0; }
+.reveal .decomp .decomp-bloco {
+  position: relative;
+  margin: 1.6em 0 0 0;
+  padding: 0.2em 1.2em 0.8em 2.5em;
+  border-radius: 40px;
+}
+.reveal .decomp .decomp-bloco.trivial { background: #f2f4f9; }
+.reveal .decomp .decomp-bloco.dificil { background: #e8ecf5; }
+.reveal .decomp .decomp-rotulo {
+  position: absolute;
+  top: -1.25em;
+  left: 0.2em;
+  font-size: 1.3em;
+}
+.reveal .decomp .decomp-linha {
+  display: grid;
+  grid-template-columns: 2.2em 1fr 1em 1fr;
+  align-items: center;
+  column-gap: 0.3em;
+  margin-top: 1.5em;
+}
+.reveal .decomp .decomp-linha.unica { grid-template-columns: 2.2em 1fr; }
+.reveal .decomp .decomp-linha.sem-se { grid-template-columns: 2.2em 1fr 1em 1fr; }
+.reveal .decomp .se {
+  font-family: Arial, sans-serif;
+  font-size: 1.1em;
+  color: #111111;
+}
+.reveal .decomp .caixa {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6em;
+  padding: 0.25em 0.4em;
+  background: #fbfbfd;
+  border: 4px solid #f7d54a;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(247, 213, 74, 0.45);
+  color: $a23-azul;
+  text-align: center;
+}
+.reveal .decomp .caixa.grande > p { font-size: 1.25em; }
+.reveal .decomp .caixa.dificil {
+  border-color: #f49a20;
+  box-shadow: 0 0 0 1px rgba(244, 154, 32, 0.45);
+}
+.reveal .decomp .caixa::before {
+  content: attr(data-rotulo);
+  position: absolute;
+  top: -1.55em;
+  left: 0;
+  right: 0;
+  color: #111111;
+  font-family: Arial, sans-serif;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+
+// ── Código ──────────────────────────────────────────────────────────────────
+// O destaque Pyret (pyret-highlight.html) troca o <code>; reaplica a quebra de linha
+// de `.code-overflow-wrap` e deixa blocos longos crescerem sem barra de rolagem.
+.reveal pre.code-overflow-wrap > code {
+  white-space: pre-wrap !important;
+}
+.reveal div.sourceCode pre code {
+  max-height: none;
+}
+// Linhas quebradas continuam recuadas, à direita da numeração.
+.reveal pre.code-overflow-wrap.numberSource code > span {
+  display: inline-block;
+  box-sizing: border-box;
+  width: calc(100% + 3em);
+  padding-left: calc(4em + 8px + 4ch);
+  text-indent: calc(-4em - 8px - 4ch);
+}
+
+// Espaço para o botão "Executar no Pyret" não cobrir a primeira linha do código.
+.reveal .pyret-live:not(.aberto) {
+  padding-top: 0.9em;
+}
+.reveal .pyret-live:not(.aberto) .pyret-live-btn {
+  top: 0;
+}

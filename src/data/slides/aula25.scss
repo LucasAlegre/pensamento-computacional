@@ -1,0 +1,234 @@
+/*-- scss:defaults --*/
+
+// Complementos específicos da Aula 24 (Recursão Generativa e Terminação).
+
+$a24-azul-borda: #4472c4;   // accent1 do pptx (setas e balões)
+$a24-amarela:    #f5c400;   // caixas do caso trivial
+$a24-laranja:    #f39221;   // caixas do caso difícil
+
+/*-- scss:rules --*/
+
+.reveal .laranja { color: #ff8000; }
+
+// ── Cores de tokens nas expressões dos diagramas (link(3, link(...))) ──────
+.reveal .tr-num { color: #1976d2; }
+.reveal .tr-sep { color: #d32f2f; }
+.reveal .tr-fun { color: #7030a0; }
+
+// ── Recursão estrutural × generativa: dado (elipse) e execução ─────────────
+.reveal .rotulo-diagrama {
+  font-size: 0.9em;
+  margin: 0 0 0.2em 0;
+}
+.reveal .traco {
+  font-family: "Source Code Pro", Consolas, monospace;
+  font-size: 19px;
+  line-height: 1.3;
+  color: #212121;
+  margin-top: 1.4em;
+}
+.reveal .traco .seta {
+  color: $a24-azul-borda;
+  font-family: Arial, sans-serif;
+  font-size: 26px;
+  line-height: 1.2;
+  padding-left: 0.35em;
+}
+
+// ── Caixa de problema (Obj / Entrada / Saída) ──────────────────────────────
+.reveal .problema {
+  position: relative;
+  margin: 0.4em auto 0 auto;
+  width: 94%;
+  font-size: 0.8em;
+  p { margin: 0; }
+}
+.reveal .problema-titulo {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  width: 45%;
+  padding: 0.25em 0;
+  text-align: center;
+  color: #fff;
+  font-size: 1.15em;
+  background: #2e75b5;
+  border: 2px solid #0070c0;
+  border-radius: 10px;
+}
+.reveal .problema-corpo {
+  margin: -1.1em 0 0 2.5%;
+  padding: 1.6em 1.6em 1em 1.6em;
+  background: #ddeaf6;
+  border: 2px solid #0070c0;
+  border-radius: 28px;
+}
+.reveal .problema-campo {
+  margin-top: 0.45em;
+  padding: 0.15em 0.4em;
+  background: #fff;
+  border: 2px solid $a24-azul-borda;
+}
+.reveal .problema-campo.afastado { margin-top: 1.4em; }
+
+// Função como "caixa preta": entrada -> função -> saída
+.reveal .caixa-funcao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.62em;
+  color: #0070c0;
+  margin-top: 0.8em;
+  .seta { color: #000; font-size: 2em; line-height: 1; }
+  .nome {
+    padding: 0.35em 3.5em;
+    color: #fff;
+    font-size: 1.5em;
+    background: #2e75b5;
+    border: 1px solid #0070c0;
+    border-radius: 10px;
+  }
+}
+
+// ── Modelo da solução por recursão generativa ──────────────────────────────
+// Estrutura:
+//   .modelo > .m-dado, .m-titulo, .m-painel(.trivial|.dificil) > .m-linha > .m-caixa
+// O rótulo de cada caixa vem do atributo data-rotulo. Medidas fixas em px:
+// as coordenadas dos balões (.m-nota), assinaturas e setas (svg.m-setas) são
+// relativas ao .modelo e dependem delas. .compacto reduz a altura das linhas.
+.reveal .modelo {
+  position: relative;
+  width: 860px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.15;
+  color: #000;
+  text-align: left;
+}
+.reveal .modelo .m-dado {
+  height: 40px;
+  padding-left: 10px;
+  font-size: 26px;
+  line-height: 40px;
+}
+.reveal .modelo .m-titulo {
+  height: 36px;
+  padding-left: 60px;
+  font-size: 26px;
+  line-height: 36px;
+}
+.reveal .modelo .m-painel {
+  width: 760px;
+  margin-left: 40px;
+  padding: 6px 0 8px 0;
+  border-radius: 28px;
+  background: #f3f5fa;
+}
+.reveal .modelo .m-painel.dificil { background: #e8edf6; }
+.reveal .modelo .m-linha {
+  display: flex;
+  align-items: flex-end;
+  height: 78px;
+  margin-bottom: 4px;
+}
+.reveal .modelo .m-linha:last-child { margin-bottom: 0; }
+.reveal .modelo .m-linha.combinar { padding-left: 178px; }
+.reveal .modelo .m-linha.sub { padding-left: 220px; }
+.reveal .modelo .m-se {
+  flex: none;
+  width: 120px;
+  margin-right: 14px;
+  height: 56px;
+  line-height: 56px;
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+}
+.reveal .modelo .m-virgula {
+  flex: none;
+  width: 40px;
+  height: 56px;
+  line-height: 48px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+}
+.reveal .modelo .m-linha.sub .m-caixa + .m-caixa { margin-left: 16px; }
+.reveal .modelo .m-caixa {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 56px;
+  padding: 0 6px;
+  text-align: center;
+  color: #0070c0;
+  border: 3px solid $a24-laranja;
+  border-radius: 3px;
+}
+.reveal .modelo .m-caixa.amarela { border-color: $a24-amarela; }
+.reveal .modelo .m-caixa::before {
+  content: attr(data-rotulo);
+  position: absolute;
+  bottom: 100%;
+  left: -20px;
+  right: -20px;
+  margin-bottom: 2px;
+  text-align: center;
+  white-space: nowrap;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+.reveal .modelo.compacto .m-linha { height: 70px; }
+.reveal .modelo.compacto .m-caixa,
+.reveal .modelo.compacto .m-se,
+.reveal .modelo.compacto .m-virgula { height: 50px; line-height: 50px; }
+.reveal .modelo.compacto .m-caixa { line-height: 1.15; font-size: 17px; }
+.reveal .modelo .m-camada {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.reveal .modelo svg.m-setas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.reveal .modelo .m-nota {
+  position: absolute;
+  padding: 3px 9px;
+  white-space: nowrap;
+  color: #0070c0;
+  font-size: 17px;
+  background: #fff;
+  border: 1px solid $a24-azul-borda;
+}
+.reveal .modelo .m-assinatura {
+  position: absolute;
+  padding: 2px 10px;
+  white-space: nowrap;
+  color: #7030a0;
+  font-size: 20px;
+  background: #fff;
+  border: 1px solid $a24-azul-borda;
+}
+
+// Código com linhas longas (docstrings): quebra de linha em vez de rolagem
+.reveal pre.code-overflow-wrap code {
+  white-space: pre-wrap;
+}
+// ... alinhando a continuação da linha com o início do código (após o número da linha)
+.reveal pre.code-overflow-wrap code > span {
+  padding-left: 4.45em;
+  text-indent: -4.45em;
+}
+.reveal pre.code-overflow-wrap code > span > a:first-child::before {
+  text-indent: 0;
+}

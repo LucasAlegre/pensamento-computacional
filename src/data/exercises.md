@@ -1496,7 +1496,7 @@ end
 tapete-sierpinski(200, color-named("red"))
 ```
 
-## Exercício: Máximo Divisor Coumum (MDC)
+## Exercício: Máximo Divisor Comum (MDC)
 **ID:** Recursão Generativa-3
 **Dificuldade:** Resolvido
 

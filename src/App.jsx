@@ -11,6 +11,7 @@ import Lists from './pages/Lists';
 import Topics from './pages/Topics';
 import Learning from './pages/Learning';
 import DataTypes from './pages/DataTypes';
+import TurmaC from './pages/TurmaC';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/labs/:semesterId/:labId" element={<LabPage />} />
           <Route path="/exercises" element={<Lists />} />
           <Route path="/exercises/:id" element={<ExercisePage />} />
+          <Route path="/turma-c" element={<TurmaC />} />
         </Routes>
 
       </Layout>

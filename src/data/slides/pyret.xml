@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language>
+<!--
+  Definição de sintaxe (formato KDE/Kate) para destacar código Pyret nos slides.
+  Usada pelo Quarto/Pandoc via `syntax-definitions: [pyret.xml]`.
+  O hífen é um delimitador fraco: `is-roughly` e `filter-with` são uma palavra só.
+-->
+<language name="Pyret" section="Sources" version="1" kateversion="5.0" extensions="*.arr" mimetype="text/x-pyret" license="MIT">
+  <highlighting>
+    <list name="keywords">
+      <item>fun</item>
+      <item>lam</item>
+      <item>method</item>
+      <item>end</item>
+      <item>where</item>
+      <item>check</item>
+      <item>examples</item>
+      <item>if</item>
+      <item>else</item>
+      <item>when</item>
+      <item>ask</item>
+      <item>then</item>
+      <item>otherwise</item>
+      <item>cases</item>
+      <item>data</item>
+      <item>type</item>
+      <item>newtype</item>
+      <item>block</item>
+      <item>for</item>
+      <item>from</item>
+      <item>var</item>
+      <item>rec</item>
+      <item>ref</item>
+      <item>let</item>
+      <item>letrec</item>
+      <item>doc</item>
+      <item>import</item>
+      <item>include</item>
+      <item>provide</item>
+      <item>as</item>
+      <item>use</item>
+      <item>context</item>
+      <item>table</item>
+      <item>row</item>
+      <item>sieve</item>
+      <item>order</item>
+      <item>spy</item>
+      <item>with</item>
+      <item>sharing</item>
+      <item>and</item>
+      <item>or</item>
+      <item>is</item>
+      <item>is-not</item>
+      <item>is-roughly</item>
+      <item>is-not-roughly</item>
+      <item>satisfies</item>
+      <item>violates</item>
+      <item>raises</item>
+      <item>does-not-raise</item>
+    </list>
+    <list name="constants">
+      <item>true</item>
+      <item>false</item>
+      <item>nothing</item>
+      <item>empty</item>
+      <item>link</item>
+      <item>list</item>
+      <item>empty-image</item>
+    </list>
+    <contexts>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="BlockComment" char="#" char1="|" beginRegion="Comment"/>
+        <DetectChar attribute="Comment" context="LineComment" char="#"/>
+        <StringDetect attribute="String" context="TripleString" String="```"/>
+        <DetectChar attribute="String" context="DoubleString" char="&quot;"/>
+        <DetectChar attribute="String" context="SingleString" char="'"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Constant" context="#stay" String="constants"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\b[A-Z][A-Za-z0-9_]*(-[A-Za-z0-9_]+)*"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+        <Detect2Chars attribute="Keyword" context="#stay" char="-" char1="&gt;"/>
+        <Detect2Chars attribute="Keyword" context="#stay" char="=" char1="&gt;"/>
+        <Detect2Chars attribute="Keyword" context="#stay" char=":" char1=":"/>
+        <AnyChar attribute="Keyword" context="#stay" String="|:"/>
+      </context>
+      <context name="LineComment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="BlockComment" attribute="Comment" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="|" char1="#" endRegion="Comment"/>
+      </context>
+      <context name="DoubleString" attribute="String" lineEndContext="#pop">
+        <RegExpr attribute="String" context="#stay" String="\\."/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context name="SingleString" attribute="String" lineEndContext="#pop">
+        <RegExpr attribute="String" context="#stay" String="\\."/>
+        <DetectChar attribute="String" context="#pop" char="'"/>
+      </context>
+      <context name="TripleString" attribute="String" lineEndContext="#stay">
+        <StringDetect attribute="String" context="#pop" String="```"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Constant" defStyleNum="dsConstant"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
+      <itemData name="Decimal" defStyleNum="dsDecVal"/>
+      <itemData name="Float" defStyleNum="dsFloat"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#"/>
+      <comment name="multiLine" start="#|" end="|#"/>
+    </comments>
+    <keywords casesensitive="1" weakDeliminator="-"/>
+  </general>
+</language>
