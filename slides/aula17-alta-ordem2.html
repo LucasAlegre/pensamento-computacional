@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="libs/clipboard/clipboard.min.js"></script>
+<script src="libs/quarto-html/tabby.min.js"></script>
+<script src="libs/quarto-html/popper.min.js"></script>
+<script src="libs/quarto-html/tippy.umd.min.js"></script>
+<link href="libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Lucas Nunes Alegre">
+  <title>Aula 17 – Funções de Alta-Ordem II</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-d13b65daf94d1d3017a784411505c4e4.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!--
+    Destaque de sintaxe Pyret com o tokenizer real do code.pyret.org, como faz a extensão
+    pyret-light-theme. pyret-mode.js é uma cópia sem alterações de
+    code.pyret.org/pyret-light-theme/pyret.js (confira com `cmp` ao atualizar).
+    As cores ficam em pensamento.scss (classes .pyret-*). Se este script falhar, continua
+    valendo o destaque estático do Pandoc (pyret.xml).
+  -->
+  <script>
+    // pyret.js chama CodeMirror.defineMode; capturamos o modo sem carregar o CodeMirror.
+    window.CodeMirror = {
+      defineMode(name, factory) {
+        if (name === "pyret") window.pyretMode = factory({}, {});
+      },
+    };
+  </script>
+  <script src="pyret-mode.js"></script>
+  <script>
+  (() => {
+    delete window.CodeMirror;
+    const mode = window.pyretMode;
+    if (!mode) return;
+
+    // Emulação mínima do StringStream do CodeMirror (a mesma da extensão).
+    class Stream {
+      constructor(line) { this.string = line; this.pos = 0; this.start = 0; }
+      eol() { return this.pos >= this.string.length; }
+      sol() { return this.pos === 0; }
+      peek() { return this.string[this.pos]; }
+      next() { if (this.pos < this.string.length) return this.string[this.pos++]; }
+      eat(match) {
+        const ch = this.string[this.pos];
+        if (ch === undefined) return undefined;
+        const ok = typeof match === "string" ? ch === match
+                 : match instanceof RegExp ? match.test(ch)
+                 : match(ch);
+        if (ok) { this.pos++; return ch; }
+      }
+      eatWhile(match) { const s = this.pos; while (this.eat(match) !== undefined) {} return this.pos > s; }
+      eatSpace() {
+        const s = this.pos;
+        while (this.pos < this.string.length && /\s/.test(this.string[this.pos])) this.pos++;
+        return this.pos > s;
+      }
+      skipToEnd() { this.pos = this.string.length; }
+      skipTo(ch) { const i = this.string.indexOf(ch, this.pos); if (i > -1) { this.pos = i; return true; } }
+      match(pattern, consume) {
+        if (typeof pattern === "string") {
+          if (!this.string.startsWith(pattern, this.pos)) return null;
+          if (consume !== false) this.pos += pattern.length;
+          return [pattern];
+        }
+        const re = new RegExp(pattern.source, pattern.flags.replace(/[gy]/g, ""));
+        const m = re.exec(this.string.slice(this.pos));
+        if (!m || m.index !== 0) return null;
+        if (consume !== false) this.pos += m[0].length;
+        return m;
+      }
+      current() { return this.string.slice(this.start, this.pos); }
+      backUp(n) { this.pos -= n; }
+      column() { return this.pos; }
+      indentation() { return 0; }
+    }
+
+    // Estilo do CodeMirror → classe CSS, com o mesmo agrupamento da extensão.
+    const CLASSES = {
+      keyword: "keyword", boolean: "keyword",
+      comment: "comment",
+      string: "string", "unterminated-string": "string",
+      number: "number", roughnum: "number", "roughnum-start": "number", "bad-number": "number",
+      "function-name": "function",
+      type: "type",
+      variable: "variable", parameter: "variable",
+      builtin: "builtin",
+      constant: "constant",
+    };
+
+    // Tokeniza as linhas de um bloco, mantendo o estado entre linhas.
+    function tokenize(lines) {
+      const state = mode.startState(0);
+      return lines.map((line) => {
+        if (line.trim() === "") {
+          mode.blankLine(state);
+          return [{ text: line }];
+        }
+        const stream = new Stream(line);
+        const tokens = [];
+        while (!stream.eol()) {
+          stream.start = stream.pos;
+          let style = null;
+          try { style = mode.token(stream, state); } catch { /* caractere inesperado */ }
+          if (stream.pos === stream.start) stream.next();
+          tokens.push({ text: line.slice(stream.start, stream.pos), cls: CLASSES[style] });
+        }
+        return tokens;
+      });
+    }
+
+    function render(tokens) {
+      const frag = document.createDocumentFragment();
+      for (const { text, cls } of tokens) {
+        if (!cls) { frag.append(text); continue; }
+        const span = document.createElement("span");
+        span.className = `pyret-${cls}`;
+        span.textContent = text;
+        frag.append(span);
+      }
+      return frag;
+    }
+
+    function highlight(code) {
+      // Blocos: uma <span id> por linha, com a âncora da numeração no início.
+      const lines = [...code.children].filter((el) => el.matches("span[id]"));
+      if (lines.length) {
+        tokenize(lines.map((el) => el.textContent)).forEach((tokens, i) => {
+          const anchor = lines[i].querySelector(":scope > a");
+          lines[i].replaceChildren(...(anchor ? [anchor] : []), render(tokens));
+        });
+      } else {
+        // Código inline (`...`{.pyret})
+        code.replaceChildren(...tokenize(code.textContent.split("\n"))
+          .flatMap((tokens, i) => (i ? ["\n", render(tokens)] : [render(tokens)])));
+      }
+      code.classList.add("pyret-cm");
+    }
+
+    const run = () => document.querySelectorAll("code.sourceCode.pyret").forEach(highlight);
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+    else run();
+  })();
+  </script>
+  <script type="module">
+  // Blocos `::: {.pyret-live}` ganham um botão que troca o código estático por um
+  // editor Pyret executável (mesma biblioteca usada no site). O editor só é carregado
+  // sob demanda, então a apresentação continua funcionando offline.
+  // Atributos opcionais no bloco: data-height="420" (altura em px), data-autorun="false".
+  const EMBED_URL = "https://cdn.jsdelivr.net/npm/@ironm00n/pyret-embed@0.0.1/dist/pyret.js";
+
+  function codigoDo(box) {
+    const codigo = [...box.querySelectorAll("pre code")]
+      .map((c) => c.textContent.trimEnd())
+      .join("\n\n");
+    return /^\s*use context/.test(codigo) ? codigo : `use context starter2024\n\n${codigo}`;
+  }
+
+  async function abrir(box, botao) {
+    botao.disabled = true;
+    botao.textContent = "Carregando…";
+    const editor = document.createElement("div");
+    editor.className = "pyret-live-editor";
+    editor.style.height = `${box.dataset.height || 420}px`;
+    box.append(editor);
+    box.classList.add("aberto");
+    try {
+      const { makeEmbedConfig } = await import(EMBED_URL);
+      const embed = await makeEmbedConfig({
+        container: editor,
+        state: {
+          editorContents: codigoDo(box),
+          replContents: "",
+          definitionsAtLastRun: "",
+          interactionsSinceLastRun: [],
+        },
+        options: { footerStyle: "hide", warnOnExit: false },
+      });
+      if (box.dataset.autorun !== "false") embed.runDefinitions();
+    } catch (erro) {
+      editor.innerHTML = `<p class="pyret-live-erro">Não foi possível carregar o editor Pyret (${erro.message}).</p>`;
+    }
+    botao.disabled = false;
+    botao.textContent = "✕ Fechar editor";
+  }
+
+  function fechar(box, botao) {
+    box.querySelector(".pyret-live-editor")?.remove();
+    box.classList.remove("aberto");
+    botao.textContent = "▶ Executar no Pyret";
+  }
+
+  for (const box of document.querySelectorAll(".pyret-live")) {
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.className = "pyret-live-btn";
+    botao.textContent = "▶ Executar no Pyret";
+    botao.addEventListener("click", () =>
+      box.classList.contains("aberto") ? fechar(box, botao) : abrir(box, botao),
+    );
+    box.prepend(botao);
+  }
+  </script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#ffffff" class="quarto-title-block center">
+  <h1 class="title">Pensamento Computacional<br>INF05008</h1>
+  <p class="subtitle">Aula 17 – Funções de Alta-Ordem II</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Lucas Nunes Alegre 
+</div>
+        <p class="quarto-title-affiliation">
+            </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides baseados no material da Profa. Leila Ribeiro.</span></p>
+          <p></p>
+    </div>
+</div>
+
+</section>
+<section id="generalização" class="slide level2">
+<h2>Generalização</h2>
+<ul>
+<li><span class="azul">Generalização</span> é uma das técnicas fundamentais que nos permitem <span class="azul">reutilizar soluções</span> em outros contextos.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Construímos <span class="azul">soluções genéricas</span> que se tornarão <span class="vermelho">específicas</span> na hora do uso.</li>
+</ul>
+</section>
+<section id="meta-programação" class="slide level2">
+<h2>Meta-Programação</h2>
+<ul>
+<li><span class="azul">Meta-programação</span> é o uso de <span class="azul">funções de alta-ordem</span>.
+<ul>
+<li>A ideia é brilhante e simples, mas muito poderosa.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Esse conceito provê o fundamento para <span class="azul">computadores de propósito geral</span>.
+<ul>
+<li>Um sistema operacional é um programa que manipula outros programas.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Meta-programação também fundamenta o estudo dos <span class="azul">limites da Computação</span>.
+<ul>
+<li>Surgem a partir de paradoxos gerados por um programa analisar ele próprio…</li>
+</ul></li>
+</ul>
+</section>
+<section>
+<section id="expressões-lambda" class="title-slide slide level1 center">
+<h1>Expressões Lambda</h1>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column center" style="width:30%;">
+<p><span class="lambda-grande">λ</span></p>
+</div><div class="column" style="width:30%;">
+<p><img data-src="images/aula17/pyret-caveira.png" style="width:55.0%"></p>
+</div></div>
+</section>
+<section id="um-pouco-de-cálculo" class="slide level2">
+<h2>Um pouco de Cálculo…</h2>
+<p>Em Cálculo I, você provavelmente aprendeu que:</p>
+<p><span class="math display">\frac{d}{dx}\, x^2 = 2x</span></p>
+<p>Seja <span class="math inline">f(x) = x^2</span> e <span class="math inline">f'(x) = 2x</span>. Podemos expressar essas funções em Pyret:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">fun</span> f(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="kw">fun</span> f-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="um-pouco-de-cálculo-1" class="slide level2">
+<h2>Um pouco de Cálculo…</h2>
+<ul>
+<li>Nesse caso, <span class="math inline">\frac{d}{dx} f(x) = f'(x)</span>. Mas qual é o <strong>tipo</strong> do operador <span class="math inline">\frac{d}{dx}</span>?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\frac{d}{dx}</span> é, na verdade, uma <span class="azul">função de <em>funções</em> para <em>funções</em></span>!</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Se quisermos aproximar a derivada numericamente em um ponto <span class="math inline">x</span>, podemos computar:</li>
+</ul>
+<p><span class="math display">\frac{d}{dx} f(x) \approx \frac{f(x + \epsilon) - f(x)}{\epsilon}</span></p>
+<p>para <span class="math inline">\epsilon</span> suficientemente pequeno.</p>
+</div>
+</section>
+<section id="um-pouco-de-cálculo-2" class="slide level2">
+<h2>Um pouco de Cálculo…</h2>
+<p>Podemos escrever isso em Pyret:</p>
+<div class="pyret-live" data-height="430">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">fun</span> g(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="kw">fun</span> g-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span>
+<span id="cb3-4"><a href=""></a></span>
+<span id="cb3-5"><a href=""></a><span class="kw">fun</span> d-dx-no-ponto(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>), x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb3-7"><a href=""></a>  (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb3-8"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb3-9"><a href=""></a>  d-dx-no-ponto(g, <span class="dv">10</span>) <span class="kw">is-roughly</span> g-linha(<span class="dv">10</span>)</span>
+<span id="cb3-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Porém, esta função <span class="alert">não</span> tem o contrato que queríamos anteriormente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="um-pouco-de-cálculo-3" class="slide level2">
+<h2>Um pouco de Cálculo…</h2>
+<p>E se tentássemos algo como:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="kw">fun</span> d-dx(f)<span class="kw">:</span></span>
+<span id="cb5-2"><a href=""></a>  (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb5-3"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Porém, esse código não funciona… (<span class="alert"><code>x</code> não é definido!</span>)</p>
+<p>Queremos retornar uma <strong>função</strong> <code class="sourceCode pyret">(<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)</code>, e não um número!</p>
+<div class="fragment">
+<p><span class="verde"><strong>Solução:</strong></span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
+<span id="cb6-2"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb6-3"><a href=""></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb6-4"><a href=""></a>    (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb6-5"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb6-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="um-pouco-de-cálculo-4" class="slide level2">
+<h2>Um pouco de Cálculo…</h2>
+<div class="pyret-live" data-height="470">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
+<span id="cb7-2"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb7-3"><a href=""></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb7-4"><a href=""></a>    (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb7-5"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb7-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Acima, <code>d-dx</code> cria uma <span class="azul"><strong>função lambda</strong></span> (anônima, sem nome) nova, em tempo de execução.</li>
+<li>Podemos agora gerar a derivada (numérica) de qualquer função <code class="sourceCode pyret">(<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)</code>:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="kw">fun</span> g(x)<span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb8-2"><a href=""></a>g-linha = d-dx(g)</span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="kw">check:</span></span>
+<span id="cb8-5"><a href=""></a>  g-linha(<span class="dv">10</span>) <span class="kw">is-roughly</span> <span class="dv">20</span></span>
+<span id="cb8-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="expressões-lambda-1" class="slide level2">
+<h2>Expressões Lambda</h2>
+<ul>
+<li>São funções <span class="azul">anônimas</span> (sem nome).</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="kw">lam</span>(x1, ..., xn)<span class="kw">:</span> e <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><span class="azul">x1</span>, …, <span class="azul">xn</span> são variáveis</li>
+<li><span class="verde">e</span> é uma expressão válida</li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Definição</strong> de função: <code class="sourceCode pyret"><span class="kw">lam</span>(x)<span class="kw">:</span> x + <span class="dv">1</span> <span class="kw">end</span></code></li>
+</ul>
+<p><br></p>
+<ul>
+<li><strong>Aplicação</strong> de função: <code class="sourceCode pyret"><span class="kw">lam</span>(x)<span class="kw">:</span> x + <span class="dv">1</span> <span class="kw">end</span>(<span class="dv">2</span>)</code> <span class="math inline">\;\longrightarrow\;</span> devolve <code class="sourceCode pyret"><span class="dv">3</span></code></li>
+</ul>
+</section>
+
+
+
+<section id="expressões-lambda-3" class="slide level2">
+<h2>Expressões Lambda</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:72%;">
+<ul>
+<li>“<span class="azul">lam</span>” vem de “<span class="azul">lambda</span>”, uma forma de definir funções que existe em diversas linguagens de programação.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Origem:
+<ul>
+<li><span class="vermelho">Cálculo Lambda (λ)</span>, de <span class="azul">Alonzo Church</span> (década de 1930)</li>
+<li><span class="azul">Church</span> foi o orientador do <span class="azul">Alan Turing</span></li>
+<li>Modelo de <span class="azul">computação universal</span></li>
+<li>Teve papel fundamental na teoria de linguagens de programação, sistemas de tipos, programação funcional, entre outros temas</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:24%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/aula17/alonzo-church.jpg" style="width:90.0%"></p>
+<figcaption>Alonzo Church</figcaption>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="funções-de-alta-ordem" class="slide level2">
+<h2>Funções de Alta Ordem</h2>
+<ul>
+<li>Linguagens de programação modernas (e.g., Python, Java, C++, Go, …) adotam vários elementos do <span class="azul">paradigma funcional</span>, como <span class="azul">funções lambda</span> e <span class="azul">funções de alta-ordem</span>.</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Há 3 funções de alta-ordem, em especial, que são frequentemente utilizadas e implementadas na maioria das linguagens de programação:
+<ul>
+<li><span class="azul"><strong>Filter:</strong></span> filtra elementos de listas</li>
+<li><span class="azul"><strong>Map:</strong></span> aplica uma função a todos elementos de uma lista</li>
+<li><span class="azul"><strong>Fold:</strong></span> aplica uma função “juntando” todos elementos de uma lista</li>
+</ul></li>
+</ul>
+</section>
+<section id="exemplo-modelando-formas-geométricas" class="slide level2">
+<h2>Exemplo: Modelando formas geométricas</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:58%;">
+<div style="font-size: 0.7em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="kw">data</span> <span class="dt">Forma</span><span class="kw">:</span></span>
+<span id="cb14-2"><a href=""></a>  <span class="kw">|</span> retangulo(</span>
+<span id="cb14-3"><a href=""></a>      base <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho da base do retângulo</span></span>
+<span id="cb14-4"><a href=""></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura do retângulo</span></span>
+<span id="cb14-5"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do retângulo</span></span>
+<span id="cb14-6"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do retângulo</span></span>
+<span id="cb14-7"><a href=""></a>  <span class="kw">|</span> triangulo(</span>
+<span id="cb14-8"><a href=""></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado do triângulo</span></span>
+<span id="cb14-9"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do triângulo</span></span>
+<span id="cb14-10"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do triângulo</span></span>
+<span id="cb14-11"><a href=""></a>  <span class="kw">|</span> elipse(</span>
+<span id="cb14-12"><a href=""></a>      largura <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># tamanho da largura da elipse</span></span>
+<span id="cb14-13"><a href=""></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura da elipse</span></span>
+<span id="cb14-14"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da elipse</span></span>
+<span id="cb14-15"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da elipse</span></span>
+<span id="cb14-16"><a href=""></a>  <span class="kw">|</span> estrela(</span>
+<span id="cb14-17"><a href=""></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado da estrela</span></span>
+<span id="cb14-18"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da estrela</span></span>
+<span id="cb14-19"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da estrela</span></span>
+<span id="cb14-20"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:40%;">
+<div style="font-size: 0.75em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a><span class="co"># Tipo Lista de Formas:</span></span>
+<span id="cb15-2"><a href=""></a><span class="kw">type</span> <span class="dt">ListaForma</span> = <span class="dt">List</span>&lt;<span class="dt">Forma</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section>
+<section id="exercícios" class="slide level2">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="filter" class="slide level2">
+<h2>Filter</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a>filter <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">Boolean</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">A</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dados um <span class="vermelho">critério</span> (função que recebe um elemento de <span class="azul">A</span> e retorna um <code>Boolean</code>) e uma <span class="azul">lista do tipo A</span>, retorna uma lista apenas com os elementos cujo critério devolve <code>true</code>.</p>
+<p><br></p>
+<p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
+<div class="pyret-live" data-height="300" style="font-size: 0.78em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb17-1"><a href=""></a><span class="kw">check:</span></span>
+<span id="cb17-2"><a href=""></a>  filter(num-is-positive, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, -<span class="dv">2</span>, <span class="dv">3</span>, -<span class="dv">4</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">3</span>]</span>
+<span id="cb17-3"><a href=""></a>  filter(<span class="kw">lam</span>(s)<span class="kw">:</span> string-length(s) &gt; <span class="dv">3</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hello"</span>]</span>
+<span id="cb17-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="map" class="slide level2">
+<h2>Map</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb18-1"><a href=""></a>map <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">B</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">B</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dados uma <span class="roxo">função unária</span> (que recebe um elemento do tipo <span class="azul">A</span> e devolve um elemento do tipo <span class="azul">B</span>) e uma <span class="azul">lista do tipo A</span>, aplica esta função a todos elementos da lista, devolvendo uma <span class="azul">lista do tipo B</span>.</p>
+<p><br></p>
+<p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
+<div class="pyret-live" data-height="300" style="font-size: 0.78em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb19-1"><a href=""></a><span class="kw">check:</span></span>
+<span id="cb19-2"><a href=""></a>  map(num-sqr, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">4</span>, -<span class="dv">5</span>, <span class="dv">10</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">4</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">100</span>]</span>
+<span id="cb19-3"><a href=""></a>  map(<span class="kw">lam</span>(s)<span class="kw">:</span> s + <span class="st">"!"</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi!"</span>, <span class="st">"hello!"</span>, <span class="st">"hey!"</span>]</span>
+<span id="cb19-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="fold" class="slide level2">
+<h2>Fold</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb20-1"><a href=""></a>fold <span class="kw">::</span> (<span class="dt">A</span>, <span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">A</span>), <span class="dt">A</span>, <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">A</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dada uma <span class="roxo">função binária</span>, um <span class="azul">elemento inicial</span> e uma <span class="azul">lista de elementos de um tipo A</span>, combina os valores da lista de acordo com a função e o elemento inicial:</p>
+<ul>
+<li>Aplica a função ao primeiro elemento da lista e o valor inicial, depois ao próximo da lista e o resultado da primeira aplicação, e assim sucessivamente.</li>
+</ul>
+<p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
+<div class="pyret-live" data-height="300" style="font-size: 0.78em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb21-1"><a href=""></a><span class="kw">check:</span></span>
+<span id="cb21-2"><a href=""></a>  fold(<span class="kw">lam</span>(x, y)<span class="kw">:</span> x + y <span class="kw">end</span>, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
+<span id="cb21-3"><a href=""></a>  fold(num-max, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">10</span>, -<span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
+<span id="cb21-4"><a href=""></a>  fold(string-append, <span class="st">""</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>]) <span class="kw">is</span> <span class="st">"hi there"</span></span>
+<span id="cb21-5"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="fold-1" class="slide level2">
+<h2>Fold</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column center" style="width:40%;">
+<p><code class="sourceCode pyret">[<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code></p>
+</div><div class="column center" style="width:10%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
+</div><div class="column" style="width:40%;">
+<svg viewbox="0 0 363 220" style="display:block; margin:0 auto; width:15.1em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lista 1, 2, 3 como encadeamento de link terminando em empty">
+<text x="85" y="26" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="80" y1="40" x2="35" y2="68" stroke="#555555" stroke-width="2"></line>
+<line x1="90" y1="40" x2="138" y2="68" stroke="#555555" stroke-width="2"></line>
+<text x="30" y="82" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">1</text>
+<text x="143" y="82" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="138" y1="96" x2="93" y2="124" stroke="#555555" stroke-width="2"></line>
+<line x1="148" y1="96" x2="196" y2="124" stroke="#555555" stroke-width="2"></line>
+<text x="88" y="138" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">2</text>
+<text x="201" y="138" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="196" y1="152" x2="151" y2="180" stroke="#555555" stroke-width="2"></line>
+<line x1="206" y1="152" x2="254" y2="180" stroke="#555555" stroke-width="2"></line>
+<text x="146" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">3</text>
+<text x="259" y="194" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">empty</text>
+</svg>
+</div></div>
+<div class="fragment">
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:42%;">
+<div style="font-size: 0.85em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb22-1"><a href=""></a><span class="kw">fun</span> soma(x, y)<span class="kw">:</span> x + y <span class="kw">end</span></span>
+<span id="cb22-2"><a href=""></a></span>
+<span id="cb22-3"><a href=""></a>fold(soma, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column center" style="width:6%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
+</div><div class="column" style="width:32%;">
+<svg viewbox="0 0 299 220" style="display:block; margin:0 auto; width:12.5em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="soma(1, soma(2, soma(3, 0)))">
+<text x="85" y="26" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">soma</text>
+<line x1="80" y1="40" x2="35" y2="68" stroke="#555555" stroke-width="2"></line>
+<line x1="90" y1="40" x2="138" y2="68" stroke="#555555" stroke-width="2"></line>
+<text x="30" y="82" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">1</text>
+<text x="143" y="82" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">soma</text>
+<line x1="138" y1="96" x2="93" y2="124" stroke="#555555" stroke-width="2"></line>
+<line x1="148" y1="96" x2="196" y2="124" stroke="#555555" stroke-width="2"></line>
+<text x="88" y="138" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">2</text>
+<text x="201" y="138" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">soma</text>
+<line x1="196" y1="152" x2="151" y2="180" stroke="#555555" stroke-width="2"></line>
+<line x1="206" y1="152" x2="254" y2="180" stroke="#555555" stroke-width="2"></line>
+<text x="146" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">3</text>
+<text x="259" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">0</text>
+</svg>
+</div><div class="column center" style="width:8%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span> <span style="font-size: 1.3em; color: #0070c0;">6</span></p>
+</div></div>
+</div>
+</section>
+<section id="fold-2" class="slide level2">
+<h2>Fold</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column center" style="width:40%;">
+<p><code class="sourceCode pyret">[<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>]</code></p>
+</div><div class="column center" style="width:10%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
+</div><div class="column" style="width:40%;">
+<svg viewbox="0 0 450 220" style="display:block; margin:0 auto; width:18.8em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lista &quot;hi&quot;, &quot; &quot;, &quot;there&quot; como encadeamento de link">
+<text x="106" y="26" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="101" y1="40" x2="35" y2="68" stroke="#555555" stroke-width="2"></line>
+<line x1="111" y1="40" x2="181" y2="68" stroke="#555555" stroke-width="2"></line>
+<text x="30" y="82" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">"hi"</text>
+<text x="186" y="82" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="181" y1="96" x2="115" y2="124" stroke="#555555" stroke-width="2"></line>
+<line x1="191" y1="96" x2="261" y2="124" stroke="#555555" stroke-width="2"></line>
+<text x="110" y="138" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">" "</text>
+<text x="266" y="138" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">link</text>
+<line x1="261" y1="152" x2="195" y2="180" stroke="#555555" stroke-width="2"></line>
+<line x1="271" y1="152" x2="341" y2="180" stroke="#555555" stroke-width="2"></line>
+<text x="190" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">"there"</text>
+<text x="346" y="194" font-size="21" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">empty</text>
+</svg>
+</div></div>
+<div class="fragment">
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:36%;">
+<div style="font-size: 0.75em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb23-1"><a href=""></a>fold(string-append, <span class="st">""</span>,</span>
+<span id="cb23-2"><a href=""></a>  [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column center" style="width:5%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
+</div><div class="column" style="width:36%;">
+<svg viewbox="0 0 449 220" style="display:block; margin:0 auto; width:18.7em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="string-append(&quot;hi&quot;, string-append(&quot; &quot;, string-append(&quot;there&quot;, &quot;&quot;)))">
+<text x="117" y="26" font-size="17" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">string-append</text>
+<line x1="112" y1="40" x2="35" y2="68" stroke="#555555" stroke-width="2"></line>
+<line x1="122" y1="40" x2="204" y2="68" stroke="#555555" stroke-width="2"></line>
+<text x="30" y="82" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">"hi"</text>
+<text x="209" y="82" font-size="17" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">string-append</text>
+<line x1="204" y1="96" x2="127" y2="124" stroke="#555555" stroke-width="2"></line>
+<line x1="214" y1="96" x2="296" y2="124" stroke="#555555" stroke-width="2"></line>
+<text x="122" y="138" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">" "</text>
+<text x="301" y="138" font-size="17" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace" font-weight="bold">string-append</text>
+<line x1="296" y1="152" x2="219" y2="180" stroke="#555555" stroke-width="2"></line>
+<line x1="306" y1="152" x2="388" y2="180" stroke="#555555" stroke-width="2"></line>
+<text x="214" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">"there"</text>
+<text x="393" y="194" font-size="24" text-anchor="middle" dominant-baseline="central" fill="#0070c0" font-family="'Source Code Pro', Consolas, monospace" font-weight="normal">""</text>
+</svg>
+</div><div class="column center" style="width:15%;">
+<p><span style="font-size: 2em; color: #2e75b6;">⟹</span><br><span style="font-family: monospace; font-size: 0.8em; color: #0070c0; white-space: nowrap;">"hi there"</span></p>
+</div></div>
+</div>
+</section>
+<section id="funções-de-alta-ordem-em-linguagens-de-programação" class="slide level2">
+<h2>Funções de Alta Ordem em Linguagens de Programação</h2>
+<p><strong>Python</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href=""></a>nums <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb24-2"><a href=""></a></span>
+<span id="cb24-3"><a href=""></a><span class="co"># map</span></span>
+<span id="cb24-4"><a href=""></a>dobro <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">*</span> <span class="dv">2</span>, nums))</span>
+<span id="cb24-5"><a href=""></a></span>
+<span id="cb24-6"><a href=""></a><span class="co"># filter</span></span>
+<span id="cb24-7"><a href=""></a>pares <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, nums))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>JavaScript</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource javascript number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb25-1"><a href=""></a><span class="kw">const</span> nums <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb25-2"><a href=""></a></span>
+<span id="cb25-3"><a href=""></a><span class="co">// map</span></span>
+<span id="cb25-4"><a href=""></a><span class="kw">const</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb25-5"><a href=""></a></span>
+<span id="cb25-6"><a href=""></a><span class="co">// filter</span></span>
+<span id="cb25-7"><a href=""></a><span class="kw">const</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">filter</span>(x <span class="kw">=&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="funções-de-alta-ordem-em-linguagens-de-programação-1" class="slide level2">
+<h2>Funções de Alta Ordem em Linguagens de Programação</h2>
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">C++</a></li><li><a href="#tabset-1-2">Java (Streams)</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb26-1"><a href=""></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb26-2"><a href=""></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb26-3"><a href=""></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb26-4"><a href=""></a></span>
+<span id="cb26-5"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb26-6"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">};</span></span>
+<span id="cb26-7"><a href=""></a></span>
+<span id="cb26-8"><a href=""></a>    <span class="co">// map (usando std::transform)</span></span>
+<span id="cb26-9"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> dobro<span class="op">(</span>nums<span class="op">.</span>size<span class="op">());</span></span>
+<span id="cb26-10"><a href=""></a>    <span class="bu">std::</span>transform<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> dobro<span class="op">.</span>begin<span class="op">(),</span></span>
+<span id="cb26-11"><a href=""></a>                   <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span> <span class="op">});</span></span>
+<span id="cb26-12"><a href=""></a></span>
+<span id="cb26-13"><a href=""></a>    <span class="co">// filter (usando std::copy_if)</span></span>
+<span id="cb26-14"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> pares<span class="op">;</span></span>
+<span id="cb26-15"><a href=""></a>    <span class="bu">std::</span>copy_if<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> <span class="bu">std::</span>back_inserter<span class="op">(</span>pares<span class="op">),</span></span>
+<span id="cb26-16"><a href=""></a>                 <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">;</span> <span class="op">});</span></span>
+<span id="cb26-17"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="tabset-1-2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb27-1"><a href=""></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.*;</span></span>
+<span id="cb27-2"><a href=""></a></span>
+<span id="cb27-3"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
+<span id="cb27-4"><a href=""></a></span>
+<span id="cb27-5"><a href=""></a><span class="co">// map</span></span>
+<span id="cb27-6"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
+<span id="cb27-7"><a href=""></a>    <span class="op">.</span><span class="fu">map</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb27-8"><a href=""></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span>
+<span id="cb27-9"><a href=""></a></span>
+<span id="cb27-10"><a href=""></a><span class="co">// filter</span></span>
+<span id="cb27-11"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
+<span id="cb27-12"><a href=""></a>    <span class="op">.</span><span class="fu">filter</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb27-13"><a href=""></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-de-função-recursiva" class="slide level2">
+<h2>Modelo de função recursiva</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb28-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas de formas:</span></span>
+<span id="cb28-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
+<span id="cb28-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb28-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb28-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> ...</span>
+<span id="cb28-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb28-7"><a href=""></a>      combinar(... primeira ...,</span>
+<span id="cb28-8"><a href=""></a>               ... funcao(resto) ...)</span>
+<span id="cb28-9"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb28-10"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb28-11"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-12"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-13"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-14"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercícios-1" class="slide level2 destaca-filtrar">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modelo-de-função-filtrar" class="slide level2">
+<h2>Modelo de função filtrar</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:65%;">
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="5-11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb29-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb29-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;...&gt;<span class="kw">:</span></span>
+<span id="cb29-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb29-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb29-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb29-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb29-7"><a href=""></a>      laux = <span class="kw">if</span> criterio(primeiro)<span class="kw">:</span></span>
+<span id="cb29-8"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeiro]</span>
+<span id="cb29-9"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb29-10"><a href=""></a>      <span class="kw">end</span></span>
+<span id="cb29-11"><a href=""></a>      laux + funcao(resto)</span>
+<span id="cb29-12"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb29-13"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb29-14"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-15"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-16"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-17"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-18"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column explicacao" style="width:31%;">
+<p><span class="azul">Construir uma lista com o primeiro elemento,</span> <span class="roxo">se ele atender o critério</span><span class="azul">, e com os elementos que atendem o critério do</span> <span class="vermelho">resto da lista</span></p>
+</div></div>
+</section>
+<section id="exemplos-de-função-filtrar" class="slide level2">
+<h2>Exemplos de função filtrar</h2>
+<div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb30-1"><a href=""></a><span class="kw">fun</span> filtrar-retangulo(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
+<span id="cb30-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb30-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb30-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb30-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb30-6"><a href=""></a>      laux = <span class="kw">if</span> is-retangulo(primeira)<span class="kw">:</span></span>
+<span id="cb30-7"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
+<span id="cb30-8"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb30-9"><a href=""></a>      <span class="kw">end</span></span>
+<span id="cb30-10"><a href=""></a>      laux + filtrar-retangulo(resto)</span>
+<span id="cb30-11"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb30-12"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb31-1"><a href=""></a><span class="kw">fun</span> filtrar-ret-maior<span class="dv">-40</span>(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
+<span id="cb31-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb31-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb31-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb31-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb31-6"><a href=""></a>      laux = <span class="kw">if</span> is-ret-maior<span class="dv">-40</span>(primeira)<span class="kw">:</span></span>
+<span id="cb31-7"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
+<span id="cb31-8"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb31-9"><a href=""></a>      <span class="kw">end</span></span>
+<span id="cb31-10"><a href=""></a>      laux + filtrar-ret-maior<span class="dv">-40</span>(resto)</span>
+<span id="cb31-11"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb31-12"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercícios-2" class="slide level2 mostra-filtrar destaca-mapear">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modelo-de-função-mapear" class="slide level2">
+<h2>Modelo de função mapear</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:65%;">
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb32-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb32-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
+<span id="cb32-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb32-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb32-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb32-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb32-7"><a href=""></a>      <span class="cn">link</span>(fun-aplic(primeiro), funcao(resto))</span>
+<span id="cb32-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb32-9"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb32-10"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-11"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-12"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-13"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-14"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column explicacao" style="width:31%;">
+<p><span class="azul">Construir uma lista</span> <span class="roxo">aplicando a função ao primeiro elemento</span> <span class="azul">na frente da lista resultante da aplicação da função aos elementos do</span> <span class="vermelho">resto da lista</span></p>
+</div></div>
+</section>
+<section id="exemplos-de-função-mapear" class="slide level2">
+<h2>Exemplos de função mapear</h2>
+<div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb33-1"><a href=""></a>cores-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;</span>
+<span id="cb33-2"><a href=""></a><span class="kw">fun</span> cores-formas(lista)<span class="kw">:</span></span>
+<span id="cb33-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb33-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb33-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb33-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb33-7"><a href=""></a>      <span class="cn">link</span>(primeiro.cor, cores-formas(resto))</span>
+<span id="cb33-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb33-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb34-1"><a href=""></a>perimetros-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;</span>
+<span id="cb34-2"><a href=""></a><span class="kw">fun</span> perimetros-formas(lista)<span class="kw">:</span></span>
+<span id="cb34-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb34-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb34-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb34-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb34-7"><a href=""></a>      <span class="cn">link</span>(perimetro(primeiro), perimetros-formas(resto))</span>
+<span id="cb34-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb34-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercícios-3" class="slide level2 mostra-filtrar mostra-mapear destaca-juntar">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="modelo-de-função-juntar" class="slide level2">
+<h2>Modelo de função juntar</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:65%;">
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-code-line-numbers="6-8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb35-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb35-2"><a href=""></a>funcao <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt; <span class="kw">-&gt;</span> ...</span>
+<span id="cb35-3"><a href=""></a><span class="kw">fun</span> funcao(lista)<span class="kw">:</span></span>
+<span id="cb35-4"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb35-5"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb35-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> resultado-vazia</span>
+<span id="cb35-7"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb35-8"><a href=""></a>      juntar(primeira, funcao(resto))</span>
+<span id="cb35-9"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb35-10"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb35-11"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-12"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-13"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-14"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column explicacao" style="width:31%;">
+<p><span class="azul">Construir um elemento</span> <span class="roxo">juntando o primeiro elemento</span> <span class="azul">ao resultado da aplicação da função ao</span> <span class="vermelho">resto da lista</span><span class="azul">.</span></p>
+</div></div>
+</section>
+<section id="exemplos-de-função-juntar" class="slide level2">
+<h2>Exemplos de função juntar</h2>
+<div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb36-1"><a href=""></a>img-formas <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Image</span></span>
+<span id="cb36-2"><a href=""></a><span class="kw">fun</span> img-formas(lista)<span class="kw">:</span></span>
+<span id="cb36-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de imagens de formas, ..."</span></span>
+<span id="cb36-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb36-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty-image</span></span>
+<span id="cb36-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb36-7"><a href=""></a>      beside(primeira, img-formas(resto))</span>
+<span id="cb36-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb36-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb37-1"><a href=""></a>soma-perimetros <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Number</span></span>
+<span id="cb37-2"><a href=""></a><span class="kw">fun</span> soma-perimetros(lista)<span class="kw">:</span></span>
+<span id="cb37-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de perímetros, ..."</span></span>
+<span id="cb37-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb37-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="dv">0</span></span>
+<span id="cb37-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb37-7"><a href=""></a>      primeira + soma-perimetros(resto)</span>
+<span id="cb37-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb37-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercícios-4" class="slide level2 mostra-filtrar mostra-mapear mostra-juntar">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exercícios-5" class="slide level2 mostra-filtrar mostra-mapear mostra-juntar destaca-combinacao">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment balao">
+<p>Como esses padrões de funções são muito frequentes, foram construídas <span class="azul"><strong>funções de alta-ordem pré-definidas</strong></span> para eles!</p>
+</div>
+</section>
+<section id="função-gera-img-cor" class="slide level2">
+<h2>Função gera-img-cor</h2>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" style="font-size: 0.85em;"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb38-1"><a href=""></a><span class="kw">fun</span> gera-img-cor(lista <span class="kw">::</span> <span class="dt">ListaForma</span>, cor <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
+<span id="cb38-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor"</span></span>
+<span id="cb38-3"><a href=""></a>  <span class="co"># Filtrar as formas da cor dada e guardar em lista-forma-cor:</span></span>
+<span id="cb38-4"><a href=""></a>  lista-forma-cor = filter(<span class="kw">lam</span>(f <span class="kw">::</span> <span class="dt">Forma</span>)<span class="kw">:</span> f.cor == cor <span class="kw">end</span>, lista)</span>
+<span id="cb38-5"><a href=""></a>  <span class="co"># Desenhar as formas (assume que existe a função desenha):</span></span>
+<span id="cb38-6"><a href=""></a>  lista-imagens = map(desenha, lista-forma-cor)</span>
+<span id="cb38-7"><a href=""></a>  <span class="co"># Montar a imagem juntando as imagens das formas:</span></span>
+<span id="cb38-8"><a href=""></a>  fold(beside, <span class="cn">empty-image</span>, lista-imagens)</span>
+<span id="cb38-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exercícios-6" class="slide level2 mostra-filtrar mostra-mapear mostra-juntar mostra-combinacao">
+<h2>Exercícios</h2>
+<table class="tabela-padroes caption-top">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Exercício</th>
+<th data-quarto-table-cell-role="th">Padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr class="g-filtrar odd">
+<td>1.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos da lista.</td>
+<td rowspan="4" class="padrao p-filtrar">Filtrar</td>
+</tr>
+<tr class="g-filtrar even">
+<td>2.</td>
+<td>Dada uma lista de formas, devolve todos os triângulos da lista.</td>
+</tr>
+<tr class="g-filtrar odd">
+<td>3.</td>
+<td>Dada uma lista de formas, devolve todos os retângulos que têm base maior que 40.</td>
+</tr>
+<tr class="g-filtrar even">
+<td>4.</td>
+<td>Dada uma lista de formas e um número, devolve todas as estrelas com lado maior que este número.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>5.</td>
+<td>Dada uma lista de formas, devolve uma lista com as cores das formas da lista.</td>
+<td rowspan="4" class="padrao p-mapear">Mapear</td>
+</tr>
+<tr class="g-mapear even">
+<td>6.</td>
+<td>Dada uma lista de formas, devolve os perímetros das formas da lista.</td>
+</tr>
+<tr class="g-mapear odd">
+<td>7.</td>
+<td>Dada uma lista de formas, muda a cor de todas as formas para “orange”.</td>
+</tr>
+<tr class="g-mapear even">
+<td>8.</td>
+<td>Dada uma lista de formas e uma cor, muda a cor de todas as formas para esta cor.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>9.</td>
+<td>Dada uma lista de imagens de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+<td rowspan="4" class="padrao p-juntar">Juntar</td>
+</tr>
+<tr class="g-juntar even">
+<td>10.</td>
+<td>Dada uma lista de perímetros de formas, devolve a soma dos perímetros da lista.</td>
+</tr>
+<tr class="g-juntar odd">
+<td>11.</td>
+<td>Dada uma lista de formas, devolve uma imagem com todas as formas da lista, lado a lado.</td>
+</tr>
+<tr class="g-juntar even">
+<td>12.</td>
+<td>Dada uma lista de formas, devolve a soma das bases dos retângulos da lista.</td>
+</tr>
+<tr class="g-combinacao odd">
+<td>13.</td>
+<td>Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor.</td>
+<td rowspan="2" class="padrao p-combinacao">Combinação</td>
+</tr>
+<tr class="g-combinacao even">
+<td>14.</td>
+<td>Dada uma lista de formas, devolve uma imagem com os identificadores das formas, cada um escrito na cor da respectiva forma.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exercícios-sobre-lista-de-pontos-para-casa" class="slide level2">
+<h2>Exercícios Sobre Lista de Pontos (Para Casa)</h2>
+<ol type="1">
+<li><p>Dada uma lista de pontos, devolva todos os pontos com coordenada <span class="math inline">x</span> igual a 1.</p></li>
+<li><p>Dada uma lista de pontos, devolva as coordenadas <span class="math inline">y</span> dos pontos com a coordenada <span class="math inline">x</span> igual a 1.</p></li>
+<li><p>Dada uma lista de pontos, devolva a soma das coordenadas <span class="math inline">y</span> dos pontos com a coordenada <span class="math inline">x</span> igual a 1.</p></li>
+<li><p>Dada uma lista de pontos e um número, devolva os pontos com a coordenada <span class="math inline">x</span> maior ou igual a este número.</p></li>
+</ol>
+</section></section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<div style="text-align: center; margin-top: 15vh;">
+<p><span style="font-size: 5em; color: #d10000; font-weight: 700;">?</span></p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="libs/revealjs/plugin/search/search.js"></script>
+  <script src="libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":false,"theme":"whiteboard","boardmarkerWidth":5},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1024,
+
+        height: 768,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiada");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiada");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="libs/clipboard/clipboard.min.js"></script>
+<script src="libs/quarto-html/tabby.min.js"></script>
+<script src="libs/quarto-html/popper.min.js"></script>
+<script src="libs/quarto-html/tippy.umd.min.js"></script>
+<link href="libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Lucas Nunes Alegre">
+  <title>Aula 21 – Árvores Binárias e de Pesquisa</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-be6bc95e56f15547bb48913d3b24eb7b.css">
+  <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <!--
+    Destaque de sintaxe Pyret com o tokenizer real do code.pyret.org, como faz a extensão
+    pyret-light-theme. pyret-mode.js é uma cópia sem alterações de
+    code.pyret.org/pyret-light-theme/pyret.js (confira com `cmp` ao atualizar).
+    As cores ficam em pensamento.scss (classes .pyret-*). Se este script falhar, continua
+    valendo o destaque estático do Pandoc (pyret.xml).
+  -->
+  <script>
+    // pyret.js chama CodeMirror.defineMode; capturamos o modo sem carregar o CodeMirror.
+    window.CodeMirror = {
+      defineMode(name, factory) {
+        if (name === "pyret") window.pyretMode = factory({}, {});
+      },
+    };
+  </script>
+  <script src="pyret-mode.js"></script>
+  <script>
+  (() => {
+    delete window.CodeMirror;
+    const mode = window.pyretMode;
+    if (!mode) return;
+
+    // Emulação mínima do StringStream do CodeMirror (a mesma da extensão).
+    class Stream {
+      constructor(line) { this.string = line; this.pos = 0; this.start = 0; }
+      eol() { return this.pos >= this.string.length; }
+      sol() { return this.pos === 0; }
+      peek() { return this.string[this.pos]; }
+      next() { if (this.pos < this.string.length) return this.string[this.pos++]; }
+      eat(match) {
+        const ch = this.string[this.pos];
+        if (ch === undefined) return undefined;
+        const ok = typeof match === "string" ? ch === match
+                 : match instanceof RegExp ? match.test(ch)
+                 : match(ch);
+        if (ok) { this.pos++; return ch; }
+      }
+      eatWhile(match) { const s = this.pos; while (this.eat(match) !== undefined) {} return this.pos > s; }
+      eatSpace() {
+        const s = this.pos;
+        while (this.pos < this.string.length && /\s/.test(this.string[this.pos])) this.pos++;
+        return this.pos > s;
+      }
+      skipToEnd() { this.pos = this.string.length; }
+      skipTo(ch) { const i = this.string.indexOf(ch, this.pos); if (i > -1) { this.pos = i; return true; } }
+      match(pattern, consume) {
+        if (typeof pattern === "string") {
+          if (!this.string.startsWith(pattern, this.pos)) return null;
+          if (consume !== false) this.pos += pattern.length;
+          return [pattern];
+        }
+        const re = new RegExp(pattern.source, pattern.flags.replace(/[gy]/g, ""));
+        const m = re.exec(this.string.slice(this.pos));
+        if (!m || m.index !== 0) return null;
+        if (consume !== false) this.pos += m[0].length;
+        return m;
+      }
+      current() { return this.string.slice(this.start, this.pos); }
+      backUp(n) { this.pos -= n; }
+      column() { return this.pos; }
+      indentation() { return 0; }
+    }
+
+    // Estilo do CodeMirror → classe CSS, com o mesmo agrupamento da extensão.
+    const CLASSES = {
+      keyword: "keyword", boolean: "keyword",
+      comment: "comment",
+      string: "string", "unterminated-string": "string",
+      number: "number", roughnum: "number", "roughnum-start": "number", "bad-number": "number",
+      "function-name": "function",
+      type: "type",
+      variable: "variable", parameter: "variable",
+      builtin: "builtin",
+      constant: "constant",
+    };
+
+    // Tokeniza as linhas de um bloco, mantendo o estado entre linhas.
+    function tokenize(lines) {
+      const state = mode.startState(0);
+      return lines.map((line) => {
+        if (line.trim() === "") {
+          mode.blankLine(state);
+          return [{ text: line }];
+        }
+        const stream = new Stream(line);
+        const tokens = [];
+        while (!stream.eol()) {
+          stream.start = stream.pos;
+          let style = null;
+          try { style = mode.token(stream, state); } catch { /* caractere inesperado */ }
+          if (stream.pos === stream.start) stream.next();
+          tokens.push({ text: line.slice(stream.start, stream.pos), cls: CLASSES[style] });
+        }
+        return tokens;
+      });
+    }
+
+    function render(tokens) {
+      const frag = document.createDocumentFragment();
+      for (const { text, cls } of tokens) {
+        if (!cls) { frag.append(text); continue; }
+        const span = document.createElement("span");
+        span.className = `pyret-${cls}`;
+        span.textContent = text;
+        frag.append(span);
+      }
+      return frag;
+    }
+
+    function highlight(code) {
+      // Blocos: uma <span id> por linha, com a âncora da numeração no início.
+      const lines = [...code.children].filter((el) => el.matches("span[id]"));
+      if (lines.length) {
+        tokenize(lines.map((el) => el.textContent)).forEach((tokens, i) => {
+          const anchor = lines[i].querySelector(":scope > a");
+          lines[i].replaceChildren(...(anchor ? [anchor] : []), render(tokens));
+        });
+      } else {
+        // Código inline (`...`{.pyret})
+        code.replaceChildren(...tokenize(code.textContent.split("\n"))
+          .flatMap((tokens, i) => (i ? ["\n", render(tokens)] : [render(tokens)])));
+      }
+      code.classList.add("pyret-cm");
+    }
+
+    const run = () => document.querySelectorAll("code.sourceCode.pyret").forEach(highlight);
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+    else run();
+  })();
+  </script>
+  <script type="module">
+  // Blocos `::: {.pyret-live}` ganham um botão que troca o código estático por um
+  // editor Pyret executável (mesma biblioteca usada no site). O editor só é carregado
+  // sob demanda, então a apresentação continua funcionando offline.
+  // Atributos opcionais no bloco: data-height="420" (altura em px), data-autorun="false".
+  const EMBED_URL = "https://cdn.jsdelivr.net/npm/@ironm00n/pyret-embed@0.0.1/dist/pyret.js";
+
+  function codigoDo(box) {
+    const codigo = [...box.querySelectorAll("pre code")]
+      .map((c) => c.textContent.trimEnd())
+      .join("\n\n");
+    return /^\s*use context/.test(codigo) ? codigo : `use context starter2024\n\n${codigo}`;
+  }
+
+  async function abrir(box, botao) {
+    botao.disabled = true;
+    botao.textContent = "Carregando…";
+    const editor = document.createElement("div");
+    editor.className = "pyret-live-editor";
+    editor.style.height = `${box.dataset.height || 420}px`;
+    box.append(editor);
+    box.classList.add("aberto");
+    try {
+      const { makeEmbedConfig } = await import(EMBED_URL);
+      const embed = await makeEmbedConfig({
+        container: editor,
+        state: {
+          editorContents: codigoDo(box),
+          replContents: "",
+          definitionsAtLastRun: "",
+          interactionsSinceLastRun: [],
+        },
+        options: { footerStyle: "hide", warnOnExit: false },
+      });
+      if (box.dataset.autorun !== "false") embed.runDefinitions();
+    } catch (erro) {
+      editor.innerHTML = `<p class="pyret-live-erro">Não foi possível carregar o editor Pyret (${erro.message}).</p>`;
+    }
+    botao.disabled = false;
+    botao.textContent = "✕ Fechar editor";
+  }
+
+  function fechar(box, botao) {
+    box.querySelector(".pyret-live-editor")?.remove();
+    box.classList.remove("aberto");
+    botao.textContent = "▶ Executar no Pyret";
+  }
+
+  for (const box of document.querySelectorAll(".pyret-live")) {
+    const botao = document.createElement("button");
+    botao.type = "button";
+    botao.className = "pyret-live-btn";
+    botao.textContent = "▶ Executar no Pyret";
+    botao.addEventListener("click", () =>
+      box.classList.contains("aberto") ? fechar(box, botao) : abrir(box, botao),
+    );
+    box.prepend(botao);
+  }
+  </script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#ffffff" class="quarto-title-block center">
+  <h1 class="title">Pensamento Computacional<br>INF05008</h1>
+  <p class="subtitle">Aula 21 – Árvores Binárias e de Pesquisa</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Lucas Nunes Alegre 
+</div>
+        <p class="quarto-title-affiliation">
+            </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides de Fernando Kavinsky, baseados no material da Profa. Leila Ribeiro.</span></p>
+          <p></p>
+    </div>
+</div>
+
+</section>
+<section id="roteiro-da-aula" class="slide level2">
+<h2>Roteiro da Aula</h2>
+<ul>
+<li>Árvores estão por toda parte</li>
+<li>Árvore Genealógica</li>
+<li>Estruturas com Autorreferência</li>
+<li>Recursão Estrutural</li>
+<li>Árvores Binárias (AB)</li>
+<li>Árvores Binárias de Pesquisa (ABP)</li>
+</ul>
+</section>
+<section id="árvores-estão-por-toda-parte" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+
+<img data-src="images/aula21/arvore-genealogica-black.jpg" style="width:88.0%" alt="Tapeçaria com a árvore genealógica da família Black (Harry Potter)" class="r-stretch"></section>
+<section id="árvores-estão-por-toda-parte-1" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column center" style="width:40%;">
+<p><img data-src="images/aula21/arvore-arquivos-explorer.png" style="width:100.0%" alt="Árvore de pastas e arquivos em um explorador de arquivos"></p>
+</div><div class="column center" style="width:56%;">
+<p><img data-src="images/aula21/arvore-diretorios-so.jpg" style="width:100.0%" alt="Diagrama de diretórios: SO contém aulas, agenda.txt e exemplos; aulas contém arquivos.txt, memoria.txt e processos.txt; exemplos contém linux.txt e windows.txt"></p>
+</div></div>
+</section>
+<section id="árvores-estão-por-toda-parte-2" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+
+<img data-src="images/aula21/arvore-filogenetica.svg" style="width:75.0%" alt="Árvore filogenética com os domínios Bacteria, Archaea e Eukarya" class="r-stretch"></section>
+<section id="árvores-estão-por-toda-parte-3" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+<p><img data-src="images/aula21/arvore-de-decisao.png" alt="Árvore de decisão: tenho compromisso no dia? vou estar na cidade? tenho dinheiro? está chovendo? é perto? — levando a Eu vou! ou Não vou!" height="520"></p>
+</section>
+<section id="árvores-estão-por-toda-parte-4" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+
+<img data-src="images/aula21/chaveamento-torneio.jpg" style="width:78.0%" alt="Chaveamento das eliminatórias da Liga dos Campeões da UEFA" class="r-stretch"></section>
+<section id="árvores-estão-por-toda-parte-5" class="slide level2">
+<h2>Árvores estão por toda parte</h2>
+<div class="cartoes">
+<div class="cartao">
+<p><span class="emoji">🏆</span></p>
+<p><span class="titulo">Chaveamento de torneio</span><br><span class="desc">Eliminatórias de campeonatos esportivos.</span></p>
+</div>
+<div class="cartao">
+<p><span class="emoji">🌳</span></p>
+<p><span class="titulo">Árvore filogenética</span><br><span class="desc">Evolução e relações entre espécies.</span></p>
+</div>
+<div class="cartao">
+<p><span class="emoji">📁</span></p>
+<p><span class="titulo">Sistema de arquivos</span><br><span class="desc">Diretórios e subdiretórios no computador.</span></p>
+</div>
+<div class="cartao">
+<p><span class="emoji">🧠</span></p>
+<p><span class="titulo">Árvore de decisão</span><br><span class="desc">Modelos de classificação e aprendizado.</span></p>
+</div>
+</div>
+</section>
+<section>
+<section id="árvore-genealógica" class="title-slide slide level1 center">
+<h1>Árvore Genealógica</h1>
+<div class="icone-secao">
+<p>🌳</p>
+</div>
+</section>
+<section id="árvore-genealógica-1" class="slide level2">
+<h2>Árvore Genealógica</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:65%;">
+<ul>
+<li><p>Cada nó da árvore representa os dados de uma pessoa.</p></li>
+<li><p>Cada pessoa tem um pai e uma mãe.</p></li>
+<li><p>O pai e/ou a mãe podem não ser conhecidos.</p></li>
+</ul>
+</div><div class="column icone-secao" style="width:31%;">
+<p><span style="font-size: 1.4em;">🧬</span></p>
+</div></div>
+</section>
+<section id="árvore-genealógica-exemplo" class="slide level2">
+<h2>Árvore Genealógica — exemplo</h2>
+<svg viewbox="0 0 748 418" style="display:block; margin:0 auto; width:32.14em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore genealógica: Gustavo (1988, tipo A) é filho de Fred (1958, tipo A) e de Eva (1960, tipo O); Eva é filha de Carlos (1926, tipo A) e de Betina (1927, tipo B). Setas sólidas indicam o pai e tracejadas, a mãe.">
+<defs><marker id="a20-f1" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000000"></path></marker></defs>
+<line x1="79" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" marker-end="url(#a20-f1)"></line>
+<line x1="269" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f1)"></line>
+<line x1="529" y1="84" x2="354" y2="333" stroke="#000000" stroke-width="2" marker-end="url(#a20-f1)"></line>
+<line x1="174" y1="249" x2="354" y2="333" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f1)"></line>
+<rect x="4" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="79" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Carlos</text>
+<text x="79" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1926</text>
+<text x="79" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="194" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="269" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Betina</text>
+<text x="269" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1927</text>
+<text x="269" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo B</text>
+<rect x="454" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="529" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Fred</text>
+<text x="529" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1958</text>
+<text x="529" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="99" y="169" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="174" y="188" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Eva</text>
+<text x="174" y="210" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1960</text>
+<text x="174" y="231" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo O</text>
+<rect x="279" y="334" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="354" y="353" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Gustavo</text>
+<text x="354" y="375" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1988</text>
+<text x="354" y="396" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<line x1="638" y1="20" x2="693" y2="20" stroke="#000000" stroke-width="2" marker-end="url(#a20-f1)"></line>
+<text x="706" y="20" font-size="17" text-anchor="start" dominant-baseline="central" fill="#262626" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">pai</text>
+<line x1="638" y1="54" x2="693" y2="54" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f1)"></line>
+<text x="706" y="54" font-size="17" text-anchor="start" dominant-baseline="central" fill="#262626" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">mãe</text>
+</svg>
+<div class="fragment balao" style="top: 62%; left: 80%; width: 26%; border-color: #bf8f00; background: #ffe699; border-radius: 50%; padding: 1.4em 0.8em;">
+<p><span class="forte">Como representar esta informação?</span></p>
+</div>
+</section>
+<section id="como-representar-essa-informação" class="slide level2">
+<h2>Como representar essa informação?</h2>
+<p>Cada nó da árvore contém as informações de uma pessoa: nome, ano, tipo sanguíneo, e os pais.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb1-3"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># nome da pessoa</span></span>
+<span id="cb1-4"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># ano de nascimento</span></span>
+<span id="cb1-5"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># tipo sanguíneo</span></span>
+<span id="cb1-6"><a href=""></a>      pai       <span class="kw">::</span> ???,     <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb1-7"><a href=""></a>      mae       <span class="kw">::</span> ???      <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb1-8"><a href=""></a>    )</span>
+<span id="cb1-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="autorreferência" class="slide level2">
+<h2>Autorreferência</h2>
+<p>O pai e a mãe também são <code>Pessoa</code> — o tipo se refere a si mesmo.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb2-3"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb2-4"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb2-5"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb2-6"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>,  <span class="co"># ← autorreferência!</span></span>
+<span id="cb2-7"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>   <span class="co"># ← autorreferência!</span></span>
+<span id="cb2-8"><a href=""></a>    )</span>
+<span id="cb2-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="e-quando-o-pai-ou-a-mãe-são-desconhecidos" class="slide level2">
+<h2>E quando o pai ou a mãe são desconhecidos?</h2>
+<p>Acrescentamos uma variante <span class="vermelho">ninguem</span> para representar a ausência de informação.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
+<span id="cb3-3"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb3-4"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
+<span id="cb3-5"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
+<span id="cb3-6"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
+<span id="cb3-7"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb3-8"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb3-9"><a href=""></a>    )</span>
+<span id="cb3-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="exemplo-a-família" class="slide level2">
+<h2>Exemplo: a família</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:54%;">
+<svg viewbox="0 0 608 418" style="display:block; margin:0 auto; width:21.71em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore genealógica: Gustavo (1988, tipo A) é filho de Fred (1958, tipo A) e de Eva (1960, tipo O); Eva é filha de Carlos (1926, tipo A) e de Betina (1927, tipo B). Setas sólidas indicam o pai e tracejadas, a mãe.">
+<defs><marker id="a20-f2" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000000"></path></marker></defs>
+<line x1="79" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" marker-end="url(#a20-f2)"></line>
+<line x1="269" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f2)"></line>
+<line x1="529" y1="84" x2="354" y2="333" stroke="#000000" stroke-width="2" marker-end="url(#a20-f2)"></line>
+<line x1="174" y1="249" x2="354" y2="333" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f2)"></line>
+<rect x="4" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="79" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Carlos</text>
+<text x="79" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1926</text>
+<text x="79" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="194" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="269" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Betina</text>
+<text x="269" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1927</text>
+<text x="269" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo B</text>
+<rect x="454" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="529" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Fred</text>
+<text x="529" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1958</text>
+<text x="529" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="99" y="169" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="174" y="188" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Eva</text>
+<text x="174" y="210" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1960</text>
+<text x="174" y="231" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo O</text>
+<rect x="279" y="334" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="354" y="353" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Gustavo</text>
+<text x="354" y="375" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1988</text>
+<text x="354" y="396" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+</svg>
+</div><div class="column" style="width:42%;">
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>,</span>
+<span id="cb4-2"><a href=""></a>            <span class="dv">1926</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-3"><a href=""></a>            ninguem, ninguem)</span>
+<span id="cb4-4"><a href=""></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>,</span>
+<span id="cb4-5"><a href=""></a>            <span class="dv">1927</span>, <span class="st">"B"</span>,</span>
+<span id="cb4-6"><a href=""></a>            ninguem, ninguem)</span>
+<span id="cb4-7"><a href=""></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>,</span>
+<span id="cb4-8"><a href=""></a>            <span class="dv">1960</span>, <span class="st">"O"</span>,</span>
+<span id="cb4-9"><a href=""></a>            <span class="dt">CARLOS</span>,  <span class="dt">BETINA</span>)</span>
+<span id="cb4-10"><a href=""></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>,</span>
+<span id="cb4-11"><a href=""></a>            <span class="dv">1958</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-12"><a href=""></a>            ninguem, ninguem)</span>
+<span id="cb4-13"><a href=""></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>,</span>
+<span id="cb4-14"><a href=""></a>            <span class="dv">1988</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-15"><a href=""></a>            <span class="dt">FRED</span>,    <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section></section>
+<section>
+<section id="como-processar-dados-com-autorreferência" class="title-slide slide level1 center">
+<h1>Como processar dados com autorreferência?</h1>
+<div class="center">
+<p><img data-src="images/aula21/interrogacao.png" alt="Ponto de interrogação" width="200"></p>
+</div>
+</section>
+<section id="estrutura-de-programas-recursivos" class="slide level2">
+<h2>Estrutura de Programas Recursivos</h2>
+<p>Uma forma abstrata de descrever <span class="alert">repetição</span> em processos.</p>
+<p>Ênfase em <span class="alert">quebrar (decompor)</span> o problema em problemas menores até que a solução seja trivial, e então montar a solução através da <span class="alert">combinação</span> das soluções menores.</p>
+<div class="caixa">
+<p><span class="alert">Ideia básica</span></p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="caixa-trivial" style="font-size: 0.8em; min-height: 7.5em;">
+<p><span class="titulo-trivial">Se o problema for TRIVIAL</span></p>
+<p>→ resolva-o diretamente</p>
+<p><span class="muted italico" style="font-size: 0.85em;">Exemplos: lista vazia, árvore vazia, número zero, caso base ninguem…</span></p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="caixa-dificil" style="font-size: 0.8em; min-height: 7.5em;">
+<p><span class="titulo-dificil">Se o problema for DIFÍCIL</span></p>
+<p>→ quebre em sub-problemas,<br> → resolva cada sub-problema,<br> → combine as soluções</p>
+</div>
+</div></div>
+</div>
+</section>
+<section id="ancestral-com-tipo-sanguíneo-o" class="slide level2">
+<h2>Ancestral com tipo sanguíneo O?</h2>
+<div class="caixa italico">
+<p>Construir uma função que, dada uma pessoa, verifica se ela ou algum de seus ancestrais tem/teve tipo sanguíneo “O”.</p>
+</div>
+<div class="passos">
+<div class="passo">
+<p><span class="rotulo">Passo 1</span></p>
+<p><span class="muted">Nome da função</span></p>
+<p><span class="mono forte vermelho">ancestral-tipo-o</span></p>
+</div>
+<div class="passo">
+<p><span class="rotulo">Passo 2</span></p>
+<p><span class="muted">Tipos</span></p>
+<p>Entrada: <span class="mono forte azul">Pessoa</span><br>Saída: <span class="mono forte azul">Boolean</span></p>
+</div>
+<div class="passo">
+<p><span class="rotulo">Passo 3</span></p>
+<p><span class="muted">Implementação</span></p>
+<p><span class="italico">Definir como a função gera o resultado…</span></p>
+</div>
+</div>
+<p><br></p>
+<div class="center muted italico">
+<p>Aplicamos a estratégia: trivial → resolver, difícil → decompor + resolver + combinar.</p>
+</div>
+</section>
+<section id="exemplos" class="slide level2">
+<h2>Exemplos</h2>
+<svg viewbox="0 0 608 418" style="display:block; margin:0 auto; width:22.86em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore genealógica: Gustavo (1988, tipo A) é filho de Fred (1958, tipo A) e de Eva (1960, tipo O); Eva é filha de Carlos (1926, tipo A) e de Betina (1927, tipo B). Setas sólidas indicam o pai e tracejadas, a mãe.">
+<defs><marker id="a20-f3" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000000"></path></marker></defs>
+<line x1="79" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" marker-end="url(#a20-f3)"></line>
+<line x1="269" y1="84" x2="174" y2="168" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f3)"></line>
+<line x1="529" y1="84" x2="354" y2="333" stroke="#000000" stroke-width="2" marker-end="url(#a20-f3)"></line>
+<line x1="174" y1="249" x2="354" y2="333" stroke="#000000" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a20-f3)"></line>
+<rect x="4" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="79" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Carlos</text>
+<text x="79" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1926</text>
+<text x="79" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="194" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="269" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Betina</text>
+<text x="269" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1927</text>
+<text x="269" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo B</text>
+<rect x="454" y="4" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="529" y="23" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Fred</text>
+<text x="529" y="45" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1958</text>
+<text x="529" y="66" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+<rect x="99" y="169" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="174" y="188" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Eva</text>
+<text x="174" y="210" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1960</text>
+<text x="174" y="231" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo O</text>
+<rect x="279" y="334" width="150" height="80" fill="#5b7a99" stroke="#3e5466" stroke-width="2"></rect>
+<text x="354" y="353" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">Gustavo</text>
+<text x="354" y="375" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffffff" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal">nasc. 1988</text>
+<text x="354" y="396" font-size="16" text-anchor="middle" dominant-baseline="central" fill="#ffff66" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">tipo A</text>
+</svg>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="caixa-verde center mono" style="font-size: 0.75em; padding: 0.7em;">
+<p>ancestral-tipo-o(GUSTAVO) = <span class="verde forte">true</span></p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="caixa-vermelha center mono" style="font-size: 0.75em; padding: 0.7em;">
+<p>ancestral-tipo-o(FRED) = <span class="vermelho forte">false</span></p>
+</div>
+</div></div>
+</section>
+<section id="ancestral-tipo-o-modelo-da-solução" class="slide level2">
+<h2>ancestral-tipo-o: modelo da solução</h2>
+<p><span class="italico">Dada uma pessoa p:</span></p>
+<div class="modelo">
+<div class="fragment caixa-trivial">
+<p><span class="titulo-trivial">Trivial: resolver</span></p>
+<p>Se <span class="campo" style="width: 14em;">p é ninguem</span> , <span class="campo" style="width: 20em;">devolver false</span></p>
+</div>
+<div class="fragment caixa-trivial">
+<p><span class="titulo-trivial">Trivial: resolver</span></p>
+<p>Se <span class="campo" style="width: 14em;">p tem tipo sang. "O"</span> , <span class="campo" style="width: 20em;">devolver true</span></p>
+</div>
+<div class="fragment caixa-dificil">
+<p><span class="titulo-dificil">Difícil: Decompor</span></p>
+<p>Se <span class="campo" style="width: 11em;">Senão</span></p>
+<p><span class="muted" style="margin-left: 2.2em; width: 13em;">combinar soluções:</span> <span class="campo forte" style="min-width: 5em; font-style: normal;">OU</span></p>
+<p><span class="campo recuo" style="width: 24em;">verificar tipo O nos ancestrais por parte de mãe</span> <span class="campo" style="width: 11em;">mãe de p</span></p>
+<p><span class="campo recuo" style="width: 24em;">verificar tipo O nos ancestrais por parte de pai</span> <span class="campo" style="width: 11em;">pai de p</span></p>
+</div>
+</div>
+</section>
+<section id="ancestral-tipo-o" class="slide level2">
+<h2>ancestral-tipo-o</h2>
+<div class="pyret-live" data-height="560" style="font-size: 0.85em;">
+<div style="display: none;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
+<span id="cb5-2"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href=""></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
+<span id="cb5-4"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb5-5"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
+<span id="cb5-6"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
+<span id="cb5-7"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
+<span id="cb5-8"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb5-9"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb5-10"><a href=""></a>    )</span>
+<span id="cb5-11"><a href=""></a><span class="kw">end</span></span>
+<span id="cb5-12"><a href=""></a></span>
+<span id="cb5-13"><a href=""></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>, <span class="dv">1926</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
+<span id="cb5-14"><a href=""></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>, <span class="dv">1927</span>, <span class="st">"B"</span>, ninguem, ninguem)</span>
+<span id="cb5-15"><a href=""></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>, <span class="dv">1960</span>, <span class="st">"O"</span>, <span class="dt">CARLOS</span>, <span class="dt">BETINA</span>)</span>
+<span id="cb5-16"><a href=""></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>, <span class="dv">1958</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
+<span id="cb5-17"><a href=""></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>, <span class="dv">1988</span>, <span class="st">"A"</span>, <span class="dt">FRED</span>, <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> ancestral-tipo-o(p <span class="kw">::</span> <span class="dt">Pessoa</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">```Dada uma pessoa, verifica se esta pessoa ou algum ancestral</span></span>
+<span id="cb6-3"><a href=""></a><span class="st">       tem tipo sanguíneo O.```</span></span>
+<span id="cb6-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">Pessoa</span>) p<span class="kw">:</span></span>
+<span id="cb6-5"><a href=""></a>      <span class="co"># Se p é ninguém, retorna falso</span></span>
+<span id="cb6-6"><a href=""></a>    <span class="kw">|</span> ninguem <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb6-7"><a href=""></a>    <span class="kw">|</span> pessoa(nome, ano, tipo, pai, mae) <span class="kw">=&gt;</span></span>
+<span id="cb6-8"><a href=""></a>      (tipo == <span class="st">"O"</span>) <span class="kw">or</span>          <span class="co"># Se p é tipo O</span></span>
+<span id="cb6-9"><a href=""></a>      ancestral-tipo-o(pai) <span class="kw">or</span>  <span class="co"># ou existe ancestral por parte de pai tipo O</span></span>
+<span id="cb6-10"><a href=""></a>      ancestral-tipo-o(mae)     <span class="co"># ou existe ancestral por parte de mãe tipo O</span></span>
+<span id="cb6-11"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb6-12"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb6-13"><a href=""></a>  ancestral-tipo-o(<span class="dt">GUSTAVO</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb6-14"><a href=""></a>  ancestral-tipo-o(<span class="dt">FRED</span>)    <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb6-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exercício-1" class="slide level2">
+<h2>Exercício 1</h2>
+<div class="exercicio">
+<p><span class="etiqueta">EXERCÍCIO 1</span></p>
+<p>Construa uma função que, dada uma pessoa, conta o número de ancestrais conhecidos.</p>
+<p>Faça 2 versões:</p>
+<ul>
+<li>uma contando a própria pessoa</li>
+<li>uma contando somente seus ancestrais</li>
+</ul>
+</div>
+<div class="dica">
+<p>Resolva em Pyret. Lembre: pense no caso trivial e no caso difícil.</p>
+</div>
+</section></section>
+<section>
+<section id="árvores-binárias" class="title-slide slide level1 center">
+<h1>Árvores Binárias</h1>
+<div class="icone-secao">
+<p>🌲</p>
+</div>
+</section>
+<section id="árvores-conceitos" class="slide level2">
+<h2>Árvores: Conceitos</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:50%;">
+<defs><marker id="a20-n4" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g5" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o6" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="278.8" y1="81.2" x2="201.9" y2="158.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)">
+<svg viewbox="0 0 520 360" style="display:block; margin:0 auto; width:18.57em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore com raiz A no nível 0; B e C no nível 1, filhos de A; D e E (filhos de B) e F (filho de C) no nível 2. A é a raiz e F é uma folha.">
+<text x="2" y="280" font-size="15" text-anchor="start" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal" font-style="italic">nível 2</text>
+<line x1="0" y1="300" x2="500" y2="300" stroke="#bfbfbf" stroke-width="1.5" stroke-dasharray="6 5"></line>
+<text x="2" y="160" font-size="15" text-anchor="start" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal" font-style="italic">nível 1</text>
+<line x1="0" y1="180" x2="500" y2="180" stroke="#bfbfbf" stroke-width="1.5" stroke-dasharray="6 5"></line>
+<text x="2" y="40" font-size="15" text-anchor="start" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal" font-style="italic">nível 0</text>
+<line x1="0" y1="60" x2="500" y2="60" stroke="#bfbfbf" stroke-width="1.5" stroke-dasharray="6 5"></line>
+<line x1="320.3" y1="82.1" x2="389.1" y2="157.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)"></line>
+<line x1="164.9" y1="205.9" x2="125.6" y2="273.2" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)"></line>
+<line x1="195.1" y1="205.9" x2="234.4" y2="273.2" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)"></line>
+<line x1="410.0" y1="210.0" x2="410.0" y2="269.0" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)"></line>
+<circle cx="300" cy="60" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="300" y="60" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">A</text>
+<circle cx="180" cy="180" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="180" y="180" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">B</text>
+<circle cx="410" cy="180" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="410" y="180" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">C</text>
+<circle cx="110" cy="300" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="110" y="300" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">D</text>
+<circle cx="250" cy="300" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="250" y="300" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">E</text>
+<circle cx="410" cy="300" r="30" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="410" y="300" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">F</text>
+<line x1="325" y1="44" x2="358" y2="30" stroke="#c00000" stroke-width="2"></line>
+<text x="362" y="30" font-size="18" text-anchor="start" dominant-baseline="central" fill="#c00000" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">raiz</text>
+<line x1="435" y1="316" x2="460" y2="338" stroke="#c00000" stroke-width="2"></line>
+<text x="464" y="342" font-size="18" text-anchor="start" dominant-baseline="central" fill="#c00000" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">folha</text>
+</svg>
+<div class="caixa-trivial center forte" style="font-size: 0.7em; background: #fff8e1; margin-top: 0.8em;">
+<p>profundidade = maior nível = 2</p>
+</div>
+</line></div><div class="column" style="width:48%;">
+<div style="font-size: 0.8em; line-height: 1.35;">
+<p><span class="alert">Nó</span> Cada elemento da árvore.</p>
+<p><span class="alert">Raiz</span> Nó especial no topo.</p>
+<p><span class="alert">Grau de um nó</span> Número de filhos (sub-árvores).</p>
+<p><span class="alert">Grau da árvore</span> Maior grau entre todos os nós.</p>
+<p><span class="alert">Folha</span> Nó sem filhos.</p>
+<p><span class="alert">Nível</span> Distância do nó até a raiz.</p>
+<p><span class="alert">Profundidade</span> Maior nível da árvore.</p>
+</div>
+</div></div>
+</section>
+<section id="árvore-binária" class="slide level2">
+<h2>Árvore Binária</h2>
+<p>Cada nó tem no máximo dois filhos: esquerda e direita.</p>
+<p><br></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">data</span> <span class="dt">AB</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href=""></a>  <span class="kw">|</span> vazia</span>
+<span id="cb7-3"><a href=""></a>  <span class="kw">|</span> no(</span>
+<span id="cb7-4"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># identificador do nó</span></span>
+<span id="cb7-5"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># conteúdo do nó</span></span>
+<span id="cb7-6"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">AB</span>,      <span class="co"># sub-árvore esquerda</span></span>
+<span id="cb7-7"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">AB</span>       <span class="co"># sub-árvore direita</span></span>
+<span id="cb7-8"><a href=""></a>    )</span>
+<span id="cb7-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="árvore-binária-exemplo" class="slide level2">
+<h2>Árvore Binária — exemplo</h2>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:50%;">
+<svg viewbox="0 0 410 385" style="display:block; margin:0 auto; width:14.64em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore binária: raiz 10 (A); filhos 12 (B) à esquerda e 3 (C) à direita; 3 tem filhos 15 (D) e 20 (E); 15 tem filho esquerdo 1 (F).">
+<defs><marker id="a20-n7" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g8" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o9" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="169.4" y1="47.9" x2="81.4" y2="115.5" stroke="#555555" stroke-width="2" marker-end="url(#a20-n7)"></line>
+<line x1="210.0" y1="48.6" x2="289.3" y2="114.7" stroke="#555555" stroke-width="2" marker-end="url(#a20-n7)"></line>
+<line x1="295.8" y1="153.8" x2="259.7" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n7)"></line>
+<line x1="324.2" y1="153.8" x2="360.3" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n7)"></line>
+<line x1="230.8" y1="253.8" x2="194.7" y2="309.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n7)"></line>
+<circle cx="190" cy="32" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="190" y="32" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<rect x="179" y="61" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="190" y="71" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">A</text>
+<circle cx="60" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="60" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">12</text>
+<rect x="49" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="60" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">B</text>
+<circle cx="310" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="310" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<rect x="299" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="310" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">C</text>
+<circle cx="245" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="245" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+<rect x="234" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="245" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">D</text>
+<circle cx="375" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="375" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+<rect x="364" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="375" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">E</text>
+<circle cx="180" cy="332" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="180" y="332" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">1</text>
+<rect x="169" y="361" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="180" y="371" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">F</text>
+</svg>
+</div><div class="column" style="width:46%;">
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="dt">AB1</span> =</span>
+<span id="cb8-2"><a href=""></a>no(<span class="dv">10</span>, <span class="st">"A"</span>,</span>
+<span id="cb8-3"><a href=""></a>  no(<span class="dv">12</span>, <span class="st">"B"</span>, vazia, vazia),</span>
+<span id="cb8-4"><a href=""></a>  no(<span class="dv">3</span>,  <span class="st">"C"</span>,</span>
+<span id="cb8-5"><a href=""></a>    no(<span class="dv">15</span>, <span class="st">"D"</span>,</span>
+<span id="cb8-6"><a href=""></a>      no(<span class="dv">1</span>, <span class="st">"F"</span>, vazia, vazia),</span>
+<span id="cb8-7"><a href=""></a>      vazia),</span>
+<span id="cb8-8"><a href=""></a>    no(<span class="dv">20</span>, <span class="st">"E"</span>, vazia, vazia)))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section>
+<section id="exercício-2" class="slide level2">
+<h2>Exercício 2</h2>
+<div class="exercicio">
+<p><span class="etiqueta">EXERCÍCIO 2</span></p>
+<p>Construa uma função que, dada uma árvore binária, retorna uma lista com os identificadores (ids) dos nós da árvore.</p>
+</div>
+<div class="dica">
+<p>Resolva em Pyret. Lembre: pense no caso trivial e no caso difícil.</p>
+</div>
+</section></section>
+<section>
+<section id="árvore-binária-de-pesquisa" class="title-slide slide level1 center">
+<h1>Árvore Binária de Pesquisa</h1>
+<div class="icone-secao">
+<p>🔎</p>
+</div>
+</section>
+<section id="árvore-binária-de-pesquisa-abp" class="slide level2">
+<h2>Árvore Binária de Pesquisa (ABP)</h2>
+<p>Uma ABP é uma AB que respeita a invariante:<br> ids da sub-árvore esquerda &lt; id da raiz &lt; ids da sub-árvore direita.</p>
+<p><br></p>
+<div style="font-size: 0.9em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="kw">|</span> vazia</span>
+<span id="cb9-3"><a href=""></a>  <span class="kw">|</span> no(</span>
+<span id="cb9-4"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb9-5"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb9-6"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
+<span id="cb9-7"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
+<span id="cb9-8"><a href=""></a>    )</span>
+<span id="cb9-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="árvore-binária-árvore-binária-de-pesquisa" class="slide level2">
+<h2>Árvore Binária × Árvore Binária de Pesquisa</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="caixa center" style="padding: 0.4em 0.4em 0.8em;">
+<p><span class="forte">(a) Árvore Binária</span></p>
+<p><span class="mono" style="font-size: 0.55em;">&nbsp;</span></p>
+<svg viewbox="0 0 410 385" style="display:block; margin:0 auto; width:14.29em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore binária: raiz 10 (A); filhos 12 (B) à esquerda e 3 (C) à direita; 3 tem filhos 15 (D) e 20 (E); 15 tem filho esquerdo 1 (F).">
+<defs><marker id="a20-n10" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g11" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o12" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="169.4" y1="47.9" x2="81.4" y2="115.5" stroke="#555555" stroke-width="2" marker-end="url(#a20-n10)"></line>
+<line x1="210.0" y1="48.6" x2="289.3" y2="114.7" stroke="#555555" stroke-width="2" marker-end="url(#a20-n10)"></line>
+<line x1="295.8" y1="153.8" x2="259.7" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n10)"></line>
+<line x1="324.2" y1="153.8" x2="360.3" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n10)"></line>
+<line x1="230.8" y1="253.8" x2="194.7" y2="309.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n10)"></line>
+<circle cx="190" cy="32" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="190" y="32" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<rect x="179" y="61" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="190" y="71" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">A</text>
+<circle cx="60" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="60" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">12</text>
+<rect x="49" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="60" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">B</text>
+<circle cx="310" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="310" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<rect x="299" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="310" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">C</text>
+<circle cx="245" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="245" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+<rect x="234" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="245" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">D</text>
+<circle cx="375" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="375" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+<rect x="364" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="375" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">E</text>
+<circle cx="180" cy="332" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="180" y="332" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">1</text>
+<rect x="169" y="361" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="180" y="371" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">F</text>
+</svg>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="caixa-azul center" style="padding: 0.4em 0.4em 0.8em;">
+<p><span class="titulo-azul">(b) Árvore Binária de Pesquisa</span></p>
+<p><span class="mono italico" style="font-size: 0.55em; color: #1f4e79;">invariante: ids da esq &lt; raiz &lt; ids da dir</span></p>
+<svg viewbox="0 0 410 385" style="display:block; margin:0 auto; width:14.29em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore binária de pesquisa: raiz 10 (A); filhos 3 (B) à esquerda e 17 (C) à direita; 17 tem filhos 15 (D) e 20 (E); 15 tem filho esquerdo 11 (F).">
+<defs><marker id="a20-n13" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g14" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o15" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="169.4" y1="47.9" x2="81.4" y2="115.5" stroke="#555555" stroke-width="2" marker-end="url(#a20-n13)"></line>
+<line x1="210.0" y1="48.6" x2="289.3" y2="114.7" stroke="#555555" stroke-width="2" marker-end="url(#a20-n13)"></line>
+<line x1="295.8" y1="153.8" x2="259.7" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n13)"></line>
+<line x1="324.2" y1="153.8" x2="360.3" y2="209.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n13)"></line>
+<line x1="230.8" y1="253.8" x2="194.7" y2="309.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n13)"></line>
+<circle cx="190" cy="32" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="190" y="32" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<rect x="179" y="61" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="190" y="71" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">A</text>
+<circle cx="60" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="60" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<rect x="49" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="60" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">B</text>
+<circle cx="310" cy="132" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="310" y="132" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text>
+<rect x="299" y="161" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="310" y="171" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">C</text>
+<circle cx="245" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="245" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+<rect x="234" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="245" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">D</text>
+<circle cx="375" cy="232" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="375" y="232" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+<rect x="364" y="261" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="375" y="271" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">E</text>
+<circle cx="180" cy="332" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="180" y="332" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">11</text>
+<rect x="169" y="361" width="22" height="20" fill="#f2f2f2" stroke="#bfbfbf" stroke-width="1"></rect>
+<text x="180" y="371" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">F</text>
+</svg>
+</div>
+</div></div>
+</section>
+<section id="busca-em-abp-por-que-é-eficiente" class="slide level2">
+<h2>Busca em ABP — por que é eficiente?</h2>
+<p>Procurando o id = 15 nesta ABP:</p>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:50%;">
+<svg viewbox="0 0 475 310" style="display:block; margin:0 auto; width:16.96em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com raiz 10; 3 (filhos 1 e 7) à esquerda; 17 (filhos 15 e 20) à direita. O caminho da busca por 15 passa por 10, 17 e 15, destacado.">
+<defs><marker id="a20-n16" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g17" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o18" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="216.0" y1="61.2" x2="134.7" y2="133.1" stroke="#bfbfbf" stroke-width="1.5" marker-end="url(#a20-g17)"></line>
+<line x1="264.0" y1="61.2" x2="345.3" y2="133.1" stroke="#bf8f00" stroke-width="3" marker-end="url(#a20-o18)"></line>
+<line x1="93.4" y1="182.3" x2="57.2" y2="241.8" stroke="#bfbfbf" stroke-width="1.5" marker-end="url(#a20-g17)"></line>
+<line x1="125.7" y1="182.9" x2="158.8" y2="241.3" stroke="#bfbfbf" stroke-width="1.5" marker-end="url(#a20-g17)"></line>
+<line x1="353.4" y1="182.3" x2="317.2" y2="241.8" stroke="#bf8f00" stroke-width="3" marker-end="url(#a20-o18)"></line>
+<line x1="385.7" y1="182.9" x2="418.8" y2="241.3" stroke="#bfbfbf" stroke-width="1.5" marker-end="url(#a20-g17)"></line>
+<circle cx="240" cy="40" r="32" fill="#ffe699" stroke="#bf8f00" stroke-width="3"></circle>
+<text x="240" y="40" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<circle cx="110" cy="155" r="32" fill="#fafafa" stroke="#bfbfbf" stroke-width="1.5"></circle>
+<text x="110" y="155" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<circle cx="370" cy="155" r="32" fill="#ffe699" stroke="#bf8f00" stroke-width="3"></circle>
+<text x="370" y="155" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text>
+<circle cx="40" cy="270" r="32" fill="#fafafa" stroke="#bfbfbf" stroke-width="1.5"></circle>
+<text x="40" y="270" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">1</text>
+<circle cx="175" cy="270" r="32" fill="#fafafa" stroke="#bfbfbf" stroke-width="1.5"></circle>
+<text x="175" y="270" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">7</text>
+<circle cx="300" cy="270" r="32" fill="#c6efce" stroke="#548235" stroke-width="3.5"></circle>
+<text x="300" y="270" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+<circle cx="435" cy="270" r="32" fill="#fafafa" stroke="#bfbfbf" stroke-width="1.5"></circle>
+<text x="435" y="270" font-size="22" text-anchor="middle" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+</svg>
+</div><div class="column" style="width:46%;">
+<div class="circulos busca" style="font-size: 0.9em;">
+<ol type="1">
+<li><span class="forte">Visito a raiz: 10</span> <span class="sub">15 &gt; 10 → vou pela direita</span></li>
+<li><span class="forte">Visito o nó: 17</span> <span class="sub">15 &lt; 17 → vou pela esquerda</span></li>
+<li><span class="forte">Visito o nó: 15</span> <span class="sub">15 == 15 → encontrei!</span></li>
+</ol>
+</div>
+</div></div>
+<div class="caixa-verde center italico" style="font-size: 0.7em;">
+<p>3 visitas para encontrar 15, numa árvore com 7 nós. Em uma AB qualquer, no pior caso teríamos que visitar todos os 7.</p>
+</div>
+</section>
+<section id="construindo-uma-abp-a-partir-de-uma-lista" class="slide level2">
+<h2>Construindo uma ABP a partir de uma lista</h2>
+<p>Vamos construir uma ABP a partir de uma lista de pares (identificador, conteúdo).</p>
+<p><span class="muted italico">Antes, precisamos definir o tipo de cada elemento da lista:</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href=""></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href=""></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
+<span id="cb10-3"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<div class="caixa">
+<p><span class="forte muted" style="font-size: 0.8em;">Exemplo: uma lista de 3 pares</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href=""></a><span class="dt">L</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">10</span>, <span class="st">"Alice"</span>),  par(<span class="dv">7</span>, <span class="st">"Bob"</span>),  par(<span class="dv">15</span>, <span class="st">"Cris"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="constroi-abp-contrato-e-exemplos" class="slide level2">
+<h2>constroi-abp: contrato e exemplos</h2>
+<div class="caixa" style="font-size: 0.8em;">
+<p><span class="mono forte vermelho">constroi-abp</span> <span class="mono azul">:: List&lt;Par&gt; -&gt; ABP</span> &nbsp; <span class="muted italico" style="font-size: 0.85em;">Dada uma lista de pares (id, conteúdo), constrói uma ABP.</span></p>
+</div>
+<p><span class="forte" style="font-size: 0.85em;">Exemplos:</span></p>
+<div class="caixa center mono" style="font-size: 0.8em;">
+<p>constroi-abp(empty) &nbsp; → &nbsp; <span class="vermelho forte">vazia</span></p>
+</div>
+<div class="columns">
+<div class="column" style="width:52%;">
+<div class="caixa" style="font-size: 0.85em;">
+<p><span class="forte muted">Entrada — lista L1:</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href=""></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href=""></a>  par(<span class="dv">11</span>, <span class="st">"F"</span>),</span>
+<span id="cb12-3"><a href=""></a>  par(<span class="dv">20</span>, <span class="st">"E"</span>),</span>
+<span id="cb12-4"><a href=""></a>  par(<span class="dv">3</span>,  <span class="st">"B"</span>),</span>
+<span id="cb12-5"><a href=""></a>  par(<span class="dv">15</span>, <span class="st">"D"</span>),</span>
+<span id="cb12-6"><a href=""></a>  par(<span class="dv">17</span>, <span class="st">"C"</span>),</span>
+<span id="cb12-7"><a href=""></a>  par(<span class="dv">10</span>, <span class="st">"A"</span>)</span>
+<span id="cb12-8"><a href=""></a>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:44%;">
+<div class="caixa-azul" style="font-size: 0.8em;">
+<p><span class="titulo-azul">Saída — ABP construída:</span></p>
+<svg viewbox="0 0 360 300" style="display:block; margin:0 auto; width:12.86em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP construída a partir de L1: raiz 10; 3 à esquerda; 17 à direita, com filhos 15 e 20; 15 tem filho esquerdo 11.">
+<defs><marker id="a20-n19" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g20" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o21" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="147.9" y1="43.6" x2="63.0" y2="95.8" stroke="#555555" stroke-width="2" marker-end="url(#a20-n19)"></line>
+<line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n19)"></line>
+<line x1="243.6" y1="130.2" x2="212.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#a20-n19)"></line>
+<line x1="276.4" y1="130.2" x2="308.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#a20-n19)"></line>
+<line x1="178.6" y1="210.2" x2="147.0" y2="249.0" stroke="#555555" stroke-width="2" marker-end="url(#a20-n19)"></line>
+<circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<circle cx="40" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="40" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<circle cx="260" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text>
+<circle cx="195" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="195" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+<circle cx="325" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="325" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+<circle cx="130" cy="270" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="130" y="270" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">11</text>
+</svg>
+</div>
+</div></div>
+</section>
+<section id="constroi-abp-modelo-da-solução" class="slide level2">
+<h2>constroi-abp: modelo da solução</h2>
+<p><span class="italico">Dada uma lista lp de pares:</span></p>
+<div class="modelo">
+<div class="fragment caixa-trivial">
+<p><span class="titulo-trivial">Trivial: resolver</span></p>
+<p>Se <span class="campo" style="width: 14em;">lp é vazia</span> , <span class="campo" style="width: 20em;">devolver a árvore vazia</span></p>
+</div>
+<div class="fragment caixa-dificil">
+<p><span class="titulo-dificil">Difícil: Decompor</span></p>
+<p>Se <span class="campo" style="width: 11em;">lp não é vazia</span></p>
+<p><span class="forte muted" style="margin-left: 1em;">Combinar soluções:</span> <span class="campo" style="font-style: normal;">Insere primeiro elemento de lp na</span></p>
+<p><span class="campo" style="width: 15em; margin-left: 7em;">ABP construída com</span> <span class="campo" style="width: 15em;">O resto de lp</span></p>
+</div>
+</div>
+</section>
+<section id="constroi-abp" class="slide level2">
+<h2>constroi-abp</h2>
+<div style="font-size: 0.85em;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href=""></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
+<span id="cb13-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
+<span id="cb13-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia            <span class="co"># Se lista é vazia, retorna ABP vazia</span></span>
+<span id="cb13-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span>  <span class="co"># Se lista não é vazia</span></span>
+<span id="cb13-6"><a href=""></a>        insere-no(              <span class="co"># Insere um nó com,</span></span>
+<span id="cb13-7"><a href=""></a>                  primeiro.id,     <span class="co"># ID do primeiro nó da lista</span></span>
+<span id="cb13-8"><a href=""></a>                  primeiro.cont,   <span class="co"># Conteúdo do primeiro nó da lista</span></span>
+<span id="cb13-9"><a href=""></a>                  constroi-abp(resto))  <span class="co"># Na árvore com o resto dos pares de lp</span></span>
+<span id="cb13-10"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb13-11"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb13-12"><a href=""></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
+<span id="cb13-13"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="insere-no-contrato-e-exemplos" class="slide level2">
+<h2>insere-no: contrato e exemplos</h2>
+<div class="caixa" style="font-size: 0.8em;">
+<p><span class="mono forte vermelho">insere-no</span> <span class="mono azul">:: Number, String, ABP -&gt; ABP</span></p>
+<p><span class="muted italico" style="font-size: 0.85em;">Insere um nó com id e conteúdo numa ABP, preservando a invariante.</span></p>
+</div>
+<p><span class="forte" style="font-size: 0.85em;">Exemplo: inserir o nó (15, "D") nesta ABP →</span></p>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:44%;">
+<div class="caixa center">
+<p><span class="forte muted" style="font-size: 0.8em;">Antes</span></p>
+<svg viewbox="0 0 360 245" style="display:block; margin:0 auto; width:12.86em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Antes: raiz 10; 3 à esquerda; 17 à direita, com filho direito 20.">
+<defs><marker id="a20-n22" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g23" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o24" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="130.3" y1="46.9" x2="65.5" y2="102.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n22)"></line>
+<line x1="169.7" y1="46.9" x2="234.5" y2="102.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n22)"></line>
+<line x1="270.2" y1="141.1" x2="304.2" y2="188.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n22)"></line>
+<circle cx="150" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="150" y="30" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<circle cx="45" cy="120" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="45" y="120" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<circle cx="255" cy="120" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="255" y="120" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text>
+<circle cx="320" cy="210" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="320" y="210" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+</svg>
+</div>
+</div><div class="column center" style="width:4%;">
+<p><span style="font-size: 1.6em; color: #c00000; font-weight: 700;">→</span></p>
+</div><div class="column" style="width:44%;">
+<div class="caixa-azul center">
+<p><span class="titulo-azul" style="font-size: 0.8em;">Depois</span></p>
+<svg viewbox="0 0 360 245" style="display:block; margin:0 auto; width:12.86em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Depois: raiz 10; 3 à esquerda; 17 à direita, com filhos 15 (novo, destacado) e 20.">
+<defs><marker id="a20-n25" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker><marker id="a20-g26" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"></path></marker><marker id="a20-o27" viewbox="0 0 10 10" refx="10" refy="5" markerwidth="12" markerheight="12" markerunits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"></path></marker></defs>
+<line x1="130.3" y1="46.9" x2="65.5" y2="102.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n25)"></line>
+<line x1="169.7" y1="46.9" x2="234.5" y2="102.4" stroke="#555555" stroke-width="2" marker-end="url(#a20-n25)"></line>
+<line x1="241.4" y1="142.2" x2="214.1" y2="187.0" stroke="#555555" stroke-width="2" marker-end="url(#a20-n25)"></line>
+<line x1="270.2" y1="141.1" x2="304.2" y2="188.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n25)"></line>
+<circle cx="150" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="150" y="30" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text>
+<circle cx="45" cy="120" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="45" y="120" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text>
+<circle cx="255" cy="120" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="255" y="120" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text>
+<circle cx="320" cy="210" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"></circle>
+<text x="320" y="210" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text>
+<circle cx="200" cy="210" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"></circle>
+<text x="200" y="210" font-size="19" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text>
+</svg>
+</div>
+</div></div>
+</section>
+<section id="insere-no-modelo-da-solução" class="slide level2">
+<h2>insere-no: modelo da solução</h2>
+<p><span class="italico">Dados id, cont e abp:</span></p>
+<div class="modelo">
+<div class="fragment caixa-trivial">
+<p><span class="titulo-trivial">Trivial: resolver</span></p>
+<p>Se <span class="campo" style="width: 14em;">abp é vazia</span> , <span class="campo" style="width: 20em;">criar ABP com um único nó (id, cont)</span></p>
+</div>
+<div class="fragment caixa-dificil">
+<p><span class="titulo-dificil">Difícil: Decompor</span></p>
+<p>Se <span class="campo" style="width: 10em;">id &gt; abp.id</span> , o resultado é: <span class="campo mono" style="white-space: nowrap; font-size: 0.85em;">no(abp.id, abp.conteudo, abp.esq, insere-no(id, cont, abp.dir))</span></p>
+<p><span class="nota">→ mantém raiz e esq; insere recursivamente à direita</span></p>
+</div>
+<div class="fragment caixa-dificil">
+<p><span class="titulo-dificil">Difícil: Decompor</span></p>
+<p>Se <span class="campo" style="width: 10em;">id &lt; abp.id</span> , o resultado é: <span class="campo mono" style="white-space: nowrap; font-size: 0.85em;">no(abp.id, abp.conteudo, insere-no(id, cont, abp.esq), abp.dir)</span></p>
+<p><span class="nota">→ mantém raiz e dir; insere recursivamente à esquerda</span></p>
+</div>
+</div>
+</section>
+
+<section id="insere-no" class="slide level2">
+<h2>insere-no</h2>
+<div class="pyret-live" data-height="600" style="font-size: 0.85em;">
+<div style="display: none;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
+<span id="cb14-2"><a href=""></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb14-3"><a href=""></a>  <span class="kw">|</span> vazia</span>
+<span id="cb14-4"><a href=""></a>  <span class="kw">|</span> no(</span>
+<span id="cb14-5"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb14-6"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb14-7"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
+<span id="cb14-8"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
+<span id="cb14-9"><a href=""></a>    )</span>
+<span id="cb14-10"><a href=""></a><span class="kw">end</span></span>
+<span id="cb14-11"><a href=""></a></span>
+<span id="cb14-12"><a href=""></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
+<span id="cb14-13"><a href=""></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
+<span id="cb14-14"><a href=""></a><span class="kw">end</span></span>
+<span id="cb14-15"><a href=""></a></span>
+<span id="cb14-16"><a href=""></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">11</span>, <span class="st">"F"</span>), par(<span class="dv">20</span>, <span class="st">"E"</span>), par(<span class="dv">3</span>, <span class="st">"B"</span>), par(<span class="dv">15</span>, <span class="st">"D"</span>), par(<span class="dv">17</span>, <span class="st">"C"</span>), par(<span class="dv">10</span>, <span class="st">"A"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a><span class="kw">fun</span> insere-no(id <span class="kw">::</span> <span class="dt">Number</span>, c <span class="kw">::</span> <span class="dt">String</span>, abp <span class="kw">::</span> <span class="dt">ABP</span>) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">```Dado um id, um conteúdo e uma ABP, insere um novo nó na ABP.</span></span>
+<span id="cb15-3"><a href=""></a><span class="st">       Assume que não existe o ID na árvore previamente.```</span></span>
+<span id="cb15-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ABP</span>) abp<span class="kw">:</span></span>
+<span id="cb15-5"><a href=""></a>    <span class="kw">|</span> vazia <span class="kw">=&gt;</span> no(id, c, vazia, vazia) <span class="co"># Se ABP vazia, constrói ABP com um nó</span></span>
+<span id="cb15-6"><a href=""></a>    <span class="kw">|</span> no(r-id, r-c, esq, dir) <span class="kw">=&gt;</span></span>
+<span id="cb15-7"><a href=""></a>      <span class="kw">ask:</span></span>
+<span id="cb15-8"><a href=""></a>        <span class="kw">|</span> id &gt; r-id <span class="kw">then:</span></span>
+<span id="cb15-9"><a href=""></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore direita</span></span>
+<span id="cb15-10"><a href=""></a>            esq,                    <span class="co"># subárvore esquerda</span></span>
+<span id="cb15-11"><a href=""></a>            insere-no(id, c, dir))  <span class="co"># nova subárvore direita da ABP</span></span>
+<span id="cb15-12"><a href=""></a>        <span class="kw">|</span> id &lt; r-id <span class="kw">then:</span></span>
+<span id="cb15-13"><a href=""></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore esquerda</span></span>
+<span id="cb15-14"><a href=""></a>            insere-no(id, c, esq),  <span class="co"># nova subárvore esquerda da ABP</span></span>
+<span id="cb15-15"><a href=""></a>            dir)                    <span class="co"># subárvore direita</span></span>
+<span id="cb15-16"><a href=""></a>      <span class="kw">end</span></span>
+<span id="cb15-17"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb15-18"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div style="display: none;">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a><span class="co"># Do slide "constroi-abp": experimente constroi-abp(L1) no painel de interações</span></span>
+<span id="cb16-2"><a href=""></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb16-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
+<span id="cb16-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
+<span id="cb16-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia</span>
+<span id="cb16-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb16-7"><a href=""></a>      insere-no(primeiro.id, primeiro.cont, constroi-abp(resto))</span>
+<span id="cb16-8"><a href=""></a>  <span class="kw">end</span></span>
+<span id="cb16-9"><a href=""></a><span class="kw">where:</span></span>
+<span id="cb16-10"><a href=""></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
+<span id="cb16-11"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="exercício-3" class="slide level2">
+<h2>Exercício 3</h2>
+<div class="exercicio">
+<p><span class="etiqueta">EXERCÍCIO 3</span></p>
+<p>Desenvolva uma função que, dados um identificador e uma ABP, retorna o conteúdo associado a este id na árvore.</p>
+<p>Se não houver nó com este id, retorna “Nó não encontrado”.</p>
+</div>
+<div class="dica">
+<p>Resolva em Pyret. Lembre: pense no caso trivial e no caso difícil.</p>
+</div>
+</section>
+<section id="recapitulando" class="slide level2">
+<h2>Recapitulando</h2>
+<div class="circulos">
+<ol type="1">
+<li><span class="forte">Autorreferência</span> <span class="sub">Tipos que se referem a si mesmos permitem representar estruturas hierárquicas.</span></li>
+<li><span class="forte">Recursão estrutural</span> <span class="sub">Caso trivial (resolva) + caso difícil (decomponha, resolva, combine).</span></li>
+<li><span class="forte">Árvore binária (AB)</span> <span class="sub">Cada nó tem no máximo 2 filhos: esq e dir.</span></li>
+<li><span class="forte">Árvore binária de pesquisa (ABP)</span> <span class="sub">AB com invariante: ids esq &lt; raiz &lt; ids dir → busca eficiente.</span></li>
+</ol>
+</div>
+</section></section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<div style="text-align: center; margin-top: 15vh;">
+<p><span style="font-size: 5em; color: #d10000; font-weight: 700;">?</span></p>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="libs/revealjs/plugin/search/search.js"></script>
+  <script src="libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":false,"theme":"whiteboard","boardmarkerWidth":5},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1024,
+
+        height: 768,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copiada");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copiada");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
