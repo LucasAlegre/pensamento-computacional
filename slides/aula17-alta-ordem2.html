@@ -98,7 +98,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-d13b65daf94d1d3017a784411505c4e4.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-506a5e77889db8d049787d45cce19bfa.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -341,7 +341,8 @@
   <script type="module">
   // Blocos `::: {.pyret-live}` ganham um botão que troca o código estático por um
   // editor Pyret executável (mesma biblioteca usada no site). O editor só é carregado
-  // sob demanda, então a apresentação continua funcionando offline.
+  // sob demanda, então a apresentação continua funcionando offline. Com o editor
+  // aberto, "Tela cheia" põe o bloco em tela cheia sem recarregar o editor.
   // Atributos opcionais no bloco: data-height="420" (altura em px), data-autorun="false".
   const EMBED_URL = "https://cdn.jsdelivr.net/npm/@ironm00n/pyret-embed@0.0.1/dist/pyret.js";
 
@@ -378,24 +379,48 @@
     }
     botao.disabled = false;
     botao.textContent = "✕ Fechar editor";
+    box.querySelector(".pyret-live-tela").hidden = !box.requestFullscreen;
   }
 
   function fechar(box, botao) {
+    if (document.fullscreenElement === box) document.exitFullscreen();
     box.querySelector(".pyret-live-editor")?.remove();
     box.classList.remove("aberto");
+    box.querySelector(".pyret-live-tela").hidden = true;
     botao.textContent = "▶ Executar no Pyret";
   }
 
-  for (const box of document.querySelectorAll(".pyret-live")) {
+  function criarBotao(texto, classe) {
     const botao = document.createElement("button");
     botao.type = "button";
-    botao.className = "pyret-live-btn";
-    botao.textContent = "▶ Executar no Pyret";
+    botao.className = `pyret-live-btn ${classe}`;
+    botao.textContent = texto;
+    return botao;
+  }
+
+  for (const box of document.querySelectorAll(".pyret-live")) {
+    const barra = document.createElement("div");
+    barra.className = "pyret-live-barra";
+    const tela = criarBotao("⤢ Tela cheia", "pyret-live-tela");
+    tela.hidden = true;
+    tela.addEventListener("click", () =>
+      document.fullscreenElement === box ? document.exitFullscreen() : box.requestFullscreen(),
+    );
+    const botao = criarBotao("▶ Executar no Pyret", "pyret-live-executar");
     botao.addEventListener("click", () =>
       box.classList.contains("aberto") ? fechar(box, botao) : abrir(box, botao),
     );
-    box.prepend(botao);
+    barra.append(tela, botao);
+    box.prepend(barra);
   }
+
+  // Esc também sai da tela cheia, então o texto do botão segue o estado do navegador.
+  document.addEventListener("fullscreenchange", () => {
+    for (const tela of document.querySelectorAll(".pyret-live-tela")) {
+      const cheia = document.fullscreenElement === tela.closest(".pyret-live");
+      tela.textContent = cheia ? "⤡ Sair da tela cheia" : "⤢ Tela cheia";
+    }
+  });
   </script>
 </head>
 <body class="quarto-light">
