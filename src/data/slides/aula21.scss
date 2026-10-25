@@ -1,13 +1,11 @@
 /*-- scss:defaults --*/
 
 // Complementos específicos da Aula 20 (Árvores Binárias e de Pesquisa).
-// Cores dos slides originais: caixas "trivial" (amarelo) e "difícil" (laranja),
-// cartões, exercícios e passos numerados.
+// Cores dos slides originais: caixas amarelas, cartões, exercícios e passos
+// numerados. O modelo da solução recursiva fica em pensamento.scss.
 
 $a20-ouro:        #bf8f00;
 $a20-ouro-fundo:  #fff2cc;
-$a20-laranja:     #c65911;
-$a20-laranja-fundo: #fce4d6;
 $a20-cinza-borda: #d9d9d9;
 $a20-azul-escuro: #1f4e79;
 $a20-verde:       #548235;
@@ -30,7 +28,6 @@ $a20-vermelho:    #c00000;
 .reveal .caixa,
 .reveal .caixa-azul,
 .reveal .caixa-trivial,
-.reveal .caixa-dificil,
 .reveal .caixa-verde,
 .reveal .caixa-vermelha {
   padding: 0.35em 0.75em;
@@ -41,7 +38,6 @@ $a20-vermelho:    #c00000;
 }
 .reveal .caixa-azul     { background: #eff5fb; border: 2px solid #2e75b6; }
 .reveal .caixa-trivial  { background: $a20-ouro-fundo; border-color: $a20-ouro; }
-.reveal .caixa-dificil  { background: $a20-laranja-fundo; border-color: $a20-laranja; }
 .reveal .caixa-verde    { background: rgba($a20-verde, 0.12); border: 2px solid $a20-verde; }
 .reveal .caixa-vermelha { background: rgba($a20-vermelho, 0.08); border: 2px solid $a20-vermelho; }
 .reveal .caixa > p:first-child,
@@ -49,8 +45,6 @@ $a20-vermelho:    #c00000;
 .reveal .caixa > p:last-child,
 .reveal .caixa-azul > p:last-child { margin-bottom: 0; }
 
-.reveal .titulo-trivial { color: $a20-ouro; font-weight: 700; }
-.reveal .titulo-dificil { color: $a20-laranja; font-weight: 700; }
 .reveal .titulo-azul    { color: $a20-azul-escuro; font-weight: 700; }
 
 // ── Cartões (slide "Árvores estão por toda parte") ─────────────────────────
@@ -125,51 +119,8 @@ $a20-vermelho:    #c00000;
   font-size: 0.7em;
 }
 
-// ── Modelo da solução (Trivial: resolver / Difícil: decompor) ─────────────
-.reveal .modelo {
-  font-size: 0.8em;
-}
-.reveal .modelo .caixa-trivial,
-.reveal .modelo .caixa-dificil {
-  border: none;
-  border-radius: 0;
-  margin: 0.3em 0;
-  padding: 0.25em 0.6em 0.45em;
-}
-.reveal .modelo p {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.4em;
-  margin: 0.25em 0;
-}
-.reveal .modelo .campo {
-  position: relative;
-  display: inline-block;
-  min-width: 8em;
-  padding: 0.12em 0.6em;
-  background: #fff;
-  border: 1.5px solid $a20-ouro;
-  font-style: italic;
-  text-align: center;
-  line-height: 1.25;
-}
-.reveal .modelo .caixa-dificil .campo { border-color: $a20-laranja; }
-.reveal .modelo .campo.mono { font-style: normal; }
-.reveal .modelo .campo[data-rotulo] { margin-top: 1.1em; }
-.reveal .modelo .campo[data-rotulo]::before {
-  content: attr(data-rotulo);
-  position: absolute;
-  bottom: 100%;
-  right: 0;
-  font-size: 0.72em;
-  font-style: normal;
-  color: #262626;
-  white-space: nowrap;
-}
-.reveal .modelo .recuo { margin-left: 2.2em; }
-.reveal .modelo .nota  { color: #595959; font-style: italic; font-size: 0.85em; margin-left: 2.2em; }
-.reveal .modelo .var   { color: #3a7a10; font-style: italic; }
+// Variáveis citadas no texto (slide oculto insere-nó)
+.reveal .var { color: #3a7a10; font-style: italic; }
 
 // ── Listas numeradas com círculos (Recapitulando, busca em ABP) ───────────
 .reveal .circulos > ol {
@@ -204,3 +155,93 @@ $a20-vermelho:    #c00000;
 .reveal .circulos > ol .sub { display: block; color: #595959; font-size: 0.8em; }
 .reveal .circulos.busca > ol .sub { font-family: "Source Code Pro", Consolas, monospace; color: $a20-ouro; }
 .reveal .circulos.busca > ol > li:last-child .sub { color: $a20-verde; }
+
+// ── Passo a passo da recursão de constroi-abp ──────────────────────────────
+// Pilha de chamadas à esquerda, ABP à direita e uma legenda por passo, trocadas
+// por fragmentos. Cores do modelo recursivo: azul = decompor, verde = trivial,
+// roxo = combinar.
+$passo-rec-cores: (decompor: #2e75b6, trivial: #3a7a10, combinar: #7030a0);
+
+.reveal .passo-rec {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 0.6em 1.2em;
+  font-size: 0.7em;
+  line-height: 1.3;
+
+  code { color: #23373b; background: none; }
+  .prim { color: #7030a0; }
+  .resto { color: #2e75b6; }
+}
+.reveal .passo-rec-rotulo {
+  margin: 0 0 0.4em;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2e75b6;
+}
+.reveal .passo-rec-linha {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 6.2em;
+  align-items: center;
+  margin: 0.3em 0 0.3em calc(var(--nivel) * 0.9em);
+  padding: 0.25em 0.6em;
+  border-left: 3px solid #2e75b6;
+  border-radius: 0 3px 3px 0;
+  background: rgba(#2e75b6, 0.06);
+}
+.reveal .passo-rec-linha.trivial {
+  border-left-color: #3a7a10;
+  background: rgba(#3a7a10, 0.06);
+}
+// Estado da chamada: "insere x …" (esperando) dá lugar a "insere x ✓"
+.reveal .passo-rec-estado {
+  display: grid;
+  justify-items: end;
+  color: #8c979c;
+  font-style: italic;
+  white-space: nowrap;
+
+  > * { grid-area: 1 / 1; }
+  .feito { color: #7030a0; font-style: normal; font-weight: 600; }
+}
+.reveal .passo-rec-linha.trivial .feito { color: #3a7a10; }
+.reveal .passo-rec-arvore .r-stack > * { width: 100%; }
+.reveal .passo-rec-arvore svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.reveal .passo-rec-espera {
+  color: #8c979c;
+  font-style: italic;
+  text-align: center;
+}
+.reveal .passo-rec-legenda { grid-column: 1 / -1; }
+// Legendas presas ao topo (o .r-stack centraliza), para a caixa não pular entre passos
+.reveal .passo-rec-legenda > * { width: 100%; margin: 0; }
+.reveal .passo-rec-nota {
+  display: grid;
+  grid-template-columns: 6em minmax(0, 1fr);
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.5em 0.9em;
+  border-left: 4px solid;
+  border-radius: 0 3px 3px 0;
+  font-size: 1.15em;
+
+  .tipo {
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+@each $tipo, $cor in $passo-rec-cores {
+  .reveal .passo-rec-nota.#{$tipo} {
+    border-left-color: $cor;
+    background: rgba($cor, 0.06);
+    .tipo { color: $cor; }
+  }
+}

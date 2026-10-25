@@ -7,7 +7,7 @@ institute: |
   Universidade Federal do Rio Grande do Sul  <br>
   Instituto de Informática <br> Departamento de Informática Teórica
   <br><br><br>
-  <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides de Fernando Kavinsky, baseados no material da Profa. Leila Ribeiro.</span>
+  <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides baseados no material da Profa. Leila Ribeiro.</span>
 date: ""
 lang: pt-BR
 
@@ -112,11 +112,11 @@ format:
 
 :::: {.columns style="display: flex; align-items: center;"}
 ::: {.column width="65%"}
-- Cada nó da árvore representa os dados de uma pessoa.
+- Cada **nó** da árvore representa os dados de uma pessoa.
 
-- Cada pessoa tem um pai e uma mãe.
+- Cada **pessoa** tem um **pai** e uma **mãe**.
 
-- O pai e/ou a mãe podem não ser conhecidos.
+- O pai e/ou a mãe **podem não ser conhecidos**.
 :::
 ::: {.column width="31%" .icone-secao}
 [🧬]{style="font-size: 1.4em;"}
@@ -165,7 +165,7 @@ format:
 
 ## Como representar essa informação?
 
-Cada nó da árvore contém as informações de uma pessoa: nome, ano, tipo sanguíneo, e os pais.
+- Cada nó da árvore contém as informações de uma pessoa: **nome**, **ano**, **tipo sanguíneo**, e os **pais**.
 
 <br>
 
@@ -283,34 +283,29 @@ GUSTAVO = pessoa("Gustavo",
 
 ## Estrutura de Programas Recursivos
 
-Uma forma abstrata de descrever [repetição]{.alert} em processos.
+- Uma forma abstrata de descrever [repetição]{.alert} em processos.
 
-Ênfase em [quebrar (decompor)]{.alert} o problema em problemas menores até que a solução seja trivial, e então montar a solução através da [combinação]{.alert} das soluções menores.
+- Ênfase em [quebrar (decompor)]{.alert} o problema em problemas menores até que a solução seja trivial, e então montar a solução através da [combinação]{.alert} das soluções menores.
 
-::: {.caixa}
 [Ideia básica]{.alert}
 
-:::: {.columns}
-::: {.column width="48%"}
-::: {.caixa-trivial style="font-size: 0.8em; min-height: 7.5em;"}
-[Se o problema for TRIVIAL]{.titulo-trivial}
+::: {.modelo-recursivo}
+::: {.trivial}
+se [o problema é trivial]{.cond} [resolva-o diretamente]{.res}
+:::
 
-→ resolva-o diretamente
+::: {.dificil}
+se [o problema é difícil]{.cond}
 
-[Exemplos: lista vazia, árvore vazia, número zero, caso base ninguem…]{.muted .italico style="font-size: 0.85em;"}
-:::
-:::
-::: {.column width="48%"}
-::: {.caixa-dificil style="font-size: 0.8em; min-height: 7.5em;"}
-[Se o problema for DIFÍCIL]{.titulo-dificil}
+[subproblema 1]{.sub} [solução do subproblema 1]{.sol}
 
-→ quebre em sub-problemas,<br>
-→ resolva cada sub-problema,<br>
-→ combine as soluções
+[subproblema 2]{.sub} [solução do subproblema 2]{.sol}
+
+[combinar [1]{.n} e [2]{.n}]{.comb}
 :::
 :::
-::::
-:::
+
+[Exemplos de problemas triviais: lista vazia, árvore vazia, número zero, caso base ninguem…]{.muted .italico style="font-size: 0.7em;"}
 
 ## Ancestral com tipo sanguíneo O?
 
@@ -397,29 +392,23 @@ ancestral-tipo-o(FRED) = [false]{.vermelho .forte}
 
 [Dada uma pessoa p:]{.italico}
 
-::: {.modelo}
-::: {.fragment .caixa-trivial}
-[Trivial: resolver]{.titulo-trivial}
-
-Se [p é ninguem]{.campo style="width: 14em;"} , [devolver false]{.campo style="width: 20em;"}
+::: {.modelo-recursivo}
+::: {.fragment .trivial}
+se [p é ninguem]{.cond} [devolver false]{.res}
 :::
 
-::: {.fragment .caixa-trivial}
-[Trivial: resolver]{.titulo-trivial}
-
-Se [p tem tipo sang. \"O\"]{.campo style="width: 14em;"} , [devolver true]{.campo style="width: 20em;"}
+::: {.fragment .trivial}
+se [p tem tipo sang. \"O\"]{.cond} [devolver true]{.res}
 :::
 
-::: {.fragment .caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
+::: {.fragment .dificil}
+senão
 
-Se [Senão]{.campo style="width: 11em;"}
+[mãe de p]{.sub} [verificar tipo O nos ancestrais por parte de mãe]{.sol}
 
-[combinar soluções:]{.muted style="margin-left: 2.2em; width: 13em;"} [OU]{.campo .forte style="min-width: 5em; font-style: normal;"}
+[pai de p]{.sub} [verificar tipo O nos ancestrais por parte de pai]{.sol}
 
-[verificar tipo O nos ancestrais por parte de mãe]{.campo .recuo style="width: 24em;"} [mãe de p]{.campo style="width: 11em;"}
-
-[verificar tipo O nos ancestrais por parte de pai]{.campo .recuo style="width: 24em;"} [pai de p]{.campo style="width: 11em;"}
+[[1]{.n} [OU]{.forte} [2]{.n}]{.comb}
 :::
 :::
 
@@ -494,9 +483,9 @@ Resolva em Pyret. Lembre: pense no caso trivial e no caso difícil.
 :::: {.columns style="display: flex; align-items: center;"}
 ::: {.column width="50%"}
 ```{=html}
+<svg viewBox="0 0 520 360" style="display:block; margin:0 auto; width:18.57em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore com raiz A no nível 0; B e C no nível 1, filhos de A; D e E (filhos de B) e F (filho de C) no nível 2. A é a raiz e F é uma folha.">
 <defs><marker id="a20-n4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="a20-g5" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bfbfbf"/></marker><marker id="a20-o6" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#bf8f00"/></marker></defs>
 <line x1="278.8" y1="81.2" x2="201.9" y2="158.1" stroke="#555555" stroke-width="2" marker-end="url(#a20-n4)"/>
-<svg viewBox="0 0 520 360" style="display:block; margin:0 auto; width:18.57em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore com raiz A no nível 0; B e C no nível 1, filhos de A; D e E (filhos de B) e F (filho de C) no nível 2. A é a raiz e F é uma folha.">
 <text x="2" y="280" font-size="15" text-anchor="start" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal" font-style="italic">nível 2</text>
 <line x1="0" y1="300" x2="500" y2="300" stroke="#bfbfbf" stroke-width="1.5" stroke-dasharray="6 5"/>
 <text x="2" y="160" font-size="15" text-anchor="start" dominant-baseline="central" fill="#595959" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="normal" font-style="italic">nível 1</text>
@@ -880,21 +869,17 @@ L1 = [list:
 
 [Dada uma lista lp de pares:]{.italico}
 
-::: {.modelo}
-::: {.fragment .caixa-trivial}
-[Trivial: resolver]{.titulo-trivial}
-
-Se [lp é vazia]{.campo style="width: 14em;"} , [devolver a árvore vazia]{.campo style="width: 20em;"}
+::: {.modelo-recursivo}
+::: {.fragment .trivial}
+se [lp é vazia]{.cond} [devolver a árvore vazia]{.res}
 :::
 
-::: {.fragment .caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
+::: {.fragment .dificil}
+se [lp não é vazia]{.cond}
 
-Se [lp não é vazia]{.campo style="width: 11em;"}
+[o resto de lp]{.sub} [ABP construída com o resto de lp]{.sol}
 
-[Combinar soluções:]{.forte .muted style="margin-left: 1em;"} [Insere primeiro elemento de lp na]{.campo style="font-style: normal;"}
-
-[ABP construída com]{.campo style="width: 15em; margin-left: 7em;"} [O resto de lp]{.campo style="width: 15em;"}
+[inserir o primeiro elemento de lp na ABP [1]{.n}]{.comb}
 :::
 :::
 
@@ -917,6 +902,51 @@ where:
 end
 ```
 :::
+
+## constroi-abp: passo a passo
+
+```{=html}
+<div class="passo-rec">
+<div class="passo-rec-pilha">
+<p class="passo-rec-rotulo">chamadas recursivas</p>
+<div class="passo-rec-linha" style="--nivel: 0;"><code>constroi-abp([<b class="prim">11</b>, <span class="resto">20, 3, 15, 17, 10</span>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="12">insere 11 …</span><span class="fragment fade-in feito" data-fragment-index="12">insere 11 ✓</span></span></div>
+<div class="fragment" data-fragment-index="1"><div class="fragment semi-fade-out" data-fragment-index="12"><div class="passo-rec-linha" style="--nivel: 1;"><code>constroi-abp([<b class="prim">20</b>, <span class="resto">3, 15, 17, 10</span>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="11">insere 20 …</span><span class="fragment fade-in feito" data-fragment-index="11">insere 20 ✓</span></span></div></div></div>
+<div class="fragment" data-fragment-index="2"><div class="fragment semi-fade-out" data-fragment-index="11"><div class="passo-rec-linha" style="--nivel: 2;"><code>constroi-abp([<b class="prim">3</b>, <span class="resto">15, 17, 10</span>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="10">insere 3 …</span><span class="fragment fade-in feito" data-fragment-index="10">insere 3 ✓</span></span></div></div></div>
+<div class="fragment" data-fragment-index="3"><div class="fragment semi-fade-out" data-fragment-index="10"><div class="passo-rec-linha" style="--nivel: 3;"><code>constroi-abp([<b class="prim">15</b>, <span class="resto">17, 10</span>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="9">insere 15 …</span><span class="fragment fade-in feito" data-fragment-index="9">insere 15 ✓</span></span></div></div></div>
+<div class="fragment" data-fragment-index="4"><div class="fragment semi-fade-out" data-fragment-index="9"><div class="passo-rec-linha" style="--nivel: 4;"><code>constroi-abp([<b class="prim">17</b>, <span class="resto">10</span>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="8">insere 17 …</span><span class="fragment fade-in feito" data-fragment-index="8">insere 17 ✓</span></span></div></div></div>
+<div class="fragment" data-fragment-index="5"><div class="fragment semi-fade-out" data-fragment-index="8"><div class="passo-rec-linha" style="--nivel: 5;"><code>constroi-abp([<b class="prim">10</b>])</code><span class="passo-rec-estado"><span class="fragment fade-out" data-fragment-index="7">insere 10 …</span><span class="fragment fade-in feito" data-fragment-index="7">insere 10 ✓</span></span></div></div></div>
+<div class="fragment" data-fragment-index="6"><div class="fragment semi-fade-out" data-fragment-index="7"><div class="passo-rec-linha trivial" style="--nivel: 6;"><code>constroi-abp([])</code><span class="passo-rec-estado"><span class="feito">vazia</span></span></div></div></div>
+</div>
+<div class="passo-rec-arvore">
+<p class="passo-rec-rotulo">ABP devolvida</p>
+<div class="r-stack">
+<p class="fragment fade-out passo-rec-espera" data-fragment-index="6">Ainda não há ABP: cada chamada espera o resultado de constroi-abp(resto).</p>
+<div class="fragment fade-in-then-out" data-fragment-index="6"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP vazia."><defs><marker id="pp-s0" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v0" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><circle cx="170" cy="30" r="26" fill="none" stroke="#3a7a10" stroke-width="2" stroke-dasharray="5 4"/><text x="170" y="30" font-size="13" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-style="italic">vazia</text></svg></div>
+<div class="fragment fade-in-then-out" data-fragment-index="7"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10; 10 acabou de ser inserido."><defs><marker id="pp-s1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><circle cx="170" cy="30" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text></svg></div>
+<div class="fragment fade-in-then-out" data-fragment-index="8"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10, 17; 17 acabou de ser inserido."><defs><marker id="pp-s2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#548235" stroke-width="2.5" marker-end="url(#pp-v2)"/><circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text><circle cx="260" cy="110" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text></svg></div>
+<div class="fragment fade-in-then-out" data-fragment-index="9"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10, 17, 15; 15 acabou de ser inserido."><defs><marker id="pp-s3" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v3" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#555555" stroke-width="2" marker-end="url(#pp-s3)"/><line x1="243.6" y1="130.2" x2="212.0" y2="169.0" stroke="#548235" stroke-width="2.5" marker-end="url(#pp-v3)"/><circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text><circle cx="260" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text><circle cx="195" cy="190" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="195" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text></svg></div>
+<div class="fragment fade-in-then-out" data-fragment-index="10"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10, 17, 15, 3; 3 acabou de ser inserido."><defs><marker id="pp-s4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v4" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#555555" stroke-width="2" marker-end="url(#pp-s4)"/><line x1="243.6" y1="130.2" x2="212.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#pp-s4)"/><line x1="147.9" y1="43.6" x2="63.0" y2="95.8" stroke="#548235" stroke-width="2.5" marker-end="url(#pp-v4)"/><circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text><circle cx="260" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text><circle cx="195" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="195" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text><circle cx="40" cy="110" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="40" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text></svg></div>
+<div class="fragment fade-in-then-out" data-fragment-index="11"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10, 17, 15, 3, 20; 20 acabou de ser inserido."><defs><marker id="pp-s5" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v5" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#555555" stroke-width="2" marker-end="url(#pp-s5)"/><line x1="243.6" y1="130.2" x2="212.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#pp-s5)"/><line x1="147.9" y1="43.6" x2="63.0" y2="95.8" stroke="#555555" stroke-width="2" marker-end="url(#pp-s5)"/><line x1="276.4" y1="130.2" x2="308.0" y2="169.0" stroke="#548235" stroke-width="2.5" marker-end="url(#pp-v5)"/><circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text><circle cx="260" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text><circle cx="195" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="195" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text><circle cx="40" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="40" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text><circle cx="325" cy="190" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="325" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text></svg></div>
+<div class="fragment fade-in" data-fragment-index="12"><svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ABP com 10, 17, 15, 3, 20, 11; 11 acabou de ser inserido."><defs><marker id="pp-s6" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555555"/></marker><marker id="pp-v6" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#548235"/></marker></defs><line x1="189.4" y1="47.3" x2="239.8" y2="92.1" stroke="#555555" stroke-width="2" marker-end="url(#pp-s6)"/><line x1="243.6" y1="130.2" x2="212.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#pp-s6)"/><line x1="147.9" y1="43.6" x2="63.0" y2="95.8" stroke="#555555" stroke-width="2" marker-end="url(#pp-s6)"/><line x1="276.4" y1="130.2" x2="308.0" y2="169.0" stroke="#555555" stroke-width="2" marker-end="url(#pp-s6)"/><line x1="178.6" y1="210.2" x2="147.0" y2="249.0" stroke="#548235" stroke-width="2.5" marker-end="url(#pp-v6)"/><circle cx="170" cy="30" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="170" y="30" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">10</text><circle cx="260" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="260" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">17</text><circle cx="195" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="195" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">15</text><circle cx="40" cy="110" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="40" y="110" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">3</text><circle cx="325" cy="190" r="26" fill="#ffd966" stroke="#bf8f00" stroke-width="2"/><text x="325" y="190" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">20</text><circle cx="130" cy="270" r="26" fill="#c6efce" stroke="#548235" stroke-width="3.5"/><text x="130" y="270" font-size="20" text-anchor="middle" dominant-baseline="central" fill="#3a7a10" font-family="'Lexend', 'Gill Sans Nova', Arial, sans-serif" font-weight="bold">11</text></svg></div>
+</div>
+</div>
+<div class="passo-rec-legenda r-stack">
+<div class="fragment fade-out passo-rec-nota decompor" data-fragment-index="1"><span class="tipo">início</span><span>Chamada inicial <code>constroi-abp(L1)</code>. Os pares aparecem só pelo id.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota decompor" data-fragment-index="1"><span class="tipo">decompor</span><span>[11, 20, 3, 15, 17, 10] não é vazia: o <b class="prim">11</b> fica esperando e a função é chamada para o resto.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota decompor" data-fragment-index="2"><span class="tipo">decompor</span><span>[20, 3, 15, 17, 10] não é vazia: o <b class="prim">20</b> fica esperando e a função é chamada para o resto.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota decompor" data-fragment-index="3"><span class="tipo">decompor</span><span>[3, 15, 17, 10] não é vazia: o <b class="prim">3</b> fica esperando e a função é chamada para o resto.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota decompor" data-fragment-index="4"><span class="tipo">decompor</span><span>[15, 17, 10] não é vazia: o <b class="prim">15</b> fica esperando e a função é chamada para o resto.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota decompor" data-fragment-index="5"><span class="tipo">decompor</span><span>[17, 10] não é vazia: o <b class="prim">17</b> fica esperando e a função é chamada para o resto.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota trivial" data-fragment-index="6"><span class="tipo">trivial</span><span>[10] não é vazia: o <b class="prim">10</b> fica esperando e a função é chamada para o resto. Chegamos à lista vazia: caso trivial, devolve <b>vazia</b>.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota combinar" data-fragment-index="7"><span class="tipo">combinar</span><span><code>insere-no(10, "A", …)</code>: 10 vira a raiz.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota combinar" data-fragment-index="8"><span class="tipo">combinar</span><span><code>insere-no(17, "C", …)</code>: 17 > 10 → direita.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota combinar" data-fragment-index="9"><span class="tipo">combinar</span><span><code>insere-no(15, "D", …)</code>: 15 > 10 → direita; 15 < 17 → esquerda.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota combinar" data-fragment-index="10"><span class="tipo">combinar</span><span><code>insere-no(3, "B", …)</code>: 3 < 10 → esquerda.</span></div>
+<div class="fragment fade-in-then-out passo-rec-nota combinar" data-fragment-index="11"><span class="tipo">combinar</span><span><code>insere-no(20, "E", …)</code>: 20 > 10 → direita; 20 > 17 → direita.</span></div>
+<div class="fragment fade-in passo-rec-nota combinar" data-fragment-index="12"><span class="tipo">combinar</span><span><code>insere-no(11, "F", …)</code>: 11 > 10 → direita; 11 < 17 → esquerda; 11 < 15 → esquerda. Pronto: esta é a ABP devolvida por <code>constroi-abp(L1)</code>.</span></div>
+</div>
+</div>
+```
 
 ## insere-no: contrato e exemplos
 
@@ -985,27 +1015,25 @@ end
 
 [Dados id, cont e abp:]{.italico}
 
-::: {.modelo}
-::: {.fragment .caixa-trivial}
-[Trivial: resolver]{.titulo-trivial}
-
-Se [abp é vazia]{.campo style="width: 14em;"} , [criar ABP com um único nó (id, cont)]{.campo style="width: 20em;"}
+::: {.modelo-recursivo style="--colunas: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.6fr);"}
+::: {.fragment .trivial}
+se [abp é vazia]{.cond} [criar ABP com um único nó (id, cont)]{.res}
 :::
 
-::: {.fragment .caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
+::: {.fragment .dificil}
+se [id > abp.id]{.cond}
 
-Se [id > abp.id]{.campo style="width: 10em;"} , o resultado é: [no(abp.id, abp.conteudo, abp.esq, insere-no(id, cont, abp.dir))]{.campo .mono style="white-space: nowrap; font-size: 0.85em;"}
+[sub-árvore direita: abp.dir]{.sub} [inserir (id, cont) em abp.dir]{.sol}
 
-[→ mantém raiz e esq; insere recursivamente à direita]{.nota}
+[no(abp.id, abp.conteudo, abp.esq, [1]{.n})]{.comb .mono style="font-size: 0.88em;"}
 :::
 
-::: {.fragment .caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
+::: {.fragment .dificil}
+se [id < abp.id]{.cond}
 
-Se [id < abp.id]{.campo style="width: 10em;"} , o resultado é: [no(abp.id, abp.conteudo, insere-no(id, cont, abp.esq), abp.dir)]{.campo .mono style="white-space: nowrap; font-size: 0.85em;"}
+[sub-árvore esquerda: abp.esq]{.sub} [inserir (id, cont) em abp.esq]{.sol}
 
-[→ mantém raiz e dir; insere recursivamente à esquerda]{.nota}
+[no(abp.id, abp.conteudo, [1]{.n}, abp.dir)]{.comb .mono style="font-size: 0.88em;"}
 :::
 :::
 
@@ -1013,27 +1041,21 @@ Se [id < abp.id]{.campo style="width: 10em;"} , o resultado é: [no(abp.id, abp.
 
 Dados [id]{.var}, [cont]{.var} e [abp]{.var}
 
-::: {.modelo style="font-size: 0.74em;"}
-::: {.caixa-trivial}
-[Trivial: resolver]{.titulo-trivial}
-
-Se [[abp]{.var} é vazia]{.campo data-rotulo="problema trivial?" style="width: 15em;"} , [montar uma ABP com apenas um nó com [id]{.var} e [cont]{.var}]{.campo data-rotulo="solução do problema trivial" style="width: 25em;"}
+::: {.modelo-recursivo}
+::: {.trivial}
+se [[abp]{.var} é vazia]{.cond} [montar uma ABP com apenas um nó com [id]{.var} e [cont]{.var}]{.res}
 :::
 
-::: {.caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
+::: {.dificil}
+se [[id]{.var} é maior que o id da raiz de [abp]{.var}]{.cond}
 
-Se [[id]{.var} é maior que o id da raiz de [abp]{.var}]{.campo data-rotulo="problema difícil?" style="width: 18em;"} ,
+[sub-árvore direita de [abp]{.var}]{.sub} [ABP construída inserindo [id]{.var}, [cont]{.var} na sub-árvore direita]{.sol}
 
-[montar uma ABP com a raiz e sub-árvore esquerda de [abp]{.var}, tendo como sub-árvore direita:]{.campo data-rotulo="combinar soluções" style="width: 30em; margin-left: 5em;"}
-
-[ABP construída inserindo [id]{.var}, [cont]{.var} na]{.campo data-rotulo="solução do problema menor 1" style="width: 18em; margin-left: 7em;"} [sub-árvore direita de [abp]{.var}]{.campo data-rotulo="gerar problema menor 1" style="width: 15em;"}
+[montar uma ABP com a raiz e a sub-árvore esquerda de [abp]{.var}, tendo [1]{.n} como sub-árvore direita]{.comb}
 :::
 
-::: {.caixa-dificil}
-[Difícil: Decompor]{.titulo-dificil}
-
-Se [[id]{.var} é menor que o id da raiz de [abp]{.var}]{.campo style="width: 18em;"} , …..
+::: {.dificil}
+se [[id]{.var} é menor que o id da raiz de [abp]{.var}]{.cond} …
 :::
 :::
 

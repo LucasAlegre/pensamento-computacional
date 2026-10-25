@@ -75,6 +75,171 @@ $pc-padroes: (filtrar: $pc-azul, mapear: $pc-roxo, juntar: $pc-vermelho, combina
   text-align: center;
 }
 
+// ── Modelo da solução recursiva (trivial / decompor, resolver, combinar) ───
+// Cada caso é um div .trivial ou .dificil. O rótulo do caso, os títulos das
+// colunas, as setas e a numeração das soluções vêm do CSS. Exemplo:
+//
+//   ::: {.modelo-recursivo}
+//   ::: {.trivial}
+//   se [p é ninguem]{.cond} [devolver false]{.res}
+//   :::
+//
+//   ::: {.dificil}
+//   senão
+//
+//   [mãe de p]{.sub} [verificar os ancestrais da mãe]{.sol}
+//
+//   [pai de p]{.sub} [verificar os ancestrais do pai]{.sol}
+//
+//   [[1]{.n} OU [2]{.n}]{.comb}
+//   :::
+//   :::
+//
+// No caso difícil, o primeiro parágrafo é a condição. Cada parágrafo seguinte
+// é um subproblema (.sub) com a sua solução (.sol, numerada). O último junta as
+// soluções (.comb), citando-as com [1]{.n}. Suporta até 3 subproblemas.
+// Para mudar a largura das colunas decompor/resolver/combinar num slide:
+//   ::: {.modelo-recursivo style="--colunas: 1fr 1fr 1.6fr;"}
+$pc-casos: (trivial: $pc-verde, dificil: #2e75b6);
+$pc-seta: 1.6em;
+$pc-seta-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 10'%3E%3Cpath d='M1 5h17M13.5 1 18.5 5l-5 4' fill='none' stroke='%238c979c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+.reveal .modelo-recursivo {
+  font-size: 0.8em;
+  line-height: 1.25;
+
+  .trivial,
+  .dificil {
+    display: grid;
+    grid-template-columns: 4.4em var(--colunas, minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1.15fr));
+    column-gap: $pc-seta;
+    row-gap: 0.4em;
+    margin: 0.45em 0;
+    padding: 0.5em 0.9em;
+    border-left: 4px solid;
+    border-radius: 0 3px 3px 0;
+    counter-reset: sol;
+  }
+  .trivial::before,
+  .dificil::before {
+    grid-area: 1 / 1;
+    align-self: center;
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .trivial::before { content: "trivial"; }
+  .dificil::before { content: "difícil"; }
+
+  // Condição: se [cond] → [res]
+  .trivial > p:first-child,
+  .dificil > p:first-child {
+    grid-area: 1 / 2 / auto / -1;
+    display: grid;
+    grid-template-columns: 2.6em minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 0.6em;
+    align-items: center;
+    margin: 0;
+    color: #666;
+    text-align: right;
+  }
+
+  // Passos do caso difícil: uma linha por subproblema, combinação à direita
+  .dificil > p:not(:first-child) { display: contents; }
+  .dificil > p:nth-child(2)::before,
+  .dificil > p:nth-child(2)::after,
+  .dificil > p:has(> .comb)::before {
+    grid-row: 2;
+    align-self: end;
+    margin-top: 0.2em;
+    font-size: 0.6em;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2e75b6;
+  }
+  .dificil > p:nth-child(2)::before { content: "decompor"; grid-column: 2; }
+  .dificil > p:nth-child(2)::after  { content: "resolver (recursão)"; grid-column: 3; }
+  .dificil > p:has(> .comb)::before { content: "combinar"; grid-column: 4; color: $pc-roxo; }
+
+  .cond, .res, .sub, .sol, .comb {
+    position: relative;
+    align-content: center;
+    padding: 0.3em 0.6em;
+    color: #23373b;
+    background: #fff;
+    border: 1.5px solid;
+    border-radius: 4px;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .res {
+    margin-left: $pc-seta - 0.6em;
+    color: $pc-verde;
+    border-color: $pc-verde;
+    font-weight: 600;
+  }
+  .sub  { grid-column: 2; }
+  .sol  { grid-column: 3; counter-increment: sol; }
+  .comb {
+    grid-column: 4;
+    grid-row: 3 / span 1;
+    border-color: $pc-roxo;
+    background: mix($pc-roxo, #fff, 5%);
+  }
+  .dificil:has(> p:nth-child(4)) .comb { grid-row: 3 / span 2; }
+  .dificil:has(> p:nth-child(5)) .comb { grid-row: 3 / span 3; }
+
+  .res::before,
+  .sub::after,
+  .sol::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: $pc-seta;
+    height: 0.8em;
+    transform: translateY(-50%);
+    background: $pc-seta-svg center / 1.1em auto no-repeat;
+  }
+  .res::before { right: 100%; }
+  .sub::after,
+  .sol::after { left: 100%; }
+
+  // Número da solução de cada subproblema, citado na combinação
+  .sol::before,
+  .n {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border-radius: 50%;
+    background: #2e75b6;
+    color: #fff;
+    font-family: "Lexend", sans-serif;
+    font-size: 0.68em;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: 0.15em;
+  }
+  .sol::before {
+    content: counter(sol);
+    position: absolute;
+    top: -0.7em;
+    left: -0.7em;
+  }
+}
+
+@each $caso, $cor in $pc-casos {
+  .reveal .modelo-recursivo .#{$caso} {
+    border-left-color: $cor;
+    background: rgba($cor, 0.06);
+    &::before { color: $cor; }
+    .cond, .sub, .sol { border-color: rgba($cor, 0.5); }
+  }
+}
+
 // ── Código Pyret: cores do tema Pyret Light (ver pyret-highlight.html) ──────
 // Valores de semanticTokenColors em
 // code.pyret.org/pyret-light-theme/themes/pyret-light-color-theme.json
@@ -110,24 +275,49 @@ $pyret-light: (
 .reveal .pyret-live {
   position: relative;
 }
-.reveal .pyret-live-btn {
+.reveal .pyret-live-barra {
   position: absolute;
   top: 0.35em;
   right: 0.35em;
   z-index: 2;
+  display: flex;
+  gap: 0.5em;
+  font-size: 0.45em;
+}
+.reveal .pyret-live-btn {
   padding: 0.15em 0.7em;
   font: inherit;
-  font-size: 0.45em;
   color: #fff;
   background: #2e75b6;
   border: 1px solid #2e75b6;
   border-radius: 6px;
   cursor: pointer;
 }
-.reveal .pyret-live.aberto .pyret-live-btn {
+.reveal .pyret-live-btn[hidden] {
+  display: none;
+}
+.reveal .pyret-live-tela {
+  color: #2e75b6;
+  background: #fff;
+}
+.reveal .pyret-live.aberto .pyret-live-barra {
   position: static;
-  display: block;
-  margin: 0 0 0.3em auto;
+  justify-content: flex-end;
+  margin: 0 0 0.3em;
+}
+// Tela cheia: a barra fica em cima e o editor ocupa o resto da tela
+.reveal .pyret-live:fullscreen {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6em;
+  background: #fff;
+}
+.reveal .pyret-live:fullscreen .pyret-live-barra {
+  font-size: 0.65em;
+}
+.reveal .pyret-live:fullscreen .pyret-live-editor {
+  flex: 1;
+  height: auto !important;
 }
 .reveal .pyret-live.aberto div.sourceCode {
   display: none;
@@ -136,6 +326,11 @@ $pyret-light: (
   border: 1px solid rgba(35, 55, 59, 0.15);
   border-radius: 6px;
   overflow: hidden;
+}
+// O reveal.js limita iframes a 95% do contêiner, o que deixava uma faixa vazia
+.reveal .pyret-live-editor iframe {
+  max-width: none;
+  max-height: none;
 }
 .reveal .pyret-live-erro {
   padding: 1em;
