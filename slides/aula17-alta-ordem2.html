@@ -6,8 +6,8 @@
 <script src="libs/quarto-html/tippy.umd.min.js"></script>
 <link href="libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Lucas Nunes Alegre">
   <title>Aula 17 – Funções de Alta-Ordem II</title>
@@ -20,10 +20,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -98,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-506a5e77889db8d049787d45cce19bfa.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-c656c548d030edb6e022323f785837f1.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -434,7 +437,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Lucas Nunes Alegre 
+Lucas Nunes Alegre
 </div>
         <p class="quarto-title-affiliation">
             </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides baseados no material da Profa. Leila Ribeiro.</span></p>
@@ -491,9 +494,9 @@ Lucas Nunes Alegre
 <p>Em Cálculo I, você provavelmente aprendeu que:</p>
 <p><span class="math display">\frac{d}{dx}\, x^2 = 2x</span></p>
 <p>Seja <span class="math inline">f(x) = x^2</span> e <span class="math inline">f'(x) = 2x</span>. Podemos expressar essas funções em Pyret:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">fun</span> f(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a><span class="kw">fun</span> f-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href="" aria-label="1"></a><span class="kw">fun</span> f(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a></span>
+<span id="cb1-3"><a href="" aria-label="3"></a><span class="kw">fun</span> f-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="um-pouco-de-cálculo-1" class="slide level2">
 <h2>Um pouco de Cálculo…</h2>
@@ -504,7 +507,7 @@ Lucas Nunes Alegre
 <ul>
 <li><span class="math inline">\frac{d}{dx}</span> é, na verdade, uma <span class="azul">função de <em>funções</em> para <em>funções</em></span>!</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href="" aria-label="1"></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <ul>
@@ -518,59 +521,59 @@ Lucas Nunes Alegre
 <h2>Um pouco de Cálculo…</h2>
 <p>Podemos escrever isso em Pyret:</p>
 <div class="pyret-live" data-height="430">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">fun</span> g(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
-<span id="cb3-2"><a href=""></a></span>
-<span id="cb3-3"><a href=""></a><span class="kw">fun</span> g-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span>
-<span id="cb3-4"><a href=""></a></span>
-<span id="cb3-5"><a href=""></a><span class="kw">fun</span> d-dx-no-ponto(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>), x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
-<span id="cb3-6"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
-<span id="cb3-7"><a href=""></a>  (f(x + epsilon) - f(x)) / epsilon</span>
-<span id="cb3-8"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb3-9"><a href=""></a>  d-dx-no-ponto(g, <span class="dv">10</span>) <span class="kw">is-roughly</span> g-linha(<span class="dv">10</span>)</span>
-<span id="cb3-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href="" aria-label="1"></a><span class="kw">fun</span> g(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a></span>
+<span id="cb3-3"><a href="" aria-label="3"></a><span class="kw">fun</span> g-linha(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span> <span class="dv">2</span> * x <span class="kw">end</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a></span>
+<span id="cb3-5"><a href="" aria-label="5"></a><span class="kw">fun</span> d-dx-no-ponto(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>), x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb3-6"><a href="" aria-label="6"></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb3-7"><a href="" aria-label="7"></a>  (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb3-8"><a href="" aria-label="8"></a><span class="kw">where:</span></span>
+<span id="cb3-9"><a href="" aria-label="9"></a>  d-dx-no-ponto(g, <span class="dv">10</span>) <span class="kw">is-roughly</span> g-linha(<span class="dv">10</span>)</span>
+<span id="cb3-10"><a href="" aria-label="10"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <p>Porém, esta função <span class="alert">não</span> tem o contrato que queríamos anteriormente:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href="" aria-label="1"></a>d-dx <span class="kw">::</span> ((<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="um-pouco-de-cálculo-3" class="slide level2">
 <h2>Um pouco de Cálculo…</h2>
 <p>E se tentássemos algo como:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="kw">fun</span> d-dx(f)<span class="kw">:</span></span>
-<span id="cb5-2"><a href=""></a>  (f(x + epsilon) - f(x)) / epsilon</span>
-<span id="cb5-3"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href="" aria-label="1"></a><span class="kw">fun</span> d-dx(f)<span class="kw">:</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>  (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb5-3"><a href="" aria-label="3"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Porém, esse código não funciona… (<span class="alert"><code>x</code> não é definido!</span>)</p>
 <p>Queremos retornar uma <strong>função</strong> <code class="sourceCode pyret">(<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)</code>, e não um número!</p>
 <div class="fragment">
 <p><span class="verde"><strong>Solução:</strong></span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
-<span id="cb6-2"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
-<span id="cb6-3"><a href=""></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
-<span id="cb6-4"><a href=""></a>    (f(x + epsilon) - f(x)) / epsilon</span>
-<span id="cb6-5"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb6-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href="" aria-label="1"></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb6-3"><a href="" aria-label="3"></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb6-4"><a href="" aria-label="4"></a>    (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb6-5"><a href="" aria-label="5"></a>  <span class="kw">end</span></span>
+<span id="cb6-6"><a href="" aria-label="6"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="um-pouco-de-cálculo-4" class="slide level2">
 <h2>Um pouco de Cálculo…</h2>
 <div class="pyret-live" data-height="470">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
-<span id="cb7-2"><a href=""></a>  epsilon = <span class="fl">0.00001</span></span>
-<span id="cb7-3"><a href=""></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
-<span id="cb7-4"><a href=""></a>    (f(x + epsilon) - f(x)) / epsilon</span>
-<span id="cb7-5"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb7-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href="" aria-label="1"></a><span class="kw">fun</span> d-dx(f <span class="kw">::</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)) <span class="kw">-&gt;</span> (<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)<span class="kw">:</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a>  epsilon = <span class="fl">0.00001</span></span>
+<span id="cb7-3"><a href="" aria-label="3"></a>  <span class="kw">lam</span>(x <span class="kw">::</span> <span class="dt">Number</span>) <span class="kw">-&gt;</span> <span class="dt">Number</span><span class="kw">:</span></span>
+<span id="cb7-4"><a href="" aria-label="4"></a>    (f(x + epsilon) - f(x)) / epsilon</span>
+<span id="cb7-5"><a href="" aria-label="5"></a>  <span class="kw">end</span></span>
+<span id="cb7-6"><a href="" aria-label="6"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Acima, <code>d-dx</code> cria uma <span class="azul"><strong>função lambda</strong></span> (anônima, sem nome) nova, em tempo de execução.</li>
 <li>Podemos agora gerar a derivada (numérica) de qualquer função <code class="sourceCode pyret">(<span class="dt">Number</span> <span class="kw">-&gt;</span> <span class="dt">Number</span>)</code>:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="kw">fun</span> g(x)<span class="kw">:</span> x * x <span class="kw">end</span></span>
-<span id="cb8-2"><a href=""></a>g-linha = d-dx(g)</span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a><span class="kw">check:</span></span>
-<span id="cb8-5"><a href=""></a>  g-linha(<span class="dv">10</span>) <span class="kw">is-roughly</span> <span class="dv">20</span></span>
-<span id="cb8-6"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href="" aria-label="1"></a><span class="kw">fun</span> g(x)<span class="kw">:</span> x * x <span class="kw">end</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a>g-linha = d-dx(g)</span>
+<span id="cb8-3"><a href="" aria-label="3"></a></span>
+<span id="cb8-4"><a href="" aria-label="4"></a><span class="kw">check:</span></span>
+<span id="cb8-5"><a href="" aria-label="5"></a>  g-linha(<span class="dv">10</span>) <span class="kw">is-roughly</span> <span class="dv">20</span></span>
+<span id="cb8-6"><a href="" aria-label="6"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="expressões-lambda-1" class="slide level2">
@@ -578,7 +581,7 @@ Lucas Nunes Alegre
 <ul>
 <li>São funções <span class="azul">anônimas</span> (sem nome).</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="kw">lam</span>(x1, ..., xn)<span class="kw">:</span> e <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href="" aria-label="1"></a><span class="kw">lam</span>(x1, ..., xn)<span class="kw">:</span> e <span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li><span class="azul">x1</span>, …, <span class="azul">xn</span> são variáveis</li>
 <li><span class="verde">e</span> é uma expressão válida</li>
@@ -641,31 +644,31 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:58%;">
 <div style="font-size: 0.7em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="kw">data</span> <span class="dt">Forma</span><span class="kw">:</span></span>
-<span id="cb14-2"><a href=""></a>  <span class="kw">|</span> retangulo(</span>
-<span id="cb14-3"><a href=""></a>      base <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho da base do retângulo</span></span>
-<span id="cb14-4"><a href=""></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura do retângulo</span></span>
-<span id="cb14-5"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do retângulo</span></span>
-<span id="cb14-6"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do retângulo</span></span>
-<span id="cb14-7"><a href=""></a>  <span class="kw">|</span> triangulo(</span>
-<span id="cb14-8"><a href=""></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado do triângulo</span></span>
-<span id="cb14-9"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do triângulo</span></span>
-<span id="cb14-10"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do triângulo</span></span>
-<span id="cb14-11"><a href=""></a>  <span class="kw">|</span> elipse(</span>
-<span id="cb14-12"><a href=""></a>      largura <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># tamanho da largura da elipse</span></span>
-<span id="cb14-13"><a href=""></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura da elipse</span></span>
-<span id="cb14-14"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da elipse</span></span>
-<span id="cb14-15"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da elipse</span></span>
-<span id="cb14-16"><a href=""></a>  <span class="kw">|</span> estrela(</span>
-<span id="cb14-17"><a href=""></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado da estrela</span></span>
-<span id="cb14-18"><a href=""></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da estrela</span></span>
-<span id="cb14-19"><a href=""></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da estrela</span></span>
-<span id="cb14-20"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Forma</span><span class="kw">:</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> retangulo(</span>
+<span id="cb14-3"><a href="" aria-label="3"></a>      base <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho da base do retângulo</span></span>
+<span id="cb14-4"><a href="" aria-label="4"></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura do retângulo</span></span>
+<span id="cb14-5"><a href="" aria-label="5"></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do retângulo</span></span>
+<span id="cb14-6"><a href="" aria-label="6"></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do retângulo</span></span>
+<span id="cb14-7"><a href="" aria-label="7"></a>  <span class="kw">|</span> triangulo(</span>
+<span id="cb14-8"><a href="" aria-label="8"></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado do triângulo</span></span>
+<span id="cb14-9"><a href="" aria-label="9"></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor do triângulo</span></span>
+<span id="cb14-10"><a href="" aria-label="10"></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador do triângulo</span></span>
+<span id="cb14-11"><a href="" aria-label="11"></a>  <span class="kw">|</span> elipse(</span>
+<span id="cb14-12"><a href="" aria-label="12"></a>      largura <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># tamanho da largura da elipse</span></span>
+<span id="cb14-13"><a href="" aria-label="13"></a>      altura <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># tamanho da altura da elipse</span></span>
+<span id="cb14-14"><a href="" aria-label="14"></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da elipse</span></span>
+<span id="cb14-15"><a href="" aria-label="15"></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da elipse</span></span>
+<span id="cb14-16"><a href="" aria-label="16"></a>  <span class="kw">|</span> estrela(</span>
+<span id="cb14-17"><a href="" aria-label="17"></a>      lado <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># tamanho do lado da estrela</span></span>
+<span id="cb14-18"><a href="" aria-label="18"></a>      cor <span class="kw">::</span> <span class="dt">String</span>,     <span class="co"># cor da estrela</span></span>
+<span id="cb14-19"><a href="" aria-label="19"></a>      nome <span class="kw">::</span> <span class="dt">String</span>)    <span class="co"># identificador da estrela</span></span>
+<span id="cb14-20"><a href="" aria-label="20"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:40%;">
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a><span class="co"># Tipo Lista de Formas:</span></span>
-<span id="cb15-2"><a href=""></a><span class="kw">type</span> <span class="dt">ListaForma</span> = <span class="dt">List</span>&lt;<span class="dt">Forma</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href="" aria-label="1"></a><span class="co"># Tipo Lista de Formas:</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a><span class="kw">type</span> <span class="dt">ListaForma</span> = <span class="dt">List</span>&lt;<span class="dt">Forma</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
@@ -745,44 +748,44 @@ Lucas Nunes Alegre
 </section>
 <section id="filter" class="slide level2">
 <h2>Filter</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a>filter <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">Boolean</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">A</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href="" aria-label="1"></a>filter <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">Boolean</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">A</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Dados um <span class="vermelho">critério</span> (função que recebe um elemento de <span class="azul">A</span> e retorna um <code>Boolean</code>) e uma <span class="azul">lista do tipo A</span>, retorna uma lista apenas com os elementos cujo critério devolve <code>true</code>.</p>
 <p><br></p>
 <p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
 <div class="pyret-live" data-height="300" style="font-size: 0.78em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb17-1"><a href=""></a><span class="kw">check:</span></span>
-<span id="cb17-2"><a href=""></a>  filter(num-is-positive, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, -<span class="dv">2</span>, <span class="dv">3</span>, -<span class="dv">4</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">3</span>]</span>
-<span id="cb17-3"><a href=""></a>  filter(<span class="kw">lam</span>(s)<span class="kw">:</span> string-length(s) &gt; <span class="dv">3</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hello"</span>]</span>
-<span id="cb17-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb17-1"><a href="" aria-label="1"></a><span class="kw">check:</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a>  filter(num-is-positive, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, -<span class="dv">2</span>, <span class="dv">3</span>, -<span class="dv">4</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">3</span>]</span>
+<span id="cb17-3"><a href="" aria-label="3"></a>  filter(<span class="kw">lam</span>(s)<span class="kw">:</span> string-length(s) &gt; <span class="dv">3</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hello"</span>]</span>
+<span id="cb17-4"><a href="" aria-label="4"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="map" class="slide level2">
 <h2>Map</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb18-1"><a href=""></a>map <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">B</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">B</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb18-1"><a href="" aria-label="1"></a>map <span class="kw">::</span> (<span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">B</span>), <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">B</span>&gt;</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Dados uma <span class="roxo">função unária</span> (que recebe um elemento do tipo <span class="azul">A</span> e devolve um elemento do tipo <span class="azul">B</span>) e uma <span class="azul">lista do tipo A</span>, aplica esta função a todos elementos da lista, devolvendo uma <span class="azul">lista do tipo B</span>.</p>
 <p><br></p>
 <p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
 <div class="pyret-live" data-height="300" style="font-size: 0.78em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb19-1"><a href=""></a><span class="kw">check:</span></span>
-<span id="cb19-2"><a href=""></a>  map(num-sqr, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">4</span>, -<span class="dv">5</span>, <span class="dv">10</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">4</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">100</span>]</span>
-<span id="cb19-3"><a href=""></a>  map(<span class="kw">lam</span>(s)<span class="kw">:</span> s + <span class="st">"!"</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi!"</span>, <span class="st">"hello!"</span>, <span class="st">"hey!"</span>]</span>
-<span id="cb19-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb19-1"><a href="" aria-label="1"></a><span class="kw">check:</span></span>
+<span id="cb19-2"><a href="" aria-label="2"></a>  map(num-sqr, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">4</span>, -<span class="dv">5</span>, <span class="dv">10</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">4</span>, <span class="dv">16</span>, <span class="dv">25</span>, <span class="dv">100</span>]</span>
+<span id="cb19-3"><a href="" aria-label="3"></a>  map(<span class="kw">lam</span>(s)<span class="kw">:</span> s + <span class="st">"!"</span> <span class="kw">end</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">"hello"</span>, <span class="st">"hey"</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi!"</span>, <span class="st">"hello!"</span>, <span class="st">"hey!"</span>]</span>
+<span id="cb19-4"><a href="" aria-label="4"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fold" class="slide level2">
 <h2>Fold</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb20-1"><a href=""></a>fold <span class="kw">::</span> (<span class="dt">A</span>, <span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">A</span>), <span class="dt">A</span>, <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">A</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb20-1"><a href="" aria-label="1"></a>fold <span class="kw">::</span> (<span class="dt">A</span>, <span class="dt">A</span> <span class="kw">-&gt;</span> <span class="dt">A</span>), <span class="dt">A</span>, <span class="dt">List</span>&lt;<span class="dt">A</span>&gt; <span class="kw">-&gt;</span> <span class="dt">A</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Dada uma <span class="roxo">função binária</span>, um <span class="azul">elemento inicial</span> e uma <span class="azul">lista de elementos de um tipo A</span>, combina os valores da lista de acordo com a função e o elemento inicial:</p>
 <ul>
 <li>Aplica a função ao primeiro elemento da lista e o valor inicial, depois ao próximo da lista e o resultado da primeira aplicação, e assim sucessivamente.</li>
 </ul>
 <p><span class="label-exmp"><strong>Exemplos:</strong></span></p>
 <div class="pyret-live" data-height="300" style="font-size: 0.78em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb21-1"><a href=""></a><span class="kw">check:</span></span>
-<span id="cb21-2"><a href=""></a>  fold(<span class="kw">lam</span>(x, y)<span class="kw">:</span> x + y <span class="kw">end</span>, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
-<span id="cb21-3"><a href=""></a>  fold(num-max, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">10</span>, -<span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
-<span id="cb21-4"><a href=""></a>  fold(string-append, <span class="st">""</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>]) <span class="kw">is</span> <span class="st">"hi there"</span></span>
-<span id="cb21-5"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb21-1"><a href="" aria-label="1"></a><span class="kw">check:</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a>  fold(<span class="kw">lam</span>(x, y)<span class="kw">:</span> x + y <span class="kw">end</span>, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
+<span id="cb21-3"><a href="" aria-label="3"></a>  fold(num-max, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">10</span>, -<span class="dv">4</span>]) <span class="kw">is</span> <span class="dv">10</span></span>
+<span id="cb21-4"><a href="" aria-label="4"></a>  fold(string-append, <span class="st">""</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>]) <span class="kw">is</span> <span class="st">"hi there"</span></span>
+<span id="cb21-5"><a href="" aria-label="5"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fold-1" class="slide level2">
@@ -813,9 +816,9 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:42%;">
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb22-1"><a href=""></a><span class="kw">fun</span> soma(x, y)<span class="kw">:</span> x + y <span class="kw">end</span></span>
-<span id="cb22-2"><a href=""></a></span>
-<span id="cb22-3"><a href=""></a>fold(soma, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb22-1"><a href="" aria-label="1"></a><span class="kw">fun</span> soma(x, y)<span class="kw">:</span> x + y <span class="kw">end</span></span>
+<span id="cb22-2"><a href="" aria-label="2"></a></span>
+<span id="cb22-3"><a href="" aria-label="3"></a>fold(soma, <span class="dv">0</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column center" style="width:6%;">
 <p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
@@ -868,8 +871,8 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:36%;">
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb23-1"><a href=""></a>fold(string-append, <span class="st">""</span>,</span>
-<span id="cb23-2"><a href=""></a>  [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb23-1"><a href="" aria-label="1"></a>fold(string-append, <span class="st">""</span>,</span>
+<span id="cb23-2"><a href="" aria-label="2"></a>  [<span class="cn">list</span><span class="kw">:</span> <span class="st">"hi"</span>, <span class="st">" "</span>, <span class="st">"there"</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column center" style="width:5%;">
 <p><span style="font-size: 2em; color: #2e75b6;">⟹</span></p>
@@ -897,21 +900,21 @@ Lucas Nunes Alegre
 <section id="funções-de-alta-ordem-em-linguagens-de-programação" class="slide level2">
 <h2>Funções de Alta Ordem em Linguagens de Programação</h2>
 <p><strong>Python</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href=""></a>nums <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb24-2"><a href=""></a></span>
-<span id="cb24-3"><a href=""></a><span class="co"># map</span></span>
-<span id="cb24-4"><a href=""></a>dobro <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">*</span> <span class="dv">2</span>, nums))</span>
-<span id="cb24-5"><a href=""></a></span>
-<span id="cb24-6"><a href=""></a><span class="co"># filter</span></span>
-<span id="cb24-7"><a href=""></a>pares <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, nums))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="" aria-label="1"></a>nums <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb24-2"><a href="" aria-label="2"></a></span>
+<span id="cb24-3"><a href="" aria-label="3"></a><span class="co"># map</span></span>
+<span id="cb24-4"><a href="" aria-label="4"></a>dobro <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="kw">lambda</span> x: x <span class="op">*</span> <span class="dv">2</span>, nums))</span>
+<span id="cb24-5"><a href="" aria-label="5"></a></span>
+<span id="cb24-6"><a href="" aria-label="6"></a><span class="co"># filter</span></span>
+<span id="cb24-7"><a href="" aria-label="7"></a>pares <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> x: x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>, nums))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>JavaScript</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource javascript number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb25-1"><a href=""></a><span class="kw">const</span> nums <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
-<span id="cb25-2"><a href=""></a></span>
-<span id="cb25-3"><a href=""></a><span class="co">// map</span></span>
-<span id="cb25-4"><a href=""></a><span class="kw">const</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb25-5"><a href=""></a></span>
-<span id="cb25-6"><a href=""></a><span class="co">// filter</span></span>
-<span id="cb25-7"><a href=""></a><span class="kw">const</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">filter</span>(x <span class="kw">=&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource javascript number-lines code-with-copy"><code class="sourceCode javascript"><span id="cb25-1"><a href="" aria-label="1"></a><span class="kw">const</span> nums <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb25-2"><a href="" aria-label="2"></a></span>
+<span id="cb25-3"><a href="" aria-label="3"></a><span class="co">// map</span></span>
+<span id="cb25-4"><a href="" aria-label="4"></a><span class="kw">const</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb25-5"><a href="" aria-label="5"></a></span>
+<span id="cb25-6"><a href="" aria-label="6"></a><span class="co">// filter</span></span>
+<span id="cb25-7"><a href="" aria-label="7"></a><span class="kw">const</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">filter</span>(x <span class="kw">=&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>)<span class="op">;</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="funções-de-alta-ordem-em-linguagens-de-programação-1" class="slide level2">
 <h2>Funções de Alta Ordem em Linguagens de Programação</h2>
@@ -919,59 +922,59 @@ Lucas Nunes Alegre
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">C++</a></li><li><a href="#tabset-1-2">Java (Streams)</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb26-1"><a href=""></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
-<span id="cb26-2"><a href=""></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb26-3"><a href=""></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
-<span id="cb26-4"><a href=""></a></span>
-<span id="cb26-5"><a href=""></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb26-6"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">};</span></span>
-<span id="cb26-7"><a href=""></a></span>
-<span id="cb26-8"><a href=""></a>    <span class="co">// map (usando std::transform)</span></span>
-<span id="cb26-9"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> dobro<span class="op">(</span>nums<span class="op">.</span>size<span class="op">());</span></span>
-<span id="cb26-10"><a href=""></a>    <span class="bu">std::</span>transform<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> dobro<span class="op">.</span>begin<span class="op">(),</span></span>
-<span id="cb26-11"><a href=""></a>                   <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span> <span class="op">});</span></span>
-<span id="cb26-12"><a href=""></a></span>
-<span id="cb26-13"><a href=""></a>    <span class="co">// filter (usando std::copy_if)</span></span>
-<span id="cb26-14"><a href=""></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> pares<span class="op">;</span></span>
-<span id="cb26-15"><a href=""></a>    <span class="bu">std::</span>copy_if<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> <span class="bu">std::</span>back_inserter<span class="op">(</span>pares<span class="op">),</span></span>
-<span id="cb26-16"><a href=""></a>                 <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">;</span> <span class="op">});</span></span>
-<span id="cb26-17"><a href=""></a><span class="op">}</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource cpp number-lines code-with-copy"><code class="sourceCode cpp"><span id="cb26-1"><a href="" aria-label="1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb26-2"><a href="" aria-label="2"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb26-3"><a href="" aria-label="3"></a><span class="pp">#include </span><span class="im">&lt;algorithm&gt;</span></span>
+<span id="cb26-4"><a href="" aria-label="4"></a></span>
+<span id="cb26-5"><a href="" aria-label="5"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb26-6"><a href="" aria-label="6"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">};</span></span>
+<span id="cb26-7"><a href="" aria-label="7"></a></span>
+<span id="cb26-8"><a href="" aria-label="8"></a>    <span class="co">// map (usando std::transform)</span></span>
+<span id="cb26-9"><a href="" aria-label="9"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> dobro<span class="op">(</span>nums<span class="op">.</span>size<span class="op">());</span></span>
+<span id="cb26-10"><a href="" aria-label="10"></a>    <span class="bu">std::</span>transform<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> dobro<span class="op">.</span>begin<span class="op">(),</span></span>
+<span id="cb26-11"><a href="" aria-label="11"></a>                   <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span> <span class="op">});</span></span>
+<span id="cb26-12"><a href="" aria-label="12"></a></span>
+<span id="cb26-13"><a href="" aria-label="13"></a>    <span class="co">// filter (usando std::copy_if)</span></span>
+<span id="cb26-14"><a href="" aria-label="14"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> pares<span class="op">;</span></span>
+<span id="cb26-15"><a href="" aria-label="15"></a>    <span class="bu">std::</span>copy_if<span class="op">(</span>nums<span class="op">.</span>begin<span class="op">(),</span> nums<span class="op">.</span>end<span class="op">(),</span> <span class="bu">std::</span>back_inserter<span class="op">(</span>pares<span class="op">),</span></span>
+<span id="cb26-16"><a href="" aria-label="16"></a>                 <span class="op">[](</span><span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span> <span class="cf">return</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">;</span> <span class="op">});</span></span>
+<span id="cb26-17"><a href="" aria-label="17"></a><span class="op">}</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb27-1"><a href=""></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.*;</span></span>
-<span id="cb27-2"><a href=""></a></span>
-<span id="cb27-3"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
-<span id="cb27-4"><a href=""></a></span>
-<span id="cb27-5"><a href=""></a><span class="co">// map</span></span>
-<span id="cb27-6"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
-<span id="cb27-7"><a href=""></a>    <span class="op">.</span><span class="fu">map</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">)</span></span>
-<span id="cb27-8"><a href=""></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span>
-<span id="cb27-9"><a href=""></a></span>
-<span id="cb27-10"><a href=""></a><span class="co">// filter</span></span>
-<span id="cb27-11"><a href=""></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
-<span id="cb27-12"><a href=""></a>    <span class="op">.</span><span class="fu">filter</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb27-13"><a href=""></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource java number-lines code-with-copy"><code class="sourceCode java"><span id="cb27-1"><a href="" aria-label="1"></a><span class="kw">import</span> <span class="im">java</span><span class="op">.</span><span class="im">util</span><span class="op">.*;</span></span>
+<span id="cb27-2"><a href="" aria-label="2"></a></span>
+<span id="cb27-3"><a href="" aria-label="3"></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> nums <span class="op">=</span> <span class="bu">Arrays</span><span class="op">.</span><span class="fu">asList</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span><span class="op">);</span></span>
+<span id="cb27-4"><a href="" aria-label="4"></a></span>
+<span id="cb27-5"><a href="" aria-label="5"></a><span class="co">// map</span></span>
+<span id="cb27-6"><a href="" aria-label="6"></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> dobro <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
+<span id="cb27-7"><a href="" aria-label="7"></a>    <span class="op">.</span><span class="fu">map</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb27-8"><a href="" aria-label="8"></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span>
+<span id="cb27-9"><a href="" aria-label="9"></a></span>
+<span id="cb27-10"><a href="" aria-label="10"></a><span class="co">// filter</span></span>
+<span id="cb27-11"><a href="" aria-label="11"></a><span class="bu">List</span><span class="op">&lt;</span><span class="bu">Integer</span><span class="op">&gt;</span> pares <span class="op">=</span> nums<span class="op">.</span><span class="fu">stream</span><span class="op">()</span></span>
+<span id="cb27-12"><a href="" aria-label="12"></a>    <span class="op">.</span><span class="fu">filter</span><span class="op">(</span>x <span class="op">-&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb27-13"><a href="" aria-label="13"></a>    <span class="op">.</span><span class="fu">toList</span><span class="op">();</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
 </section>
 <section id="modelo-de-função-recursiva" class="slide level2">
 <h2>Modelo de função recursiva</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb28-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas de formas:</span></span>
-<span id="cb28-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
-<span id="cb28-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
-<span id="cb28-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb28-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> ...</span>
-<span id="cb28-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb28-7"><a href=""></a>      combinar(... primeira ...,</span>
-<span id="cb28-8"><a href=""></a>               ... funcao(resto) ...)</span>
-<span id="cb28-9"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb28-10"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb28-11"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
-<span id="cb28-12"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
-<span id="cb28-13"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
-<span id="cb28-14"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
-<span id="cb28-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb28-1"><a href="" aria-label="1"></a><span class="co"># Modelo de programa recursivo sobre listas de formas:</span></span>
+<span id="cb28-2"><a href="" aria-label="2"></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
+<span id="cb28-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb28-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb28-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> ...</span>
+<span id="cb28-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb28-7"><a href="" aria-label="7"></a>      combinar(... primeira ...,</span>
+<span id="cb28-8"><a href="" aria-label="8"></a>               ... funcao(resto) ...)</span>
+<span id="cb28-9"><a href="" aria-label="9"></a>  <span class="kw">end</span></span>
+<span id="cb28-10"><a href="" aria-label="10"></a><span class="kw">where:</span></span>
+<span id="cb28-11"><a href="" aria-label="11"></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-12"><a href="" aria-label="12"></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-13"><a href="" aria-label="13"></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-14"><a href="" aria-label="14"></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb28-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exercícios-1" class="slide level2 destaca-filtrar">
 <h2>Exercícios</h2>
@@ -1052,24 +1055,24 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:65%;">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="5-11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb29-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
-<span id="cb29-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;...&gt;<span class="kw">:</span></span>
-<span id="cb29-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
-<span id="cb29-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
-<span id="cb29-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb29-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
-<span id="cb29-7"><a href=""></a>      laux = <span class="kw">if</span> criterio(primeiro)<span class="kw">:</span></span>
-<span id="cb29-8"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeiro]</span>
-<span id="cb29-9"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
-<span id="cb29-10"><a href=""></a>      <span class="kw">end</span></span>
-<span id="cb29-11"><a href=""></a>      laux + funcao(resto)</span>
-<span id="cb29-12"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb29-13"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb29-14"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
-<span id="cb29-15"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
-<span id="cb29-16"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
-<span id="cb29-17"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
-<span id="cb29-18"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29" data-code-line-numbers="5-11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb29-1"><a href="" aria-label="1"></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb29-2"><a href="" aria-label="2"></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;...&gt;<span class="kw">:</span></span>
+<span id="cb29-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb29-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb29-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb29-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb29-7"><a href="" aria-label="7"></a>      laux = <span class="kw">if</span> criterio(primeiro)<span class="kw">:</span></span>
+<span id="cb29-8"><a href="" aria-label="8"></a>        [<span class="cn">list</span><span class="kw">:</span> primeiro]</span>
+<span id="cb29-9"><a href="" aria-label="9"></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb29-10"><a href="" aria-label="10"></a>      <span class="kw">end</span></span>
+<span id="cb29-11"><a href="" aria-label="11"></a>      laux + funcao(resto)</span>
+<span id="cb29-12"><a href="" aria-label="12"></a>  <span class="kw">end</span></span>
+<span id="cb29-13"><a href="" aria-label="13"></a><span class="kw">where:</span></span>
+<span id="cb29-14"><a href="" aria-label="14"></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-15"><a href="" aria-label="15"></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-16"><a href="" aria-label="16"></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-17"><a href="" aria-label="17"></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb29-18"><a href="" aria-label="18"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column explicacao" style="width:31%;">
 <p><span class="azul">Construir uma lista com o primeiro elemento,</span> <span class="roxo">se ele atender o critério</span><span class="azul">, e com os elementos que atendem o critério do</span> <span class="vermelho">resto da lista</span></p>
@@ -1078,32 +1081,32 @@ Lucas Nunes Alegre
 <section id="exemplos-de-função-filtrar" class="slide level2">
 <h2>Exemplos de função filtrar</h2>
 <div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb30-1"><a href=""></a><span class="kw">fun</span> filtrar-retangulo(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
-<span id="cb30-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
-<span id="cb30-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb30-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb30-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb30-6"><a href=""></a>      laux = <span class="kw">if</span> is-retangulo(primeira)<span class="kw">:</span></span>
-<span id="cb30-7"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
-<span id="cb30-8"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
-<span id="cb30-9"><a href=""></a>      <span class="kw">end</span></span>
-<span id="cb30-10"><a href=""></a>      laux + filtrar-retangulo(resto)</span>
-<span id="cb30-11"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb30-12"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb30-1"><a href="" aria-label="1"></a><span class="kw">fun</span> filtrar-retangulo(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
+<span id="cb30-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb30-3"><a href="" aria-label="3"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb30-4"><a href="" aria-label="4"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb30-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb30-6"><a href="" aria-label="6"></a>      laux = <span class="kw">if</span> is-retangulo(primeira)<span class="kw">:</span></span>
+<span id="cb30-7"><a href="" aria-label="7"></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
+<span id="cb30-8"><a href="" aria-label="8"></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb30-9"><a href="" aria-label="9"></a>      <span class="kw">end</span></span>
+<span id="cb30-10"><a href="" aria-label="10"></a>      laux + filtrar-retangulo(resto)</span>
+<span id="cb30-11"><a href="" aria-label="11"></a>  <span class="kw">end</span></span>
+<span id="cb30-12"><a href="" aria-label="12"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb31-1"><a href=""></a><span class="kw">fun</span> filtrar-ret-maior<span class="dv">-40</span>(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
-<span id="cb31-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
-<span id="cb31-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb31-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb31-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb31-6"><a href=""></a>      laux = <span class="kw">if</span> is-ret-maior<span class="dv">-40</span>(primeira)<span class="kw">:</span></span>
-<span id="cb31-7"><a href=""></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
-<span id="cb31-8"><a href=""></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
-<span id="cb31-9"><a href=""></a>      <span class="kw">end</span></span>
-<span id="cb31-10"><a href=""></a>      laux + filtrar-ret-maior<span class="dv">-40</span>(resto)</span>
-<span id="cb31-11"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb31-12"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb31-1"><a href="" aria-label="1"></a><span class="kw">fun</span> filtrar-ret-maior<span class="dv">-40</span>(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> <span class="dt">ListaForma</span><span class="kw">:</span></span>
+<span id="cb31-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb31-3"><a href="" aria-label="3"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb31-4"><a href="" aria-label="4"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb31-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb31-6"><a href="" aria-label="6"></a>      laux = <span class="kw">if</span> is-ret-maior<span class="dv">-40</span>(primeira)<span class="kw">:</span></span>
+<span id="cb31-7"><a href="" aria-label="7"></a>        [<span class="cn">list</span><span class="kw">:</span> primeira]</span>
+<span id="cb31-8"><a href="" aria-label="8"></a>      <span class="kw">else:</span> <span class="cn">empty</span></span>
+<span id="cb31-9"><a href="" aria-label="9"></a>      <span class="kw">end</span></span>
+<span id="cb31-10"><a href="" aria-label="10"></a>      laux + filtrar-ret-maior<span class="dv">-40</span>(resto)</span>
+<span id="cb31-11"><a href="" aria-label="11"></a>  <span class="kw">end</span></span>
+<span id="cb31-12"><a href="" aria-label="12"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercícios-2" class="slide level2 mostra-filtrar destaca-mapear">
@@ -1185,20 +1188,20 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:65%;">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb32-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
-<span id="cb32-2"><a href=""></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
-<span id="cb32-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
-<span id="cb32-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb32-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb32-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
-<span id="cb32-7"><a href=""></a>      <span class="cn">link</span>(fun-aplic(primeiro), funcao(resto))</span>
-<span id="cb32-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb32-9"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb32-10"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
-<span id="cb32-11"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
-<span id="cb32-12"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
-<span id="cb32-13"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
-<span id="cb32-14"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb32-1"><a href="" aria-label="1"></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb32-2"><a href="" aria-label="2"></a><span class="kw">fun</span> funcao(lista <span class="kw">::</span> <span class="dt">ListaForma</span>) <span class="kw">-&gt;</span> ...<span class="kw">:</span></span>
+<span id="cb32-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb32-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb32-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb32-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb32-7"><a href="" aria-label="7"></a>      <span class="cn">link</span>(fun-aplic(primeiro), funcao(resto))</span>
+<span id="cb32-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb32-9"><a href="" aria-label="9"></a><span class="kw">where:</span></span>
+<span id="cb32-10"><a href="" aria-label="10"></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-11"><a href="" aria-label="11"></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-12"><a href="" aria-label="12"></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-13"><a href="" aria-label="13"></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb32-14"><a href="" aria-label="14"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column explicacao" style="width:31%;">
 <p><span class="azul">Construir uma lista</span> <span class="roxo">aplicando a função ao primeiro elemento</span> <span class="azul">na frente da lista resultante da aplicação da função aos elementos do</span> <span class="vermelho">resto da lista</span></p>
@@ -1207,26 +1210,26 @@ Lucas Nunes Alegre
 <section id="exemplos-de-função-mapear" class="slide level2">
 <h2>Exemplos de função mapear</h2>
 <div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb33-1"><a href=""></a>cores-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;</span>
-<span id="cb33-2"><a href=""></a><span class="kw">fun</span> cores-formas(lista)<span class="kw">:</span></span>
-<span id="cb33-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
-<span id="cb33-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb33-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb33-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
-<span id="cb33-7"><a href=""></a>      <span class="cn">link</span>(primeiro.cor, cores-formas(resto))</span>
-<span id="cb33-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb33-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb33-1"><a href="" aria-label="1"></a>cores-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;</span>
+<span id="cb33-2"><a href="" aria-label="2"></a><span class="kw">fun</span> cores-formas(lista)<span class="kw">:</span></span>
+<span id="cb33-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb33-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb33-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb33-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb33-7"><a href="" aria-label="7"></a>      <span class="cn">link</span>(primeiro.cor, cores-formas(resto))</span>
+<span id="cb33-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb33-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb34-1"><a href=""></a>perimetros-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;</span>
-<span id="cb34-2"><a href=""></a><span class="kw">fun</span> perimetros-formas(lista)<span class="kw">:</span></span>
-<span id="cb34-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
-<span id="cb34-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
-<span id="cb34-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb34-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
-<span id="cb34-7"><a href=""></a>      <span class="cn">link</span>(perimetro(primeiro), perimetros-formas(resto))</span>
-<span id="cb34-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb34-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34" data-code-line-numbers="7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb34-1"><a href="" aria-label="1"></a>perimetros-formas <span class="kw">::</span> <span class="dt">ListaForma</span> <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;</span>
+<span id="cb34-2"><a href="" aria-label="2"></a><span class="kw">fun</span> perimetros-formas(lista)<span class="kw">:</span></span>
+<span id="cb34-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas, ..."</span></span>
+<span id="cb34-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">ListaForma</span>) lista<span class="kw">:</span></span>
+<span id="cb34-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb34-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb34-7"><a href="" aria-label="7"></a>      <span class="cn">link</span>(perimetro(primeiro), perimetros-formas(resto))</span>
+<span id="cb34-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb34-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercícios-3" class="slide level2 mostra-filtrar mostra-mapear destaca-juntar">
@@ -1308,21 +1311,21 @@ Lucas Nunes Alegre
 <div class="columns" style="display: flex; align-items: center;">
 <div class="column" style="width:65%;">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-code-line-numbers="6-8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb35-1"><a href=""></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
-<span id="cb35-2"><a href=""></a>funcao <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt; <span class="kw">-&gt;</span> ...</span>
-<span id="cb35-3"><a href=""></a><span class="kw">fun</span> funcao(lista)<span class="kw">:</span></span>
-<span id="cb35-4"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
-<span id="cb35-5"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
-<span id="cb35-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> resultado-vazia</span>
-<span id="cb35-7"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb35-8"><a href=""></a>      juntar(primeira, funcao(resto))</span>
-<span id="cb35-9"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb35-10"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb35-11"><a href=""></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
-<span id="cb35-12"><a href=""></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
-<span id="cb35-13"><a href=""></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
-<span id="cb35-14"><a href=""></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
-<span id="cb35-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35" data-code-line-numbers="6-8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb35-1"><a href="" aria-label="1"></a><span class="co"># Modelo de programa recursivo sobre listas:</span></span>
+<span id="cb35-2"><a href="" aria-label="2"></a>funcao <span class="kw">::</span> <span class="dt">List</span>&lt;...&gt; <span class="kw">-&gt;</span> ...</span>
+<span id="cb35-3"><a href="" aria-label="3"></a><span class="kw">fun</span> funcao(lista)<span class="kw">:</span></span>
+<span id="cb35-4"><a href="" aria-label="4"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de ..., ..."</span></span>
+<span id="cb35-5"><a href="" aria-label="5"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb35-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> resultado-vazia</span>
+<span id="cb35-7"><a href="" aria-label="7"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb35-8"><a href="" aria-label="8"></a>      juntar(primeira, funcao(resto))</span>
+<span id="cb35-9"><a href="" aria-label="9"></a>  <span class="kw">end</span></span>
+<span id="cb35-10"><a href="" aria-label="10"></a><span class="kw">where:</span></span>
+<span id="cb35-11"><a href="" aria-label="11"></a>  funcao(<span class="cn">empty</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-12"><a href="" aria-label="12"></a>  funcao(<span class="dt">L1</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-13"><a href="" aria-label="13"></a>  funcao(<span class="dt">L3</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-14"><a href="" aria-label="14"></a>  funcao(<span class="dt">L4</span>) <span class="kw">is</span> ...</span>
+<span id="cb35-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column explicacao" style="width:31%;">
 <p><span class="azul">Construir um elemento</span> <span class="roxo">juntando o primeiro elemento</span> <span class="azul">ao resultado da aplicação da função ao</span> <span class="vermelho">resto da lista</span><span class="azul">.</span></p>
@@ -1331,26 +1334,26 @@ Lucas Nunes Alegre
 <section id="exemplos-de-função-juntar" class="slide level2">
 <h2>Exemplos de função juntar</h2>
 <div class="absolute" style="font-size: 0.75em;top: 85px; left: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb36-1"><a href=""></a>img-formas <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Image</span></span>
-<span id="cb36-2"><a href=""></a><span class="kw">fun</span> img-formas(lista)<span class="kw">:</span></span>
-<span id="cb36-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de imagens de formas, ..."</span></span>
-<span id="cb36-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
-<span id="cb36-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty-image</span></span>
-<span id="cb36-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb36-7"><a href=""></a>      beside(primeira, img-formas(resto))</span>
-<span id="cb36-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb36-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb36-1"><a href="" aria-label="1"></a>img-formas <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Image</span></span>
+<span id="cb36-2"><a href="" aria-label="2"></a><span class="kw">fun</span> img-formas(lista)<span class="kw">:</span></span>
+<span id="cb36-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de imagens de formas, ..."</span></span>
+<span id="cb36-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb36-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty-image</span></span>
+<span id="cb36-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb36-7"><a href="" aria-label="7"></a>      beside(primeira, img-formas(resto))</span>
+<span id="cb36-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb36-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="absolute" style="font-size: 0.75em;top: 400px; right: 0px; width: 690px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb37-1"><a href=""></a>soma-perimetros <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Number</span></span>
-<span id="cb37-2"><a href=""></a><span class="kw">fun</span> soma-perimetros(lista)<span class="kw">:</span></span>
-<span id="cb37-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de perímetros, ..."</span></span>
-<span id="cb37-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
-<span id="cb37-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="dv">0</span></span>
-<span id="cb37-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
-<span id="cb37-7"><a href=""></a>      primeira + soma-perimetros(resto)</span>
-<span id="cb37-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb37-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" data-code-line-numbers="5-7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb37-1"><a href="" aria-label="1"></a>soma-perimetros <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt; <span class="kw">-&gt;</span> <span class="dt">Number</span></span>
+<span id="cb37-2"><a href="" aria-label="2"></a><span class="kw">fun</span> soma-perimetros(lista)<span class="kw">:</span></span>
+<span id="cb37-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de perímetros, ..."</span></span>
+<span id="cb37-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lista<span class="kw">:</span></span>
+<span id="cb37-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="dv">0</span></span>
+<span id="cb37-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeira, resto) <span class="kw">=&gt;</span></span>
+<span id="cb37-7"><a href="" aria-label="7"></a>      primeira + soma-perimetros(resto)</span>
+<span id="cb37-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb37-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercícios-4" class="slide level2 mostra-filtrar mostra-mapear mostra-juntar">
@@ -1507,15 +1510,15 @@ Lucas Nunes Alegre
 <section id="função-gera-img-cor" class="slide level2">
 <h2>Função gera-img-cor</h2>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" style="font-size: 0.85em;"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb38-1"><a href=""></a><span class="kw">fun</span> gera-img-cor(lista <span class="kw">::</span> <span class="dt">ListaForma</span>, cor <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
-<span id="cb38-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor"</span></span>
-<span id="cb38-3"><a href=""></a>  <span class="co"># Filtrar as formas da cor dada e guardar em lista-forma-cor:</span></span>
-<span id="cb38-4"><a href=""></a>  lista-forma-cor = filter(<span class="kw">lam</span>(f <span class="kw">::</span> <span class="dt">Forma</span>)<span class="kw">:</span> f.cor == cor <span class="kw">end</span>, lista)</span>
-<span id="cb38-5"><a href=""></a>  <span class="co"># Desenhar as formas (assume que existe a função desenha):</span></span>
-<span id="cb38-6"><a href=""></a>  lista-imagens = map(desenha, lista-forma-cor)</span>
-<span id="cb38-7"><a href=""></a>  <span class="co"># Montar a imagem juntando as imagens das formas:</span></span>
-<span id="cb38-8"><a href=""></a>  fold(beside, <span class="cn">empty-image</span>, lista-imagens)</span>
-<span id="cb38-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38" style="font-size: 0.85em;"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb38-1"><a href="" aria-label="1"></a><span class="kw">fun</span> gera-img-cor(lista <span class="kw">::</span> <span class="dt">ListaForma</span>, cor <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
+<span id="cb38-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">"Dada uma lista de formas e uma cor, gera uma imagem com as formas desta cor"</span></span>
+<span id="cb38-3"><a href="" aria-label="3"></a>  <span class="co"># Filtrar as formas da cor dada e guardar em lista-forma-cor:</span></span>
+<span id="cb38-4"><a href="" aria-label="4"></a>  lista-forma-cor = filter(<span class="kw">lam</span>(f <span class="kw">::</span> <span class="dt">Forma</span>)<span class="kw">:</span> f.cor == cor <span class="kw">end</span>, lista)</span>
+<span id="cb38-5"><a href="" aria-label="5"></a>  <span class="co"># Desenhar as formas (assume que existe a função desenha):</span></span>
+<span id="cb38-6"><a href="" aria-label="6"></a>  lista-imagens = map(desenha, lista-forma-cor)</span>
+<span id="cb38-7"><a href="" aria-label="7"></a>  <span class="co"># Montar a imagem juntando as imagens das formas:</span></span>
+<span id="cb38-8"><a href="" aria-label="8"></a>  fold(beside, <span class="cn">empty-image</span>, lista-imagens)</span>
+<span id="cb38-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exercícios-6" class="slide level2 mostra-filtrar mostra-mapear mostra-juntar mostra-combinacao">
 <h2>Exercícios</h2>

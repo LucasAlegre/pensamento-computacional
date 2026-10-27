@@ -6,8 +6,8 @@
 <script src="libs/quarto-html/tippy.umd.min.js"></script>
 <link href="libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Lucas Nunes Alegre">
   <title>Aula 25 – Recursão Generativa, Terminação e Animações</title>
@@ -20,10 +20,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -98,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-472eaa5c7954df950054410f09329764.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-0bc7db7f95c95a0e2f64b241f4efb129.css">
   <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -418,7 +421,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Lucas Nunes Alegre 
+Lucas Nunes Alegre
 </div>
         <p class="quarto-title-affiliation">
             </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides parcialmente baseados no material da Profa. Leila Ribeiro.</span></p>
@@ -487,13 +490,13 @@ Lucas Nunes Alegre
 <p><span class="verde">Dado</span></p>
 </div><div class="column" style="width:86%;">
 <div style="font-size: 1em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">data</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;<span class="kw">:</span></span>
-<span id="cb1-2"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span></span>
-<span id="cb1-3"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(</span>
-<span id="cb1-4"><a href=""></a>        first <span class="kw">::</span> <span class="dt">T</span>,</span>
-<span id="cb1-5"><a href=""></a>        rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;</span>
-<span id="cb1-6"><a href=""></a>    )</span>
-<span id="cb1-7"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;<span class="kw">:</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a>    <span class="kw">|</span> <span class="cn">empty</span></span>
+<span id="cb1-3"><a href="" aria-label="3"></a>    <span class="kw">|</span> <span class="cn">link</span>(</span>
+<span id="cb1-4"><a href="" aria-label="4"></a>        first <span class="kw">::</span> <span class="dt">T</span>,</span>
+<span id="cb1-5"><a href="" aria-label="5"></a>        rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;</span>
+<span id="cb1-6"><a href="" aria-label="6"></a>    )</span>
+<span id="cb1-7"><a href="" aria-label="7"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 <div class="columns" style="display: flex; align-items: center;">
@@ -501,14 +504,14 @@ Lucas Nunes Alegre
 <p><span class="vermelho">Função</span></p>
 </div><div class="column" style="width:86%;">
 <div style="font-size: 1em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a><span class="kw">fun</span> funcao-rec-estrutural(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;) <span class="kw">-&gt;</span> ... <span class="kw">:</span></span>
-<span id="cb2-2"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">T</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb2-3"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> ...</span>
-<span id="cb2-4"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb2-5"><a href=""></a>            ...(f) ...</span>
-<span id="cb2-6"><a href=""></a>            funcao-rec-estrutural(r)</span>
-<span id="cb2-7"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb2-8"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href="" aria-label="1"></a><span class="kw">fun</span> funcao-rec-estrutural(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">T</span>&gt;) <span class="kw">-&gt;</span> ... <span class="kw">:</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">T</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb2-3"><a href="" aria-label="3"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> ...</span>
+<span id="cb2-4"><a href="" aria-label="4"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb2-5"><a href="" aria-label="5"></a>            ...(f) ...</span>
+<span id="cb2-6"><a href="" aria-label="6"></a>            funcao-rec-estrutural(r)</span>
+<span id="cb2-7"><a href="" aria-label="7"></a>    <span class="kw">end</span></span>
+<span id="cb2-8"><a href="" aria-label="8"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
@@ -519,14 +522,14 @@ Lucas Nunes Alegre
 <p><span class="verde">Dado</span></p>
 </div><div class="column" style="width:86%;">
 <div style="font-size: 1em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">data</span> <span class="dt">AB</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href=""></a>    <span class="kw">|</span> vazia</span>
-<span id="cb3-3"><a href=""></a>    <span class="kw">|</span> nodo(</span>
-<span id="cb3-4"><a href=""></a>        id <span class="kw">::</span> <span class="dt">Number</span>,</span>
-<span id="cb3-5"><a href=""></a>        esq <span class="kw">::</span> <span class="dt">AB</span>,</span>
-<span id="cb3-6"><a href=""></a>        dir <span class="kw">::</span> <span class="dt">AB</span></span>
-<span id="cb3-7"><a href=""></a>    )</span>
-<span id="cb3-8"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">AB</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>    <span class="kw">|</span> vazia</span>
+<span id="cb3-3"><a href="" aria-label="3"></a>    <span class="kw">|</span> nodo(</span>
+<span id="cb3-4"><a href="" aria-label="4"></a>        id <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb3-5"><a href="" aria-label="5"></a>        esq <span class="kw">::</span> <span class="dt">AB</span>,</span>
+<span id="cb3-6"><a href="" aria-label="6"></a>        dir <span class="kw">::</span> <span class="dt">AB</span></span>
+<span id="cb3-7"><a href="" aria-label="7"></a>    )</span>
+<span id="cb3-8"><a href="" aria-label="8"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 <div class="columns" style="display: flex; align-items: center;">
@@ -534,15 +537,15 @@ Lucas Nunes Alegre
 <p><span class="vermelho">Função</span></p>
 </div><div class="column" style="width:86%;">
 <div style="font-size: 1em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a><span class="kw">fun</span> funcao-rec-estrutural(ab <span class="kw">::</span> <span class="dt">AB</span>) <span class="kw">-&gt;</span> ... <span class="kw">:</span></span>
-<span id="cb4-2"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">AB</span>) ab<span class="kw">:</span></span>
-<span id="cb4-3"><a href=""></a>        <span class="kw">|</span> vazia <span class="kw">=&gt;</span> ...</span>
-<span id="cb4-4"><a href=""></a>        <span class="kw">|</span> nodo(i, e, d) <span class="kw">=&gt;</span></span>
-<span id="cb4-5"><a href=""></a>            ...</span>
-<span id="cb4-6"><a href=""></a>            funcao-rec-estrutural(e) ...</span>
-<span id="cb4-7"><a href=""></a>            funcao-rec-estrutural(d)</span>
-<span id="cb4-8"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb4-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href="" aria-label="1"></a><span class="kw">fun</span> funcao-rec-estrutural(ab <span class="kw">::</span> <span class="dt">AB</span>) <span class="kw">-&gt;</span> ... <span class="kw">:</span></span>
+<span id="cb4-2"><a href="" aria-label="2"></a>    <span class="kw">cases</span> (<span class="dt">AB</span>) ab<span class="kw">:</span></span>
+<span id="cb4-3"><a href="" aria-label="3"></a>        <span class="kw">|</span> vazia <span class="kw">=&gt;</span> ...</span>
+<span id="cb4-4"><a href="" aria-label="4"></a>        <span class="kw">|</span> nodo(i, e, d) <span class="kw">=&gt;</span></span>
+<span id="cb4-5"><a href="" aria-label="5"></a>            ...</span>
+<span id="cb4-6"><a href="" aria-label="6"></a>            funcao-rec-estrutural(e) ...</span>
+<span id="cb4-7"><a href="" aria-label="7"></a>            funcao-rec-estrutural(d)</span>
+<span id="cb4-8"><a href="" aria-label="8"></a>    <span class="kw">end</span></span>
+<span id="cb4-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
@@ -718,25 +721,25 @@ Lucas Nunes Alegre
 <section id="quicksort-v0---pyret" class="slide level2">
 <h2>Quicksort v0 - Pyret</h2>
 <div style="font-size: 0.88em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="1-4,6,10-13,15-19|1-6,10-13,15-19|1-13,15-19|1-19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
-<span id="cb5-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado uma lista de números, ordena a lista em ordem crescente."</span></span>
-<span id="cb5-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb5-4"><a href=""></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
-<span id="cb5-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb5-6"><a href=""></a>        <span class="co"># Senão,</span></span>
-<span id="cb5-7"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb5-8"><a href=""></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, l)</span>
-<span id="cb5-9"><a href=""></a>            maiores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt; f <span class="kw">end</span>, l)</span>
-<span id="cb5-10"><a href=""></a>            <span class="co"># Juntar as seguintes listas:</span></span>
-<span id="cb5-11"><a href=""></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
-<span id="cb5-12"><a href=""></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
-<span id="cb5-13"><a href=""></a>                <span class="co"># 3. A lista ordenada dos elementos maiores que o primeiro.</span></span>
-<span id="cb5-14"><a href=""></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores)</span>
-<span id="cb5-15"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb5-16"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb5-17"><a href=""></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb5-18"><a href=""></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb5-19"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" data-code-line-numbers="1-4,6,10-13,15-19|1-6,10-13,15-19|1-13,15-19|1-19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href="" aria-label="1"></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado uma lista de números, ordena a lista em ordem crescente."</span></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb5-4"><a href="" aria-label="4"></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
+<span id="cb5-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb5-6"><a href="" aria-label="6"></a>        <span class="co"># Senão,</span></span>
+<span id="cb5-7"><a href="" aria-label="7"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb5-8"><a href="" aria-label="8"></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, l)</span>
+<span id="cb5-9"><a href="" aria-label="9"></a>            maiores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt; f <span class="kw">end</span>, l)</span>
+<span id="cb5-10"><a href="" aria-label="10"></a>            <span class="co"># Juntar as seguintes listas:</span></span>
+<span id="cb5-11"><a href="" aria-label="11"></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
+<span id="cb5-12"><a href="" aria-label="12"></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
+<span id="cb5-13"><a href="" aria-label="13"></a>                <span class="co"># 3. A lista ordenada dos elementos maiores que o primeiro.</span></span>
+<span id="cb5-14"><a href="" aria-label="14"></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores)</span>
+<span id="cb5-15"><a href="" aria-label="15"></a>    <span class="kw">end</span></span>
+<span id="cb5-16"><a href="" aria-label="16"></a><span class="kw">where:</span></span>
+<span id="cb5-17"><a href="" aria-label="17"></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb5-18"><a href="" aria-label="18"></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb5-19"><a href="" aria-label="19"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercício" class="slide level2">
@@ -748,25 +751,25 @@ Lucas Nunes Alegre
 <section id="quicksort---pyret" class="slide level2">
 <h2>Quicksort - Pyret</h2>
 <div style="font-size: 0.88em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-code-line-numbers="1-4,6,10-13,15-19|1-6,10-13,15-19|1-13,15-19|1-19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
-<span id="cb6-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado uma lista de números, ordena a lista em ordem crescente."</span></span>
-<span id="cb6-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb6-4"><a href=""></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
-<span id="cb6-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb6-6"><a href=""></a>        <span class="co"># Senão,</span></span>
-<span id="cb6-7"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb6-8"><a href=""></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
-<span id="cb6-9"><a href=""></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
-<span id="cb6-10"><a href=""></a>            <span class="co"># Juntar as seguintes listas:</span></span>
-<span id="cb6-11"><a href=""></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
-<span id="cb6-12"><a href=""></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
-<span id="cb6-13"><a href=""></a>                <span class="co"># 3. A lista ordenada dos elementos maiores ou iguais ao primeiro.</span></span>
-<span id="cb6-14"><a href=""></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
-<span id="cb6-15"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb6-16"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb6-17"><a href=""></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb6-18"><a href=""></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb6-19"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-code-line-numbers="1-4,6,10-13,15-19|1-6,10-13,15-19|1-13,15-19|1-19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href="" aria-label="1"></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado uma lista de números, ordena a lista em ordem crescente."</span></span>
+<span id="cb6-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb6-4"><a href="" aria-label="4"></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
+<span id="cb6-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb6-6"><a href="" aria-label="6"></a>        <span class="co"># Senão,</span></span>
+<span id="cb6-7"><a href="" aria-label="7"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb6-8"><a href="" aria-label="8"></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
+<span id="cb6-9"><a href="" aria-label="9"></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
+<span id="cb6-10"><a href="" aria-label="10"></a>            <span class="co"># Juntar as seguintes listas:</span></span>
+<span id="cb6-11"><a href="" aria-label="11"></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
+<span id="cb6-12"><a href="" aria-label="12"></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
+<span id="cb6-13"><a href="" aria-label="13"></a>                <span class="co"># 3. A lista ordenada dos elementos maiores ou iguais ao primeiro.</span></span>
+<span id="cb6-14"><a href="" aria-label="14"></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
+<span id="cb6-15"><a href="" aria-label="15"></a>    <span class="kw">end</span></span>
+<span id="cb6-16"><a href="" aria-label="16"></a><span class="kw">where:</span></span>
+<span id="cb6-17"><a href="" aria-label="17"></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb6-18"><a href="" aria-label="18"></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb6-19"><a href="" aria-label="19"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exemplo-animação" class="slide level2">
@@ -786,23 +789,23 @@ Lucas Nunes Alegre
 <section id="pokemon" class="slide level2">
 <h2>Pokemon</h2>
 <div style="font-size: 0.95em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href=""></a>    <span class="kw">|</span> pokemon(</span>
-<span id="cb7-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,    <span class="co"># Id do pokemon</span></span>
-<span id="cb7-4"><a href=""></a>        name <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># Nome do pokemon</span></span>
-<span id="cb7-5"><a href=""></a>        x <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo x</span></span>
-<span id="cb7-6"><a href=""></a>        y <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo y</span></span>
-<span id="cb7-7"><a href=""></a>        dx <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada x</span></span>
-<span id="cb7-8"><a href=""></a>        dy <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada y</span></span>
-<span id="cb7-9"><a href=""></a>        img <span class="kw">::</span> <span class="dt">Image</span>     <span class="co"># Imagem do pokemon</span></span>
-<span id="cb7-10"><a href=""></a>    )</span>
-<span id="cb7-11"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a>    <span class="kw">|</span> pokemon(</span>
+<span id="cb7-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,    <span class="co"># Id do pokemon</span></span>
+<span id="cb7-4"><a href="" aria-label="4"></a>        name <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># Nome do pokemon</span></span>
+<span id="cb7-5"><a href="" aria-label="5"></a>        x <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo x</span></span>
+<span id="cb7-6"><a href="" aria-label="6"></a>        y <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo y</span></span>
+<span id="cb7-7"><a href="" aria-label="7"></a>        dx <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada x</span></span>
+<span id="cb7-8"><a href="" aria-label="8"></a>        dy <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada y</span></span>
+<span id="cb7-9"><a href="" aria-label="9"></a>        img <span class="kw">::</span> <span class="dt">Image</span>     <span class="co"># Imagem do pokemon</span></span>
+<span id="cb7-10"><a href="" aria-label="10"></a>    )</span>
+<span id="cb7-11"><a href="" aria-label="11"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Exemplos de elementos de <span class="roxo">Pokemon</span>:</p>
 <div style="font-size: 0.78em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="dt">PIKACHU</span> = pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>)))</span>
-<span id="cb8-2"><a href=""></a><span class="dt">EEVEE</span> = pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
-<span id="cb8-3"><a href=""></a><span class="dt">BULBASAUR</span> = pokemon(<span class="st">"0001"</span>, <span class="st">"Bulbasaur"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, img-pokemon(<span class="st">"0001"</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href="" aria-label="1"></a><span class="dt">PIKACHU</span> = pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>)))</span>
+<span id="cb8-2"><a href="" aria-label="2"></a><span class="dt">EEVEE</span> = pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
+<span id="cb8-3"><a href="" aria-label="3"></a><span class="dt">BULBASAUR</span> = pokemon(<span class="st">"0001"</span>, <span class="st">"Bulbasaur"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, img-pokemon(<span class="st">"0001"</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="cenário" class="slide level2">
@@ -811,9 +814,9 @@ Lucas Nunes Alegre
 <li>O cenário será representado através de um retângulo verde, usando as seguintes constantes:</li>
 </ul>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="dt">LARG</span> = <span class="dv">500</span></span>
-<span id="cb9-2"><a href=""></a><span class="dt">ALT</span> = <span class="dv">500</span></span>
-<span id="cb9-3"><a href=""></a><span class="dt">CENARIO</span> = rectangle(<span class="dt">LARG</span>, <span class="dt">ALT</span>, <span class="st">"solid"</span>, <span class="st">"forest-green"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href="" aria-label="1"></a><span class="dt">LARG</span> = <span class="dv">500</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a><span class="dt">ALT</span> = <span class="dv">500</span></span>
+<span id="cb9-3"><a href="" aria-label="3"></a><span class="dt">CENARIO</span> = rectangle(<span class="dt">LARG</span>, <span class="dt">ALT</span>, <span class="st">"solid"</span>, <span class="st">"forest-green"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="movimento-do-pokemon" class="slide level2">
 <h2>Movimento do Pokemon</h2>
@@ -847,23 +850,23 @@ Lucas Nunes Alegre
 
 </div><div class="column" style="width:60%;">
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href=""></a><span class="kw">type</span> <span class="dt">ListaDeCenas</span> = <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt;</span>
-<span id="cb10-2"><a href=""></a><span class="co"># ListaDeCenas é:</span></span>
-<span id="cb10-3"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb10-4"><a href=""></a><span class="co"># | link(first :: Image, rest :: List&lt;Image&gt;)</span></span>
-<span id="cb10-5"><a href=""></a><span class="co"># end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href="" aria-label="1"></a><span class="kw">type</span> <span class="dt">ListaDeCenas</span> = <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt;</span>
+<span id="cb10-2"><a href="" aria-label="2"></a><span class="co"># ListaDeCenas é:</span></span>
+<span id="cb10-3"><a href="" aria-label="3"></a><span class="co"># | empty</span></span>
+<span id="cb10-4"><a href="" aria-label="4"></a><span class="co"># | link(first :: Image, rest :: List&lt;Image&gt;)</span></span>
+<span id="cb10-5"><a href="" aria-label="5"></a><span class="co"># end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
 <section id="move-ate-que-fora" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href=""></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
-<span id="cb11-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.68em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href=""></a><span class="co"># Exemplo:</span></span>
-<span id="cb12-2"><a href=""></a>move-ate-que-fora(pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">50</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>))))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href="" aria-label="1"></a><span class="co"># Exemplo:</span></span>
+<span id="cb12-2"><a href="" aria-label="2"></a>move-ate-que-fora(pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">50</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>))))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img data-src="images/aula25/cenas-pikachu.png" class="" style="width:68.0%" alt="Resultado: lista com 11 cenas do Pikachu se deslocando na diagonal até sair do cenário."></p>
 </section>
@@ -888,35 +891,35 @@ Lucas Nunes Alegre
 <section id="move-ate-que-fora-2" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.82em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-code-line-numbers="1,2,4,6,8,10,12,16|1-16"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href=""></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
-<span id="cb13-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
-<span id="cb13-3"><a href=""></a>    <span class="kw">ask:</span></span>
-<span id="cb13-4"><a href=""></a>        <span class="co"># Se o pokemon estiver fora dos limites do cenário, retornar a lista vazia.</span></span>
-<span id="cb13-5"><a href=""></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
-<span id="cb13-6"><a href=""></a>        <span class="co"># Senão,</span></span>
-<span id="cb13-7"><a href=""></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb13-8"><a href=""></a>            <span class="co"># Montar uma lista com as seguintes cenas</span></span>
-<span id="cb13-9"><a href=""></a>            <span class="cn">link</span>(</span>
-<span id="cb13-10"><a href=""></a>                <span class="co"># o primeiro elemento é a cena com o pokemon</span></span>
-<span id="cb13-11"><a href=""></a>                desenha-cena(p),</span>
-<span id="cb13-12"><a href=""></a>                <span class="co"># as cenas geradas pela movimentação do pokemon deslocado</span></span>
-<span id="cb13-13"><a href=""></a>                move-ate-que-fora(move-pokemon(p))</span>
-<span id="cb13-14"><a href=""></a>            )</span>
-<span id="cb13-15"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb13-16"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-code-line-numbers="1,2,4,6,8,10,12,16|1-16"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a>    <span class="kw">ask:</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a>        <span class="co"># Se o pokemon estiver fora dos limites do cenário, retornar a lista vazia.</span></span>
+<span id="cb13-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
+<span id="cb13-6"><a href="" aria-label="6"></a>        <span class="co"># Senão,</span></span>
+<span id="cb13-7"><a href="" aria-label="7"></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb13-8"><a href="" aria-label="8"></a>            <span class="co"># Montar uma lista com as seguintes cenas</span></span>
+<span id="cb13-9"><a href="" aria-label="9"></a>            <span class="cn">link</span>(</span>
+<span id="cb13-10"><a href="" aria-label="10"></a>                <span class="co"># o primeiro elemento é a cena com o pokemon</span></span>
+<span id="cb13-11"><a href="" aria-label="11"></a>                desenha-cena(p),</span>
+<span id="cb13-12"><a href="" aria-label="12"></a>                <span class="co"># as cenas geradas pela movimentação do pokemon deslocado</span></span>
+<span id="cb13-13"><a href="" aria-label="13"></a>                move-ate-que-fora(move-pokemon(p))</span>
+<span id="cb13-14"><a href="" aria-label="14"></a>            )</span>
+<span id="cb13-15"><a href="" aria-label="15"></a>    <span class="kw">end</span></span>
+<span id="cb13-16"><a href="" aria-label="16"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="desenha-cena" class="slide level2">
 <h2>desenha-cena</h2>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="kw">fun</span> desenha-cena(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
-<span id="cb14-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve uma imagem do pokemon desenhada na posição (p.x, p.y) sobre o cenário."</span></span>
-<span id="cb14-3"><a href=""></a>    place-image(p.img, p.x, p.y, <span class="dt">CENARIO</span>)</span>
-<span id="cb14-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href="" aria-label="1"></a><span class="kw">fun</span> desenha-cena(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve uma imagem do pokemon desenhada na posição (p.x, p.y) sobre o cenário."</span></span>
+<span id="cb14-3"><a href="" aria-label="3"></a>    place-image(p.img, p.x, p.y, <span class="dt">CENARIO</span>)</span>
+<span id="cb14-4"><a href="" aria-label="4"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a>desenha-cena(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>)))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href="" aria-label="1"></a>desenha-cena(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>)))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="quarto-figure quarto-figure-left">
 <figure>
@@ -928,35 +931,35 @@ Lucas Nunes Alegre
 <h2>fora-dos-limites</h2>
 <p><br></p>
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb16-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
-<span id="cb16-3"><a href=""></a>    not(</span>
-<span id="cb16-4"><a href=""></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
-<span id="cb16-5"><a href=""></a>    )</span>
-<span id="cb16-6"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb16-7"><a href=""></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb16-8"><a href=""></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, -<span class="dv">10</span>, -<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb16-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href="" aria-label="1"></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
+<span id="cb16-3"><a href="" aria-label="3"></a>    not(</span>
+<span id="cb16-4"><a href="" aria-label="4"></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
+<span id="cb16-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb16-6"><a href="" aria-label="6"></a><span class="kw">where:</span></span>
+<span id="cb16-7"><a href="" aria-label="7"></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb16-8"><a href="" aria-label="8"></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, -<span class="dv">10</span>, -<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb16-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="move-pokemon" class="slide level2">
 <h2>move-pokemon</h2>
 <div style="font-size: 0.82em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb17-1"><a href=""></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
-<span id="cb17-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
-<span id="cb17-3"><a href=""></a>    pokemon(</span>
-<span id="cb17-4"><a href=""></a>        p.id,</span>
-<span id="cb17-5"><a href=""></a>        p.name,</span>
-<span id="cb17-6"><a href=""></a>        p.x + p.dx,</span>
-<span id="cb17-7"><a href=""></a>        p.y + p.dy,</span>
-<span id="cb17-8"><a href=""></a>        p.dx,</span>
-<span id="cb17-9"><a href=""></a>        p.dy,</span>
-<span id="cb17-10"><a href=""></a>        p.img</span>
-<span id="cb17-11"><a href=""></a>    )</span>
-<span id="cb17-12"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb17-13"><a href=""></a>    move-pokemon(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span></span>
-<span id="cb17-14"><a href=""></a>        pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
-<span id="cb17-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb17-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
+<span id="cb17-3"><a href="" aria-label="3"></a>    pokemon(</span>
+<span id="cb17-4"><a href="" aria-label="4"></a>        p.id,</span>
+<span id="cb17-5"><a href="" aria-label="5"></a>        p.name,</span>
+<span id="cb17-6"><a href="" aria-label="6"></a>        p.x + p.dx,</span>
+<span id="cb17-7"><a href="" aria-label="7"></a>        p.y + p.dy,</span>
+<span id="cb17-8"><a href="" aria-label="8"></a>        p.dx,</span>
+<span id="cb17-9"><a href="" aria-label="9"></a>        p.dy,</span>
+<span id="cb17-10"><a href="" aria-label="10"></a>        p.img</span>
+<span id="cb17-11"><a href="" aria-label="11"></a>    )</span>
+<span id="cb17-12"><a href="" aria-label="12"></a><span class="kw">where:</span></span>
+<span id="cb17-13"><a href="" aria-label="13"></a>    move-pokemon(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span></span>
+<span id="cb17-14"><a href="" aria-label="14"></a>        pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
+<span id="cb17-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="run-movie" class="slide level2">
@@ -971,94 +974,94 @@ Lucas Nunes Alegre
 <li>Na aula de hoje, vamos considerar a existência da seguinte função:</li>
 </ul>
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb18-1"><a href=""></a><span class="kw">fun</span> run-movie(fps <span class="kw">::</span> <span class="dt">Number</span>, frames <span class="kw">::</span> <span class="dt">ListaDeCenas</span>)<span class="kw">:</span></span>
-<span id="cb18-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."</span></span>
-<span id="cb18-3"><a href=""></a>    ...</span>
-<span id="cb18-4"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb18-1"><a href="" aria-label="1"></a><span class="kw">fun</span> run-movie(fps <span class="kw">::</span> <span class="dt">Number</span>, frames <span class="kw">::</span> <span class="dt">ListaDeCenas</span>)<span class="kw">:</span></span>
+<span id="cb18-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."</span></span>
+<span id="cb18-3"><a href="" aria-label="3"></a>    ...</span>
+<span id="cb18-4"><a href="" aria-label="4"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="pyret-live" data-height="520" style="font-size: 0.7em;">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb19-1"><a href=""></a><span class="kw">use</span> <span class="kw">context</span> dcic2024</span>
-<span id="cb19-2"><a href=""></a></span>
-<span id="cb19-3"><a href=""></a><span class="kw">include</span> reactors</span>
-<span id="cb19-4"><a href=""></a><span class="kw">import</span> image <span class="kw">as</span> <span class="dt">I</span></span>
-<span id="cb19-5"><a href=""></a></span>
-<span id="cb19-6"><a href=""></a><span class="co"># Definições dos slides anteriores (necessárias para executar o filme)</span></span>
-<span id="cb19-7"><a href=""></a></span>
-<span id="cb19-8"><a href=""></a><span class="kw">fun</span> img-pokemon(pokemon-id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
-<span id="cb19-9"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado o id de um pokemon (como uma string de quatro dígitos), devolve a imagem deste pokemon."</span></span>
-<span id="cb19-10"><a href=""></a>    url = <span class="st">"https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/"</span> + pokemon-id + <span class="st">".png"</span></span>
-<span id="cb19-11"><a href=""></a>    scale(<span class="fl">0.75</span>, image-url(url))</span>
-<span id="cb19-12"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-13"><a href=""></a></span>
-<span id="cb19-14"><a href=""></a><span class="kw">data</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
-<span id="cb19-15"><a href=""></a>    <span class="kw">|</span> pokemon(</span>
-<span id="cb19-16"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,    <span class="co"># Id do pokemon</span></span>
-<span id="cb19-17"><a href=""></a>        name <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># Nome do pokemon</span></span>
-<span id="cb19-18"><a href=""></a>        x <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo x</span></span>
-<span id="cb19-19"><a href=""></a>        y <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo y</span></span>
-<span id="cb19-20"><a href=""></a>        dx <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada x</span></span>
-<span id="cb19-21"><a href=""></a>        dy <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada y</span></span>
-<span id="cb19-22"><a href=""></a>        img <span class="kw">::</span> <span class="dt">Image</span>     <span class="co"># Imagem do pokemon</span></span>
-<span id="cb19-23"><a href=""></a>    )</span>
-<span id="cb19-24"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-25"><a href=""></a></span>
-<span id="cb19-26"><a href=""></a><span class="dt">PIKACHU</span> = pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>)))</span>
-<span id="cb19-27"><a href=""></a><span class="dt">EEVEE</span> = pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
-<span id="cb19-28"><a href=""></a><span class="dt">BULBASAUR</span> = pokemon(<span class="st">"0001"</span>, <span class="st">"Bulbasaur"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, img-pokemon(<span class="st">"0001"</span>))</span>
-<span id="cb19-29"><a href=""></a></span>
-<span id="cb19-30"><a href=""></a><span class="dt">LARG</span> = <span class="dv">500</span></span>
-<span id="cb19-31"><a href=""></a><span class="dt">ALT</span> = <span class="dv">500</span></span>
-<span id="cb19-32"><a href=""></a><span class="dt">CENARIO</span> = rectangle(<span class="dt">LARG</span>, <span class="dt">ALT</span>, <span class="st">"solid"</span>, <span class="st">"forest-green"</span>)</span>
-<span id="cb19-33"><a href=""></a></span>
-<span id="cb19-34"><a href=""></a><span class="kw">type</span> <span class="dt">ListaDeCenas</span> = <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt;</span>
-<span id="cb19-35"><a href=""></a></span>
-<span id="cb19-36"><a href=""></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
-<span id="cb19-37"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
-<span id="cb19-38"><a href=""></a>    <span class="kw">ask:</span></span>
-<span id="cb19-39"><a href=""></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
-<span id="cb19-40"><a href=""></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb19-41"><a href=""></a>            <span class="cn">link</span>(</span>
-<span id="cb19-42"><a href=""></a>                desenha-cena(p),</span>
-<span id="cb19-43"><a href=""></a>                move-ate-que-fora(move-pokemon(p))</span>
-<span id="cb19-44"><a href=""></a>            )</span>
-<span id="cb19-45"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb19-46"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-47"><a href=""></a></span>
-<span id="cb19-48"><a href=""></a><span class="kw">fun</span> desenha-cena(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
-<span id="cb19-49"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve uma imagem do pokemon desenhada na posição (p.x, p.y) sobre o cenário."</span></span>
-<span id="cb19-50"><a href=""></a>    place-image(p.img, p.x, p.y, <span class="dt">CENARIO</span>)</span>
-<span id="cb19-51"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-52"><a href=""></a></span>
-<span id="cb19-53"><a href=""></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb19-54"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
-<span id="cb19-55"><a href=""></a>    not(</span>
-<span id="cb19-56"><a href=""></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
-<span id="cb19-57"><a href=""></a>    )</span>
-<span id="cb19-58"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-59"><a href=""></a></span>
-<span id="cb19-60"><a href=""></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
-<span id="cb19-61"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
-<span id="cb19-62"><a href=""></a>    pokemon(p.id, p.name, p.x + p.dx, p.y + p.dy, p.dx, p.dy, p.img)</span>
-<span id="cb19-63"><a href=""></a><span class="kw">end</span></span>
-<span id="cb19-64"><a href=""></a></span>
-<span id="cb19-65"><a href=""></a><span class="kw">fun</span> run-movie(fps <span class="kw">::</span> <span class="dt">Number</span>, frames <span class="kw">::</span> <span class="dt">ListaDeCenas</span>)<span class="kw">:</span></span>
-<span id="cb19-66"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."</span></span>
-<span id="cb19-67"><a href=""></a>    <span class="dt">LEN</span> = length(frames)</span>
-<span id="cb19-68"><a href=""></a>    r = reactor<span class="kw">:</span></span>
-<span id="cb19-69"><a href=""></a>            init<span class="kw">:</span> <span class="dv">0</span>,</span>
-<span id="cb19-70"><a href=""></a>            on-tick<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> i + <span class="dv">1</span> <span class="kw">end</span>,</span>
-<span id="cb19-71"><a href=""></a>            to-draw<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> frames.get(i) <span class="kw">end</span>,</span>
-<span id="cb19-72"><a href=""></a>            seconds-per-tick<span class="kw">:</span> <span class="dv">1</span> / fps,</span>
-<span id="cb19-73"><a href=""></a>            stop-when<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> i &gt;= (<span class="dt">LEN</span> - <span class="dv">1</span>) <span class="kw">end</span>,</span>
-<span id="cb19-74"><a href=""></a>            close-when-stop<span class="kw">:</span> <span class="cn">true</span>,</span>
-<span id="cb19-75"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb19-76"><a href=""></a></span>
-<span id="cb19-77"><a href=""></a>    interact(r)</span>
-<span id="cb19-78"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb19-1"><a href="" aria-label="1"></a><span class="kw">use</span> <span class="kw">context</span> dcic2024</span>
+<span id="cb19-2"><a href="" aria-label="2"></a></span>
+<span id="cb19-3"><a href="" aria-label="3"></a><span class="kw">include</span> reactors</span>
+<span id="cb19-4"><a href="" aria-label="4"></a><span class="kw">import</span> image <span class="kw">as</span> <span class="dt">I</span></span>
+<span id="cb19-5"><a href="" aria-label="5"></a></span>
+<span id="cb19-6"><a href="" aria-label="6"></a><span class="co"># Definições dos slides anteriores (necessárias para executar o filme)</span></span>
+<span id="cb19-7"><a href="" aria-label="7"></a></span>
+<span id="cb19-8"><a href="" aria-label="8"></a><span class="kw">fun</span> img-pokemon(pokemon-id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
+<span id="cb19-9"><a href="" aria-label="9"></a>    <span class="kw">doc:</span> <span class="st">"Dado o id de um pokemon (como uma string de quatro dígitos), devolve a imagem deste pokemon."</span></span>
+<span id="cb19-10"><a href="" aria-label="10"></a>    url = <span class="st">"https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/thumbnails-compressed/"</span> + pokemon-id + <span class="st">".png"</span></span>
+<span id="cb19-11"><a href="" aria-label="11"></a>    scale(<span class="fl">0.75</span>, image-url(url))</span>
+<span id="cb19-12"><a href="" aria-label="12"></a><span class="kw">end</span></span>
+<span id="cb19-13"><a href="" aria-label="13"></a></span>
+<span id="cb19-14"><a href="" aria-label="14"></a><span class="kw">data</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
+<span id="cb19-15"><a href="" aria-label="15"></a>    <span class="kw">|</span> pokemon(</span>
+<span id="cb19-16"><a href="" aria-label="16"></a>        id <span class="kw">::</span> <span class="dt">String</span>,    <span class="co"># Id do pokemon</span></span>
+<span id="cb19-17"><a href="" aria-label="17"></a>        name <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># Nome do pokemon</span></span>
+<span id="cb19-18"><a href="" aria-label="18"></a>        x <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo x</span></span>
+<span id="cb19-19"><a href="" aria-label="19"></a>        y <span class="kw">::</span> <span class="dt">Number</span>,     <span class="co"># Coordenada no eixo y</span></span>
+<span id="cb19-20"><a href="" aria-label="20"></a>        dx <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada x</span></span>
+<span id="cb19-21"><a href="" aria-label="21"></a>        dy <span class="kw">::</span> <span class="dt">Number</span>,    <span class="co"># Deslocamento da coordenada y</span></span>
+<span id="cb19-22"><a href="" aria-label="22"></a>        img <span class="kw">::</span> <span class="dt">Image</span>     <span class="co"># Imagem do pokemon</span></span>
+<span id="cb19-23"><a href="" aria-label="23"></a>    )</span>
+<span id="cb19-24"><a href="" aria-label="24"></a><span class="kw">end</span></span>
+<span id="cb19-25"><a href="" aria-label="25"></a></span>
+<span id="cb19-26"><a href="" aria-label="26"></a><span class="dt">PIKACHU</span> = pokemon(<span class="st">"0025"</span>, <span class="st">"Pikachu"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">5</span>, flip-horizontal(img-pokemon(<span class="st">"0025"</span>)))</span>
+<span id="cb19-27"><a href="" aria-label="27"></a><span class="dt">EEVEE</span> = pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
+<span id="cb19-28"><a href="" aria-label="28"></a><span class="dt">BULBASAUR</span> = pokemon(<span class="st">"0001"</span>, <span class="st">"Bulbasaur"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, img-pokemon(<span class="st">"0001"</span>))</span>
+<span id="cb19-29"><a href="" aria-label="29"></a></span>
+<span id="cb19-30"><a href="" aria-label="30"></a><span class="dt">LARG</span> = <span class="dv">500</span></span>
+<span id="cb19-31"><a href="" aria-label="31"></a><span class="dt">ALT</span> = <span class="dv">500</span></span>
+<span id="cb19-32"><a href="" aria-label="32"></a><span class="dt">CENARIO</span> = rectangle(<span class="dt">LARG</span>, <span class="dt">ALT</span>, <span class="st">"solid"</span>, <span class="st">"forest-green"</span>)</span>
+<span id="cb19-33"><a href="" aria-label="33"></a></span>
+<span id="cb19-34"><a href="" aria-label="34"></a><span class="kw">type</span> <span class="dt">ListaDeCenas</span> = <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt;</span>
+<span id="cb19-35"><a href="" aria-label="35"></a></span>
+<span id="cb19-36"><a href="" aria-label="36"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
+<span id="cb19-37"><a href="" aria-label="37"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
+<span id="cb19-38"><a href="" aria-label="38"></a>    <span class="kw">ask:</span></span>
+<span id="cb19-39"><a href="" aria-label="39"></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
+<span id="cb19-40"><a href="" aria-label="40"></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb19-41"><a href="" aria-label="41"></a>            <span class="cn">link</span>(</span>
+<span id="cb19-42"><a href="" aria-label="42"></a>                desenha-cena(p),</span>
+<span id="cb19-43"><a href="" aria-label="43"></a>                move-ate-que-fora(move-pokemon(p))</span>
+<span id="cb19-44"><a href="" aria-label="44"></a>            )</span>
+<span id="cb19-45"><a href="" aria-label="45"></a>    <span class="kw">end</span></span>
+<span id="cb19-46"><a href="" aria-label="46"></a><span class="kw">end</span></span>
+<span id="cb19-47"><a href="" aria-label="47"></a></span>
+<span id="cb19-48"><a href="" aria-label="48"></a><span class="kw">fun</span> desenha-cena(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Image</span><span class="kw">:</span></span>
+<span id="cb19-49"><a href="" aria-label="49"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve uma imagem do pokemon desenhada na posição (p.x, p.y) sobre o cenário."</span></span>
+<span id="cb19-50"><a href="" aria-label="50"></a>    place-image(p.img, p.x, p.y, <span class="dt">CENARIO</span>)</span>
+<span id="cb19-51"><a href="" aria-label="51"></a><span class="kw">end</span></span>
+<span id="cb19-52"><a href="" aria-label="52"></a></span>
+<span id="cb19-53"><a href="" aria-label="53"></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb19-54"><a href="" aria-label="54"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
+<span id="cb19-55"><a href="" aria-label="55"></a>    not(</span>
+<span id="cb19-56"><a href="" aria-label="56"></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
+<span id="cb19-57"><a href="" aria-label="57"></a>    )</span>
+<span id="cb19-58"><a href="" aria-label="58"></a><span class="kw">end</span></span>
+<span id="cb19-59"><a href="" aria-label="59"></a></span>
+<span id="cb19-60"><a href="" aria-label="60"></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
+<span id="cb19-61"><a href="" aria-label="61"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
+<span id="cb19-62"><a href="" aria-label="62"></a>    pokemon(p.id, p.name, p.x + p.dx, p.y + p.dy, p.dx, p.dy, p.img)</span>
+<span id="cb19-63"><a href="" aria-label="63"></a><span class="kw">end</span></span>
+<span id="cb19-64"><a href="" aria-label="64"></a></span>
+<span id="cb19-65"><a href="" aria-label="65"></a><span class="kw">fun</span> run-movie(fps <span class="kw">::</span> <span class="dt">Number</span>, frames <span class="kw">::</span> <span class="dt">ListaDeCenas</span>)<span class="kw">:</span></span>
+<span id="cb19-66"><a href="" aria-label="66"></a>    <span class="kw">doc:</span> <span class="st">"Dado um valor de quadros por segundo e uma lista de cenas, exibe as imagens como um filme, mostrando cada imagem por 1/fps segundos."</span></span>
+<span id="cb19-67"><a href="" aria-label="67"></a>    <span class="dt">LEN</span> = length(frames)</span>
+<span id="cb19-68"><a href="" aria-label="68"></a>    r = reactor<span class="kw">:</span></span>
+<span id="cb19-69"><a href="" aria-label="69"></a>            init<span class="kw">:</span> <span class="dv">0</span>,</span>
+<span id="cb19-70"><a href="" aria-label="70"></a>            on-tick<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> i + <span class="dv">1</span> <span class="kw">end</span>,</span>
+<span id="cb19-71"><a href="" aria-label="71"></a>            to-draw<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> frames.get(i) <span class="kw">end</span>,</span>
+<span id="cb19-72"><a href="" aria-label="72"></a>            seconds-per-tick<span class="kw">:</span> <span class="dv">1</span> / fps,</span>
+<span id="cb19-73"><a href="" aria-label="73"></a>            stop-when<span class="kw">:</span> <span class="kw">lam</span>(i)<span class="kw">:</span> i &gt;= (<span class="dt">LEN</span> - <span class="dv">1</span>) <span class="kw">end</span>,</span>
+<span id="cb19-74"><a href="" aria-label="74"></a>            close-when-stop<span class="kw">:</span> <span class="cn">true</span>,</span>
+<span id="cb19-75"><a href="" aria-label="75"></a>    <span class="kw">end</span></span>
+<span id="cb19-76"><a href="" aria-label="76"></a></span>
+<span id="cb19-77"><a href="" aria-label="77"></a>    interact(r)</span>
+<span id="cb19-78"><a href="" aria-label="78"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb20-1"><a href=""></a>run-movie(<span class="dv">10</span>, move-ate-que-fora(<span class="dt">PIKACHU</span>))</span>
-<span id="cb20-2"><a href=""></a>run-movie(<span class="dv">10</span>, move-ate-que-fora(<span class="dt">EEVEE</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb20-1"><a href="" aria-label="1"></a>run-movie(<span class="dv">10</span>, move-ate-que-fora(<span class="dt">PIKACHU</span>))</span>
+<span id="cb20-2"><a href="" aria-label="2"></a>run-movie(<span class="dv">10</span>, move-ate-que-fora(<span class="dt">EEVEE</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercício-1" class="slide level2">
@@ -1111,16 +1114,16 @@ Lucas Nunes Alegre
 <div class="column" style="width:22%;">
 
 </div><div class="column" style="width:56%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb21-1"><a href=""></a><span class="kw">fun</span> f(b)<span class="kw">:</span></span>
-<span id="cb21-2"><a href=""></a>    <span class="kw">ask:</span></span>
-<span id="cb21-3"><a href=""></a>        <span class="kw">|</span> fim(b) <span class="kw">then:</span> <span class="cn">empty</span></span>
-<span id="cb21-4"><a href=""></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb21-5"><a href=""></a>            combina(</span>
-<span id="cb21-6"><a href=""></a>                f(gera-prob1(b)),</span>
-<span id="cb21-7"><a href=""></a>                f(gera-prob2(b))</span>
-<span id="cb21-8"><a href=""></a>            )</span>
-<span id="cb21-9"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb21-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb21-1"><a href="" aria-label="1"></a><span class="kw">fun</span> f(b)<span class="kw">:</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a>    <span class="kw">ask:</span></span>
+<span id="cb21-3"><a href="" aria-label="3"></a>        <span class="kw">|</span> fim(b) <span class="kw">then:</span> <span class="cn">empty</span></span>
+<span id="cb21-4"><a href="" aria-label="4"></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb21-5"><a href="" aria-label="5"></a>            combina(</span>
+<span id="cb21-6"><a href="" aria-label="6"></a>                f(gera-prob1(b)),</span>
+<span id="cb21-7"><a href="" aria-label="7"></a>                f(gera-prob2(b))</span>
+<span id="cb21-8"><a href="" aria-label="8"></a>            )</span>
+<span id="cb21-9"><a href="" aria-label="9"></a>    <span class="kw">end</span></span>
+<span id="cb21-10"><a href="" aria-label="10"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div></div>
 <p><br></p>
 <ul>
@@ -1134,53 +1137,53 @@ Lucas Nunes Alegre
 <section id="quicksort-2" class="slide level2">
 <h2>Quicksort</h2>
 <div class="pyret-live" data-height="560" style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb22-1"><a href=""></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
-<span id="cb22-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">```Dado uma lista de números, ordena a lista em ordem crescente.```</span></span>
-<span id="cb22-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb22-4"><a href=""></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
-<span id="cb22-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb22-6"><a href=""></a>        <span class="co"># Senão,</span></span>
-<span id="cb22-7"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb22-8"><a href=""></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
-<span id="cb22-9"><a href=""></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
-<span id="cb22-10"><a href=""></a>            <span class="co"># Juntar as seguintes listas:</span></span>
-<span id="cb22-11"><a href=""></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
-<span id="cb22-12"><a href=""></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
-<span id="cb22-13"><a href=""></a>                <span class="co"># 3. A lista ordenada dos elementos maiores ou iguais ao primeiro.</span></span>
-<span id="cb22-14"><a href=""></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
-<span id="cb22-15"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb22-16"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb22-17"><a href=""></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb22-18"><a href=""></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb22-19"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb22-1"><a href="" aria-label="1"></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
+<span id="cb22-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">```Dado uma lista de números, ordena a lista em ordem crescente.```</span></span>
+<span id="cb22-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb22-4"><a href="" aria-label="4"></a>        <span class="co"># Se a lista l for vazia, retornar a lista vazia.</span></span>
+<span id="cb22-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb22-6"><a href="" aria-label="6"></a>        <span class="co"># Senão,</span></span>
+<span id="cb22-7"><a href="" aria-label="7"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb22-8"><a href="" aria-label="8"></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
+<span id="cb22-9"><a href="" aria-label="9"></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
+<span id="cb22-10"><a href="" aria-label="10"></a>            <span class="co"># Juntar as seguintes listas:</span></span>
+<span id="cb22-11"><a href="" aria-label="11"></a>                <span class="co"># 1. A lista ordenada dos elementos menores que o primeiro.</span></span>
+<span id="cb22-12"><a href="" aria-label="12"></a>                <span class="co"># 2. A lista contendo apenas o primeiro elemento.</span></span>
+<span id="cb22-13"><a href="" aria-label="13"></a>                <span class="co"># 3. A lista ordenada dos elementos maiores ou iguais ao primeiro.</span></span>
+<span id="cb22-14"><a href="" aria-label="14"></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
+<span id="cb22-15"><a href="" aria-label="15"></a>    <span class="kw">end</span></span>
+<span id="cb22-16"><a href="" aria-label="16"></a><span class="kw">where:</span></span>
+<span id="cb22-17"><a href="" aria-label="17"></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb22-18"><a href="" aria-label="18"></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb22-19"><a href="" aria-label="19"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="quicksort-3" class="slide level2">
 <h2>Quicksort</h2>
 <div class="pyret-live" data-height="560" style="font-size: 0.74em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb23-1"><a href=""></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
-<span id="cb23-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">```Dado uma lista de números, ordena a lista em ordem crescente.</span></span>
-<span id="cb23-3"><a href=""></a></span>
-<span id="cb23-4"><a href=""></a><span class="st">    Terminação: As definições locais menores e maiores-igual sempre são listas</span></span>
-<span id="cb23-5"><a href=""></a><span class="st">    com tamanhos menores que o da lista original (porque pelo menos o primeiro</span></span>
-<span id="cb23-6"><a href=""></a><span class="st">    elemento da lista é retirado). Portanto, cada chamada recursiva de quicksort</span></span>
-<span id="cb23-7"><a href=""></a><span class="st">    é realizada sobre uma lista estritamente menor que a lista original. Como a</span></span>
-<span id="cb23-8"><a href=""></a><span class="st">    lista original é finita, este processo gerará um dia uma chamada sobre a</span></span>
-<span id="cb23-9"><a href=""></a><span class="st">    lista vazia, que é o caso trivial deste programa (não envolve recursão).</span></span>
-<span id="cb23-10"><a href=""></a><span class="st">    Assim, assumindo que as funções/expressões "+", "filter", "cases", e "link"</span></span>
-<span id="cb23-11"><a href=""></a><span class="st">    terminam, qualquer chamada de quicksort sempre terminará.</span></span>
-<span id="cb23-12"><a href=""></a><span class="st">    ```</span></span>
-<span id="cb23-13"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb23-14"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb23-15"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb23-16"><a href=""></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
-<span id="cb23-17"><a href=""></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
-<span id="cb23-18"><a href=""></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
-<span id="cb23-19"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb23-20"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb23-21"><a href=""></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb23-22"><a href=""></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb23-23"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb23-1"><a href="" aria-label="1"></a><span class="kw">fun</span> quicksort(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;<span class="kw">:</span></span>
+<span id="cb23-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">```Dado uma lista de números, ordena a lista em ordem crescente.</span></span>
+<span id="cb23-3"><a href="" aria-label="3"></a></span>
+<span id="cb23-4"><a href="" aria-label="4"></a><span class="st">    Terminação: As definições locais menores e maiores-igual sempre são listas</span></span>
+<span id="cb23-5"><a href="" aria-label="5"></a><span class="st">    com tamanhos menores que o da lista original (porque pelo menos o primeiro</span></span>
+<span id="cb23-6"><a href="" aria-label="6"></a><span class="st">    elemento da lista é retirado). Portanto, cada chamada recursiva de quicksort</span></span>
+<span id="cb23-7"><a href="" aria-label="7"></a><span class="st">    é realizada sobre uma lista estritamente menor que a lista original. Como a</span></span>
+<span id="cb23-8"><a href="" aria-label="8"></a><span class="st">    lista original é finita, este processo gerará um dia uma chamada sobre a</span></span>
+<span id="cb23-9"><a href="" aria-label="9"></a><span class="st">    lista vazia, que é o caso trivial deste programa (não envolve recursão).</span></span>
+<span id="cb23-10"><a href="" aria-label="10"></a><span class="st">    Assim, assumindo que as funções/expressões "+", "filter", "cases", e "link"</span></span>
+<span id="cb23-11"><a href="" aria-label="11"></a><span class="st">    terminam, qualquer chamada de quicksort sempre terminará.</span></span>
+<span id="cb23-12"><a href="" aria-label="12"></a><span class="st">    ```</span></span>
+<span id="cb23-13"><a href="" aria-label="13"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">Number</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb23-14"><a href="" aria-label="14"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb23-15"><a href="" aria-label="15"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb23-16"><a href="" aria-label="16"></a>            menores = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &lt; f <span class="kw">end</span>, r)</span>
+<span id="cb23-17"><a href="" aria-label="17"></a>            maiores-igual = filter(<span class="kw">lam</span>(x)<span class="kw">:</span> x &gt;= f <span class="kw">end</span>, r)</span>
+<span id="cb23-18"><a href="" aria-label="18"></a>            quicksort(menores) + [<span class="cn">list</span><span class="kw">:</span> f] + quicksort(maiores-igual)</span>
+<span id="cb23-19"><a href="" aria-label="19"></a>    <span class="kw">end</span></span>
+<span id="cb23-20"><a href="" aria-label="20"></a><span class="kw">where:</span></span>
+<span id="cb23-21"><a href="" aria-label="21"></a>    quicksort(<span class="cn">empty</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb23-22"><a href="" aria-label="22"></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb23-23"><a href="" aria-label="23"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="terminação-2" class="slide level2">
@@ -1202,84 +1205,84 @@ Lucas Nunes Alegre
 <section id="move-ate-que-fora-3" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.82em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb24-1"><a href=""></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
-<span id="cb24-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
-<span id="cb24-3"><a href=""></a>    <span class="kw">ask:</span></span>
-<span id="cb24-4"><a href=""></a>        <span class="co"># Se o pokemon estiver fora dos limites do cenário, retornar a lista vazia.</span></span>
-<span id="cb24-5"><a href=""></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
-<span id="cb24-6"><a href=""></a>        <span class="co"># Senão,</span></span>
-<span id="cb24-7"><a href=""></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb24-8"><a href=""></a>            <span class="co"># Montar uma lista com as seguintes cenas</span></span>
-<span id="cb24-9"><a href=""></a>            <span class="cn">link</span>(</span>
-<span id="cb24-10"><a href=""></a>                <span class="co"># o primeiro elemento é a cena com o pokemon</span></span>
-<span id="cb24-11"><a href=""></a>                desenha-cena(p),</span>
-<span id="cb24-12"><a href=""></a>                <span class="co"># as cenas geradas pela movimentação do pokemon deslocado</span></span>
-<span id="cb24-13"><a href=""></a>                move-ate-que-fora(move-pokemon(p))</span>
-<span id="cb24-14"><a href=""></a>            )</span>
-<span id="cb24-15"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb24-16"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb24-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
+<span id="cb24-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário."</span></span>
+<span id="cb24-3"><a href="" aria-label="3"></a>    <span class="kw">ask:</span></span>
+<span id="cb24-4"><a href="" aria-label="4"></a>        <span class="co"># Se o pokemon estiver fora dos limites do cenário, retornar a lista vazia.</span></span>
+<span id="cb24-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
+<span id="cb24-6"><a href="" aria-label="6"></a>        <span class="co"># Senão,</span></span>
+<span id="cb24-7"><a href="" aria-label="7"></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb24-8"><a href="" aria-label="8"></a>            <span class="co"># Montar uma lista com as seguintes cenas</span></span>
+<span id="cb24-9"><a href="" aria-label="9"></a>            <span class="cn">link</span>(</span>
+<span id="cb24-10"><a href="" aria-label="10"></a>                <span class="co"># o primeiro elemento é a cena com o pokemon</span></span>
+<span id="cb24-11"><a href="" aria-label="11"></a>                desenha-cena(p),</span>
+<span id="cb24-12"><a href="" aria-label="12"></a>                <span class="co"># as cenas geradas pela movimentação do pokemon deslocado</span></span>
+<span id="cb24-13"><a href="" aria-label="13"></a>                move-ate-que-fora(move-pokemon(p))</span>
+<span id="cb24-14"><a href="" aria-label="14"></a>            )</span>
+<span id="cb24-15"><a href="" aria-label="15"></a>    <span class="kw">end</span></span>
+<span id="cb24-16"><a href="" aria-label="16"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="fora-dos-limites-1" class="slide level2">
 <h2>fora-dos-limites</h2>
 <p><br></p>
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb25-1"><a href=""></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb25-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
-<span id="cb25-3"><a href=""></a>    not(</span>
-<span id="cb25-4"><a href=""></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
-<span id="cb25-5"><a href=""></a>    )</span>
-<span id="cb25-6"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb25-7"><a href=""></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb25-8"><a href=""></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, -<span class="dv">10</span>, -<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb25-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb25-1"><a href="" aria-label="1"></a><span class="kw">fun</span> fora-dos-limites(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb25-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, verifica se o pokemon está fora dos limites do cenário."</span></span>
+<span id="cb25-3"><a href="" aria-label="3"></a>    not(</span>
+<span id="cb25-4"><a href="" aria-label="4"></a>        (p.x &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.x &lt;= <span class="dt">LARG</span>) <span class="kw">and</span> (p.y &gt;= <span class="dv">0</span>) <span class="kw">and</span> (p.y &lt;= <span class="dt">ALT</span>)</span>
+<span id="cb25-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb25-6"><a href="" aria-label="6"></a><span class="kw">where:</span></span>
+<span id="cb25-7"><a href="" aria-label="7"></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb25-8"><a href="" aria-label="8"></a>    fora-dos-limites(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, -<span class="dv">10</span>, -<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb25-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="move-pokemon-1" class="slide level2">
 <h2>move-pokemon</h2>
 <div style="font-size: 0.82em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb26-1"><a href=""></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
-<span id="cb26-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
-<span id="cb26-3"><a href=""></a>    pokemon(</span>
-<span id="cb26-4"><a href=""></a>        p.id,</span>
-<span id="cb26-5"><a href=""></a>        p.name,</span>
-<span id="cb26-6"><a href=""></a>        p.x + p.dx,</span>
-<span id="cb26-7"><a href=""></a>        p.y + p.dy,</span>
-<span id="cb26-8"><a href=""></a>        p.dx,</span>
-<span id="cb26-9"><a href=""></a>        p.dy,</span>
-<span id="cb26-10"><a href=""></a>        p.img</span>
-<span id="cb26-11"><a href=""></a>    )</span>
-<span id="cb26-12"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb26-13"><a href=""></a>    move-pokemon(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span></span>
-<span id="cb26-14"><a href=""></a>        pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
-<span id="cb26-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb26-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-pokemon(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">Pokemon</span><span class="kw">:</span></span>
+<span id="cb26-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dado um pokemon, devolve um novo pokemon com a posição atualizada de acordo com as variações dx e dy."</span></span>
+<span id="cb26-3"><a href="" aria-label="3"></a>    pokemon(</span>
+<span id="cb26-4"><a href="" aria-label="4"></a>        p.id,</span>
+<span id="cb26-5"><a href="" aria-label="5"></a>        p.name,</span>
+<span id="cb26-6"><a href="" aria-label="6"></a>        p.x + p.dx,</span>
+<span id="cb26-7"><a href="" aria-label="7"></a>        p.y + p.dy,</span>
+<span id="cb26-8"><a href="" aria-label="8"></a>        p.dx,</span>
+<span id="cb26-9"><a href="" aria-label="9"></a>        p.dy,</span>
+<span id="cb26-10"><a href="" aria-label="10"></a>        p.img</span>
+<span id="cb26-11"><a href="" aria-label="11"></a>    )</span>
+<span id="cb26-12"><a href="" aria-label="12"></a><span class="kw">where:</span></span>
+<span id="cb26-13"><a href="" aria-label="13"></a>    move-pokemon(pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))) <span class="kw">is</span></span>
+<span id="cb26-14"><a href="" aria-label="14"></a>        pokemon(<span class="st">"0133"</span>, <span class="st">"Eevee"</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, img-pokemon(<span class="st">"0133"</span>))</span>
+<span id="cb26-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="move-ate-que-fora-4" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.8em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb27-1"><a href=""></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
-<span id="cb27-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">```Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da</span></span>
-<span id="cb27-3"><a href=""></a><span class="st">    posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário.</span></span>
-<span id="cb27-4"><a href=""></a></span>
-<span id="cb27-5"><a href=""></a><span class="st">    Terminação: Supondo deslocamento não nulo (dx ou dy diferente de 0), a função</span></span>
-<span id="cb27-6"><a href=""></a><span class="st">    move-pokemon sempre retorna um pokemon com posição mais próxima dos limites do</span></span>
-<span id="cb27-7"><a href=""></a><span class="st">    cenário que o pokemon original (considerando o vetor de deslocamento). Portanto,</span></span>
-<span id="cb27-8"><a href=""></a><span class="st">    cada chamada recursiva de move-ate-que-fora é realizada sobre um pokemon mais</span></span>
-<span id="cb27-9"><a href=""></a><span class="st">    próximo dos limites. Como o cenário tem tamanho finito, este processo gerará</span></span>
-<span id="cb27-10"><a href=""></a><span class="st">    um dia uma chamada sobre um pokemon que está fora dos limites do cenário, que é</span></span>
-<span id="cb27-11"><a href=""></a><span class="st">    o caso trivial deste programa (não envolve recursão). Assim, assumindo que as</span></span>
-<span id="cb27-12"><a href=""></a><span class="st">    funções fora-dos-limites, link, desenha-cena e move-pokemon terminam, qualquer</span></span>
-<span id="cb27-13"><a href=""></a><span class="st">    chamada de move-ate-que-fora sempre terminará.```</span></span>
-<span id="cb27-14"><a href=""></a>    <span class="kw">ask:</span></span>
-<span id="cb27-15"><a href=""></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
-<span id="cb27-16"><a href=""></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb27-17"><a href=""></a>            <span class="cn">link</span>(</span>
-<span id="cb27-18"><a href=""></a>                desenha-cena(p),</span>
-<span id="cb27-19"><a href=""></a>                move-ate-que-fora(move-pokemon(p))</span>
-<span id="cb27-20"><a href=""></a>            )</span>
-<span id="cb27-21"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb27-22"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb27-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
+<span id="cb27-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">```Dado um pokemon, gera uma lista de cenas do pokemon se movendo a partir da</span></span>
+<span id="cb27-3"><a href="" aria-label="3"></a><span class="st">    posição (p.x, p.y) até que o pokemon esteja fora dos limites do cenário.</span></span>
+<span id="cb27-4"><a href="" aria-label="4"></a></span>
+<span id="cb27-5"><a href="" aria-label="5"></a><span class="st">    Terminação: Supondo deslocamento não nulo (dx ou dy diferente de 0), a função</span></span>
+<span id="cb27-6"><a href="" aria-label="6"></a><span class="st">    move-pokemon sempre retorna um pokemon com posição mais próxima dos limites do</span></span>
+<span id="cb27-7"><a href="" aria-label="7"></a><span class="st">    cenário que o pokemon original (considerando o vetor de deslocamento). Portanto,</span></span>
+<span id="cb27-8"><a href="" aria-label="8"></a><span class="st">    cada chamada recursiva de move-ate-que-fora é realizada sobre um pokemon mais</span></span>
+<span id="cb27-9"><a href="" aria-label="9"></a><span class="st">    próximo dos limites. Como o cenário tem tamanho finito, este processo gerará</span></span>
+<span id="cb27-10"><a href="" aria-label="10"></a><span class="st">    um dia uma chamada sobre um pokemon que está fora dos limites do cenário, que é</span></span>
+<span id="cb27-11"><a href="" aria-label="11"></a><span class="st">    o caso trivial deste programa (não envolve recursão). Assim, assumindo que as</span></span>
+<span id="cb27-12"><a href="" aria-label="12"></a><span class="st">    funções fora-dos-limites, link, desenha-cena e move-pokemon terminam, qualquer</span></span>
+<span id="cb27-13"><a href="" aria-label="13"></a><span class="st">    chamada de move-ate-que-fora sempre terminará.```</span></span>
+<span id="cb27-14"><a href="" aria-label="14"></a>    <span class="kw">ask:</span></span>
+<span id="cb27-15"><a href="" aria-label="15"></a>        <span class="kw">|</span> fora-dos-limites(p) <span class="kw">then:</span> <span class="cn">empty</span></span>
+<span id="cb27-16"><a href="" aria-label="16"></a>        <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb27-17"><a href="" aria-label="17"></a>            <span class="cn">link</span>(</span>
+<span id="cb27-18"><a href="" aria-label="18"></a>                desenha-cena(p),</span>
+<span id="cb27-19"><a href="" aria-label="19"></a>                move-ate-que-fora(move-pokemon(p))</span>
+<span id="cb27-20"><a href="" aria-label="20"></a>            )</span>
+<span id="cb27-21"><a href="" aria-label="21"></a>    <span class="kw">end</span></span>
+<span id="cb27-22"><a href="" aria-label="22"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment" style="font-size: 0.8em;">
 <p><span class="label-rmk"><strong>Obs.:</strong></span> E se <code>dx = dy = 0</code>? O pokemon nunca sai do lugar e a função <span class="vermelho">nunca termina</span>!</p>

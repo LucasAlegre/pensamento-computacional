@@ -6,8 +6,8 @@
 <script src="libs/quarto-html/tippy.umd.min.js"></script>
 <link href="libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Lucas Nunes Alegre">
   <title>Aula 24 – Grafos</title>
@@ -20,10 +20,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -98,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-8fb68392b7e1d2ed09dfb862c294a1ef.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-fbeadf45a7590cfba62b17e8dec95ee0.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -434,7 +437,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Lucas Nunes Alegre 
+Lucas Nunes Alegre
 </div>
         <p class="quarto-title-affiliation">
             </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides parcialmente baseados no material da Profa. Leila Ribeiro.</span></p>
@@ -723,18 +726,18 @@ Lucas Nunes Alegre
 <section id="grafo-definição" class="slide level2">
 <h2>Grafo – Definição</h2>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href=""></a>   nodo(</span>
-<span id="cb1-3"><a href=""></a>       id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb1-4"><a href=""></a>       vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb1-5"><a href=""></a>   )</span>
-<span id="cb1-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a></span>
-<span id="cb1-9"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb1-10"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb1-11"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb1-12"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a>   nodo(</span>
+<span id="cb1-3"><a href="" aria-label="3"></a>       id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a>       vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb1-5"><a href="" aria-label="5"></a>   )</span>
+<span id="cb1-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb1-7"><a href="" aria-label="7"></a></span>
+<span id="cb1-8"><a href="" aria-label="8"></a></span>
+<span id="cb1-9"><a href="" aria-label="9"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb1-10"><a href="" aria-label="10"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb1-11"><a href="" aria-label="11"></a><span class="co"># | empty</span></span>
+<span id="cb1-12"><a href="" aria-label="12"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exemplo" class="slide level2">
 <h2>Exemplo</h2>
@@ -760,12 +763,12 @@ Lucas Nunes Alegre
 </ul>
 </div></div>
 <div class="absolute" style="font-size: 0.8em;top: 300px; left: 400px; width: 580px; ">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href=""></a>               nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb2-3"><a href=""></a>               nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb2-4"><a href=""></a>               nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb2-5"><a href=""></a>               nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb2-6"><a href=""></a>             ]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href="" aria-label="1"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>               nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb2-3"><a href="" aria-label="3"></a>               nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb2-4"><a href="" aria-label="4"></a>               nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb2-5"><a href="" aria-label="5"></a>               nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb2-6"><a href="" aria-label="6"></a>             ]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <div class="absolute" style="border: 2px solid #0070c0;top: 330px; left: 652px; width: 60px; height: 95px; ">
@@ -865,50 +868,50 @@ Lucas Nunes Alegre
 <h2>Vizinhos</h2>
 <div class="pyret-live" data-height="560">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href=""></a>    nodo(</span>
-<span id="cb3-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb3-4"><a href=""></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb3-5"><a href=""></a>    )</span>
-<span id="cb3-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb3-7"><a href=""></a></span>
-<span id="cb3-8"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb3-9"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb3-10"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb3-11"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
-<span id="cb3-12"><a href=""></a></span>
-<span id="cb3-13"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb3-14"><a href=""></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb3-15"><a href=""></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb3-16"><a href=""></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb3-17"><a href=""></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb3-18"><a href=""></a>            ]</span>
-<span id="cb3-19"><a href=""></a></span>
-<span id="cb3-20"><a href=""></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb3-21"><a href=""></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
-<span id="cb3-22"><a href=""></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb3-23"><a href=""></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
-<span id="cb3-24"><a href=""></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
-<span id="cb3-25"><a href=""></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb3-26"><a href=""></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
-<span id="cb3-27"><a href=""></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
-<span id="cb3-28"><a href=""></a>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>    nodo(</span>
+<span id="cb3-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb3-4"><a href="" aria-label="4"></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb3-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb3-7"><a href="" aria-label="7"></a></span>
+<span id="cb3-8"><a href="" aria-label="8"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb3-9"><a href="" aria-label="9"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb3-10"><a href="" aria-label="10"></a><span class="co"># | empty</span></span>
+<span id="cb3-11"><a href="" aria-label="11"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
+<span id="cb3-12"><a href="" aria-label="12"></a></span>
+<span id="cb3-13"><a href="" aria-label="13"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb3-14"><a href="" aria-label="14"></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb3-15"><a href="" aria-label="15"></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb3-16"><a href="" aria-label="16"></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb3-17"><a href="" aria-label="17"></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb3-18"><a href="" aria-label="18"></a>            ]</span>
+<span id="cb3-19"><a href="" aria-label="19"></a></span>
+<span id="cb3-20"><a href="" aria-label="20"></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb3-21"><a href="" aria-label="21"></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
+<span id="cb3-22"><a href="" aria-label="22"></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb3-23"><a href="" aria-label="23"></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
+<span id="cb3-24"><a href="" aria-label="24"></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
+<span id="cb3-25"><a href="" aria-label="25"></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb3-26"><a href="" aria-label="26"></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
+<span id="cb3-27"><a href="" aria-label="27"></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
+<span id="cb3-28"><a href="" aria-label="28"></a>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb4-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
-<span id="cb4-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
-<span id="cb4-4"><a href=""></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
-<span id="cb4-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb4-6"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb4-7"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb4-8"><a href=""></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
-<span id="cb4-9"><a href=""></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
-<span id="cb4-10"><a href=""></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
-<span id="cb4-11"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
-<span id="cb4-12"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb4-13"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb4-14"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href="" aria-label="1"></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb4-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
+<span id="cb4-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
+<span id="cb4-4"><a href="" aria-label="4"></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
+<span id="cb4-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb4-6"><a href="" aria-label="6"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb4-7"><a href="" aria-label="7"></a>            <span class="kw">ask:</span></span>
+<span id="cb4-8"><a href="" aria-label="8"></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
+<span id="cb4-9"><a href="" aria-label="9"></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
+<span id="cb4-10"><a href="" aria-label="10"></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
+<span id="cb4-11"><a href="" aria-label="11"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
+<span id="cb4-12"><a href="" aria-label="12"></a>            <span class="kw">end</span></span>
+<span id="cb4-13"><a href="" aria-label="13"></a>    <span class="kw">end</span></span>
+<span id="cb4-14"><a href="" aria-label="14"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <ul>
@@ -948,20 +951,20 @@ Lucas Nunes Alegre
 <h2>esta-na-lista</h2>
 <div class="pyret-live" data-height="520">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb5-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
-<span id="cb5-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb5-4"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb5-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb5-6"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb5-7"><a href=""></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb5-8"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
-<span id="cb5-9"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb5-10"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb5-11"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb5-12"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb5-13"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb5-14"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href="" aria-label="1"></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb5-4"><a href="" aria-label="4"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb5-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb5-6"><a href="" aria-label="6"></a>            <span class="kw">ask:</span></span>
+<span id="cb5-7"><a href="" aria-label="7"></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb5-8"><a href="" aria-label="8"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
+<span id="cb5-9"><a href="" aria-label="9"></a>            <span class="kw">end</span></span>
+<span id="cb5-10"><a href="" aria-label="10"></a>    <span class="kw">end</span></span>
+<span id="cb5-11"><a href="" aria-label="11"></a><span class="kw">where:</span></span>
+<span id="cb5-12"><a href="" aria-label="12"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb5-13"><a href="" aria-label="13"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb5-14"><a href="" aria-label="14"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1059,13 +1062,13 @@ Lucas Nunes Alegre
 <section id="menor-caminho" class="slide level2">
 <h2>menor-caminho</h2>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb6-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb6-5"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
-<span id="cb6-6"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb6-7"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href="" aria-label="1"></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
+<span id="cb6-3"><a href="" aria-label="3"></a></span>
+<span id="cb6-4"><a href="" aria-label="4"></a><span class="kw">where:</span></span>
+<span id="cb6-5"><a href="" aria-label="5"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
+<span id="cb6-6"><a href="" aria-label="6"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb6-7"><a href="" aria-label="7"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <svg viewbox="0 0 475 290" style="display:block; margin:0 auto; width:15em; max-width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Grafo dirigido G1 com arestas A→B, A→E, B→E, B→F, E→C, E→F, C→D, F→D e F→G">
 <defs><marker id="arr-g1-10" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#555555"></path></marker></defs>
@@ -1242,76 +1245,76 @@ Lucas Nunes Alegre
 <h2>Existe Caminho?</h2>
 <div class="pyret-live" data-height="600">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href=""></a>    nodo(</span>
-<span id="cb7-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb7-4"><a href=""></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb7-5"><a href=""></a>    )</span>
-<span id="cb7-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb7-7"><a href=""></a></span>
-<span id="cb7-8"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb7-9"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb7-10"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb7-11"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
-<span id="cb7-12"><a href=""></a></span>
-<span id="cb7-13"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb7-14"><a href=""></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb7-15"><a href=""></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb7-16"><a href=""></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb7-17"><a href=""></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb7-18"><a href=""></a>            ]</span>
-<span id="cb7-19"><a href=""></a></span>
-<span id="cb7-20"><a href=""></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb7-21"><a href=""></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
-<span id="cb7-22"><a href=""></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb7-23"><a href=""></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
-<span id="cb7-24"><a href=""></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
-<span id="cb7-25"><a href=""></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb7-26"><a href=""></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
-<span id="cb7-27"><a href=""></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
-<span id="cb7-28"><a href=""></a>]</span>
-<span id="cb7-29"><a href=""></a></span>
-<span id="cb7-30"><a href=""></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb7-31"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
-<span id="cb7-32"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
-<span id="cb7-33"><a href=""></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
-<span id="cb7-34"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb7-35"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb7-36"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb7-37"><a href=""></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
-<span id="cb7-38"><a href=""></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
-<span id="cb7-39"><a href=""></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
-<span id="cb7-40"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
-<span id="cb7-41"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb7-42"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb7-43"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a>    nodo(</span>
+<span id="cb7-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb7-4"><a href="" aria-label="4"></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb7-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb7-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb7-7"><a href="" aria-label="7"></a></span>
+<span id="cb7-8"><a href="" aria-label="8"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb7-9"><a href="" aria-label="9"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb7-10"><a href="" aria-label="10"></a><span class="co"># | empty</span></span>
+<span id="cb7-11"><a href="" aria-label="11"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
+<span id="cb7-12"><a href="" aria-label="12"></a></span>
+<span id="cb7-13"><a href="" aria-label="13"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb7-14"><a href="" aria-label="14"></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb7-15"><a href="" aria-label="15"></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb7-16"><a href="" aria-label="16"></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb7-17"><a href="" aria-label="17"></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb7-18"><a href="" aria-label="18"></a>            ]</span>
+<span id="cb7-19"><a href="" aria-label="19"></a></span>
+<span id="cb7-20"><a href="" aria-label="20"></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb7-21"><a href="" aria-label="21"></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
+<span id="cb7-22"><a href="" aria-label="22"></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb7-23"><a href="" aria-label="23"></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
+<span id="cb7-24"><a href="" aria-label="24"></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
+<span id="cb7-25"><a href="" aria-label="25"></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb7-26"><a href="" aria-label="26"></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
+<span id="cb7-27"><a href="" aria-label="27"></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
+<span id="cb7-28"><a href="" aria-label="28"></a>]</span>
+<span id="cb7-29"><a href="" aria-label="29"></a></span>
+<span id="cb7-30"><a href="" aria-label="30"></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb7-31"><a href="" aria-label="31"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
+<span id="cb7-32"><a href="" aria-label="32"></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
+<span id="cb7-33"><a href="" aria-label="33"></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
+<span id="cb7-34"><a href="" aria-label="34"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb7-35"><a href="" aria-label="35"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb7-36"><a href="" aria-label="36"></a>            <span class="kw">ask:</span></span>
+<span id="cb7-37"><a href="" aria-label="37"></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
+<span id="cb7-38"><a href="" aria-label="38"></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
+<span id="cb7-39"><a href="" aria-label="39"></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
+<span id="cb7-40"><a href="" aria-label="40"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
+<span id="cb7-41"><a href="" aria-label="41"></a>            <span class="kw">end</span></span>
+<span id="cb7-42"><a href="" aria-label="42"></a>    <span class="kw">end</span></span>
+<span id="cb7-43"><a href="" aria-label="43"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.75em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="kw">fun</span> existe-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb8-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, determina se existe um caminho do nodo origem ao nodo destino."</span></span>
-<span id="cb8-3"><a href=""></a></span>
-<span id="cb8-4"><a href=""></a>    <span class="kw">fun</span> existe-caminho-busca-em-largura(fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb8-5"><a href=""></a>        <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) fila<span class="kw">:</span></span>
-<span id="cb8-6"><a href=""></a>            <span class="co"># Se fila vazia, não existe caminho</span></span>
-<span id="cb8-7"><a href=""></a>            <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb8-8"><a href=""></a>            <span class="kw">|</span> <span class="cn">link</span>(first, rest) <span class="kw">=&gt;</span></span>
-<span id="cb8-9"><a href=""></a>                <span class="kw">ask:</span></span>
-<span id="cb8-10"><a href=""></a>                    <span class="co"># Se o nó atual é o destino, retorna true</span></span>
-<span id="cb8-11"><a href=""></a>                    <span class="kw">|</span> first == destino <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb8-12"><a href=""></a>                    <span class="co"># Senão, verifica se existe caminho a partir dos nodos na fila + vizinhos de first</span></span>
-<span id="cb8-13"><a href=""></a>                    <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb8-14"><a href=""></a>                      nova-fila = rest + vizinhos(g, first)</span>
-<span id="cb8-15"><a href=""></a></span>
-<span id="cb8-16"><a href=""></a>                      existe-caminho-busca-em-largura(nova-fila)</span>
-<span id="cb8-17"><a href=""></a>                <span class="kw">end</span></span>
-<span id="cb8-18"><a href=""></a>        <span class="kw">end</span></span>
-<span id="cb8-19"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb8-20"><a href=""></a></span>
-<span id="cb8-21"><a href=""></a>    existe-caminho-busca-em-largura([<span class="cn">list</span><span class="kw">:</span> origem])</span>
-<span id="cb8-22"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb8-23"><a href=""></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb8-24"><a href=""></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb8-25"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href="" aria-label="1"></a><span class="kw">fun</span> existe-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, determina se existe um caminho do nodo origem ao nodo destino."</span></span>
+<span id="cb8-3"><a href="" aria-label="3"></a></span>
+<span id="cb8-4"><a href="" aria-label="4"></a>    <span class="kw">fun</span> existe-caminho-busca-em-largura(fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb8-5"><a href="" aria-label="5"></a>        <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) fila<span class="kw">:</span></span>
+<span id="cb8-6"><a href="" aria-label="6"></a>            <span class="co"># Se fila vazia, não existe caminho</span></span>
+<span id="cb8-7"><a href="" aria-label="7"></a>            <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb8-8"><a href="" aria-label="8"></a>            <span class="kw">|</span> <span class="cn">link</span>(first, rest) <span class="kw">=&gt;</span></span>
+<span id="cb8-9"><a href="" aria-label="9"></a>                <span class="kw">ask:</span></span>
+<span id="cb8-10"><a href="" aria-label="10"></a>                    <span class="co"># Se o nó atual é o destino, retorna true</span></span>
+<span id="cb8-11"><a href="" aria-label="11"></a>                    <span class="kw">|</span> first == destino <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb8-12"><a href="" aria-label="12"></a>                    <span class="co"># Senão, verifica se existe caminho a partir dos nodos na fila + vizinhos de first</span></span>
+<span id="cb8-13"><a href="" aria-label="13"></a>                    <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb8-14"><a href="" aria-label="14"></a>                      nova-fila = rest + vizinhos(g, first)</span>
+<span id="cb8-15"><a href="" aria-label="15"></a></span>
+<span id="cb8-16"><a href="" aria-label="16"></a>                      existe-caminho-busca-em-largura(nova-fila)</span>
+<span id="cb8-17"><a href="" aria-label="17"></a>                <span class="kw">end</span></span>
+<span id="cb8-18"><a href="" aria-label="18"></a>        <span class="kw">end</span></span>
+<span id="cb8-19"><a href="" aria-label="19"></a>    <span class="kw">end</span></span>
+<span id="cb8-20"><a href="" aria-label="20"></a></span>
+<span id="cb8-21"><a href="" aria-label="21"></a>    existe-caminho-busca-em-largura([<span class="cn">list</span><span class="kw">:</span> origem])</span>
+<span id="cb8-22"><a href="" aria-label="22"></a><span class="kw">where:</span></span>
+<span id="cb8-23"><a href="" aria-label="23"></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb8-24"><a href="" aria-label="24"></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb8-25"><a href="" aria-label="25"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="absolute" style="bottom: 10px; right: 0px; width: 300px; ">
@@ -1424,92 +1427,92 @@ Lucas Nunes Alegre
 <h2>Existe Caminho?</h2>
 <div class="pyret-live" data-height="600">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb9-2"><a href=""></a>    nodo(</span>
-<span id="cb9-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb9-4"><a href=""></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb9-5"><a href=""></a>    )</span>
-<span id="cb9-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb9-7"><a href=""></a></span>
-<span id="cb9-8"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb9-9"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb9-10"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb9-11"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
-<span id="cb9-12"><a href=""></a></span>
-<span id="cb9-13"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb9-14"><a href=""></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb9-15"><a href=""></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb9-16"><a href=""></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb9-17"><a href=""></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb9-18"><a href=""></a>            ]</span>
-<span id="cb9-19"><a href=""></a></span>
-<span id="cb9-20"><a href=""></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb9-21"><a href=""></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
-<span id="cb9-22"><a href=""></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb9-23"><a href=""></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
-<span id="cb9-24"><a href=""></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
-<span id="cb9-25"><a href=""></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb9-26"><a href=""></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
-<span id="cb9-27"><a href=""></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
-<span id="cb9-28"><a href=""></a>]</span>
-<span id="cb9-29"><a href=""></a></span>
-<span id="cb9-30"><a href=""></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb9-31"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
-<span id="cb9-32"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
-<span id="cb9-33"><a href=""></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
-<span id="cb9-34"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb9-35"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb9-36"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb9-37"><a href=""></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
-<span id="cb9-38"><a href=""></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
-<span id="cb9-39"><a href=""></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
-<span id="cb9-40"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
-<span id="cb9-41"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb9-42"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb9-43"><a href=""></a><span class="kw">end</span></span>
-<span id="cb9-44"><a href=""></a></span>
-<span id="cb9-45"><a href=""></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb9-46"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
-<span id="cb9-47"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb9-48"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb9-49"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb9-50"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb9-51"><a href=""></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb9-52"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
-<span id="cb9-53"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb9-54"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb9-55"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb9-56"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb9-57"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb9-58"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a>    nodo(</span>
+<span id="cb9-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb9-4"><a href="" aria-label="4"></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb9-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb9-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb9-7"><a href="" aria-label="7"></a></span>
+<span id="cb9-8"><a href="" aria-label="8"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb9-9"><a href="" aria-label="9"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb9-10"><a href="" aria-label="10"></a><span class="co"># | empty</span></span>
+<span id="cb9-11"><a href="" aria-label="11"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
+<span id="cb9-12"><a href="" aria-label="12"></a></span>
+<span id="cb9-13"><a href="" aria-label="13"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb9-14"><a href="" aria-label="14"></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb9-15"><a href="" aria-label="15"></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb9-16"><a href="" aria-label="16"></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb9-17"><a href="" aria-label="17"></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb9-18"><a href="" aria-label="18"></a>            ]</span>
+<span id="cb9-19"><a href="" aria-label="19"></a></span>
+<span id="cb9-20"><a href="" aria-label="20"></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb9-21"><a href="" aria-label="21"></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
+<span id="cb9-22"><a href="" aria-label="22"></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb9-23"><a href="" aria-label="23"></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
+<span id="cb9-24"><a href="" aria-label="24"></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
+<span id="cb9-25"><a href="" aria-label="25"></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb9-26"><a href="" aria-label="26"></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
+<span id="cb9-27"><a href="" aria-label="27"></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
+<span id="cb9-28"><a href="" aria-label="28"></a>]</span>
+<span id="cb9-29"><a href="" aria-label="29"></a></span>
+<span id="cb9-30"><a href="" aria-label="30"></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb9-31"><a href="" aria-label="31"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
+<span id="cb9-32"><a href="" aria-label="32"></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
+<span id="cb9-33"><a href="" aria-label="33"></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
+<span id="cb9-34"><a href="" aria-label="34"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb9-35"><a href="" aria-label="35"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb9-36"><a href="" aria-label="36"></a>            <span class="kw">ask:</span></span>
+<span id="cb9-37"><a href="" aria-label="37"></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
+<span id="cb9-38"><a href="" aria-label="38"></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
+<span id="cb9-39"><a href="" aria-label="39"></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
+<span id="cb9-40"><a href="" aria-label="40"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
+<span id="cb9-41"><a href="" aria-label="41"></a>            <span class="kw">end</span></span>
+<span id="cb9-42"><a href="" aria-label="42"></a>    <span class="kw">end</span></span>
+<span id="cb9-43"><a href="" aria-label="43"></a><span class="kw">end</span></span>
+<span id="cb9-44"><a href="" aria-label="44"></a></span>
+<span id="cb9-45"><a href="" aria-label="45"></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb9-46"><a href="" aria-label="46"></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
+<span id="cb9-47"><a href="" aria-label="47"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb9-48"><a href="" aria-label="48"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb9-49"><a href="" aria-label="49"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb9-50"><a href="" aria-label="50"></a>            <span class="kw">ask:</span></span>
+<span id="cb9-51"><a href="" aria-label="51"></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb9-52"><a href="" aria-label="52"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
+<span id="cb9-53"><a href="" aria-label="53"></a>            <span class="kw">end</span></span>
+<span id="cb9-54"><a href="" aria-label="54"></a>    <span class="kw">end</span></span>
+<span id="cb9-55"><a href="" aria-label="55"></a><span class="kw">where:</span></span>
+<span id="cb9-56"><a href="" aria-label="56"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb9-57"><a href="" aria-label="57"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb9-58"><a href="" aria-label="58"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.66em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="4,11-14,22|"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href=""></a><span class="kw">fun</span> existe-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, determina se existe um caminho do nodo origem ao nodo destino."</span></span>
-<span id="cb10-3"><a href=""></a></span>
-<span id="cb10-4"><a href=""></a>    <span class="kw">fun</span> existe-caminho-busca-em-largura(fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, visitados <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb10-5"><a href=""></a>        <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) fila<span class="kw">:</span></span>
-<span id="cb10-6"><a href=""></a>            <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
-<span id="cb10-7"><a href=""></a>            <span class="kw">|</span> <span class="cn">link</span>(first, rest) <span class="kw">=&gt;</span></span>
-<span id="cb10-8"><a href=""></a>                <span class="kw">ask:</span></span>
-<span id="cb10-9"><a href=""></a>                    <span class="co"># Se o nó atual é o destino, retorna true</span></span>
-<span id="cb10-10"><a href=""></a>                    <span class="kw">|</span> first == destino <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb10-11"><a href=""></a>                    <span class="co"># Se o nó atual já foi visitado, procura no resto da fila</span></span>
-<span id="cb10-12"><a href=""></a>                    <span class="kw">|</span> esta-na-lista(visitados, first) <span class="kw">then:</span> existe-caminho-busca-em-largura(rest, visitados)</span>
-<span id="cb10-13"><a href=""></a>                    <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb10-14"><a href=""></a>                      novos-visitados = <span class="cn">link</span>(first, visitados) <span class="co"># Adiciona o nó atual à lista de visitados</span></span>
-<span id="cb10-15"><a href=""></a>                      nova-fila = rest + vizinhos(g, first)</span>
-<span id="cb10-16"><a href=""></a></span>
-<span id="cb10-17"><a href=""></a>                      existe-caminho-busca-em-largura(nova-fila, novos-visitados)</span>
-<span id="cb10-18"><a href=""></a>                <span class="kw">end</span></span>
-<span id="cb10-19"><a href=""></a>        <span class="kw">end</span></span>
-<span id="cb10-20"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb10-21"><a href=""></a></span>
-<span id="cb10-22"><a href=""></a>    existe-caminho-busca-em-largura([<span class="cn">list</span><span class="kw">:</span> origem], <span class="cn">empty</span>)</span>
-<span id="cb10-23"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb10-24"><a href=""></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb10-25"><a href=""></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb10-26"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" data-code-line-numbers="4,11-14,22|"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href="" aria-label="1"></a><span class="kw">fun</span> existe-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, determina se existe um caminho do nodo origem ao nodo destino."</span></span>
+<span id="cb10-3"><a href="" aria-label="3"></a></span>
+<span id="cb10-4"><a href="" aria-label="4"></a>    <span class="kw">fun</span> existe-caminho-busca-em-largura(fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, visitados <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb10-5"><a href="" aria-label="5"></a>        <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) fila<span class="kw">:</span></span>
+<span id="cb10-6"><a href="" aria-label="6"></a>            <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
+<span id="cb10-7"><a href="" aria-label="7"></a>            <span class="kw">|</span> <span class="cn">link</span>(first, rest) <span class="kw">=&gt;</span></span>
+<span id="cb10-8"><a href="" aria-label="8"></a>                <span class="kw">ask:</span></span>
+<span id="cb10-9"><a href="" aria-label="9"></a>                    <span class="co"># Se o nó atual é o destino, retorna true</span></span>
+<span id="cb10-10"><a href="" aria-label="10"></a>                    <span class="kw">|</span> first == destino <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb10-11"><a href="" aria-label="11"></a>                    <span class="co"># Se o nó atual já foi visitado, procura no resto da fila</span></span>
+<span id="cb10-12"><a href="" aria-label="12"></a>                    <span class="kw">|</span> esta-na-lista(visitados, first) <span class="kw">then:</span> existe-caminho-busca-em-largura(rest, visitados)</span>
+<span id="cb10-13"><a href="" aria-label="13"></a>                    <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb10-14"><a href="" aria-label="14"></a>                      novos-visitados = <span class="cn">link</span>(first, visitados) <span class="co"># Adiciona o nó atual à lista de visitados</span></span>
+<span id="cb10-15"><a href="" aria-label="15"></a>                      nova-fila = rest + vizinhos(g, first)</span>
+<span id="cb10-16"><a href="" aria-label="16"></a></span>
+<span id="cb10-17"><a href="" aria-label="17"></a>                      existe-caminho-busca-em-largura(nova-fila, novos-visitados)</span>
+<span id="cb10-18"><a href="" aria-label="18"></a>                <span class="kw">end</span></span>
+<span id="cb10-19"><a href="" aria-label="19"></a>        <span class="kw">end</span></span>
+<span id="cb10-20"><a href="" aria-label="20"></a>    <span class="kw">end</span></span>
+<span id="cb10-21"><a href="" aria-label="21"></a></span>
+<span id="cb10-22"><a href="" aria-label="22"></a>    existe-caminho-busca-em-largura([<span class="cn">list</span><span class="kw">:</span> origem], <span class="cn">empty</span>)</span>
+<span id="cb10-23"><a href="" aria-label="23"></a><span class="kw">where:</span></span>
+<span id="cb10-24"><a href="" aria-label="24"></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb10-25"><a href="" aria-label="25"></a>    existe-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb10-26"><a href="" aria-label="26"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="absolute" style="bottom: 25px; right: 0px; width: 250px; ">
@@ -1545,16 +1548,16 @@ Lucas Nunes Alegre
 <section id="menor-caminho-1" class="slide level2">
 <h2>Menor Caminho</h2>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href=""></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb11-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
-<span id="cb11-3"><a href=""></a>    <span class="co"># Fila de caminhos a explorar, iniciando com o caminho que contém apenas a origem</span></span>
-<span id="cb11-4"><a href=""></a>    fila = [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> origem]]</span>
-<span id="cb11-5"><a href=""></a></span>
-<span id="cb11-6"><a href=""></a>    busca-em-largura(g, origem, destino, fila)</span>
-<span id="cb11-7"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb11-8"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
-<span id="cb11-9"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb11-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" data-code-line-numbers="6"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href="" aria-label="1"></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
+<span id="cb11-3"><a href="" aria-label="3"></a>    <span class="co"># Fila de caminhos a explorar, iniciando com o caminho que contém apenas a origem</span></span>
+<span id="cb11-4"><a href="" aria-label="4"></a>    fila = [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> origem]]</span>
+<span id="cb11-5"><a href="" aria-label="5"></a></span>
+<span id="cb11-6"><a href="" aria-label="6"></a>    busca-em-largura(g, origem, destino, fila)</span>
+<span id="cb11-7"><a href="" aria-label="7"></a><span class="kw">where:</span></span>
+<span id="cb11-8"><a href="" aria-label="8"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
+<span id="cb11-9"><a href="" aria-label="9"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb11-10"><a href="" aria-label="10"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="absolute vermelho" style="font-size: 0.85em; text-align: center;top: 470px; right: 0px; width: 250px; ">
 <p>Como fazer a busca em largura devolver o menor caminho?</p>
@@ -1646,20 +1649,20 @@ Lucas Nunes Alegre
 <h2>Estende Caminho</h2>
 <div class="pyret-live" data-height="520">
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href=""></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
-<span id="cb12-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
-<span id="cb12-3"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
-<span id="cb12-4"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb12-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb12-6"><a href=""></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
-<span id="cb12-7"><a href=""></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
-<span id="cb12-8"><a href=""></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
-<span id="cb12-9"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb12-10"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb12-11"><a href=""></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
-<span id="cb12-12"><a href=""></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
-<span id="cb12-13"><a href=""></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb12-14"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href="" aria-label="1"></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
+<span id="cb12-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
+<span id="cb12-3"><a href="" aria-label="3"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
+<span id="cb12-4"><a href="" aria-label="4"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb12-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb12-6"><a href="" aria-label="6"></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
+<span id="cb12-7"><a href="" aria-label="7"></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
+<span id="cb12-8"><a href="" aria-label="8"></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
+<span id="cb12-9"><a href="" aria-label="9"></a>    <span class="kw">end</span></span>
+<span id="cb12-10"><a href="" aria-label="10"></a><span class="kw">where:</span></span>
+<span id="cb12-11"><a href="" aria-label="11"></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
+<span id="cb12-12"><a href="" aria-label="12"></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
+<span id="cb12-13"><a href="" aria-label="13"></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb12-14"><a href="" aria-label="14"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1725,105 +1728,105 @@ Lucas Nunes Alegre
 <h2>Busca em Largura</h2>
 <div class="pyret-live" data-height="600">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb13-2"><a href=""></a>    nodo(</span>
-<span id="cb13-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb13-4"><a href=""></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb13-5"><a href=""></a>    )</span>
-<span id="cb13-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb13-7"><a href=""></a></span>
-<span id="cb13-8"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb13-9"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb13-10"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb13-11"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
-<span id="cb13-12"><a href=""></a></span>
-<span id="cb13-13"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb13-14"><a href=""></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb13-15"><a href=""></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb13-16"><a href=""></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb13-17"><a href=""></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb13-18"><a href=""></a>            ]</span>
-<span id="cb13-19"><a href=""></a></span>
-<span id="cb13-20"><a href=""></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb13-21"><a href=""></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
-<span id="cb13-22"><a href=""></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb13-23"><a href=""></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
-<span id="cb13-24"><a href=""></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
-<span id="cb13-25"><a href=""></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb13-26"><a href=""></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
-<span id="cb13-27"><a href=""></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
-<span id="cb13-28"><a href=""></a>]</span>
-<span id="cb13-29"><a href=""></a></span>
-<span id="cb13-30"><a href=""></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb13-31"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
-<span id="cb13-32"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
-<span id="cb13-33"><a href=""></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
-<span id="cb13-34"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb13-35"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb13-36"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb13-37"><a href=""></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
-<span id="cb13-38"><a href=""></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
-<span id="cb13-39"><a href=""></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
-<span id="cb13-40"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
-<span id="cb13-41"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb13-42"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb13-43"><a href=""></a><span class="kw">end</span></span>
-<span id="cb13-44"><a href=""></a></span>
-<span id="cb13-45"><a href=""></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb13-46"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
-<span id="cb13-47"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb13-48"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb13-49"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb13-50"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb13-51"><a href=""></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb13-52"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
-<span id="cb13-53"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb13-54"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb13-55"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb13-56"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb13-57"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb13-58"><a href=""></a><span class="kw">end</span></span>
-<span id="cb13-59"><a href=""></a></span>
-<span id="cb13-60"><a href=""></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
-<span id="cb13-61"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
-<span id="cb13-62"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
-<span id="cb13-63"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb13-64"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb13-65"><a href=""></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
-<span id="cb13-66"><a href=""></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
-<span id="cb13-67"><a href=""></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
-<span id="cb13-68"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb13-69"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb13-70"><a href=""></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
-<span id="cb13-71"><a href=""></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
-<span id="cb13-72"><a href=""></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb13-73"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a>    nodo(</span>
+<span id="cb13-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb13-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb13-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb13-7"><a href="" aria-label="7"></a></span>
+<span id="cb13-8"><a href="" aria-label="8"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb13-9"><a href="" aria-label="9"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb13-10"><a href="" aria-label="10"></a><span class="co"># | empty</span></span>
+<span id="cb13-11"><a href="" aria-label="11"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
+<span id="cb13-12"><a href="" aria-label="12"></a></span>
+<span id="cb13-13"><a href="" aria-label="13"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb13-14"><a href="" aria-label="14"></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb13-15"><a href="" aria-label="15"></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb13-16"><a href="" aria-label="16"></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb13-17"><a href="" aria-label="17"></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb13-18"><a href="" aria-label="18"></a>            ]</span>
+<span id="cb13-19"><a href="" aria-label="19"></a></span>
+<span id="cb13-20"><a href="" aria-label="20"></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb13-21"><a href="" aria-label="21"></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
+<span id="cb13-22"><a href="" aria-label="22"></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb13-23"><a href="" aria-label="23"></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
+<span id="cb13-24"><a href="" aria-label="24"></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
+<span id="cb13-25"><a href="" aria-label="25"></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb13-26"><a href="" aria-label="26"></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
+<span id="cb13-27"><a href="" aria-label="27"></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
+<span id="cb13-28"><a href="" aria-label="28"></a>]</span>
+<span id="cb13-29"><a href="" aria-label="29"></a></span>
+<span id="cb13-30"><a href="" aria-label="30"></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb13-31"><a href="" aria-label="31"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
+<span id="cb13-32"><a href="" aria-label="32"></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
+<span id="cb13-33"><a href="" aria-label="33"></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
+<span id="cb13-34"><a href="" aria-label="34"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb13-35"><a href="" aria-label="35"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb13-36"><a href="" aria-label="36"></a>            <span class="kw">ask:</span></span>
+<span id="cb13-37"><a href="" aria-label="37"></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
+<span id="cb13-38"><a href="" aria-label="38"></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
+<span id="cb13-39"><a href="" aria-label="39"></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
+<span id="cb13-40"><a href="" aria-label="40"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
+<span id="cb13-41"><a href="" aria-label="41"></a>            <span class="kw">end</span></span>
+<span id="cb13-42"><a href="" aria-label="42"></a>    <span class="kw">end</span></span>
+<span id="cb13-43"><a href="" aria-label="43"></a><span class="kw">end</span></span>
+<span id="cb13-44"><a href="" aria-label="44"></a></span>
+<span id="cb13-45"><a href="" aria-label="45"></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb13-46"><a href="" aria-label="46"></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
+<span id="cb13-47"><a href="" aria-label="47"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb13-48"><a href="" aria-label="48"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb13-49"><a href="" aria-label="49"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb13-50"><a href="" aria-label="50"></a>            <span class="kw">ask:</span></span>
+<span id="cb13-51"><a href="" aria-label="51"></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb13-52"><a href="" aria-label="52"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
+<span id="cb13-53"><a href="" aria-label="53"></a>            <span class="kw">end</span></span>
+<span id="cb13-54"><a href="" aria-label="54"></a>    <span class="kw">end</span></span>
+<span id="cb13-55"><a href="" aria-label="55"></a><span class="kw">where:</span></span>
+<span id="cb13-56"><a href="" aria-label="56"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb13-57"><a href="" aria-label="57"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb13-58"><a href="" aria-label="58"></a><span class="kw">end</span></span>
+<span id="cb13-59"><a href="" aria-label="59"></a></span>
+<span id="cb13-60"><a href="" aria-label="60"></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
+<span id="cb13-61"><a href="" aria-label="61"></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
+<span id="cb13-62"><a href="" aria-label="62"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
+<span id="cb13-63"><a href="" aria-label="63"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb13-64"><a href="" aria-label="64"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb13-65"><a href="" aria-label="65"></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
+<span id="cb13-66"><a href="" aria-label="66"></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
+<span id="cb13-67"><a href="" aria-label="67"></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
+<span id="cb13-68"><a href="" aria-label="68"></a>    <span class="kw">end</span></span>
+<span id="cb13-69"><a href="" aria-label="69"></a><span class="kw">where:</span></span>
+<span id="cb13-70"><a href="" aria-label="70"></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
+<span id="cb13-71"><a href="" aria-label="71"></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
+<span id="cb13-72"><a href="" aria-label="72"></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb13-73"><a href="" aria-label="73"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.72em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="kw">fun</span> busca-em-largura(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>, fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb14-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, uma origem, e um destino e uma fila de caminhos a explorar, retorna o menor caminho do nodo origem ao nodo destino (ou lista vazia se não existe)."</span></span>
-<span id="cb14-3"><a href=""></a></span>
-<span id="cb14-4"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) fila<span class="kw">:</span></span>
-<span id="cb14-5"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
-<span id="cb14-6"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(first <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">=&gt;</span></span>
-<span id="cb14-7"><a href=""></a>          no = first.first <span class="co"># O nó atual é o primeiro elemento do caminho no início da fila</span></span>
-<span id="cb14-8"><a href=""></a>          resto-do-caminho = first.rest</span>
-<span id="cb14-9"><a href=""></a>          <span class="kw">ask:</span></span>
-<span id="cb14-10"><a href=""></a>              <span class="co"># Se o nó atual é o destino, retorna o caminho</span></span>
-<span id="cb14-11"><a href=""></a>              <span class="kw">|</span> no == destino <span class="kw">then:</span> reverse(first)</span>
-<span id="cb14-12"><a href=""></a>              <span class="co"># Se o nó atual já foi visitado (gerou ciclo), descarta caminho e procura no resto da fila</span></span>
-<span id="cb14-13"><a href=""></a>              <span class="kw">|</span> esta-na-lista(resto-do-caminho, no) <span class="kw">then:</span></span>
-<span id="cb14-14"><a href=""></a>                  busca-em-largura(g, origem, destino, rest)</span>
-<span id="cb14-15"><a href=""></a>              <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb14-16"><a href=""></a>                novos-caminhos = estende-caminho(vizinhos(g, no), first)</span>
-<span id="cb14-17"><a href=""></a>                nova-fila = rest + novos-caminhos  <span class="co"># Adiciona no final da fila</span></span>
-<span id="cb14-18"><a href=""></a></span>
-<span id="cb14-19"><a href=""></a>                busca-em-largura(g, origem, destino, nova-fila)</span>
-<span id="cb14-20"><a href=""></a>          <span class="kw">end</span></span>
-<span id="cb14-21"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb14-22"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb14-23"><a href=""></a>    busca-em-largura(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>]]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>]</span>
-<span id="cb14-24"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href="" aria-label="1"></a><span class="kw">fun</span> busca-em-largura(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>, fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, uma origem, e um destino e uma fila de caminhos a explorar, retorna o menor caminho do nodo origem ao nodo destino (ou lista vazia se não existe)."</span></span>
+<span id="cb14-3"><a href="" aria-label="3"></a></span>
+<span id="cb14-4"><a href="" aria-label="4"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) fila<span class="kw">:</span></span>
+<span id="cb14-5"><a href="" aria-label="5"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
+<span id="cb14-6"><a href="" aria-label="6"></a>        <span class="kw">|</span> <span class="cn">link</span>(first <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">=&gt;</span></span>
+<span id="cb14-7"><a href="" aria-label="7"></a>          no = first.first <span class="co"># O nó atual é o primeiro elemento do caminho no início da fila</span></span>
+<span id="cb14-8"><a href="" aria-label="8"></a>          resto-do-caminho = first.rest</span>
+<span id="cb14-9"><a href="" aria-label="9"></a>          <span class="kw">ask:</span></span>
+<span id="cb14-10"><a href="" aria-label="10"></a>              <span class="co"># Se o nó atual é o destino, retorna o caminho</span></span>
+<span id="cb14-11"><a href="" aria-label="11"></a>              <span class="kw">|</span> no == destino <span class="kw">then:</span> reverse(first)</span>
+<span id="cb14-12"><a href="" aria-label="12"></a>              <span class="co"># Se o nó atual já foi visitado (gerou ciclo), descarta caminho e procura no resto da fila</span></span>
+<span id="cb14-13"><a href="" aria-label="13"></a>              <span class="kw">|</span> esta-na-lista(resto-do-caminho, no) <span class="kw">then:</span></span>
+<span id="cb14-14"><a href="" aria-label="14"></a>                  busca-em-largura(g, origem, destino, rest)</span>
+<span id="cb14-15"><a href="" aria-label="15"></a>              <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb14-16"><a href="" aria-label="16"></a>                novos-caminhos = estende-caminho(vizinhos(g, no), first)</span>
+<span id="cb14-17"><a href="" aria-label="17"></a>                nova-fila = rest + novos-caminhos  <span class="co"># Adiciona no final da fila</span></span>
+<span id="cb14-18"><a href="" aria-label="18"></a></span>
+<span id="cb14-19"><a href="" aria-label="19"></a>                busca-em-largura(g, origem, destino, nova-fila)</span>
+<span id="cb14-20"><a href="" aria-label="20"></a>          <span class="kw">end</span></span>
+<span id="cb14-21"><a href="" aria-label="21"></a>    <span class="kw">end</span></span>
+<span id="cb14-22"><a href="" aria-label="22"></a><span class="kw">where:</span></span>
+<span id="cb14-23"><a href="" aria-label="23"></a>    busca-em-largura(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>]]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>]</span>
+<span id="cb14-24"><a href="" aria-label="24"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
@@ -1832,115 +1835,115 @@ Lucas Nunes Alegre
 <p><br></p>
 <div class="pyret-live" data-height="560">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
-<span id="cb15-2"><a href=""></a>    nodo(</span>
-<span id="cb15-3"><a href=""></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
-<span id="cb15-4"><a href=""></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
-<span id="cb15-5"><a href=""></a>    )</span>
-<span id="cb15-6"><a href=""></a><span class="kw">end</span></span>
-<span id="cb15-7"><a href=""></a></span>
-<span id="cb15-8"><a href=""></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
-<span id="cb15-9"><a href=""></a><span class="co"># Um Grafo é:</span></span>
-<span id="cb15-10"><a href=""></a><span class="co"># | empty</span></span>
-<span id="cb15-11"><a href=""></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
-<span id="cb15-12"><a href=""></a></span>
-<span id="cb15-13"><a href=""></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb15-14"><a href=""></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb15-15"><a href=""></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
-<span id="cb15-16"><a href=""></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
-<span id="cb15-17"><a href=""></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
-<span id="cb15-18"><a href=""></a>            ]</span>
-<span id="cb15-19"><a href=""></a></span>
-<span id="cb15-20"><a href=""></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb15-21"><a href=""></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
-<span id="cb15-22"><a href=""></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb15-23"><a href=""></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
-<span id="cb15-24"><a href=""></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
-<span id="cb15-25"><a href=""></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
-<span id="cb15-26"><a href=""></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
-<span id="cb15-27"><a href=""></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
-<span id="cb15-28"><a href=""></a>]</span>
-<span id="cb15-29"><a href=""></a></span>
-<span id="cb15-30"><a href=""></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb15-31"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
-<span id="cb15-32"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
-<span id="cb15-33"><a href=""></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
-<span id="cb15-34"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb15-35"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb15-36"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb15-37"><a href=""></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
-<span id="cb15-38"><a href=""></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
-<span id="cb15-39"><a href=""></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
-<span id="cb15-40"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
-<span id="cb15-41"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb15-42"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb15-43"><a href=""></a><span class="kw">end</span></span>
-<span id="cb15-44"><a href=""></a></span>
-<span id="cb15-45"><a href=""></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb15-46"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
-<span id="cb15-47"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
-<span id="cb15-48"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb15-49"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb15-50"><a href=""></a>            <span class="kw">ask:</span></span>
-<span id="cb15-51"><a href=""></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
-<span id="cb15-52"><a href=""></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
-<span id="cb15-53"><a href=""></a>            <span class="kw">end</span></span>
-<span id="cb15-54"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb15-55"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb15-56"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb15-57"><a href=""></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb15-58"><a href=""></a><span class="kw">end</span></span>
-<span id="cb15-59"><a href=""></a></span>
-<span id="cb15-60"><a href=""></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
-<span id="cb15-61"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
-<span id="cb15-62"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
-<span id="cb15-63"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
-<span id="cb15-64"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
-<span id="cb15-65"><a href=""></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
-<span id="cb15-66"><a href=""></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
-<span id="cb15-67"><a href=""></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
-<span id="cb15-68"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb15-69"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb15-70"><a href=""></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
-<span id="cb15-71"><a href=""></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
-<span id="cb15-72"><a href=""></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb15-73"><a href=""></a><span class="kw">end</span></span>
-<span id="cb15-74"><a href=""></a></span>
-<span id="cb15-75"><a href=""></a><span class="kw">fun</span> busca-em-largura(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>, fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb15-76"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, uma origem, e um destino e uma fila de caminhos a explorar, retorna o menor caminho do nodo origem ao nodo destino (ou lista vazia se não existe)."</span></span>
-<span id="cb15-77"><a href=""></a></span>
-<span id="cb15-78"><a href=""></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) fila<span class="kw">:</span></span>
-<span id="cb15-79"><a href=""></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
-<span id="cb15-80"><a href=""></a>        <span class="kw">|</span> <span class="cn">link</span>(first <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">=&gt;</span></span>
-<span id="cb15-81"><a href=""></a>          no = first.first <span class="co"># O nó atual é o primeiro elemento do caminho no início da fila</span></span>
-<span id="cb15-82"><a href=""></a>          resto-do-caminho = first.rest</span>
-<span id="cb15-83"><a href=""></a>          <span class="kw">ask:</span></span>
-<span id="cb15-84"><a href=""></a>              <span class="co"># Se o nó atual é o destino, retorna o caminho</span></span>
-<span id="cb15-85"><a href=""></a>              <span class="kw">|</span> no == destino <span class="kw">then:</span> reverse(first)</span>
-<span id="cb15-86"><a href=""></a>              <span class="co"># Se o nó atual já foi visitado (gerou ciclo), descarta caminho e procura no resto da fila</span></span>
-<span id="cb15-87"><a href=""></a>              <span class="kw">|</span> esta-na-lista(resto-do-caminho, no) <span class="kw">then:</span></span>
-<span id="cb15-88"><a href=""></a>                  busca-em-largura(g, origem, destino, rest)</span>
-<span id="cb15-89"><a href=""></a>              <span class="kw">|</span> <span class="kw">otherwise:</span></span>
-<span id="cb15-90"><a href=""></a>                novos-caminhos = estende-caminho(vizinhos(g, no), first)</span>
-<span id="cb15-91"><a href=""></a>                nova-fila = rest + novos-caminhos  <span class="co"># Adiciona no final da fila</span></span>
-<span id="cb15-92"><a href=""></a></span>
-<span id="cb15-93"><a href=""></a>                busca-em-largura(g, origem, destino, nova-fila)</span>
-<span id="cb15-94"><a href=""></a>          <span class="kw">end</span></span>
-<span id="cb15-95"><a href=""></a>    <span class="kw">end</span></span>
-<span id="cb15-96"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb15-97"><a href=""></a>    busca-em-largura(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>]]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>]</span>
-<span id="cb15-98"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Nodo</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a>    nodo(</span>
+<span id="cb15-3"><a href="" aria-label="3"></a>        id <span class="kw">::</span> <span class="dt">String</span>,              <span class="co"># Identificador do nodo</span></span>
+<span id="cb15-4"><a href="" aria-label="4"></a>        vizinhos <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;   <span class="co"># Lista de nomes dos vizinhos do nodo</span></span>
+<span id="cb15-5"><a href="" aria-label="5"></a>    )</span>
+<span id="cb15-6"><a href="" aria-label="6"></a><span class="kw">end</span></span>
+<span id="cb15-7"><a href="" aria-label="7"></a></span>
+<span id="cb15-8"><a href="" aria-label="8"></a><span class="kw">type</span> <span class="dt">Grafo</span> = <span class="dt">List</span>&lt;<span class="dt">Nodo</span>&gt;</span>
+<span id="cb15-9"><a href="" aria-label="9"></a><span class="co"># Um Grafo é:</span></span>
+<span id="cb15-10"><a href="" aria-label="10"></a><span class="co"># | empty</span></span>
+<span id="cb15-11"><a href="" aria-label="11"></a><span class="co"># | link(first :: Nodo, rest :: List&lt;Nodo&gt;)</span></span>
+<span id="cb15-12"><a href="" aria-label="12"></a></span>
+<span id="cb15-13"><a href="" aria-label="13"></a><span class="dt">G</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb15-14"><a href="" aria-label="14"></a>                nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb15-15"><a href="" aria-label="15"></a>                nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"C"</span>]),</span>
+<span id="cb15-16"><a href="" aria-label="16"></a>                nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>]),</span>
+<span id="cb15-17"><a href="" aria-label="17"></a>                nodo(<span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>])</span>
+<span id="cb15-18"><a href="" aria-label="18"></a>            ]</span>
+<span id="cb15-19"><a href="" aria-label="19"></a></span>
+<span id="cb15-20"><a href="" aria-label="20"></a><span class="dt">G1</span> <span class="kw">::</span> <span class="dt">Grafo</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb15-21"><a href="" aria-label="21"></a>  nodo(<span class="st">"A"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"E"</span>]),</span>
+<span id="cb15-22"><a href="" aria-label="22"></a>  nodo(<span class="st">"B"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"E"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb15-23"><a href="" aria-label="23"></a>  nodo(<span class="st">"C"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>]),</span>
+<span id="cb15-24"><a href="" aria-label="24"></a>  nodo(<span class="st">"D"</span>, <span class="cn">empty</span>),</span>
+<span id="cb15-25"><a href="" aria-label="25"></a>  nodo(<span class="st">"E"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"F"</span>]),</span>
+<span id="cb15-26"><a href="" aria-label="26"></a>  nodo(<span class="st">"F"</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"D"</span>, <span class="st">"G"</span>]),</span>
+<span id="cb15-27"><a href="" aria-label="27"></a>  nodo(<span class="st">"G"</span>, <span class="cn">empty</span>)</span>
+<span id="cb15-28"><a href="" aria-label="28"></a>]</span>
+<span id="cb15-29"><a href="" aria-label="29"></a></span>
+<span id="cb15-30"><a href="" aria-label="30"></a><span class="kw">fun</span> vizinhos(g <span class="kw">::</span> <span class="dt">Grafo</span>, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb15-31"><a href="" aria-label="31"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo e um identificador de nodo, retorna a lista de vizinhos do nodo correspondente. O nodo deve fazer parte do grafo."</span></span>
+<span id="cb15-32"><a href="" aria-label="32"></a>    <span class="kw">cases</span> (<span class="dt">Grafo</span>) g<span class="kw">:</span></span>
+<span id="cb15-33"><a href="" aria-label="33"></a>        <span class="co"># Se o grafo estiver vazio, retorna lista vazia</span></span>
+<span id="cb15-34"><a href="" aria-label="34"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb15-35"><a href="" aria-label="35"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb15-36"><a href="" aria-label="36"></a>            <span class="kw">ask:</span></span>
+<span id="cb15-37"><a href="" aria-label="37"></a>                <span class="co"># Se o nodo atual é o que estamos procurando, retorna seus vizinhos</span></span>
+<span id="cb15-38"><a href="" aria-label="38"></a>                <span class="kw">|</span> f.id == id <span class="kw">then:</span> f.vizinhos</span>
+<span id="cb15-39"><a href="" aria-label="39"></a>                <span class="co"># Senão, procura os vizinhos do id nos nodos restantes do grafo</span></span>
+<span id="cb15-40"><a href="" aria-label="40"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> vizinhos(r, id)</span>
+<span id="cb15-41"><a href="" aria-label="41"></a>            <span class="kw">end</span></span>
+<span id="cb15-42"><a href="" aria-label="42"></a>    <span class="kw">end</span></span>
+<span id="cb15-43"><a href="" aria-label="43"></a><span class="kw">end</span></span>
+<span id="cb15-44"><a href="" aria-label="44"></a></span>
+<span id="cb15-45"><a href="" aria-label="45"></a><span class="kw">fun</span> esta-na-lista(l <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, id <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb15-46"><a href="" aria-label="46"></a>    <span class="kw">doc:</span> <span class="st">"Determina se um identificador de nodo está presente em uma lista de strings."</span></span>
+<span id="cb15-47"><a href="" aria-label="47"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) l<span class="kw">:</span></span>
+<span id="cb15-48"><a href="" aria-label="48"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb15-49"><a href="" aria-label="49"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb15-50"><a href="" aria-label="50"></a>            <span class="kw">ask:</span></span>
+<span id="cb15-51"><a href="" aria-label="51"></a>                <span class="kw">|</span> f == id <span class="kw">then:</span> <span class="cn">true</span></span>
+<span id="cb15-52"><a href="" aria-label="52"></a>                <span class="kw">|</span> <span class="kw">otherwise:</span> esta-na-lista(r, id)</span>
+<span id="cb15-53"><a href="" aria-label="53"></a>            <span class="kw">end</span></span>
+<span id="cb15-54"><a href="" aria-label="54"></a>    <span class="kw">end</span></span>
+<span id="cb15-55"><a href="" aria-label="55"></a><span class="kw">where:</span></span>
+<span id="cb15-56"><a href="" aria-label="56"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"B"</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb15-57"><a href="" aria-label="57"></a>    esta-na-lista([<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>], <span class="st">"D"</span>) <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb15-58"><a href="" aria-label="58"></a><span class="kw">end</span></span>
+<span id="cb15-59"><a href="" aria-label="59"></a></span>
+<span id="cb15-60"><a href="" aria-label="60"></a><span class="kw">fun</span> estende-caminho(viz <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, caminho <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;<span class="kw">:</span></span>
+<span id="cb15-61"><a href="" aria-label="61"></a>    <span class="kw">doc:</span> <span class="st">"Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."</span></span>
+<span id="cb15-62"><a href="" aria-label="62"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;) viz<span class="kw">:</span></span>
+<span id="cb15-63"><a href="" aria-label="63"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span></span>
+<span id="cb15-64"><a href="" aria-label="64"></a>        <span class="kw">|</span> <span class="cn">link</span>(f, r) <span class="kw">=&gt;</span></span>
+<span id="cb15-65"><a href="" aria-label="65"></a>            <span class="co"># Cria um novo caminho estendendo o caminho atual com o vizinho f</span></span>
+<span id="cb15-66"><a href="" aria-label="66"></a>            novo-caminho = <span class="cn">link</span>(f, caminho)</span>
+<span id="cb15-67"><a href="" aria-label="67"></a>            <span class="cn">link</span>(novo-caminho, estende-caminho(r, caminho))</span>
+<span id="cb15-68"><a href="" aria-label="68"></a>    <span class="kw">end</span></span>
+<span id="cb15-69"><a href="" aria-label="69"></a><span class="kw">where:</span></span>
+<span id="cb15-70"><a href="" aria-label="70"></a>    estende-caminho([<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"C"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span></span>
+<span id="cb15-71"><a href="" aria-label="71"></a>                           [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>], [<span class="cn">list</span><span class="kw">:</span> <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"D"</span>]]</span>
+<span id="cb15-72"><a href="" aria-label="72"></a>    estende-caminho(<span class="cn">empty</span>, [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"D"</span>]) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb15-73"><a href="" aria-label="73"></a><span class="kw">end</span></span>
+<span id="cb15-74"><a href="" aria-label="74"></a></span>
+<span id="cb15-75"><a href="" aria-label="75"></a><span class="kw">fun</span> busca-em-largura(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>, fila <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb15-76"><a href="" aria-label="76"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, uma origem, e um destino e uma fila de caminhos a explorar, retorna o menor caminho do nodo origem ao nodo destino (ou lista vazia se não existe)."</span></span>
+<span id="cb15-77"><a href="" aria-label="77"></a></span>
+<span id="cb15-78"><a href="" aria-label="78"></a>    <span class="kw">cases</span> (<span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) fila<span class="kw">:</span></span>
+<span id="cb15-79"><a href="" aria-label="79"></a>        <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> <span class="cn">empty</span> <span class="co"># Se fila vazia, não existe caminho</span></span>
+<span id="cb15-80"><a href="" aria-label="80"></a>        <span class="kw">|</span> <span class="cn">link</span>(first <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;, rest <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">List</span>&lt;<span class="dt">String</span>&gt;&gt;) <span class="kw">=&gt;</span></span>
+<span id="cb15-81"><a href="" aria-label="81"></a>          no = first.first <span class="co"># O nó atual é o primeiro elemento do caminho no início da fila</span></span>
+<span id="cb15-82"><a href="" aria-label="82"></a>          resto-do-caminho = first.rest</span>
+<span id="cb15-83"><a href="" aria-label="83"></a>          <span class="kw">ask:</span></span>
+<span id="cb15-84"><a href="" aria-label="84"></a>              <span class="co"># Se o nó atual é o destino, retorna o caminho</span></span>
+<span id="cb15-85"><a href="" aria-label="85"></a>              <span class="kw">|</span> no == destino <span class="kw">then:</span> reverse(first)</span>
+<span id="cb15-86"><a href="" aria-label="86"></a>              <span class="co"># Se o nó atual já foi visitado (gerou ciclo), descarta caminho e procura no resto da fila</span></span>
+<span id="cb15-87"><a href="" aria-label="87"></a>              <span class="kw">|</span> esta-na-lista(resto-do-caminho, no) <span class="kw">then:</span></span>
+<span id="cb15-88"><a href="" aria-label="88"></a>                  busca-em-largura(g, origem, destino, rest)</span>
+<span id="cb15-89"><a href="" aria-label="89"></a>              <span class="kw">|</span> <span class="kw">otherwise:</span></span>
+<span id="cb15-90"><a href="" aria-label="90"></a>                novos-caminhos = estende-caminho(vizinhos(g, no), first)</span>
+<span id="cb15-91"><a href="" aria-label="91"></a>                nova-fila = rest + novos-caminhos  <span class="co"># Adiciona no final da fila</span></span>
+<span id="cb15-92"><a href="" aria-label="92"></a></span>
+<span id="cb15-93"><a href="" aria-label="93"></a>                busca-em-largura(g, origem, destino, nova-fila)</span>
+<span id="cb15-94"><a href="" aria-label="94"></a>          <span class="kw">end</span></span>
+<span id="cb15-95"><a href="" aria-label="95"></a>    <span class="kw">end</span></span>
+<span id="cb15-96"><a href="" aria-label="96"></a><span class="kw">where:</span></span>
+<span id="cb15-97"><a href="" aria-label="97"></a>    busca-em-largura(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"D"</span>, [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>]]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"D"</span>]</span>
+<span id="cb15-98"><a href="" aria-label="98"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
-<span id="cb16-2"><a href=""></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
-<span id="cb16-3"><a href=""></a>    <span class="co"># Fila de caminhos a explorar, iniciando com o caminho que contém apenas a origem</span></span>
-<span id="cb16-4"><a href=""></a>    fila = [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> origem]]</span>
-<span id="cb16-5"><a href=""></a>    busca-em-largura(g, origem, destino, fila)</span>
-<span id="cb16-6"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb16-7"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
-<span id="cb16-8"><a href=""></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
-<span id="cb16-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href="" aria-label="1"></a><span class="kw">fun</span> menor-caminho(g <span class="kw">::</span> <span class="dt">Grafo</span>, origem <span class="kw">::</span> <span class="dt">String</span>, destino <span class="kw">::</span> <span class="dt">String</span>) <span class="kw">-&gt;</span> <span class="dt">List</span>&lt;<span class="dt">String</span>&gt;<span class="kw">:</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a>    <span class="kw">doc:</span> <span class="st">"Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."</span></span>
+<span id="cb16-3"><a href="" aria-label="3"></a>    <span class="co"># Fila de caminhos a explorar, iniciando com o caminho que contém apenas a origem</span></span>
+<span id="cb16-4"><a href="" aria-label="4"></a>    fila = [<span class="cn">list</span><span class="kw">:</span> [<span class="cn">list</span><span class="kw">:</span> origem]]</span>
+<span id="cb16-5"><a href="" aria-label="5"></a>    busca-em-largura(g, origem, destino, fila)</span>
+<span id="cb16-6"><a href="" aria-label="6"></a><span class="kw">where:</span></span>
+<span id="cb16-7"><a href="" aria-label="7"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"A"</span>, <span class="st">"G"</span>) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"F"</span>, <span class="st">"G"</span>]</span>
+<span id="cb16-8"><a href="" aria-label="8"></a>    menor-caminho(<span class="dt">G1</span>, <span class="st">"C"</span>, <span class="st">"A"</span>) <span class="kw">is</span> <span class="cn">empty</span></span>
+<span id="cb16-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>
