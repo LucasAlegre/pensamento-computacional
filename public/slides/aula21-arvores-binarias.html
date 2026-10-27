@@ -6,8 +6,8 @@
 <script src="libs/quarto-html/tippy.umd.min.js"></script>
 <link href="libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Lucas Nunes Alegre">
   <title>Aula 21 – Árvores Binárias e de Pesquisa</title>
@@ -20,10 +20,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -98,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-841374453e05c5095a4c045e49b18565.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-d949b0a0235a2faf4f918465814acfb7.css">
   <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -418,7 +421,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Lucas Nunes Alegre 
+Lucas Nunes Alegre
 </div>
         <p class="quarto-title-affiliation">
             </p><p>Universidade Federal do Rio Grande do Sul <br> Instituto de Informática <br> Departamento de Informática Teórica <br><br><br> <span style="display:inline-block; max-width:50%; font-size:0.5em; color: #757575;">Slides baseados no material da Profa. Leila Ribeiro.</span></p>
@@ -547,44 +550,44 @@ Lucas Nunes Alegre
 <li>Cada nó da árvore contém as informações de uma pessoa: <strong>nome</strong>, <strong>ano</strong>, <strong>tipo sanguíneo</strong>, e os <strong>pais</strong>.</li>
 </ul>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
-<span id="cb1-3"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># nome da pessoa</span></span>
-<span id="cb1-4"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># ano de nascimento</span></span>
-<span id="cb1-5"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># tipo sanguíneo</span></span>
-<span id="cb1-6"><a href=""></a>      pai       <span class="kw">::</span> ???,     <span class="co"># representa o pai da pessoa</span></span>
-<span id="cb1-7"><a href=""></a>      mae       <span class="kw">::</span> ???      <span class="co"># representa a mãe da pessoa</span></span>
-<span id="cb1-8"><a href=""></a>    )</span>
-<span id="cb1-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb1-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb1-3"><a href="" aria-label="3"></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># nome da pessoa</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># ano de nascimento</span></span>
+<span id="cb1-5"><a href="" aria-label="5"></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># tipo sanguíneo</span></span>
+<span id="cb1-6"><a href="" aria-label="6"></a>      pai       <span class="kw">::</span> ???,     <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb1-7"><a href="" aria-label="7"></a>      mae       <span class="kw">::</span> ???      <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb1-8"><a href="" aria-label="8"></a>    )</span>
+<span id="cb1-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="autorreferência" class="slide level2">
 <h2>Autorreferência</h2>
 <p>O pai e a mãe também são <code>Pessoa</code> — o tipo se refere a si mesmo.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
-<span id="cb2-3"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,</span>
-<span id="cb2-4"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,</span>
-<span id="cb2-5"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,</span>
-<span id="cb2-6"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>,  <span class="co"># ← autorreferência!</span></span>
-<span id="cb2-7"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>   <span class="co"># ← autorreferência!</span></span>
-<span id="cb2-8"><a href=""></a>    )</span>
-<span id="cb2-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb2-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb2-3"><a href="" aria-label="3"></a>      nome      <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb2-4"><a href="" aria-label="4"></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb2-5"><a href="" aria-label="5"></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb2-6"><a href="" aria-label="6"></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>,  <span class="co"># ← autorreferência!</span></span>
+<span id="cb2-7"><a href="" aria-label="7"></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>   <span class="co"># ← autorreferência!</span></span>
+<span id="cb2-8"><a href="" aria-label="8"></a>    )</span>
+<span id="cb2-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="e-quando-o-pai-ou-a-mãe-são-desconhecidos" class="slide level2">
 <h2>E quando o pai ou a mãe são desconhecidos?</h2>
 <p>Acrescentamos uma variante <span class="vermelho">ninguem</span> para representar a ausência de informação.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
-<span id="cb3-2"><a href=""></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
-<span id="cb3-3"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
-<span id="cb3-4"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
-<span id="cb3-5"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
-<span id="cb3-6"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
-<span id="cb3-7"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
-<span id="cb3-8"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
-<span id="cb3-9"><a href=""></a>    )</span>
-<span id="cb3-10"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="2"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb3-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
+<span id="cb3-3"><a href="" aria-label="3"></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb3-4"><a href="" aria-label="4"></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
+<span id="cb3-6"><a href="" aria-label="6"></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
+<span id="cb3-7"><a href="" aria-label="7"></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb3-8"><a href="" aria-label="8"></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb3-9"><a href="" aria-label="9"></a>    )</span>
+<span id="cb3-10"><a href="" aria-label="10"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="exemplo-a-família" class="slide level2">
 <h2>Exemplo: a família</h2>
@@ -619,21 +622,21 @@ Lucas Nunes Alegre
 </svg>
 </div><div class="column" style="width:42%;">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href=""></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>,</span>
-<span id="cb4-2"><a href=""></a>            <span class="dv">1926</span>, <span class="st">"A"</span>,</span>
-<span id="cb4-3"><a href=""></a>            ninguem, ninguem)</span>
-<span id="cb4-4"><a href=""></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>,</span>
-<span id="cb4-5"><a href=""></a>            <span class="dv">1927</span>, <span class="st">"B"</span>,</span>
-<span id="cb4-6"><a href=""></a>            ninguem, ninguem)</span>
-<span id="cb4-7"><a href=""></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>,</span>
-<span id="cb4-8"><a href=""></a>            <span class="dv">1960</span>, <span class="st">"O"</span>,</span>
-<span id="cb4-9"><a href=""></a>            <span class="dt">CARLOS</span>,  <span class="dt">BETINA</span>)</span>
-<span id="cb4-10"><a href=""></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>,</span>
-<span id="cb4-11"><a href=""></a>            <span class="dv">1958</span>, <span class="st">"A"</span>,</span>
-<span id="cb4-12"><a href=""></a>            ninguem, ninguem)</span>
-<span id="cb4-13"><a href=""></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>,</span>
-<span id="cb4-14"><a href=""></a>            <span class="dv">1988</span>, <span class="st">"A"</span>,</span>
-<span id="cb4-15"><a href=""></a>            <span class="dt">FRED</span>,    <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb4-1"><a href="" aria-label="1"></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>,</span>
+<span id="cb4-2"><a href="" aria-label="2"></a>            <span class="dv">1926</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-3"><a href="" aria-label="3"></a>            ninguem, ninguem)</span>
+<span id="cb4-4"><a href="" aria-label="4"></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>,</span>
+<span id="cb4-5"><a href="" aria-label="5"></a>            <span class="dv">1927</span>, <span class="st">"B"</span>,</span>
+<span id="cb4-6"><a href="" aria-label="6"></a>            ninguem, ninguem)</span>
+<span id="cb4-7"><a href="" aria-label="7"></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>,</span>
+<span id="cb4-8"><a href="" aria-label="8"></a>            <span class="dv">1960</span>, <span class="st">"O"</span>,</span>
+<span id="cb4-9"><a href="" aria-label="9"></a>            <span class="dt">CARLOS</span>,  <span class="dt">BETINA</span>)</span>
+<span id="cb4-10"><a href="" aria-label="10"></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>,</span>
+<span id="cb4-11"><a href="" aria-label="11"></a>            <span class="dv">1958</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-12"><a href="" aria-label="12"></a>            ninguem, ninguem)</span>
+<span id="cb4-13"><a href="" aria-label="13"></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>,</span>
+<span id="cb4-14"><a href="" aria-label="14"></a>            <span class="dv">1988</span>, <span class="st">"A"</span>,</span>
+<span id="cb4-15"><a href="" aria-label="15"></a>            <span class="dt">FRED</span>,    <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section></section>
@@ -652,14 +655,14 @@ Lucas Nunes Alegre
 </ul>
 <p><span class="alert">Ideia básica</span></p>
 <div class="modelo-recursivo">
-<div class="trivial">
-<p>se <span class="cond">o problema é trivial</span> <span class="res">resolva-o diretamente</span></p>
+<div class="fragment trivial">
+<p>se <span class="cond">o problema é trivial</span> <span class="res fragment">resolva-o diretamente</span></p>
 </div>
-<div class="dificil">
+<div class="fragment dificil">
 <p>se <span class="cond">o problema é difícil</span></p>
-<p><span class="sub">subproblema 1</span> <span class="sol">solução do subproblema 1</span></p>
-<p><span class="sub">subproblema 2</span> <span class="sol">solução do subproblema 2</span></p>
-<p><span class="comb">combinar <span class="n">1</span> e <span class="n">2</span></span></p>
+<p><span class="sub fragment">subproblema 1</span> <span class="sol fragment">solução do subproblema 1</span></p>
+<p><span class="sub fragment">subproblema 2</span> <span class="sol fragment">solução do subproblema 2</span></p>
+<p><span class="comb fragment">combinar <span class="n">1</span> e <span class="n">2</span></span></p>
 </div>
 </div>
 <p><span class="muted italico" style="font-size: 0.7em;">Exemplos de problemas triviais: lista vazia, árvore vazia, número zero, caso base ninguem…</span></p>
@@ -736,16 +739,16 @@ Lucas Nunes Alegre
 <p><span class="italico">Dada uma pessoa p:</span></p>
 <div class="modelo-recursivo">
 <div class="fragment trivial">
-<p>se <span class="cond">p é ninguem</span> <span class="res">devolver false</span></p>
+<p>se <span class="cond">p é ninguem</span> <span class="res fragment">devolver false</span></p>
 </div>
 <div class="fragment trivial">
-<p>se <span class="cond">p tem tipo sang. "O"</span> <span class="res">devolver true</span></p>
+<p>se <span class="cond">p tem tipo sang. "O"</span> <span class="res fragment">devolver true</span></p>
 </div>
 <div class="fragment dificil">
 <p>senão</p>
-<p><span class="sub">mãe de p</span> <span class="sol">verificar tipo O nos ancestrais por parte de mãe</span></p>
-<p><span class="sub">pai de p</span> <span class="sol">verificar tipo O nos ancestrais por parte de pai</span></p>
-<p><span class="comb"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></p>
+<p><span class="sub fragment">mãe de p</span> <span class="sol fragment">verificar tipo O nos ancestrais por parte de mãe</span></p>
+<p><span class="sub fragment">pai de p</span> <span class="sol fragment">verificar tipo O nos ancestrais por parte de pai</span></p>
+<p><span class="comb fragment"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></p>
 </div>
 </div>
 </section>
@@ -753,39 +756,39 @@ Lucas Nunes Alegre
 <h2>ancestral-tipo-o</h2>
 <div class="pyret-live" data-height="560" style="font-size: 0.85em;">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href=""></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
-<span id="cb5-2"><a href=""></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
-<span id="cb5-3"><a href=""></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
-<span id="cb5-4"><a href=""></a>  <span class="kw">|</span> pessoa(</span>
-<span id="cb5-5"><a href=""></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
-<span id="cb5-6"><a href=""></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
-<span id="cb5-7"><a href=""></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
-<span id="cb5-8"><a href=""></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
-<span id="cb5-9"><a href=""></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
-<span id="cb5-10"><a href=""></a>    )</span>
-<span id="cb5-11"><a href=""></a><span class="kw">end</span></span>
-<span id="cb5-12"><a href=""></a></span>
-<span id="cb5-13"><a href=""></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>, <span class="dv">1926</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
-<span id="cb5-14"><a href=""></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>, <span class="dv">1927</span>, <span class="st">"B"</span>, ninguem, ninguem)</span>
-<span id="cb5-15"><a href=""></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>, <span class="dv">1960</span>, <span class="st">"O"</span>, <span class="dt">CARLOS</span>, <span class="dt">BETINA</span>)</span>
-<span id="cb5-16"><a href=""></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>, <span class="dv">1958</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
-<span id="cb5-17"><a href=""></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>, <span class="dv">1988</span>, <span class="st">"A"</span>, <span class="dt">FRED</span>, <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb5-1"><a href="" aria-label="1"></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a><span class="kw">data</span> <span class="dt">Pessoa</span><span class="kw">:</span></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>  <span class="kw">|</span> ninguem   <span class="co"># caso base: pai/mãe desconhecido(a)</span></span>
+<span id="cb5-4"><a href="" aria-label="4"></a>  <span class="kw">|</span> pessoa(</span>
+<span id="cb5-5"><a href="" aria-label="5"></a>      nome      <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># nome da pessoa</span></span>
+<span id="cb5-6"><a href="" aria-label="6"></a>      ano       <span class="kw">::</span> <span class="dt">Number</span>, <span class="co"># ano de nascimento</span></span>
+<span id="cb5-7"><a href="" aria-label="7"></a>      tipo-sang <span class="kw">::</span> <span class="dt">String</span>, <span class="co"># tipo sanguíneo</span></span>
+<span id="cb5-8"><a href="" aria-label="8"></a>      pai       <span class="kw">::</span> <span class="dt">Pessoa</span>, <span class="co"># representa o pai da pessoa</span></span>
+<span id="cb5-9"><a href="" aria-label="9"></a>      mae       <span class="kw">::</span> <span class="dt">Pessoa</span>  <span class="co"># representa a mãe da pessoa</span></span>
+<span id="cb5-10"><a href="" aria-label="10"></a>    )</span>
+<span id="cb5-11"><a href="" aria-label="11"></a><span class="kw">end</span></span>
+<span id="cb5-12"><a href="" aria-label="12"></a></span>
+<span id="cb5-13"><a href="" aria-label="13"></a><span class="dt">CARLOS</span>  = pessoa(<span class="st">"Carlos"</span>, <span class="dv">1926</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
+<span id="cb5-14"><a href="" aria-label="14"></a><span class="dt">BETINA</span>  = pessoa(<span class="st">"Betina"</span>, <span class="dv">1927</span>, <span class="st">"B"</span>, ninguem, ninguem)</span>
+<span id="cb5-15"><a href="" aria-label="15"></a><span class="dt">EVA</span>     = pessoa(<span class="st">"Eva"</span>, <span class="dv">1960</span>, <span class="st">"O"</span>, <span class="dt">CARLOS</span>, <span class="dt">BETINA</span>)</span>
+<span id="cb5-16"><a href="" aria-label="16"></a><span class="dt">FRED</span>    = pessoa(<span class="st">"Fred"</span>, <span class="dv">1958</span>, <span class="st">"A"</span>, ninguem, ninguem)</span>
+<span id="cb5-17"><a href="" aria-label="17"></a><span class="dt">GUSTAVO</span> = pessoa(<span class="st">"Gustavo"</span>, <span class="dv">1988</span>, <span class="st">"A"</span>, <span class="dt">FRED</span>, <span class="dt">EVA</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href=""></a><span class="kw">fun</span> ancestral-tipo-o(p <span class="kw">::</span> <span class="dt">Pessoa</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">```Dada uma pessoa, verifica se esta pessoa ou algum ancestral</span></span>
-<span id="cb6-3"><a href=""></a><span class="st">       tem tipo sanguíneo O.```</span></span>
-<span id="cb6-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">Pessoa</span>) p<span class="kw">:</span></span>
-<span id="cb6-5"><a href=""></a>      <span class="co"># Se p é ninguém, retorna falso</span></span>
-<span id="cb6-6"><a href=""></a>    <span class="kw">|</span> ninguem <span class="kw">=&gt;</span> <span class="cn">false</span></span>
-<span id="cb6-7"><a href=""></a>    <span class="kw">|</span> pessoa(nome, ano, tipo, pai, mae) <span class="kw">=&gt;</span></span>
-<span id="cb6-8"><a href=""></a>      (tipo == <span class="st">"O"</span>) <span class="kw">or</span>          <span class="co"># Se p é tipo O</span></span>
-<span id="cb6-9"><a href=""></a>      ancestral-tipo-o(pai) <span class="kw">or</span>  <span class="co"># ou existe ancestral por parte de pai tipo O</span></span>
-<span id="cb6-10"><a href=""></a>      ancestral-tipo-o(mae)     <span class="co"># ou existe ancestral por parte de mãe tipo O</span></span>
-<span id="cb6-11"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb6-12"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb6-13"><a href=""></a>  ancestral-tipo-o(<span class="dt">GUSTAVO</span>) <span class="kw">is</span> <span class="cn">true</span></span>
-<span id="cb6-14"><a href=""></a>  ancestral-tipo-o(<span class="dt">FRED</span>)    <span class="kw">is</span> <span class="cn">false</span></span>
-<span id="cb6-15"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb6-1"><a href="" aria-label="1"></a><span class="kw">fun</span> ancestral-tipo-o(p <span class="kw">::</span> <span class="dt">Pessoa</span>) <span class="kw">-&gt;</span> <span class="dt">Boolean</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">```Dada uma pessoa, verifica se esta pessoa ou algum ancestral</span></span>
+<span id="cb6-3"><a href="" aria-label="3"></a><span class="st">       tem tipo sanguíneo O.```</span></span>
+<span id="cb6-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">Pessoa</span>) p<span class="kw">:</span></span>
+<span id="cb6-5"><a href="" aria-label="5"></a>      <span class="co"># Se p é ninguém, retorna falso</span></span>
+<span id="cb6-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> ninguem <span class="kw">=&gt;</span> <span class="cn">false</span></span>
+<span id="cb6-7"><a href="" aria-label="7"></a>    <span class="kw">|</span> pessoa(nome, ano, tipo, pai, mae) <span class="kw">=&gt;</span></span>
+<span id="cb6-8"><a href="" aria-label="8"></a>      (tipo == <span class="st">"O"</span>) <span class="kw">or</span>          <span class="co"># Se p é tipo O</span></span>
+<span id="cb6-9"><a href="" aria-label="9"></a>      ancestral-tipo-o(pai) <span class="kw">or</span>  <span class="co"># ou existe ancestral por parte de pai tipo O</span></span>
+<span id="cb6-10"><a href="" aria-label="10"></a>      ancestral-tipo-o(mae)     <span class="co"># ou existe ancestral por parte de mãe tipo O</span></span>
+<span id="cb6-11"><a href="" aria-label="11"></a>  <span class="kw">end</span></span>
+<span id="cb6-12"><a href="" aria-label="12"></a><span class="kw">where:</span></span>
+<span id="cb6-13"><a href="" aria-label="13"></a>  ancestral-tipo-o(<span class="dt">GUSTAVO</span>) <span class="kw">is</span> <span class="cn">true</span></span>
+<span id="cb6-14"><a href="" aria-label="14"></a>  ancestral-tipo-o(<span class="dt">FRED</span>)    <span class="kw">is</span> <span class="cn">false</span></span>
+<span id="cb6-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="exercício-1" class="slide level2">
@@ -863,15 +866,15 @@ Lucas Nunes Alegre
 <h2>Árvore Binária</h2>
 <p>Cada nó tem no máximo dois filhos: esquerda e direita.</p>
 <p><br></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href=""></a><span class="kw">data</span> <span class="dt">AB</span><span class="kw">:</span></span>
-<span id="cb7-2"><a href=""></a>  <span class="kw">|</span> vazia</span>
-<span id="cb7-3"><a href=""></a>  <span class="kw">|</span> no(</span>
-<span id="cb7-4"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># identificador do nó</span></span>
-<span id="cb7-5"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># conteúdo do nó</span></span>
-<span id="cb7-6"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">AB</span>,      <span class="co"># sub-árvore esquerda</span></span>
-<span id="cb7-7"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">AB</span>       <span class="co"># sub-árvore direita</span></span>
-<span id="cb7-8"><a href=""></a>    )</span>
-<span id="cb7-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb7-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">AB</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> vazia</span>
+<span id="cb7-3"><a href="" aria-label="3"></a>  <span class="kw">|</span> no(</span>
+<span id="cb7-4"><a href="" aria-label="4"></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,  <span class="co"># identificador do nó</span></span>
+<span id="cb7-5"><a href="" aria-label="5"></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,  <span class="co"># conteúdo do nó</span></span>
+<span id="cb7-6"><a href="" aria-label="6"></a>      esq      <span class="kw">::</span> <span class="dt">AB</span>,      <span class="co"># sub-árvore esquerda</span></span>
+<span id="cb7-7"><a href="" aria-label="7"></a>      dir      <span class="kw">::</span> <span class="dt">AB</span>       <span class="co"># sub-árvore direita</span></span>
+<span id="cb7-8"><a href="" aria-label="8"></a>    )</span>
+<span id="cb7-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="árvore-binária-exemplo" class="slide level2">
 <h2>Árvore Binária — exemplo</h2>
@@ -911,14 +914,14 @@ Lucas Nunes Alegre
 </svg>
 </div><div class="column" style="width:46%;">
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href=""></a><span class="dt">AB1</span> =</span>
-<span id="cb8-2"><a href=""></a>no(<span class="dv">10</span>, <span class="st">"A"</span>,</span>
-<span id="cb8-3"><a href=""></a>  no(<span class="dv">12</span>, <span class="st">"B"</span>, vazia, vazia),</span>
-<span id="cb8-4"><a href=""></a>  no(<span class="dv">3</span>,  <span class="st">"C"</span>,</span>
-<span id="cb8-5"><a href=""></a>    no(<span class="dv">15</span>, <span class="st">"D"</span>,</span>
-<span id="cb8-6"><a href=""></a>      no(<span class="dv">1</span>, <span class="st">"F"</span>, vazia, vazia),</span>
-<span id="cb8-7"><a href=""></a>      vazia),</span>
-<span id="cb8-8"><a href=""></a>    no(<span class="dv">20</span>, <span class="st">"E"</span>, vazia, vazia)))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb8-1"><a href="" aria-label="1"></a><span class="dt">AB1</span> =</span>
+<span id="cb8-2"><a href="" aria-label="2"></a>no(<span class="dv">10</span>, <span class="st">"A"</span>,</span>
+<span id="cb8-3"><a href="" aria-label="3"></a>  no(<span class="dv">12</span>, <span class="st">"B"</span>, vazia, vazia),</span>
+<span id="cb8-4"><a href="" aria-label="4"></a>  no(<span class="dv">3</span>,  <span class="st">"C"</span>,</span>
+<span id="cb8-5"><a href="" aria-label="5"></a>    no(<span class="dv">15</span>, <span class="st">"D"</span>,</span>
+<span id="cb8-6"><a href="" aria-label="6"></a>      no(<span class="dv">1</span>, <span class="st">"F"</span>, vazia, vazia),</span>
+<span id="cb8-7"><a href="" aria-label="7"></a>      vazia),</span>
+<span id="cb8-8"><a href="" aria-label="8"></a>    no(<span class="dv">20</span>, <span class="st">"E"</span>, vazia, vazia)))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div></div>
 </section>
@@ -944,15 +947,15 @@ Lucas Nunes Alegre
 <p>Uma ABP é uma AB que respeita a invariante:<br> ids da sub-árvore esquerda &lt; id da raiz &lt; ids da sub-árvore direita.</p>
 <p><br></p>
 <div style="font-size: 0.9em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href=""></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
-<span id="cb9-2"><a href=""></a>  <span class="kw">|</span> vazia</span>
-<span id="cb9-3"><a href=""></a>  <span class="kw">|</span> no(</span>
-<span id="cb9-4"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
-<span id="cb9-5"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
-<span id="cb9-6"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
-<span id="cb9-7"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
-<span id="cb9-8"><a href=""></a>    )</span>
-<span id="cb9-9"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb9-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> vazia</span>
+<span id="cb9-3"><a href="" aria-label="3"></a>  <span class="kw">|</span> no(</span>
+<span id="cb9-4"><a href="" aria-label="4"></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb9-5"><a href="" aria-label="5"></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb9-6"><a href="" aria-label="6"></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
+<span id="cb9-7"><a href="" aria-label="7"></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
+<span id="cb9-8"><a href="" aria-label="8"></a>    )</span>
+<span id="cb9-9"><a href="" aria-label="9"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="árvore-binária-árvore-binária-de-pesquisa" class="slide level2">
@@ -1079,13 +1082,13 @@ Lucas Nunes Alegre
 <h2>Construindo uma ABP a partir de uma lista</h2>
 <p>Vamos construir uma ABP a partir de uma lista de pares (identificador, conteúdo).</p>
 <p><span class="muted italico">Antes, precisamos definir o tipo de cada elemento da lista:</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href=""></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
-<span id="cb10-2"><a href=""></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
-<span id="cb10-3"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href="" aria-label="1"></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="" aria-label="2"></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
+<span id="cb10-3"><a href="" aria-label="3"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <p><br></p>
 <div class="caixa">
 <p><span class="forte muted" style="font-size: 0.8em;">Exemplo: uma lista de 3 pares</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href=""></a><span class="dt">L</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">10</span>, <span class="st">"Alice"</span>),  par(<span class="dv">7</span>, <span class="st">"Bob"</span>),  par(<span class="dv">15</span>, <span class="st">"Cris"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb11-1"><a href="" aria-label="1"></a><span class="dt">L</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">10</span>, <span class="st">"Alice"</span>),  par(<span class="dv">7</span>, <span class="st">"Bob"</span>),  par(<span class="dv">15</span>, <span class="st">"Cris"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="constroi-abp-contrato-e-exemplos" class="slide level2">
@@ -1101,14 +1104,14 @@ Lucas Nunes Alegre
 <div class="column" style="width:52%;">
 <div class="caixa" style="font-size: 0.85em;">
 <p><span class="forte muted">Entrada — lista L1:</span></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href=""></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span></span>
-<span id="cb12-2"><a href=""></a>  par(<span class="dv">11</span>, <span class="st">"F"</span>),</span>
-<span id="cb12-3"><a href=""></a>  par(<span class="dv">20</span>, <span class="st">"E"</span>),</span>
-<span id="cb12-4"><a href=""></a>  par(<span class="dv">3</span>,  <span class="st">"B"</span>),</span>
-<span id="cb12-5"><a href=""></a>  par(<span class="dv">15</span>, <span class="st">"D"</span>),</span>
-<span id="cb12-6"><a href=""></a>  par(<span class="dv">17</span>, <span class="st">"C"</span>),</span>
-<span id="cb12-7"><a href=""></a>  par(<span class="dv">10</span>, <span class="st">"A"</span>)</span>
-<span id="cb12-8"><a href=""></a>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb12-1"><a href="" aria-label="1"></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span></span>
+<span id="cb12-2"><a href="" aria-label="2"></a>  par(<span class="dv">11</span>, <span class="st">"F"</span>),</span>
+<span id="cb12-3"><a href="" aria-label="3"></a>  par(<span class="dv">20</span>, <span class="st">"E"</span>),</span>
+<span id="cb12-4"><a href="" aria-label="4"></a>  par(<span class="dv">3</span>,  <span class="st">"B"</span>),</span>
+<span id="cb12-5"><a href="" aria-label="5"></a>  par(<span class="dv">15</span>, <span class="st">"D"</span>),</span>
+<span id="cb12-6"><a href="" aria-label="6"></a>  par(<span class="dv">17</span>, <span class="st">"C"</span>),</span>
+<span id="cb12-7"><a href="" aria-label="7"></a>  par(<span class="dv">10</span>, <span class="st">"A"</span>)</span>
+<span id="cb12-8"><a href="" aria-label="8"></a>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:44%;">
 <div class="caixa-azul" style="font-size: 0.8em;">
@@ -1141,31 +1144,31 @@ Lucas Nunes Alegre
 <p><span class="italico">Dada uma lista lp de pares:</span></p>
 <div class="modelo-recursivo">
 <div class="fragment trivial">
-<p>se <span class="cond">lp é vazia</span> <span class="res">devolver a árvore vazia</span></p>
+<p>se <span class="cond">lp é vazia</span> <span class="res fragment">devolver a árvore vazia</span></p>
 </div>
 <div class="fragment dificil">
 <p>se <span class="cond">lp não é vazia</span></p>
-<p><span class="sub">o resto de lp</span> <span class="sol">ABP construída com o resto de lp</span></p>
-<p><span class="comb">inserir o primeiro elemento de lp na ABP <span class="n">1</span></span></p>
+<p><span class="sub fragment">o resto de lp</span> <span class="sol fragment">ABP construída com o resto de lp</span></p>
+<p><span class="comb fragment">inserir o primeiro elemento de lp na ABP <span class="n">1</span></span></p>
 </div>
 </div>
 </section>
 <section id="constroi-abp" class="slide level2">
 <h2>constroi-abp</h2>
 <div style="font-size: 0.85em;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href=""></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
-<span id="cb13-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
-<span id="cb13-3"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
-<span id="cb13-4"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia            <span class="co"># Se lista é vazia, retorna ABP vazia</span></span>
-<span id="cb13-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span>  <span class="co"># Se lista não é vazia</span></span>
-<span id="cb13-6"><a href=""></a>        insere-no(              <span class="co"># Insere um nó com,</span></span>
-<span id="cb13-7"><a href=""></a>                  primeiro.id,     <span class="co"># ID do primeiro nó da lista</span></span>
-<span id="cb13-8"><a href=""></a>                  primeiro.cont,   <span class="co"># Conteúdo do primeiro nó da lista</span></span>
-<span id="cb13-9"><a href=""></a>                  constroi-abp(resto))  <span class="co"># Na árvore com o resto dos pares de lp</span></span>
-<span id="cb13-10"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb13-11"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb13-12"><a href=""></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
-<span id="cb13-13"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href="" aria-label="1"></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia            <span class="co"># Se lista é vazia, retorna ABP vazia</span></span>
+<span id="cb13-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span>  <span class="co"># Se lista não é vazia</span></span>
+<span id="cb13-6"><a href="" aria-label="6"></a>        insere-no(              <span class="co"># Insere um nó com,</span></span>
+<span id="cb13-7"><a href="" aria-label="7"></a>                  primeiro.id,     <span class="co"># ID do primeiro nó da lista</span></span>
+<span id="cb13-8"><a href="" aria-label="8"></a>                  primeiro.cont,   <span class="co"># Conteúdo do primeiro nó da lista</span></span>
+<span id="cb13-9"><a href="" aria-label="9"></a>                  constroi-abp(resto))  <span class="co"># Na árvore com o resto dos pares de lp</span></span>
+<span id="cb13-10"><a href="" aria-label="10"></a>  <span class="kw">end</span></span>
+<span id="cb13-11"><a href="" aria-label="11"></a><span class="kw">where:</span></span>
+<span id="cb13-12"><a href="" aria-label="12"></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
+<span id="cb13-13"><a href="" aria-label="13"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="constroi-abp-passo-a-passo" class="slide level2">
@@ -1267,17 +1270,17 @@ Lucas Nunes Alegre
 <p><span class="italico">Dados id, cont e abp:</span></p>
 <div class="modelo-recursivo" style="--colunas: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.6fr);">
 <div class="fragment trivial">
-<p>se <span class="cond">abp é vazia</span> <span class="res">criar ABP com um único nó (id, cont)</span></p>
+<p>se <span class="cond">abp é vazia</span> <span class="res fragment">criar ABP com um único nó (id, cont)</span></p>
 </div>
 <div class="fragment dificil">
 <p>se <span class="cond">id &gt; abp.id</span></p>
-<p><span class="sub">sub-árvore direita: abp.dir</span> <span class="sol">inserir (id, cont) em abp.dir</span></p>
-<p><span class="comb mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, abp.esq, <span class="n">1</span>)</span></p>
+<p><span class="sub fragment">sub-árvore direita: abp.dir</span> <span class="sol fragment">inserir (id, cont) em abp.dir</span></p>
+<p><span class="comb fragment mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, abp.esq, <span class="n">1</span>)</span></p>
 </div>
 <div class="fragment dificil">
 <p>se <span class="cond">id &lt; abp.id</span></p>
-<p><span class="sub">sub-árvore esquerda: abp.esq</span> <span class="sol">inserir (id, cont) em abp.esq</span></p>
-<p><span class="comb mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, <span class="n">1</span>, abp.dir)</span></p>
+<p><span class="sub fragment">sub-árvore esquerda: abp.esq</span> <span class="sol fragment">inserir (id, cont) em abp.esq</span></p>
+<p><span class="comb fragment mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, <span class="n">1</span>, abp.dir)</span></p>
 </div>
 </div>
 </section>
@@ -1286,53 +1289,53 @@ Lucas Nunes Alegre
 <h2>insere-no</h2>
 <div class="pyret-live" data-height="600" style="font-size: 0.85em;">
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href=""></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
-<span id="cb14-2"><a href=""></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
-<span id="cb14-3"><a href=""></a>  <span class="kw">|</span> vazia</span>
-<span id="cb14-4"><a href=""></a>  <span class="kw">|</span> no(</span>
-<span id="cb14-5"><a href=""></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
-<span id="cb14-6"><a href=""></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
-<span id="cb14-7"><a href=""></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
-<span id="cb14-8"><a href=""></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
-<span id="cb14-9"><a href=""></a>    )</span>
-<span id="cb14-10"><a href=""></a><span class="kw">end</span></span>
-<span id="cb14-11"><a href=""></a></span>
-<span id="cb14-12"><a href=""></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
-<span id="cb14-13"><a href=""></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
-<span id="cb14-14"><a href=""></a><span class="kw">end</span></span>
-<span id="cb14-15"><a href=""></a></span>
-<span id="cb14-16"><a href=""></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">11</span>, <span class="st">"F"</span>), par(<span class="dv">20</span>, <span class="st">"E"</span>), par(<span class="dv">3</span>, <span class="st">"B"</span>), par(<span class="dv">15</span>, <span class="st">"D"</span>), par(<span class="dv">17</span>, <span class="st">"C"</span>), par(<span class="dv">10</span>, <span class="st">"A"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb14-1"><a href="" aria-label="1"></a><span class="co"># Definições dos slides anteriores (necessárias para executar o exemplo)</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a><span class="kw">data</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb14-3"><a href="" aria-label="3"></a>  <span class="kw">|</span> vazia</span>
+<span id="cb14-4"><a href="" aria-label="4"></a>  <span class="kw">|</span> no(</span>
+<span id="cb14-5"><a href="" aria-label="5"></a>      id       <span class="kw">::</span> <span class="dt">Number</span>,</span>
+<span id="cb14-6"><a href="" aria-label="6"></a>      conteudo <span class="kw">::</span> <span class="dt">String</span>,</span>
+<span id="cb14-7"><a href="" aria-label="7"></a>      esq      <span class="kw">::</span> <span class="dt">ABP</span>,  <span class="co"># contém apenas nós com identificadores menores que id</span></span>
+<span id="cb14-8"><a href="" aria-label="8"></a>      dir      <span class="kw">::</span> <span class="dt">ABP</span>   <span class="co"># contém apenas nós com identificadores maiores que id</span></span>
+<span id="cb14-9"><a href="" aria-label="9"></a>    )</span>
+<span id="cb14-10"><a href="" aria-label="10"></a><span class="kw">end</span></span>
+<span id="cb14-11"><a href="" aria-label="11"></a></span>
+<span id="cb14-12"><a href="" aria-label="12"></a><span class="kw">data</span> <span class="dt">Par</span><span class="kw">:</span></span>
+<span id="cb14-13"><a href="" aria-label="13"></a>  <span class="kw">|</span> par(id <span class="kw">::</span> <span class="dt">Number</span>, cont <span class="kw">::</span> <span class="dt">String</span>)</span>
+<span id="cb14-14"><a href="" aria-label="14"></a><span class="kw">end</span></span>
+<span id="cb14-15"><a href="" aria-label="15"></a></span>
+<span id="cb14-16"><a href="" aria-label="16"></a><span class="dt">L1</span> = [<span class="cn">list</span><span class="kw">:</span> par(<span class="dv">11</span>, <span class="st">"F"</span>), par(<span class="dv">20</span>, <span class="st">"E"</span>), par(<span class="dv">3</span>, <span class="st">"B"</span>), par(<span class="dv">15</span>, <span class="st">"D"</span>), par(<span class="dv">17</span>, <span class="st">"C"</span>), par(<span class="dv">10</span>, <span class="st">"A"</span>)]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href=""></a><span class="kw">fun</span> insere-no(id <span class="kw">::</span> <span class="dt">Number</span>, c <span class="kw">::</span> <span class="dt">String</span>, abp <span class="kw">::</span> <span class="dt">ABP</span>) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
-<span id="cb15-2"><a href=""></a>  <span class="kw">doc:</span> <span class="st">```Dado um id, um conteúdo e uma ABP, insere um novo nó na ABP.</span></span>
-<span id="cb15-3"><a href=""></a><span class="st">       Assume que não existe o ID na árvore previamente.```</span></span>
-<span id="cb15-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">ABP</span>) abp<span class="kw">:</span></span>
-<span id="cb15-5"><a href=""></a>    <span class="kw">|</span> vazia <span class="kw">=&gt;</span> no(id, c, vazia, vazia) <span class="co"># Se ABP vazia, constrói ABP com um nó</span></span>
-<span id="cb15-6"><a href=""></a>    <span class="kw">|</span> no(r-id, r-c, esq, dir) <span class="kw">=&gt;</span></span>
-<span id="cb15-7"><a href=""></a>      <span class="kw">ask:</span></span>
-<span id="cb15-8"><a href=""></a>        <span class="kw">|</span> id &gt; r-id <span class="kw">then:</span></span>
-<span id="cb15-9"><a href=""></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore direita</span></span>
-<span id="cb15-10"><a href=""></a>            esq,                    <span class="co"># subárvore esquerda</span></span>
-<span id="cb15-11"><a href=""></a>            insere-no(id, c, dir))  <span class="co"># nova subárvore direita da ABP</span></span>
-<span id="cb15-12"><a href=""></a>        <span class="kw">|</span> id &lt; r-id <span class="kw">then:</span></span>
-<span id="cb15-13"><a href=""></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore esquerda</span></span>
-<span id="cb15-14"><a href=""></a>            insere-no(id, c, esq),  <span class="co"># nova subárvore esquerda da ABP</span></span>
-<span id="cb15-15"><a href=""></a>            dir)                    <span class="co"># subárvore direita</span></span>
-<span id="cb15-16"><a href=""></a>      <span class="kw">end</span></span>
-<span id="cb15-17"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb15-18"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb15-1"><a href="" aria-label="1"></a><span class="kw">fun</span> insere-no(id <span class="kw">::</span> <span class="dt">Number</span>, c <span class="kw">::</span> <span class="dt">String</span>, abp <span class="kw">::</span> <span class="dt">ABP</span>) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a>  <span class="kw">doc:</span> <span class="st">```Dado um id, um conteúdo e uma ABP, insere um novo nó na ABP.</span></span>
+<span id="cb15-3"><a href="" aria-label="3"></a><span class="st">       Assume que não existe o ID na árvore previamente.```</span></span>
+<span id="cb15-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">ABP</span>) abp<span class="kw">:</span></span>
+<span id="cb15-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> vazia <span class="kw">=&gt;</span> no(id, c, vazia, vazia) <span class="co"># Se ABP vazia, constrói ABP com um nó</span></span>
+<span id="cb15-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> no(r-id, r-c, esq, dir) <span class="kw">=&gt;</span></span>
+<span id="cb15-7"><a href="" aria-label="7"></a>      <span class="kw">ask:</span></span>
+<span id="cb15-8"><a href="" aria-label="8"></a>        <span class="kw">|</span> id &gt; r-id <span class="kw">then:</span></span>
+<span id="cb15-9"><a href="" aria-label="9"></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore direita</span></span>
+<span id="cb15-10"><a href="" aria-label="10"></a>            esq,                    <span class="co"># subárvore esquerda</span></span>
+<span id="cb15-11"><a href="" aria-label="11"></a>            insere-no(id, c, dir))  <span class="co"># nova subárvore direita da ABP</span></span>
+<span id="cb15-12"><a href="" aria-label="12"></a>        <span class="kw">|</span> id &lt; r-id <span class="kw">then:</span></span>
+<span id="cb15-13"><a href="" aria-label="13"></a>          no(r-id, r-c,  <span class="co"># ABP construída inserindo o nó na subárvore esquerda</span></span>
+<span id="cb15-14"><a href="" aria-label="14"></a>            insere-no(id, c, esq),  <span class="co"># nova subárvore esquerda da ABP</span></span>
+<span id="cb15-15"><a href="" aria-label="15"></a>            dir)                    <span class="co"># subárvore direita</span></span>
+<span id="cb15-16"><a href="" aria-label="16"></a>      <span class="kw">end</span></span>
+<span id="cb15-17"><a href="" aria-label="17"></a>  <span class="kw">end</span></span>
+<span id="cb15-18"><a href="" aria-label="18"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div style="display: none;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href=""></a><span class="co"># Do slide "constroi-abp": experimente constroi-abp(L1) no painel de interações</span></span>
-<span id="cb16-2"><a href=""></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
-<span id="cb16-3"><a href=""></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
-<span id="cb16-4"><a href=""></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
-<span id="cb16-5"><a href=""></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia</span>
-<span id="cb16-6"><a href=""></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
-<span id="cb16-7"><a href=""></a>      insere-no(primeiro.id, primeiro.cont, constroi-abp(resto))</span>
-<span id="cb16-8"><a href=""></a>  <span class="kw">end</span></span>
-<span id="cb16-9"><a href=""></a><span class="kw">where:</span></span>
-<span id="cb16-10"><a href=""></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
-<span id="cb16-11"><a href=""></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb16-1"><a href="" aria-label="1"></a><span class="co"># Do slide "constroi-abp": experimente constroi-abp(L1) no painel de interações</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a><span class="kw">fun</span> constroi-abp(lp <span class="kw">::</span> <span class="dt">List</span>&lt;<span class="dt">Par</span>&gt;) <span class="kw">-&gt;</span> <span class="dt">ABP</span><span class="kw">:</span></span>
+<span id="cb16-3"><a href="" aria-label="3"></a>  <span class="kw">doc:</span> <span class="st">"Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."</span></span>
+<span id="cb16-4"><a href="" aria-label="4"></a>  <span class="kw">cases</span> (<span class="dt">List</span>) lp<span class="kw">:</span></span>
+<span id="cb16-5"><a href="" aria-label="5"></a>    <span class="kw">|</span> <span class="cn">empty</span> <span class="kw">=&gt;</span> vazia</span>
+<span id="cb16-6"><a href="" aria-label="6"></a>    <span class="kw">|</span> <span class="cn">link</span>(primeiro, resto) <span class="kw">=&gt;</span></span>
+<span id="cb16-7"><a href="" aria-label="7"></a>      insere-no(primeiro.id, primeiro.cont, constroi-abp(resto))</span>
+<span id="cb16-8"><a href="" aria-label="8"></a>  <span class="kw">end</span></span>
+<span id="cb16-9"><a href="" aria-label="9"></a><span class="kw">where:</span></span>
+<span id="cb16-10"><a href="" aria-label="10"></a>  constroi-abp(<span class="cn">empty</span>) <span class="kw">is</span> vazia</span>
+<span id="cb16-11"><a href="" aria-label="11"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </section>

@@ -290,18 +290,18 @@ GUSTAVO = pessoa("Gustavo",
 [Ideia básica]{.alert}
 
 ::: {.modelo-recursivo}
-::: {.trivial}
-se [o problema é trivial]{.cond} [resolva-o diretamente]{.res}
+::: {.fragment .trivial}
+se [o problema é trivial]{.cond} [resolva-o diretamente]{.res .fragment}
 :::
 
-::: {.dificil}
+::: {.fragment .dificil}
 se [o problema é difícil]{.cond}
 
-[subproblema 1]{.sub} [solução do subproblema 1]{.sol}
+[subproblema 1]{.sub .fragment} [solução do subproblema 1]{.sol .fragment}
 
-[subproblema 2]{.sub} [solução do subproblema 2]{.sol}
+[subproblema 2]{.sub .fragment} [solução do subproblema 2]{.sol .fragment}
 
-[combinar [1]{.n} e [2]{.n}]{.comb}
+[combinar [1]{.n} e [2]{.n}]{.comb .fragment}
 :::
 :::
 
@@ -394,21 +394,21 @@ ancestral-tipo-o(FRED) = [false]{.vermelho .forte}
 
 ::: {.modelo-recursivo}
 ::: {.fragment .trivial}
-se [p é ninguem]{.cond} [devolver false]{.res}
+se [p é ninguem]{.cond} [devolver false]{.res .fragment}
 :::
 
 ::: {.fragment .trivial}
-se [p tem tipo sang. \"O\"]{.cond} [devolver true]{.res}
+se [p tem tipo sang. \"O\"]{.cond} [devolver true]{.res .fragment}
 :::
 
 ::: {.fragment .dificil}
 senão
 
-[mãe de p]{.sub} [verificar tipo O nos ancestrais por parte de mãe]{.sol}
+[mãe de p]{.sub .fragment} [verificar tipo O nos ancestrais por parte de mãe]{.sol .fragment}
 
-[pai de p]{.sub} [verificar tipo O nos ancestrais por parte de pai]{.sol}
+[pai de p]{.sub .fragment} [verificar tipo O nos ancestrais por parte de pai]{.sol .fragment}
 
-[[1]{.n} [OU]{.forte} [2]{.n}]{.comb}
+[[1]{.n} [OU]{.forte} [2]{.n}]{.comb .fragment}
 :::
 :::
 
@@ -871,15 +871,15 @@ L1 = [list:
 
 ::: {.modelo-recursivo}
 ::: {.fragment .trivial}
-se [lp é vazia]{.cond} [devolver a árvore vazia]{.res}
+se [lp é vazia]{.cond} [devolver a árvore vazia]{.res .fragment}
 :::
 
 ::: {.fragment .dificil}
 se [lp não é vazia]{.cond}
 
-[o resto de lp]{.sub} [ABP construída com o resto de lp]{.sol}
+[o resto de lp]{.sub .fragment} [ABP construída com o resto de lp]{.sol .fragment}
 
-[inserir o primeiro elemento de lp na ABP [1]{.n}]{.comb}
+[inserir o primeiro elemento de lp na ABP [1]{.n}]{.comb .fragment}
 :::
 :::
 
@@ -1017,23 +1017,23 @@ end
 
 ::: {.modelo-recursivo style="--colunas: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.6fr);"}
 ::: {.fragment .trivial}
-se [abp é vazia]{.cond} [criar ABP com um único nó (id, cont)]{.res}
+se [abp é vazia]{.cond} [criar ABP com um único nó (id, cont)]{.res .fragment}
 :::
 
 ::: {.fragment .dificil}
 se [id > abp.id]{.cond}
 
-[sub-árvore direita: abp.dir]{.sub} [inserir (id, cont) em abp.dir]{.sol}
+[sub-árvore direita: abp.dir]{.sub .fragment} [inserir (id, cont) em abp.dir]{.sol .fragment}
 
-[no(abp.id, abp.conteudo, abp.esq, [1]{.n})]{.comb .mono style="font-size: 0.88em;"}
+[no(abp.id, abp.conteudo, abp.esq, [1]{.n})]{.comb .fragment .mono style="font-size: 0.88em;"}
 :::
 
 ::: {.fragment .dificil}
 se [id < abp.id]{.cond}
 
-[sub-árvore esquerda: abp.esq]{.sub} [inserir (id, cont) em abp.esq]{.sol}
+[sub-árvore esquerda: abp.esq]{.sub .fragment} [inserir (id, cont) em abp.esq]{.sol .fragment}
 
-[no(abp.id, abp.conteudo, [1]{.n}, abp.dir)]{.comb .mono style="font-size: 0.88em;"}
+[no(abp.id, abp.conteudo, [1]{.n}, abp.dir)]{.comb .fragment .mono style="font-size: 0.88em;"}
 :::
 :::
 
