@@ -1,5 +1,6 @@
 # Renderiza os slides para public/slides/, que o Vite publica junto com o site.
-# Uso: npm run slides (ou `quarto render` nesta pasta).
+# Uso: npm run slides (ou `quarto render` nesta pasta). O deploy no GitHub
+# Actions roda isso antes do build; public/slides/ não vai para o git.
 project:
   output-dir: ../../../public/slides
   render:

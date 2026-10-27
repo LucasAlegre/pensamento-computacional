@@ -28,6 +28,9 @@ notas
 # Cache do Quarto (slides)
 .quarto/
 
+# Slides gerados pelo Quarto (npm run slides); o deploy renderiza no CI
+/public/slides/
+
 # Originais dos slides (PowerPoint/PDF), grandes demais para o repositório
 src/data/slides/pptx/
 

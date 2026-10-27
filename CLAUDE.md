@@ -16,7 +16,7 @@ npm run lint                     # ESLint (flat config in eslint.config.js)
 npm run preview                  # serve dist/
 ```
 
-There is no test suite. Pushing to `main` deploys automatically (`.github/workflows/deploy.yml` runs `npm run deploy`: build, copy `index.html` to `404.html` for SPA deep links, then push `dist/` to the `gh-pages` branch).
+There is no test suite. Pushing to `main` deploys automatically (`.github/workflows/deploy.yml` renders the slides with `npm run slides`, then runs `npm run deploy`: build, copy `index.html` to `404.html` for SPA deep links, then push `dist/` to the `gh-pages` branch).
 
 ## Architecture
 
@@ -68,7 +68,7 @@ All exercises live in a single file, `src/data/exercises.md`. `src/utils/loadExe
 Each topic is a hand-wired page. `Learning.jsx`, `DataTypes.jsx` and `PyretStyleGuide.jsx` each render one file from `src/data/topics/*.md`, with a duplicated ReactMarkdown setup and a `TableOfContents` sidebar (which scrapes `h2`/`h3` from the DOM). `Functions.jsx` is inline JSX. To add a topic, you need a page component, a route in `App.jsx`, a dropdown link in `components/Layout.jsx` and a card in `pages/Topics.jsx`.
 
 ### Lecture slides and the Turma C schedule (`/turma-c`)
-- `src/data/slides/aulaNN-*.qmd` are Quarto revealjs decks, numbered by the 2026/2 schedule. `npm run slides` (needs `quarto`) renders them into `public/slides/`, which Vite publishes as static files. CI does not run Quarto, so re-render and commit `public/slides/` after editing a deck.
+- `src/data/slides/aulaNN-*.qmd` are Quarto revealjs decks, numbered by the 2026/2 schedule. `npm run slides` (needs `quarto`) renders them into `public/slides/`, which Vite publishes as static files. The deploy workflow installs Quarto (version pinned in `deploy.yml`) and runs `npm run slides` before the build, so `public/slides/` is gitignored: commit only the sources in `src/data/slides/`. Run `npm run slides` locally only to preview decks with `npm run dev`.
 - Shared deck files in `src/data/slides/`:
   - `metropolis.scss`: a verbatim copy of the instructor's PAA theme.
   - `pensamento.scss`: course helpers and the Pyret Light colors.
