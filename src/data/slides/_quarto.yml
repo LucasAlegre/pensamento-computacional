@@ -10,3 +10,7 @@ project:
   # Junta as bibliotecas do reveal.js de todos os decks em public/slides/libs/.
   post-render: compartilha-libs.py
 
+# A caixa do modelo recursivo aparece vazia e o texto entra no clique seguinte.
+filters:
+  - modelo-recursivo.lua
+

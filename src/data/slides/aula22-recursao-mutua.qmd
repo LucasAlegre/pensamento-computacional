@@ -177,55 +177,27 @@ GUSTAVO = pessoa("Gustavo",
 
 ## ancestral-tipo-o: modelo da solução
 
-```{=html}
-<div class="modelo-solucao">
-<p class="dado">Dada uma pessoa <span class="verde">p</span>:</p>
-<div class="faixa trivial">
-  <div class="titulo-faixa">Trivial: Resolver</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 17em;"><span class="fragment"><span class="verde">p</span> é ninguem</span></span>
-    <span>,</span>
-    <span class="campo" style="width: 24em;"><span class="fragment">devolver <span class="vermelho">false</span></span></span>
-  </div>
-</div>
-<div class="faixa trivial">
-  <div class="titulo-faixa">Trivial: Resolver</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 17em;"><span class="fragment"><span class="verde">p</span> tem tipo sang. "O"</span></span>
-    <span>,</span>
-    <span class="campo" style="width: 24em;"><span class="fragment">devolver <span class="verde">true</span></span></span>
-  </div>
-</div>
-<div class="faixa dificil">
-  <div class="titulo-faixa">Difícil: Decompor</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 13em;"><span class="fragment">Senão</span></span>
-  </div>
-  <div class="linha" style="margin-top: 0.9em;">
-    <span class="combinar">Combinar Soluções:</span>
-    <span class="campo" style="width: 17em;"><span class="fragment">OU</span></span>
-  </div>
-  <div class="linha" style="margin-top: 0.7em;">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="sub" style="width: 22.6em;">Solução dos subproblemas:</span>
-    <span class="sub">Gerar problemas menores:</span>
-  </div>
-  <div class="linha">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="campo" style="width: 22em;"><span class="fragment">Verificar se existe ancestral com tipo O em</span></span>
-    <span class="campo" style="width: 17em;"><span class="fragment">Ancestrais por parte de pai de <span class="verde">p</span></span></span>
-  </div>
-  <div class="linha">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="campo" style="width: 22em;"><span class="fragment">Verificar se existe ancestral com tipo O em</span></span>
-    <span class="campo" style="width: 17em;"><span class="fragment">Ancestrais por parte de mãe de <span class="verde">p</span></span></span>
-  </div>
-</div>
-</div>
-```
+[Dada uma pessoa p:]{.italico}
+
+::: {.modelo-recursivo}
+::: {.fragment .trivial}
+se [p é ninguem]{.cond} [devolver false]{.res .fragment}
+:::
+
+::: {.fragment .trivial}
+se [p tem tipo sang. \"O\"]{.cond} [devolver true]{.res .fragment}
+:::
+
+::: {.fragment .dificil}
+senão
+
+[pai de p]{.sub .fragment} [verificar tipo O nos ancestrais por parte de pai]{.sol .fragment}
+
+[mãe de p]{.sub .fragment} [verificar tipo O nos ancestrais por parte de mãe]{.sol .fragment}
+
+[[1]{.n} [OU]{.forte} [2]{.n}]{.comb .fragment}
+:::
+:::
 
 ## ancestral-tipo-o
 
@@ -749,39 +721,21 @@ end
 
 ## Decomposição
 
-```{=html}
-<div class="decomposicao">
-<p class="dado">Dada uma pessoa <span class="verde">p</span>:</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"><span class="fragment" data-fragment-index="0"><span class="verde">p</span> é tipo O</span></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"><span class="fragment" data-fragment-index="1">true</span></div></div>
-  </div>
-</div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"><span class="fragment" data-fragment-index="2"><span class="verde">p</span> não é tipo O</span></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa pequena"><span class="fragment" data-fragment-index="3">verificar se tem alguém tipo “O” entre os descendentes</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="4">filhos de <span class="verde">p</span></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-  </div>
-</div>
-</div>
-```
+[Dada uma pessoa p:]{.italico}
+
+::: {.modelo-recursivo}
+::: {.fragment .trivial}
+se [p é tipo O]{.cond} [devolver true]{.res .fragment}
+:::
+
+::: {.fragment .dificil}
+se [p não é tipo O]{.cond}
+
+[filhos de p]{.sub .fragment} [verificar tipo O nos filhos e nos seus descendentes]{.sol .fragment}
+
+[nada a combinar: devolver [1]{.n}]{.comb .fragment}
+:::
+:::
 
 ## Descendente Tipo O
 
@@ -852,39 +806,23 @@ end
 
 ## Decomposição
 
-```{=html}
-<div class="decomposicao">
-<p class="dado">Dada uma lista <span class="verde">lf</span>:</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"><span class="fragment" data-fragment-index="0"><span class="verde">lf</span> é vazia</span></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"><span class="fragment" data-fragment-index="1">false</span></div></div>
-  </div>
-</div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"><span class="fragment" data-fragment-index="2"><span class="verde">lf</span> não é vazia</span></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"><span class="fragment" data-fragment-index="7">OU</span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa pequena"><span class="fragment" data-fragment-index="3">verificar se tem alguém tipo “O” entre os descendentes de</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="4">primeiro elemento de <span class="verde">lf</span></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa pequena"><span class="fragment" data-fragment-index="5">verificar se tem alguém tipo “O” entre os descendentes de</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="6">resto de <span class="verde">lf</span></span></div></div>
-  </div>
-</div>
-</div>
-```
+[Dada uma lista lf:]{.italico}
+
+::: {.modelo-recursivo}
+::: {.fragment .trivial}
+se [lf é vazia]{.cond} [devolver false]{.res .fragment}
+:::
+
+::: {.fragment .dificil}
+se [lf não é vazia]{.cond}
+
+[primeiro de lf]{.sub .fragment} [verificar tipo O no primeiro e nos seus descendentes]{.sol .fragment}
+
+[resto de lf]{.sub .fragment} [verificar tipo O no resto e nos seus descendentes]{.sol .fragment}
+
+[[1]{.n} [OU]{.forte} [2]{.n}]{.comb .fragment}
+:::
+:::
 
 ## Descendente Tipo O na Lista
 
@@ -1469,39 +1407,23 @@ ALUNO :: Conteudo =
 
 ## Modelo da Solução
 
-```{=html}
-<div class="decomposicao">
-<p class="dado">Dado(s) ...</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"></div></div>
-  </div>
-</div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa"></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa"></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"></div></div>
-  </div>
-</div>
-</div>
-```
+[Dado(s) ...]{.italico}
+
+::: {.modelo-recursivo .em-branco}
+::: {.trivial}
+se []{.cond} []{.res}
+:::
+
+::: {.dificil}
+se []{.cond}
+
+[]{.sub} []{.sol}
+
+[]{.sub} []{.sol}
+
+[]{.comb}
+:::
+:::
 
 ## Exercício 1
 

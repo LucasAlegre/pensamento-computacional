@@ -16,6 +16,10 @@ $pc-verde:    #3a7a10;
 .reveal .vermelho { color: $pc-vermelho; }
 .reveal .verde    { color: $pc-verde; }
 
+.reveal .forte   { font-weight: 700; }
+.reveal .italico { font-style: italic; }
+.reveal .mono    { font-family: "Source Code Pro", Consolas, monospace; }
+
 // Texto explicativo ao lado dos modelos de função
 .reveal .explicacao {
   font-size: 0.85em;
@@ -99,7 +103,8 @@ $pc-padroes: (filtrar: $pc-azul, mapear: $pc-roxo, juntar: $pc-vermelho, combina
 // é um subproblema (.sub) com a sua solução (.sol, numerada). O último junta as
 // soluções (.comb), citando-as com [1]{.n}. Suporta até 3 subproblemas.
 // Para revelar a caixa e depois o seu conteúdo aos poucos, use .fragment no div
-// e em cada .res, .sub, .sol e .comb.
+// e em cada .res, .sub, .sol e .comb. O filtro modelo-recursivo.lua faz cada
+// caixa revelada assim aparecer vazia, com o texto no clique seguinte.
 // Para mudar a largura das colunas decompor/resolver/combinar num slide:
 //   ::: {.modelo-recursivo style="--colunas: 1fr 1fr 1.6fr;"}
 $pc-casos: (trivial: $pc-verde, dificil: #2e75b6);

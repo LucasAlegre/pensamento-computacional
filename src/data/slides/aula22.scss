@@ -1,8 +1,8 @@
 /*-- scss:defaults --*/
 
 // Estilos específicos da Aula 21 (Estruturas com Referência Mútua).
-// Diagramas recriados do PowerPoint: árvores genealógicas, modelo da solução,
-// decomposição, ficha de função e código anotado.
+// Diagramas recriados do PowerPoint: árvores genealógicas, ficha de função e
+// código anotado. O modelo da solução recursiva fica em pensamento.scss.
 
 $a21-laranja: #ff8000;
 
@@ -65,94 +65,10 @@ $a21-laranja: #ff8000;
   background: #fff;
 }
 
-// ── Modelo da solução de ancestral-tipo-o ──────────────────────────────────
-.reveal .modelo-solucao {
-  font-size: 0.68em;
-  line-height: 1.25;
-  .dado { font-style: italic; margin: 0 0 0.4em; font-size: 1.15em; }
-  .faixa { padding: 0.35em 0.6em 0.6em; margin-bottom: 0.35em; }
-  .trivial { background: #fff2cc; }
-  .dificil { background: #fce4d6; }
-  .titulo-faixa { font-weight: 700; margin-bottom: 0.25em; }
-  .trivial .titulo-faixa { color: #bf8f00; }
-  .dificil .titulo-faixa { color: #c65911; }
-  .linha { display: flex; align-items: center; gap: 0.6em; margin-top: 0.35em; }
-  .rotulo { width: 2.2em; flex: none; }
-  .combinar { color: #7030a0; font-weight: 700; width: 10.5em; flex: none; white-space: nowrap; }
-  .campo {
-    flex: none;
-    min-height: 1.6em;
-    padding: 0.15em 0.5em;
-    background: #fff;
-    border: 1.5px solid #bf8f00;
-    font-style: italic;
-    text-align: center;
-  }
-  .dificil .campo { border-color: #c55a11; }
-  .sub { flex: none; font-size: 0.95em; color: #262626; }
-}
-
-// ── Decomposição / modelo da solução (caixas amarelas e laranjas) ──────────
-.reveal .decomposicao {
-  font-size: 0.7em;
-  line-height: 1.2;
-  .dado { margin: 0 0 0.2em; font-size: 1.15em; }
-  .titulo-faixa { font-size: 1.05em; margin: 0.2em 0 0.1em 1.2em; }
-  .faixa {
-    margin-left: 1.2em;
-    padding: 0.3em 1em 0.6em;
-    border-radius: 1em;
-  }
-  .trivial { background: #f5f7fc; }
-  .dificil { background: #eaeff8; }
-  .linha { display: flex; align-items: flex-end; gap: 0.6em; margin-top: 0.15em; }
-  .se { width: 4em; text-align: right; padding-bottom: 0.45em; flex: none; }
-  .virgula { padding-bottom: 0.45em; flex: none; }
-  .campo { width: 15em; flex: none; text-align: center; }
-  .recuo1 { margin-left: 5.5em; }
-  .recuo2 { margin-left: 7.5em; }
-  .legenda {
-    display: block;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.72em;
-    color: #000;
-    margin-bottom: 0.1em;
-  }
-  .caixa {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 2.1em;
-    padding: 0.1em 0.3em;
-    border: 3px solid #f5d53a;
-    border-radius: 3px;
-    color: #0070c0;
-    font-size: 1.15em;
-  }
-  .dificil .caixa { border-color: #f7941d; }
-  .caixa.pequena { font-size: 0.9em; }
-}
-
-// Símbolo de "não permitido" (subproblema que não existe)
-.reveal .proibido {
-  display: inline-block;
-  position: relative;
-  width: 1.3em;
-  height: 1.3em;
-  border: 0.22em solid #000;
-  border-radius: 50%;
-  box-sizing: border-box;
-  vertical-align: middle;
-  &::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 120%;
-    height: 0.22em;
-    background: #000;
-    transform: translate(-50%, -50%) rotate(45deg);
-  }
+// ── Modelo da solução em branco (exercícios) ─────────────────────────────
+// Caixas mais altas, para preencher na aula. O modelo vem de pensamento.scss.
+.reveal .modelo-recursivo.em-branco {
+  .cond, .res, .sub, .sol, .comb { min-height: 2.4em; }
 }
 
 // ── Ficha da função (objetivo, entrada, saída) ─────────────────────────────
