@@ -101,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-377b3aa294878b3110638cc1f9946c18.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-a0032308b253cb02b84b8b89ab34618f.css">
   <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -557,51 +557,19 @@ Lucas Nunes Alegre
 </section>
 <section id="ancestral-tipo-o-modelo-da-solução" class="slide level2">
 <h2>ancestral-tipo-o: modelo da solução</h2>
-<div class="modelo-solucao">
-<p class="dado">Dada uma pessoa <span class="verde">p</span>:</p>
-<div class="faixa trivial">
-  <div class="titulo-faixa">Trivial: Resolver</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 17em;"><span class="fragment"><span class="verde">p</span> é ninguem</span></span>
-    <span>,</span>
-    <span class="campo" style="width: 24em;"><span class="fragment">devolver <span class="vermelho">false</span></span></span>
-  </div>
+<p><span class="italico">Dada uma pessoa p:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment">p é ninguem</span></span> <span class="res fragment"><span class="fragment">devolver false</span></span></p>
 </div>
-<div class="faixa trivial">
-  <div class="titulo-faixa">Trivial: Resolver</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 17em;"><span class="fragment"><span class="verde">p</span> tem tipo sang. "O"</span></span>
-    <span>,</span>
-    <span class="campo" style="width: 24em;"><span class="fragment">devolver <span class="verde">true</span></span></span>
-  </div>
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment">p tem tipo sang. "O"</span></span> <span class="res fragment"><span class="fragment">devolver true</span></span></p>
 </div>
-<div class="faixa dificil">
-  <div class="titulo-faixa">Difícil: Decompor</div>
-  <div class="linha">
-    <span class="rotulo">Se</span>
-    <span class="campo" style="width: 13em;"><span class="fragment">Senão</span></span>
-  </div>
-  <div class="linha" style="margin-top: 0.9em;">
-    <span class="combinar">Combinar Soluções:</span>
-    <span class="campo" style="width: 17em;"><span class="fragment">OU</span></span>
-  </div>
-  <div class="linha" style="margin-top: 0.7em;">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="sub" style="width: 22.6em;">Solução dos subproblemas:</span>
-    <span class="sub">Gerar problemas menores:</span>
-  </div>
-  <div class="linha">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="campo" style="width: 22em;"><span class="fragment">Verificar se existe ancestral com tipo O em</span></span>
-    <span class="campo" style="width: 17em;"><span class="fragment">Ancestrais por parte de pai de <span class="verde">p</span></span></span>
-  </div>
-  <div class="linha">
-    <span style="width: 6em; flex: none;"></span>
-    <span class="campo" style="width: 22em;"><span class="fragment">Verificar se existe ancestral com tipo O em</span></span>
-    <span class="campo" style="width: 17em;"><span class="fragment">Ancestrais por parte de mãe de <span class="verde">p</span></span></span>
-  </div>
+<div class="fragment dificil">
+<p>senão</p>
+<p><span class="sub fragment"><span class="fragment">pai de p</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O nos ancestrais por parte de pai</span></span></p>
+<p><span class="sub fragment"><span class="fragment">mãe de p</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O nos ancestrais por parte de mãe</span></span></p>
+<p><span class="comb fragment"><span class="fragment"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></span></p>
 </div>
 </div>
 </section>
@@ -1085,35 +1053,15 @@ Lucas Nunes Alegre
 </section>
 <section id="decomposição" class="slide level2">
 <h2>Decomposição</h2>
-<div class="decomposicao">
-<p class="dado">Dada uma pessoa <span class="verde">p</span>:</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"><span class="fragment" data-fragment-index="0"><span class="verde">p</span> é tipo O</span></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"><span class="fragment" data-fragment-index="1">true</span></div></div>
-  </div>
+<p><span class="italico">Dada uma pessoa p:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment">p é tipo O</span></span> <span class="res fragment"><span class="fragment">devolver true</span></span></p>
 </div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"><span class="fragment" data-fragment-index="2"><span class="verde">p</span> não é tipo O</span></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa pequena"><span class="fragment" data-fragment-index="3">verificar se tem alguém tipo “O” entre os descendentes</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="4">filhos de <span class="verde">p</span></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="proibido fragment" data-fragment-index="5"></span></div></div>
-  </div>
+<div class="fragment dificil">
+<p>se <span class="cond"><span class="fragment">p não é tipo O</span></span></p>
+<p><span class="sub fragment"><span class="fragment">filhos de p</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O nos filhos e nos seus descendentes</span></span></p>
+<p><span class="comb fragment"><span class="fragment">nada a combinar: devolver <span class="n">1</span></span></span></p>
 </div>
 </div>
 </section>
@@ -1178,35 +1126,16 @@ Lucas Nunes Alegre
 </section>
 <section id="decomposição-1" class="slide level2">
 <h2>Decomposição</h2>
-<div class="decomposicao">
-<p class="dado">Dada uma lista <span class="verde">lf</span>:</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"><span class="fragment" data-fragment-index="0"><span class="verde">lf</span> é vazia</span></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"><span class="fragment" data-fragment-index="1">false</span></div></div>
-  </div>
+<p><span class="italico">Dada uma lista lf:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment">lf é vazia</span></span> <span class="res fragment"><span class="fragment">devolver false</span></span></p>
 </div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"><span class="fragment" data-fragment-index="2"><span class="verde">lf</span> não é vazia</span></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"><span class="fragment" data-fragment-index="7">OU</span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa pequena"><span class="fragment" data-fragment-index="3">verificar se tem alguém tipo “O” entre os descendentes de</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="4">primeiro elemento de <span class="verde">lf</span></span></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa pequena"><span class="fragment" data-fragment-index="5">verificar se tem alguém tipo “O” entre os descendentes de</span></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"><span class="fragment" data-fragment-index="6">resto de <span class="verde">lf</span></span></div></div>
-  </div>
+<div class="fragment dificil">
+<p>se <span class="cond"><span class="fragment">lf não é vazia</span></span></p>
+<p><span class="sub fragment"><span class="fragment">primeiro de lf</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O no primeiro e nos seus descendentes</span></span></p>
+<p><span class="sub fragment"><span class="fragment">resto de lf</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O no resto e nos seus descendentes</span></span></p>
+<p><span class="comb fragment"><span class="fragment"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></span></p>
 </div>
 </div>
 </section>
@@ -1756,35 +1685,16 @@ Lucas Nunes Alegre
 </section>
 <section id="modelo-da-solução" class="slide level2">
 <h2>Modelo da Solução</h2>
-<div class="decomposicao">
-<p class="dado">Dado(s) ...</p>
-<div class="titulo-faixa azul">Trivial: resolver</div>
-<div class="faixa trivial">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema trivial?</span><div class="caixa"></div></div>
-    <span class="virgula">,</span>
-    <div class="campo"><span class="legenda">solução do problema trivial</span><div class="caixa"></div></div>
-  </div>
+<p><span class="italico">Dado(s) …</span></p>
+<div class="modelo-recursivo em-branco">
+<div class="trivial">
+<p>se <span class="cond"></span> <span class="res"></span></p>
 </div>
-<div class="titulo-faixa vermelho">Difícil: Decompor</div>
-<div class="faixa dificil">
-  <div class="linha">
-    <span class="se">Se</span>
-    <div class="campo"><span class="legenda">problema difícil?</span><div class="caixa"></div></div>
-    <span class="virgula">,</span>
-  </div>
-  <div class="linha recuo1">
-    <div class="campo"><span class="legenda">combinar soluções</span><div class="caixa"></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor</span><div class="caixa"></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"></div></div>
-  </div>
-  <div class="linha recuo2">
-    <div class="campo"><span class="legenda">solução do problema menor 2</span><div class="caixa"></div></div>
-    <div class="campo"><span class="legenda">gerar problema menor</span><div class="caixa"></div></div>
-  </div>
+<div class="dificil">
+<p>se <span class="cond"></span></p>
+<p><span class="sub"></span> <span class="sol"></span></p>
+<p><span class="sub"></span> <span class="sol"></span></p>
+<p><span class="comb"></span></p>
 </div>
 </div>
 </section>

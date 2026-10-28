@@ -101,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-d949b0a0235a2faf4f918465814acfb7.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-adfc5fb4b77688296048022376fa7b38.css">
   <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -656,13 +656,13 @@ Lucas Nunes Alegre
 <p><span class="alert">Ideia básica</span></p>
 <div class="modelo-recursivo">
 <div class="fragment trivial">
-<p>se <span class="cond">o problema é trivial</span> <span class="res fragment">resolva-o diretamente</span></p>
+<p>se <span class="cond"><span class="fragment">o problema é trivial</span></span> <span class="res fragment"><span class="fragment">resolva-o diretamente</span></span></p>
 </div>
 <div class="fragment dificil">
-<p>se <span class="cond">o problema é difícil</span></p>
-<p><span class="sub fragment">subproblema 1</span> <span class="sol fragment">solução do subproblema 1</span></p>
-<p><span class="sub fragment">subproblema 2</span> <span class="sol fragment">solução do subproblema 2</span></p>
-<p><span class="comb fragment">combinar <span class="n">1</span> e <span class="n">2</span></span></p>
+<p>se <span class="cond"><span class="fragment">o problema é difícil</span></span></p>
+<p><span class="sub fragment"><span class="fragment">subproblema 1</span></span> <span class="sol fragment"><span class="fragment">solução do subproblema 1</span></span></p>
+<p><span class="sub fragment"><span class="fragment">subproblema 2</span></span> <span class="sol fragment"><span class="fragment">solução do subproblema 2</span></span></p>
+<p><span class="comb fragment"><span class="fragment">combinar <span class="n">1</span> e <span class="n">2</span></span></span></p>
 </div>
 </div>
 <p><span class="muted italico" style="font-size: 0.7em;">Exemplos de problemas triviais: lista vazia, árvore vazia, número zero, caso base ninguem…</span></p>
@@ -739,16 +739,16 @@ Lucas Nunes Alegre
 <p><span class="italico">Dada uma pessoa p:</span></p>
 <div class="modelo-recursivo">
 <div class="fragment trivial">
-<p>se <span class="cond">p é ninguem</span> <span class="res fragment">devolver false</span></p>
+<p>se <span class="cond"><span class="fragment">p é ninguem</span></span> <span class="res fragment"><span class="fragment">devolver false</span></span></p>
 </div>
 <div class="fragment trivial">
-<p>se <span class="cond">p tem tipo sang. "O"</span> <span class="res fragment">devolver true</span></p>
+<p>se <span class="cond"><span class="fragment">p tem tipo sang. "O"</span></span> <span class="res fragment"><span class="fragment">devolver true</span></span></p>
 </div>
 <div class="fragment dificil">
 <p>senão</p>
-<p><span class="sub fragment">mãe de p</span> <span class="sol fragment">verificar tipo O nos ancestrais por parte de mãe</span></p>
-<p><span class="sub fragment">pai de p</span> <span class="sol fragment">verificar tipo O nos ancestrais por parte de pai</span></p>
-<p><span class="comb fragment"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></p>
+<p><span class="sub fragment"><span class="fragment">mãe de p</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O nos ancestrais por parte de mãe</span></span></p>
+<p><span class="sub fragment"><span class="fragment">pai de p</span></span> <span class="sol fragment"><span class="fragment">verificar tipo O nos ancestrais por parte de pai</span></span></p>
+<p><span class="comb fragment"><span class="fragment"><span class="n">1</span> <span class="forte">OU</span> <span class="n">2</span></span></span></p>
 </div>
 </div>
 </section>
@@ -1144,12 +1144,12 @@ Lucas Nunes Alegre
 <p><span class="italico">Dada uma lista lp de pares:</span></p>
 <div class="modelo-recursivo">
 <div class="fragment trivial">
-<p>se <span class="cond">lp é vazia</span> <span class="res fragment">devolver a árvore vazia</span></p>
+<p>se <span class="cond"><span class="fragment">lp é vazia</span></span> <span class="res fragment"><span class="fragment">devolver a árvore vazia</span></span></p>
 </div>
 <div class="fragment dificil">
-<p>se <span class="cond">lp não é vazia</span></p>
-<p><span class="sub fragment">o resto de lp</span> <span class="sol fragment">ABP construída com o resto de lp</span></p>
-<p><span class="comb fragment">inserir o primeiro elemento de lp na ABP <span class="n">1</span></span></p>
+<p>se <span class="cond"><span class="fragment">lp não é vazia</span></span></p>
+<p><span class="sub fragment"><span class="fragment">o resto de lp</span></span> <span class="sol fragment"><span class="fragment">ABP construída com o resto de lp</span></span></p>
+<p><span class="comb fragment"><span class="fragment">inserir o primeiro elemento de lp na ABP <span class="n">1</span></span></span></p>
 </div>
 </div>
 </section>
@@ -1270,17 +1270,17 @@ Lucas Nunes Alegre
 <p><span class="italico">Dados id, cont e abp:</span></p>
 <div class="modelo-recursivo" style="--colunas: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.6fr);">
 <div class="fragment trivial">
-<p>se <span class="cond">abp é vazia</span> <span class="res fragment">criar ABP com um único nó (id, cont)</span></p>
+<p>se <span class="cond"><span class="fragment">abp é vazia</span></span> <span class="res fragment"><span class="fragment">criar ABP com um único nó (id, cont)</span></span></p>
 </div>
 <div class="fragment dificil">
-<p>se <span class="cond">id &gt; abp.id</span></p>
-<p><span class="sub fragment">sub-árvore direita: abp.dir</span> <span class="sol fragment">inserir (id, cont) em abp.dir</span></p>
-<p><span class="comb fragment mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, abp.esq, <span class="n">1</span>)</span></p>
+<p>se <span class="cond"><span class="fragment">id &gt; abp.id</span></span></p>
+<p><span class="sub fragment"><span class="fragment">sub-árvore direita: abp.dir</span></span> <span class="sol fragment"><span class="fragment">inserir (id, cont) em abp.dir</span></span></p>
+<p><span class="comb fragment mono" style="font-size: 0.88em;"><span class="fragment">no(abp.id, abp.conteudo, abp.esq, <span class="n">1</span>)</span></span></p>
 </div>
 <div class="fragment dificil">
-<p>se <span class="cond">id &lt; abp.id</span></p>
-<p><span class="sub fragment">sub-árvore esquerda: abp.esq</span> <span class="sol fragment">inserir (id, cont) em abp.esq</span></p>
-<p><span class="comb fragment mono" style="font-size: 0.88em;">no(abp.id, abp.conteudo, <span class="n">1</span>, abp.dir)</span></p>
+<p>se <span class="cond"><span class="fragment">id &lt; abp.id</span></span></p>
+<p><span class="sub fragment"><span class="fragment">sub-árvore esquerda: abp.esq</span></span> <span class="sol fragment"><span class="fragment">inserir (id, cont) em abp.esq</span></span></p>
+<p><span class="comb fragment mono" style="font-size: 0.88em;"><span class="fragment">no(abp.id, abp.conteudo, <span class="n">1</span>, abp.dir)</span></span></p>
 </div>
 </div>
 </section>
