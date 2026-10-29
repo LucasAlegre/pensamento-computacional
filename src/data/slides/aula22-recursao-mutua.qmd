@@ -410,95 +410,98 @@ end
 ## Referência Mútua
 
 ```{=html}
-<svg class="codigo-anotado" viewBox="0 0 902 524" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="20">
+<svg class="codigo-anotado" viewBox="0 0 890.8 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="18">
 <defs>
-<marker id="ponta-p-dados13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-<marker id="ponta-c-dados13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a6a6a6"/></marker>
+<marker id="ponta-m-dados13" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"/></marker>
+<marker id="ponta-a-dados13" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7030a0"/></marker>
 </defs>
-<rect x="120" y="288" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<rect x="120" y="2" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<text x="52" y="414" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<text x="52" y="128" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<rect x="190" y="297" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="432" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="214" y="38" width="176" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="358" y="119" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="146" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<text x="134" y="316.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
-<text x="194" y="316.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="266" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#0070c0">:</text>
-<text x="182" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="206" y="343.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
-<text x="278" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="230" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
-<text x="290" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="326" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="398" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
-<text x="602" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="638" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
-<text x="278" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="314" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
-<text x="386" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
-<text x="590" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
-<text x="626" y="397.44" textLength="120" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
-<text x="758" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="794" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
-<text x="350" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="386" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="458" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="424.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
-<text x="602" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
-<text x="722" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="758" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
-<text x="314" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="350" y="451.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="518" y="451.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
-<text x="626" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="662" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="182" y="478.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="134" y="505.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="134" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
-<text x="194" y="30.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="362" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
-<text x="386" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
-<text x="434" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
-<text x="446" y="30.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="518" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
-<text x="134" y="57.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="57.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
-<text x="218" y="57.44" textLength="168" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos:</text>
-<text x="134" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="84.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
-<text x="134" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="111.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
-<text x="134" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="138.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
-<text x="326" y="138.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="362" y="138.44" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#0070c0" font-style="italic">Pessoa,</text>
-<text x="134" y="165.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="165.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
-<text x="314" y="165.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="350" y="165.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos</text>
-<text x="134" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
-<text x="134" y="219.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="219.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
-<line x1="395.2" y1="459" x2="240.4" y2="38" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados13)"/>
-<line x1="385.6" y1="119" x2="231.4" y2="324" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados13)"/>
-<line x1="510.0" y1="159.5" x2="390.0" y2="65" stroke="#a6a6a6" stroke-width="2.5" marker-end="url(#ponta-c-dados13)"/>
-<text x="520" y="272" fill="#000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">REFERÊNCIA MÚTUA</text>
-<text x="550" y="95" fill="#a6a6a6" font-size="26" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">AUTORREFERÊNCIA</text>
+<rect x="138" y="2" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="120" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="138" y="270" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="388" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="224.6" y="37.5" width="146.4" height="22" rx="5" fill="#ffe699"/>
+<rect x="203" y="280.5" width="70.8" height="22" rx="5" fill="#ffe699"/>
+<rect x="354.2" y="112.5" width="70.8" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="405.5" width="146.4" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="137.5" width="146.4" height="22" rx="5" fill="#7030a0" fill-opacity="0.07" stroke="#7030a0" stroke-width="1.6"/>
+<text x="152" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
+<text x="206" y="29.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="357.2" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
+<text x="378.8" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
+<text x="422" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
+<text x="432.8" y="29.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="497.6" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
+<text x="152" y="54.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="54.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
+<text x="227.6" y="54.8" textLength="151.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos:</text>
+<text x="152" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="79.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
+<text x="152" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="104.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
+<text x="152" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="129.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
+<text x="324.8" y="129.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="357.2" y="129.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Pessoa,</text>
+<text x="152" y="154.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="154.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
+<text x="314" y="154.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="346.4" y="154.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos</text>
+<text x="152" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
+<text x="152" y="204.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="204.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
+<text x="152" y="297.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
+<text x="206" y="297.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="270.8" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="216.8" y="322.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
+<text x="281.6" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="238.4" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
+<text x="292.4" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="324.8" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="389.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
+<text x="573.2" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="605.6" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
+<text x="281.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="314" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
+<text x="378.8" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
+<text x="562.4" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
+<text x="594.8" y="372.8" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
+<text x="713.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="746" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
+<text x="346.4" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="378.8" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="443.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="397.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
+<text x="573.2" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
+<text x="681.2" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="713.6" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
+<text x="314" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="346.4" y="422.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="497.6" y="422.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
+<text x="594.8" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="627.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="195.2" y="447.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="152" y="472.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<circle cx="439.8" cy="123.5" r="3.5" fill="#23373b"/>
+<path d="M439.8,123.5 H841.8 Q850.8,123.5 850.8,132.5 V282.5 Q850.8,291.5 841.8,291.5 H288.6" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados13)"/>
+<circle cx="699" cy="416.5" r="3.5" fill="#23373b"/>
+<path d="M699,416.5 H867.8 Q876.8,416.5 876.8,407.5 V57.5 Q876.8,48.5 867.8,48.5 H385.8" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados13)"/>
+<circle cx="146" cy="148.5" r="3.5" fill="#7030a0"/>
+<path d="M146,148.5 H123 Q114,148.5 114,139.5 V57.5 Q114,48.5 123,48.5 H147" fill="none" stroke="#7030a0" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-a-dados13)"/>
+<text x="838.8" y="252" fill="#23373b" font-size="21" text-anchor="end" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">referência mútua</text>
+<text x="110" y="252" fill="#7030a0" font-size="21" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">autorreferência</text>
 </svg>
 ```
 
@@ -650,11 +653,11 @@ CARLOS = pessoa("Carlos", 1926, "A", LF-CARLOS)
   <div class="item"><span class="vermelho">Saída:</span> Um booleano.</div>
 </div>
 <div class="funcao-caixa-preta">
-  <div><span class="verde">p</span> <span class="azul">:: Pessoa</span></div>
+  <div><span class="verde">p</span> <span class="roxo">:: Pessoa</span></div>
   <div class="seta">&#129123;</div>
   <div class="caixa-funcao">descendente-tipo-o</div>
   <div class="seta">&#129123;</div>
-  <div class="azul">Boolean</div>
+  <div class="roxo">Boolean</div>
 </div>
 ```
 
@@ -796,11 +799,11 @@ end
   <div class="item"><span class="vermelho">Saída:</span> Um booleano.</div>
 </div>
 <div class="funcao-caixa-preta">
-  <div><span class="verde">lf</span> <span class="azul">:: ListaDeFilhos</span></div>
+  <div><span class="verde">lf</span> <span class="roxo">:: ListaDeFilhos</span></div>
   <div class="seta">&#129123;</div>
   <div class="caixa-funcao">descendente-tipo-o-lista</div>
   <div class="seta">&#129123;</div>
-  <div class="azul">Boolean</div>
+  <div class="roxo">Boolean</div>
 </div>
 ```
 
@@ -958,389 +961,401 @@ end
 ## Referência Mútua
 
 ```{=html}
-<svg class="codigo-anotado" viewBox="0 0 922 497" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="descendente-tipo-o chama descendente-tipo-o-lista e vice-versa (referência mútua); descendente-tipo-o-lista chama a si mesma (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="20">
+<svg class="codigo-anotado" viewBox="0 0 890.8 465" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="descendente-tipo-o chama descendente-tipo-o-lista e vice-versa (referência mútua); descendente-tipo-o-lista chama a si mesma (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="18">
 <defs>
-<marker id="ponta-p-funcoes26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-<marker id="ponta-c-funcoes26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a6a6a6"/></marker>
+<marker id="ponta-m-funcoes26" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"/></marker>
+<marker id="ponta-a-funcoes26" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7030a0"/></marker>
 </defs>
-<rect x="130" y="2" width="790" height="207" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<rect x="130" y="261" width="790" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<text x="55" y="114.5" fill="#c00000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
-<text x="55" y="387" fill="#c00000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
-<rect x="188" y="11" width="224" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="119" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="188" y="270" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="378" width="224" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="405" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<text x="144" y="30.439999999999998" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
-<text x="192" y="30.439999999999998" textLength="216" lengthAdjust="spacingAndGlyphs" fill="#0070c0">descendente-tipo-o</text>
-<text x="408" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="420" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="444" y="30.439999999999998" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="480" y="30.439999999999998" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
-<text x="552" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="576" y="30.439999999999998" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
-<text x="612" y="30.439999999999998" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
-<text x="696" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="192" y="57.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">ask</text>
-<text x="228" y="57.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="240" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="276" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
-<text x="288" y="84.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
-<text x="408" y="84.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">==</text>
-<text x="444" y="84.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#14532d">&quot;O&quot;</text>
-<text x="492" y="84.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">then</text>
-<text x="540" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="564" y="84.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">true</text>
-<text x="240" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="111.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">otherwise</text>
-<text x="372" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="288" y="138.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="576" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="588" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="600" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
-<text x="612" y="138.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
-<text x="684" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="192" y="165.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="192.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="289.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
-<text x="192" y="289.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="480" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="492" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
-<text x="528" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="564" y="289.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
-<text x="720" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="744" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
-<text x="780" y="289.44" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
-<text x="864" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="192" y="316.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">cases</text>
-<text x="264" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="276" y="316.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
-<text x="432" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="456" y="316.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
-<text x="480" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="240" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="343.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">empty</text>
-<text x="336" y="343.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
-<text x="372" y="343.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">false</text>
-<text x="240" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">link</text>
-<text x="312" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="324" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
-<text x="336" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="360" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
-<text x="372" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="396" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
-<text x="288" y="397.44" textLength="216" lengthAdjust="spacingAndGlyphs" fill="#0070c0">descendente-tipo-o</text>
-<text x="504" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="516" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
-<text x="528" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="552" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">or</text>
-<text x="288" y="424.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="576" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="588" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
-<text x="600" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="192" y="451.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="478.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<line x1="417.2" y1="146.0" x2="410.0" y2="270.0" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-funcoes26)" marker-start="url(#ponta-p-funcoes26)"/>
-<line x1="306.4" y1="378.0" x2="232.8" y2="38.0" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-funcoes26)" marker-start="url(#ponta-p-funcoes26)"/>
-<line x1="580.0" y1="407.7" x2="484.0" y2="297.0" stroke="#a6a6a6" stroke-width="2.5" marker-end="url(#ponta-c-funcoes26)" marker-start="url(#ponta-c-funcoes26)"/>
-<text x="590" y="245" fill="#000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">REFERÊNCIA MÚTUA</text>
-<text x="544" y="333" fill="#a6a6a6" font-size="26" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">AUTORREFERÊNCIA</text>
+<rect x="138" y="2" width="686.8" height="193" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="107.5" fill="#c00000" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
+<rect x="138" y="245" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="363" fill="#c00000" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
+<rect x="192.2" y="12.5" width="200.4" height="22" rx="5" fill="#ffe699"/>
+<rect x="192.2" y="255.5" width="265.2" height="22" rx="5" fill="#ffe699"/>
+<rect x="278.6" y="112.5" width="265.2" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="278.6" y="355.5" width="200.4" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="278.6" y="380.5" width="265.2" height="22" rx="5" fill="#7030a0" fill-opacity="0.07" stroke="#7030a0" stroke-width="1.6"/>
+<text x="152" y="29.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
+<text x="195.2" y="29.8" textLength="194.4" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o</text>
+<text x="389.6" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="400.4" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="422" y="29.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="454.4" y="29.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="519.2" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="540.8" y="29.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
+<text x="573.2" y="29.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
+<text x="648.8" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="54.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">ask</text>
+<text x="227.6" y="54.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="238.4" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="270.8" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
+<text x="281.6" y="79.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
+<text x="389.6" y="79.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">==</text>
+<text x="422" y="79.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#14532d">&quot;O&quot;</text>
+<text x="465.2" y="79.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">then</text>
+<text x="508.4" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="530" y="79.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">true</text>
+<text x="238.4" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="104.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">otherwise</text>
+<text x="357.2" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="281.6" y="129.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="540.8" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="551.6" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="562.4" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
+<text x="573.2" y="129.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
+<text x="638" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="195.2" y="154.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="179.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="272.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
+<text x="195.2" y="272.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="454.4" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="465.2" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
+<text x="497.6" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="530" y="272.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="670.4" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="692" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
+<text x="724.4" y="272.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
+<text x="800" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="297.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">cases</text>
+<text x="260" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="270.8" y="297.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="411.2" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="432.8" y="297.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
+<text x="454.4" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="238.4" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="322.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">empty</text>
+<text x="324.8" y="322.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
+<text x="357.2" y="322.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">false</text>
+<text x="238.4" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">link</text>
+<text x="303.2" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="314" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
+<text x="324.8" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="346.4" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
+<text x="357.2" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="378.8" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
+<text x="281.6" y="372.8" textLength="194.4" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o</text>
+<text x="476" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="486.8" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
+<text x="497.6" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="519.2" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">or</text>
+<text x="281.6" y="397.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="540.8" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="551.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
+<text x="562.4" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="195.2" y="422.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="447.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<circle cx="655.8" cy="123.5" r="3.5" fill="#23373b"/>
+<path d="M655.8,123.5 H841.8 Q850.8,123.5 850.8,132.5 V257.5 Q850.8,266.5 841.8,266.5 H817.8" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-funcoes26)"/>
+<circle cx="547.8" cy="366.5" r="3.5" fill="#23373b"/>
+<path d="M547.8,366.5 H867.8 Q876.8,366.5 876.8,357.5 V32.5 Q876.8,23.5 867.8,23.5 H666.6" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-funcoes26)"/>
+<circle cx="275.6" cy="391.5" r="3.5" fill="#7030a0"/>
+<path d="M275.6,391.5 H123 Q114,391.5 114,382.5 V275.5 Q114,266.5 123,266.5 H147" fill="none" stroke="#7030a0" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-a-funcoes26)"/>
+<text x="838.8" y="227" fill="#23373b" font-size="21" text-anchor="end" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">referência mútua</text>
+<text x="110" y="227" fill="#7030a0" font-size="21" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">autorreferência</text>
 </svg>
 ```
 
 ## Referência Mútua
 
 ```{=html}
-<svg class="codigo-anotado" viewBox="0 0 902 524" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="20">
+<svg class="codigo-anotado" viewBox="0 0 890.8 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="18">
 <defs>
-<marker id="ponta-p-dados27" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-<marker id="ponta-c-dados27" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a6a6a6"/></marker>
+<marker id="ponta-m-dados27" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"/></marker>
+<marker id="ponta-a-dados27" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7030a0"/></marker>
 </defs>
-<rect x="120" y="288" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<rect x="120" y="2" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<text x="52" y="414" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<text x="52" y="128" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<rect x="190" y="297" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="432" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="214" y="38" width="176" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="358" y="119" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="146" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<text x="134" y="316.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
-<text x="194" y="316.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="266" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#0070c0">:</text>
-<text x="182" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="206" y="343.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
-<text x="278" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="230" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
-<text x="290" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="326" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="398" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
-<text x="602" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="638" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
-<text x="278" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="314" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
-<text x="386" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
-<text x="590" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
-<text x="626" y="397.44" textLength="120" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
-<text x="758" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="794" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
-<text x="350" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="386" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="458" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="424.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
-<text x="602" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
-<text x="722" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="758" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
-<text x="314" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="350" y="451.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="518" y="451.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
-<text x="626" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="662" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="182" y="478.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="134" y="505.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="134" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
-<text x="194" y="30.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="362" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
-<text x="386" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
-<text x="434" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
-<text x="446" y="30.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="518" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
-<text x="134" y="57.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="57.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
-<text x="218" y="57.44" textLength="168" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos:</text>
-<text x="134" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="84.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
-<text x="134" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="111.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
-<text x="134" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="138.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
-<text x="326" y="138.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="362" y="138.44" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#0070c0" font-style="italic">Pessoa,</text>
-<text x="134" y="165.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="165.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
-<text x="314" y="165.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="350" y="165.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos</text>
-<text x="134" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
-<text x="134" y="219.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="219.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
-<line x1="395.2" y1="459" x2="240.4" y2="38" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados27)"/>
-<line x1="385.6" y1="119" x2="231.4" y2="324" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados27)"/>
-<line x1="510.0" y1="159.5" x2="390.0" y2="65" stroke="#a6a6a6" stroke-width="2.5" marker-end="url(#ponta-c-dados27)"/>
-<text x="520" y="272" fill="#000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">REFERÊNCIA MÚTUA</text>
-<text x="550" y="95" fill="#a6a6a6" font-size="26" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">AUTORREFERÊNCIA</text>
+<rect x="138" y="2" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="120" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="138" y="270" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="388" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="224.6" y="37.5" width="146.4" height="22" rx="5" fill="#ffe699"/>
+<rect x="203" y="280.5" width="70.8" height="22" rx="5" fill="#ffe699"/>
+<rect x="354.2" y="112.5" width="70.8" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="405.5" width="146.4" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="137.5" width="146.4" height="22" rx="5" fill="#7030a0" fill-opacity="0.07" stroke="#7030a0" stroke-width="1.6"/>
+<text x="152" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
+<text x="206" y="29.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="357.2" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
+<text x="378.8" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
+<text x="422" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
+<text x="432.8" y="29.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="497.6" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
+<text x="152" y="54.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="54.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
+<text x="227.6" y="54.8" textLength="151.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos:</text>
+<text x="152" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="79.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
+<text x="152" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="104.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
+<text x="152" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="129.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
+<text x="324.8" y="129.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="357.2" y="129.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Pessoa,</text>
+<text x="152" y="154.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="154.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
+<text x="314" y="154.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="346.4" y="154.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos</text>
+<text x="152" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
+<text x="152" y="204.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="204.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
+<text x="152" y="297.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
+<text x="206" y="297.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="270.8" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="216.8" y="322.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
+<text x="281.6" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="238.4" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
+<text x="292.4" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="324.8" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="389.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
+<text x="573.2" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="605.6" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
+<text x="281.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="314" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
+<text x="378.8" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
+<text x="562.4" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
+<text x="594.8" y="372.8" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
+<text x="713.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="746" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
+<text x="346.4" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="378.8" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="443.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="397.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
+<text x="573.2" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
+<text x="681.2" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="713.6" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
+<text x="314" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="346.4" y="422.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="497.6" y="422.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
+<text x="594.8" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="627.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="195.2" y="447.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="152" y="472.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<circle cx="439.8" cy="123.5" r="3.5" fill="#23373b"/>
+<path d="M439.8,123.5 H841.8 Q850.8,123.5 850.8,132.5 V282.5 Q850.8,291.5 841.8,291.5 H288.6" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados27)"/>
+<circle cx="699" cy="416.5" r="3.5" fill="#23373b"/>
+<path d="M699,416.5 H867.8 Q876.8,416.5 876.8,407.5 V57.5 Q876.8,48.5 867.8,48.5 H385.8" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados27)"/>
+<circle cx="146" cy="148.5" r="3.5" fill="#7030a0"/>
+<path d="M146,148.5 H123 Q114,148.5 114,139.5 V57.5 Q114,48.5 123,48.5 H147" fill="none" stroke="#7030a0" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-a-dados27)"/>
+<text x="838.8" y="252" fill="#23373b" font-size="21" text-anchor="end" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">referência mútua</text>
+<text x="110" y="252" fill="#7030a0" font-size="21" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">autorreferência</text>
 </svg>
 ```
 
 ## Referência Mútua {.hide-header}
 
-::: {.absolute top="0" left="0" width="610"}
+::: {.absolute top="0" left="0" width="650"}
 ```{=html}
-<svg class="codigo-anotado" viewBox="0 0 902 524" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="20">
+<svg class="codigo-anotado" viewBox="0 0 890.8 490" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pessoa referencia ListaDeFilhos e ListaDeFilhos referencia Pessoa (referência mútua); ListaDeFilhos referencia a si mesma no campo rest (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="18">
 <defs>
-<marker id="ponta-p-dados28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-<marker id="ponta-c-dados28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a6a6a6"/></marker>
+<marker id="ponta-m-dados28" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"/></marker>
+<marker id="ponta-a-dados28" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7030a0"/></marker>
 </defs>
-<rect x="120" y="288" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<rect x="120" y="2" width="780" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<text x="52" y="414" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<text x="52" y="128" fill="#0070c0" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
-<rect x="190" y="297" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="432" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="214" y="38" width="176" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="358" y="119" width="92" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="346" y="146" width="164" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<text x="134" y="316.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
-<text x="194" y="316.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="266" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#0070c0">:</text>
-<text x="182" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="206" y="343.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
-<text x="278" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="230" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
-<text x="290" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="326" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="398" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
-<text x="602" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="638" y="370.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
-<text x="278" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="314" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
-<text x="386" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="397.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
-<text x="590" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
-<text x="626" y="397.44" textLength="120" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
-<text x="758" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="794" y="397.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
-<text x="350" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="386" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
-<text x="458" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="518" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="424.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
-<text x="602" y="424.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
-<text x="722" y="424.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="758" y="424.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="230" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
-<text x="314" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="350" y="451.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="518" y="451.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="542" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
-<text x="626" y="451.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
-<text x="662" y="451.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
-<text x="182" y="478.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="134" y="505.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="134" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
-<text x="194" y="30.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040">ListaDeFilhos</text>
-<text x="362" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
-<text x="386" y="30.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
-<text x="434" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
-<text x="446" y="30.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0070c0">Pessoa</text>
-<text x="518" y="30.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
-<text x="134" y="57.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="57.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
-<text x="218" y="57.44" textLength="168" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos:</text>
-<text x="134" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="84.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
-<text x="134" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
-<text x="230" y="111.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
-<text x="134" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="138.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
-<text x="326" y="138.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="362" y="138.44" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#0070c0" font-style="italic">Pessoa,</text>
-<text x="134" y="165.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="254" y="165.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
-<text x="314" y="165.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
-<text x="350" y="165.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#00a040" font-style="italic">ListaDeFilhos</text>
-<text x="134" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="206" y="192.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
-<text x="134" y="219.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
-<text x="158" y="219.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
-<line x1="395.2" y1="459" x2="240.4" y2="38" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados28)"/>
-<line x1="385.6" y1="119" x2="231.4" y2="324" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-dados28)"/>
-<line x1="510.0" y1="159.5" x2="390.0" y2="65" stroke="#a6a6a6" stroke-width="2.5" marker-end="url(#ponta-c-dados28)"/>
-<text x="520" y="272" fill="#000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">REFERÊNCIA MÚTUA</text>
-<text x="550" y="95" fill="#a6a6a6" font-size="26" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">AUTORREFERÊNCIA</text>
+<rect x="138" y="2" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="120" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="138" y="270" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="388" fill="#0070c0" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Dados</text>
+<rect x="224.6" y="37.5" width="146.4" height="22" rx="5" fill="#ffe699"/>
+<rect x="203" y="280.5" width="70.8" height="22" rx="5" fill="#ffe699"/>
+<rect x="354.2" y="112.5" width="70.8" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="405.5" width="146.4" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="343.4" y="137.5" width="146.4" height="22" rx="5" fill="#7030a0" fill-opacity="0.07" stroke="#7030a0" stroke-width="1.6"/>
+<text x="152" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">type</text>
+<text x="206" y="29.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="357.2" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">=</text>
+<text x="378.8" y="29.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">List</text>
+<text x="422" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&lt;</text>
+<text x="432.8" y="29.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="497.6" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">&gt;</text>
+<text x="152" y="54.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="54.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">data</text>
+<text x="227.6" y="54.8" textLength="151.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos:</text>
+<text x="152" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="79.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">empty</text>
+<text x="152" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">|</text>
+<text x="238.4" y="104.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">link(</text>
+<text x="152" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="129.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">first</text>
+<text x="324.8" y="129.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="357.2" y="129.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Pessoa,</text>
+<text x="152" y="154.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="260" y="154.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">rest</text>
+<text x="314" y="154.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">::</text>
+<text x="346.4" y="154.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">ListaDeFilhos</text>
+<text x="152" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="216.8" y="179.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">)</text>
+<text x="152" y="204.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="173.6" y="204.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">end</text>
+<text x="152" y="297.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">data</text>
+<text x="206" y="297.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="270.8" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="216.8" y="322.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">pessoa</text>
+<text x="281.6" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="238.4" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">nome</text>
+<text x="292.4" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="324.8" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="389.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Nome</text>
+<text x="573.2" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="605.6" y="347.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#0a192f">ano</text>
+<text x="281.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="314" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Number</text>
+<text x="378.8" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="372.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Ano</text>
+<text x="562.4" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">de</text>
+<text x="594.8" y="372.8" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">nascimento</text>
+<text x="713.6" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="746" y="372.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
+<text x="346.4" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="378.8" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">String</text>
+<text x="443.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="497.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="397.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Tipo</text>
+<text x="573.2" y="397.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">sanguíneo</text>
+<text x="681.2" y="397.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="713.6" y="397.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="238.4" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
+<text x="314" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="346.4" y="422.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="497.6" y="422.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">#</text>
+<text x="519.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">Filhos</text>
+<text x="594.8" y="422.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">da</text>
+<text x="627.2" y="422.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#d97706" font-style="italic">pessoa</text>
+<text x="195.2" y="447.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="152" y="472.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<circle cx="439.8" cy="123.5" r="3.5" fill="#23373b"/>
+<path d="M439.8,123.5 H841.8 Q850.8,123.5 850.8,132.5 V282.5 Q850.8,291.5 841.8,291.5 H288.6" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados28)"/>
+<circle cx="699" cy="416.5" r="3.5" fill="#23373b"/>
+<path d="M699,416.5 H867.8 Q876.8,416.5 876.8,407.5 V57.5 Q876.8,48.5 867.8,48.5 H385.8" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-dados28)"/>
+<circle cx="146" cy="148.5" r="3.5" fill="#7030a0"/>
+<path d="M146,148.5 H123 Q114,148.5 114,139.5 V57.5 Q114,48.5 123,48.5 H147" fill="none" stroke="#7030a0" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-a-dados28)"/>
+<text x="838.8" y="252" fill="#23373b" font-size="21" text-anchor="end" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">referência mútua</text>
+<text x="110" y="252" fill="#7030a0" font-size="21" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">autorreferência</text>
 </svg>
 ```
 :::
 
-::: {.absolute top="90" right="0" width="370"}
+::: {.absolute top="90" right="0" width="340"}
 ::: {.nota-resumo}
 Note a relação entre as [definições de dados]{.azul} e as [funções]{.vermelho} que tratam esses dados
 :::
 :::
 
-::: {.absolute bottom="10" right="0" width="630"}
+::: {.absolute bottom="10" right="0" width="670"}
 ```{=html}
-<svg class="codigo-anotado" viewBox="0 0 922 497" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="descendente-tipo-o chama descendente-tipo-o-lista e vice-versa (referência mútua); descendente-tipo-o-lista chama a si mesma (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="20">
+<svg class="codigo-anotado" viewBox="0 0 890.8 465" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="descendente-tipo-o chama descendente-tipo-o-lista e vice-versa (referência mútua); descendente-tipo-o-lista chama a si mesma (autorreferência)" font-family="SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace" font-size="18">
 <defs>
-<marker id="ponta-p-funcoes28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-<marker id="ponta-c-funcoes28" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a6a6a6"/></marker>
+<marker id="ponta-m-funcoes28" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"/></marker>
+<marker id="ponta-a-funcoes28" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7030a0"/></marker>
 </defs>
-<rect x="130" y="2" width="790" height="207" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<rect x="130" y="261" width="790" height="234" fill="#fff" stroke="#23373b" stroke-opacity="0.3" stroke-width="1.5" rx="3"/>
-<text x="55" y="114.5" fill="#c00000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
-<text x="55" y="387" fill="#c00000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
-<rect x="188" y="11" width="224" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="119" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="188" y="270" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="378" width="224" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<rect x="284" y="405" width="296" height="27" fill="none" stroke="#c55a11" stroke-width="3"/>
-<text x="144" y="30.439999999999998" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
-<text x="192" y="30.439999999999998" textLength="216" lengthAdjust="spacingAndGlyphs" fill="#0070c0">descendente-tipo-o</text>
-<text x="408" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="420" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="444" y="30.439999999999998" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="480" y="30.439999999999998" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
-<text x="552" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="576" y="30.439999999999998" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
-<text x="612" y="30.439999999999998" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
-<text x="696" y="30.439999999999998" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="192" y="57.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">ask</text>
-<text x="228" y="57.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="240" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="276" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
-<text x="288" y="84.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
-<text x="408" y="84.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">==</text>
-<text x="444" y="84.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#14532d">&quot;O&quot;</text>
-<text x="492" y="84.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">then</text>
-<text x="540" y="84.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="564" y="84.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">true</text>
-<text x="240" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="111.44" textLength="108" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">otherwise</text>
-<text x="372" y="111.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="288" y="138.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="576" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="588" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
-<text x="600" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
-<text x="612" y="138.44" textLength="72" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
-<text x="684" y="138.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="192" y="165.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="192.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="289.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
-<text x="192" y="289.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="480" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="492" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
-<text x="528" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
-<text x="564" y="289.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
-<text x="720" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="744" y="289.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
-<text x="780" y="289.44" textLength="84" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
-<text x="864" y="289.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="192" y="316.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">cases</text>
-<text x="264" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="276" y="316.44" textLength="156" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
-<text x="432" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="456" y="316.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
-<text x="480" y="316.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
-<text x="240" y="343.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="343.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">empty</text>
-<text x="336" y="343.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
-<text x="372" y="343.44" textLength="60" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">false</text>
-<text x="240" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
-<text x="264" y="370.44" textLength="48" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">link</text>
-<text x="312" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="324" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
-<text x="336" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
-<text x="360" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
-<text x="372" y="370.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="396" y="370.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
-<text x="288" y="397.44" textLength="216" lengthAdjust="spacingAndGlyphs" fill="#0070c0">descendente-tipo-o</text>
-<text x="504" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="516" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
-<text x="528" y="397.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="552" y="397.44" textLength="24" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">or</text>
-<text x="288" y="424.44" textLength="288" lengthAdjust="spacingAndGlyphs" fill="#00a040">descendente-tipo-o-lista</text>
-<text x="576" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
-<text x="588" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
-<text x="600" y="424.44" textLength="12" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
-<text x="192" y="451.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<text x="144" y="478.44" textLength="36" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
-<line x1="417.2" y1="146.0" x2="410.0" y2="270.0" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-funcoes28)" marker-start="url(#ponta-p-funcoes28)"/>
-<line x1="306.4" y1="378.0" x2="232.8" y2="38.0" stroke="#000" stroke-width="2.5" marker-end="url(#ponta-p-funcoes28)" marker-start="url(#ponta-p-funcoes28)"/>
-<line x1="580.0" y1="407.7" x2="484.0" y2="297.0" stroke="#a6a6a6" stroke-width="2.5" marker-end="url(#ponta-c-funcoes28)" marker-start="url(#ponta-c-funcoes28)"/>
-<text x="590" y="245" fill="#000" font-size="26" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">REFERÊNCIA MÚTUA</text>
-<text x="544" y="333" fill="#a6a6a6" font-size="26" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">AUTORREFERÊNCIA</text>
+<rect x="138" y="2" width="686.8" height="193" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="107.5" fill="#c00000" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
+<rect x="138" y="245" width="686.8" height="218" fill="#fff" stroke="#23373b" stroke-opacity="0.18" stroke-width="1.5" rx="4"/>
+<text x="56" y="363" fill="#c00000" font-size="25" text-anchor="middle" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">Função</text>
+<rect x="192.2" y="12.5" width="200.4" height="22" rx="5" fill="#ffe699"/>
+<rect x="192.2" y="255.5" width="265.2" height="22" rx="5" fill="#ffe699"/>
+<rect x="278.6" y="112.5" width="265.2" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="278.6" y="355.5" width="200.4" height="22" rx="5" fill="#23373b" fill-opacity="0.07" stroke="#23373b" stroke-width="1.6"/>
+<rect x="278.6" y="380.5" width="265.2" height="22" rx="5" fill="#7030a0" fill-opacity="0.07" stroke="#7030a0" stroke-width="1.6"/>
+<text x="152" y="29.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
+<text x="195.2" y="29.8" textLength="194.4" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o</text>
+<text x="389.6" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="400.4" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="422" y="29.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="454.4" y="29.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Pessoa</text>
+<text x="519.2" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="540.8" y="29.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
+<text x="573.2" y="29.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
+<text x="648.8" y="29.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="54.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">ask</text>
+<text x="227.6" y="54.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="238.4" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="270.8" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
+<text x="281.6" y="79.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#0a192f">tipo-sang</text>
+<text x="389.6" y="79.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">==</text>
+<text x="422" y="79.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#14532d">&quot;O&quot;</text>
+<text x="465.2" y="79.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">then</text>
+<text x="508.4" y="79.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="530" y="79.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">true</text>
+<text x="238.4" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="104.8" textLength="97.2" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">otherwise</text>
+<text x="357.2" y="104.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="281.6" y="129.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="540.8" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="551.6" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">p</text>
+<text x="562.4" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">.</text>
+<text x="573.2" y="129.8" textLength="64.8" lengthAdjust="spacingAndGlyphs" fill="#0a192f">filhos</text>
+<text x="638" y="129.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="195.2" y="154.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="179.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="272.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">fun</text>
+<text x="195.2" y="272.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="454.4" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="465.2" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
+<text x="497.6" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">::</text>
+<text x="530" y="272.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="670.4" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="692" y="272.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">-&gt;</text>
+<text x="724.4" y="272.8" textLength="75.6" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">Boolean</text>
+<text x="800" y="272.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="195.2" y="297.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">cases</text>
+<text x="260" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="270.8" y="297.8" textLength="140.4" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">ListaDeFilhos</text>
+<text x="411.2" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="432.8" y="297.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#15803d">lf</text>
+<text x="454.4" y="297.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">:</text>
+<text x="238.4" y="322.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="322.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">empty</text>
+<text x="324.8" y="322.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
+<text x="357.2" y="322.8" textLength="54" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">false</text>
+<text x="238.4" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">|</text>
+<text x="260" y="347.8" textLength="43.2" lengthAdjust="spacingAndGlyphs" fill="#5b21b6">link</text>
+<text x="303.2" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="314" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
+<text x="324.8" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">,</text>
+<text x="346.4" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
+<text x="357.2" y="347.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="378.8" y="347.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#111827">=&gt;</text>
+<text x="281.6" y="372.8" textLength="194.4" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o</text>
+<text x="476" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="486.8" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">f</text>
+<text x="497.6" y="372.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="519.2" y="372.8" textLength="21.6" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">or</text>
+<text x="281.6" y="397.8" textLength="259.2" lengthAdjust="spacingAndGlyphs" fill="#0066cc">descendente-tipo-o-lista</text>
+<text x="540.8" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">(</text>
+<text x="551.6" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#15803d">r</text>
+<text x="562.4" y="397.8" textLength="10.8" lengthAdjust="spacingAndGlyphs" fill="#111827">)</text>
+<text x="195.2" y="422.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<text x="152" y="447.8" textLength="32.4" lengthAdjust="spacingAndGlyphs" fill="#b91c1c">end</text>
+<circle cx="655.8" cy="123.5" r="3.5" fill="#23373b"/>
+<path d="M655.8,123.5 H841.8 Q850.8,123.5 850.8,132.5 V257.5 Q850.8,266.5 841.8,266.5 H817.8" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-funcoes28)"/>
+<circle cx="547.8" cy="366.5" r="3.5" fill="#23373b"/>
+<path d="M547.8,366.5 H867.8 Q876.8,366.5 876.8,357.5 V32.5 Q876.8,23.5 867.8,23.5 H666.6" fill="none" stroke="#23373b" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-m-funcoes28)"/>
+<circle cx="275.6" cy="391.5" r="3.5" fill="#7030a0"/>
+<path d="M275.6,391.5 H123 Q114,391.5 114,382.5 V275.5 Q114,266.5 123,266.5 H147" fill="none" stroke="#7030a0" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ponta-a-funcoes28)"/>
+<text x="838.8" y="227" fill="#23373b" font-size="21" text-anchor="end" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">referência mútua</text>
+<text x="110" y="227" fill="#7030a0" font-size="21" text-anchor="start" font-family="Lexend, 'Gill Sans Nova', 'Gill Sans', 'Trebuchet MS', Arial, sans-serif">autorreferência</text>
 </svg>
 ```
 :::
