@@ -241,9 +241,7 @@ end
 fun conta-comentarios-lista(lr :: ListaDeRespostas) -> Number:
   doc: "Dada uma lista de respostas, devolve o número total de comentários nas respostas e nas respostas delas, em qualquer nível."
   # Se a lista for vazia, [...]
-  # Senão, some:
-  #   o total de comentários na conversa da primeira resposta, e
-  #   o total de comentários no resto da lista
+  # Senão, ...
   0
 where:
   conta-comentarios-lista(empty) is 0

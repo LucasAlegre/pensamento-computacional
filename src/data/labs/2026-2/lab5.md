@@ -7,8 +7,6 @@ Neste laboratório, vamos voltar ao **aplicativo de mensagens** dos Laboratório
 - **Parte 1 — Agenda de contatos:** os contatos ficam guardados em uma **árvore binária de pesquisa** (ABP), ordenada pelo nome, para que a busca seja rápida (Aula 21);
 - **Parte 2 — Tópicos de discussão:** um comentário pode receber respostas, que também podem receber respostas, formando uma **árvore n-ária** que processamos com **recursão mútua** (Aula 22).
 
-Cada parte começa com você construindo, à mão, uma constante de teste com a nova estrutura de dados.
-
 <br>
 
 Este laboratório usa a mesma **biblioteca** do Laboratório 4 (`chat-lib4.arr`), importada no template com:
@@ -17,12 +15,10 @@ Este laboratório usa a mesma **biblioteca** do Laboratório 4 (`chat-lib4.arr`)
 include url("https://lucasalegre.github.io/pensamento-computacional/src/data/labs/chat-lib4.arr")
 ```
 
-Da biblioteca, vamos reutilizar principalmente a estrutura **`Usuario`** (com os campos `nome`, `avatar` e `online`), a função `avatar-contato` e a constante `CONTATO-ANA`. O template já traz prontos:
+Da biblioteca, vamos reutilizar principalmente a estrutura **`Usuario`** (com os campos `nome`, `avatar` e `online`). Na biblioteca, também estão definidas: 
 - As **definições de dados** `Agenda` e `Comentario`;
 - Os **contatos de teste** e outras constantes que você pode usar nas suas cláusulas `where:`;
 - **Funções de desenho** para visualizar as agendas (`desenha-agenda`) e para usar no Exercício 6 (`desenha-comentario` e `recua`).
-
-> ⚠️ **Atenção:** Como a estrutura `Usuario` e as constantes `CONTATO-ANA` e `CONTATO-EU` já estão definidas na biblioteca, **não** as redefina no seu arquivo. Caso contrário, o Pyret acusará um erro de nome já definido.
 
 > 💡 **INSTRUÇÕES PARA O LABORATÓRIO:**
 > - Siga as dicas de estilo de código do Pyret: https://lucasalegre.github.io/pensamento-computacional/topics/style-guide
