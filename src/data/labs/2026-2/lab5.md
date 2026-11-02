@@ -83,7 +83,13 @@ Defina a constante `AGENDA-TESTE`, do tipo `Agenda`, com os quatro contatos de t
 
 Por exemplo, uma agenda com apenas a Ana seria `no(CONTATO-ANA, vazia, vazia)`.
 
-Depois, execute `desenha-agenda(AGENDA-TESTE)` (a chamada já está no template) e confira se o desenho corresponde ao diagrama. Verifique também se a sua agenda respeita a invariante: o que mudaria se a Bia estivesse à esquerda da Ana?
+Depois, execute `desenha-agenda(AGENDA-TESTE)` (a chamada já está no template) e confira se o desenho corresponde ao diagrama. O resultado deve ser este:
+
+<img src="images/lab5/agenda-teste.png" alt="Desenho da AGENDA-TESTE: Caio na raiz, Ana à esquerda com Bia à sua direita, e Duda à direita de Caio">
+
+<br>
+
+Verifique também se a sua agenda respeita a invariante: o que mudaria se a Bia estivesse à esquerda da Ana?
 
 > ℹ️ Os exemplos (`where:`) que o template traz para os próximos exercícios usam a `AGENDA-TESTE`. Por isso, ela deve ser exatamente a agenda do diagrama.
 
@@ -118,6 +124,10 @@ O template já traz pronta a função `cria-agenda(contatos :: List<Usuario>) ->
 >    /   \      /     \       /    \       /     \
 >  Ana  Caio  Gabi   Iris  Marina  Otto  Rafa   Tiago
 > ```
+>
+> E o desenho de `desenha-agenda(AGENDA-TURMA)`:
+>
+> <img src="images/lab5/agenda-turma.png" alt="Desenho da AGENDA-TURMA: árvore balanceada com 15 contatos e Leo na raiz">
 >
 > Quantos contatos a busca visita até encontrar a Iris, em uma agenda com 15 contatos?
 
@@ -193,13 +203,21 @@ Implemente as funções `desenha-topico(c :: Comentario) -> Image` e `desenha-re
   | [Caio: Ainda não, começo hoje.]
 ```
 
+Com as funções de desenho prontas, `desenha-topico(TOPICO-TESTE)` produz esta imagem:
+
+<img src="images/lab5/topico-teste.png" alt="Desenho do TOPICO-TESTE: o comentário da Bia e, recuadas abaixo dele, as respostas da Ana (com a resposta da Duda) e do Caio">
+
+<br>
+
 Use as duas funções prontas que estão no template, logo no início do Exercício 6:
 - `desenha-comentario(c :: Comentario) -> Image` desenha o balão de **um único** comentário, sem as respostas;
 - `recua(img :: Image) -> Image` desloca uma imagem para a direita, com uma linha cinza à esquerda.
 
 > 🛠️ **Dica:** Use `above-align("left", ...)` para empilhar as imagens alinhadas à esquerda. Em `desenha-respostas`, a lista vazia é desenhada como `empty-image`.
 
-> 🚀 **Experimente:** Descomente `desenha-topico(TOPICO-TESTE)` e `desenha-topico(TOPICO-DUVIDA)`.
+> 🚀 **Experimente:** Descomente `desenha-topico(TOPICO-TESTE)` e `desenha-topico(TOPICO-DUVIDA)`. O tópico maior deve ficar assim:
+>
+> <img src="images/lab5/topico-duvida.png" alt="Desenho do TOPICO-DUVIDA: 9 comentários em 4 níveis de respostas">
 
 ---
 
