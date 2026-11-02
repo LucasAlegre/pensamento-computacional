@@ -98,7 +98,7 @@ fun desenha-no-agenda(u :: Usuario) -> Image:
 end
 
 fun desenha-agenda(a :: Agenda) -> Image:
-  doc: "Desenha a agenda em forma de árvore: cada contato aparece acima das suas subárvores esquerda e direita."
+  doc: "Desenha a agenda em forma de árvore: cada contato aparece acima das suas subárvores esquerda e direita, ligado a elas por linhas."
   cases (Agenda) a:
     # Agenda vazia: desenha um marcador cinza
     | vazia => text("vazia", 10, "lightgray")
@@ -109,8 +109,16 @@ fun desenha-agenda(a :: Agenda) -> Image:
         desenha-no-agenda(c)
       else:
         # Nó com filhos: desenha o contato acima das subárvores esquerda e direita, lado a lado
-        filhos = beside-align("top", desenha-agenda(esq), beside(espaco(16, "white"), desenha-agenda(dir)))
-        above(desenha-no-agenda(c), above(rectangle(1, 10, "solid", "white"), filhos))
+        desenho-esq = desenha-agenda(esq)
+        desenho-dir = desenha-agenda(dir)
+        filhos = beside-align("top", desenho-esq, beside(espaco(16, "transparent"), desenho-dir))
+        # Linhas pretas ligando o contato (no meio do desenho) ao meio do desenho de cada subárvore
+        largura = image-width(filhos)
+        meio-esq = image-width(desenho-esq) / 2
+        meio-dir = image-width(desenho-esq) + 16 + (image-width(desenho-dir) / 2)
+        fundo = rectangle(largura, 20, "solid", "transparent")
+        linhas = add-line(add-line(fundo, largura / 2, 0, meio-esq, 20, "black"), largura / 2, 0, meio-dir, 20, "black")
+        above(desenha-no-agenda(c), above(linhas, filhos))
       end
   end
 end
