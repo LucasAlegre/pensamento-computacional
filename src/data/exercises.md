@@ -1042,6 +1042,94 @@ Desenvolva um programa que receba uma Árvore Binária de Pesquisa (ABP) e um n�
 use context starter2024
 ```
 
+## Exercício: Conteúdos de uma ABP em Ordem Crescente
+**ID:** Árvores (Autorreferência e Referência Mútua)-15
+**Dificuldade:** Médio
+
+Considere a Árvore Binária de Pesquisa (ABP) vista em aula: cada nó tem um identificador (`id`) e um conteúdo, os ids da subárvore esquerda são menores que o id da raiz e os ids da subárvore direita são maiores. As definições de `ABP` e `Par` e as funções `insere-no` e `constroi-abp` da aula já estão no editor.
+
+(a) Escreva a função `lista-em-ordem(abp :: ABP) -> List<String>` que, dada uma ABP, devolve a lista com os conteúdos de todos os nós em **ordem crescente de id**. Por exemplo, para a ABP abaixo (a constante `ABP1` do editor), a função deve devolver `[list: "B", "A", "F", "D", "C", "E"]`.
+
+```
+         10 (A)
+        /      \
+    3 (B)      17 (C)
+              /      \
+          15 (D)    20 (E)
+           /
+       11 (F)
+```
+
+> 💡 **Dica:** Em Pyret, o operador `+` junta duas listas: `[list: 1, 2] + [list: 3]` é `[list: 1, 2, 3]`. Pense na invariante: quais nós vêm antes da raiz? E quais vêm depois?
+
+(b) A função `constroi-abp` insere o primeiro par da lista na ABP construída com o resto da lista. Use-a para construir uma ABP a partir de uma lista com os ids em ordem crescente, como `[list: par(1, "A"), par(2, "B"), par(3, "C"), par(4, "D"), par(5, "E")]`. Que forma tem essa árvore? Quantos nós uma busca precisa visitar para encontrar o id 1? Construa também uma ABP com os mesmos pares em outra ordem, de modo que ela fique balanceada, e compare. O que `lista-em-ordem` devolve para as duas árvores?
+
+### Testes
+```pyret height=600
+use context dcic2024
+
+data ABP:
+  | vazia
+  | no(
+      id       :: Number,  # identificador do nó
+      conteudo :: String,  # conteúdo do nó
+      esq      :: ABP,     # contém apenas nós com identificadores menores que id
+      dir      :: ABP      # contém apenas nós com identificadores maiores que id
+    )
+end
+
+data Par:
+  | par(id :: Number, cont :: String)
+end
+
+fun insere-no(id :: Number, c :: String, abp :: ABP) -> ABP:
+  doc: "Dado um id, um conteúdo e uma ABP, insere um novo nó na ABP. Assume que não existe o id na árvore previamente."
+  cases (ABP) abp:
+    | vazia => no(id, c, vazia, vazia)  # Se ABP vazia, constrói ABP com um nó
+    | no(r-id, r-c, esq, dir) =>
+      ask:
+        | id > r-id then:
+          no(r-id, r-c, esq, insere-no(id, c, dir))  # Insere o nó na subárvore direita
+        | id < r-id then:
+          no(r-id, r-c, insere-no(id, c, esq), dir)  # Insere o nó na subárvore esquerda
+      end
+  end
+end
+
+fun constroi-abp(lp :: List<Par>) -> ABP:
+  doc: "Constrói uma ABP a partir de uma lista de pares (id, conteúdo)."
+  cases (List) lp:
+    | empty => vazia  # Se lista é vazia, retorna ABP vazia
+    | link(primeiro, resto) =>  # Se não, insere o primeiro par na ABP construída com o resto
+      insere-no(primeiro.id, primeiro.cont, constroi-abp(resto))
+  end
+end
+
+#          10 (A)
+#         /      \
+#     3 (B)      17 (C)
+#               /      \
+#           15 (D)    20 (E)
+#            /
+#        11 (F)
+ABP1 =
+  no(10, "A",
+    no(3, "B", vazia, vazia),
+    no(17, "C",
+      no(15, "D",
+        no(11, "F", vazia, vazia),
+        vazia),
+      no(20, "E", vazia, vazia)))
+
+fun lista-em-ordem(abp :: ABP) -> List<String>:
+  doc: "Dada uma ABP, devolve a lista com os conteúdos dos nós em ordem crescente de id."
+  empty  # Complete!
+where:
+  lista-em-ordem(vazia) is empty
+  lista-em-ordem(ABP1) is [list: "B", "A", "F", "D", "C", "E"]
+end
+```
+
 ## Exercício: Descendente Mulher com Mais de 40 Anos
 **ID:** Árvores (Autorreferência e Referência Mútua)-8
 **Dificuldade:** Fácil
