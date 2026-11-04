@@ -26,7 +26,7 @@ CIDADES = [list:
 G :: Grafo = [list:
                 nodo("A", [list: "B", "C"]),
                 nodo("B", [list: "A", "C"]),
-                nodo("C", [list: "B", "D"]),
+                nodo("C", [list: "A", "B", "D"]),
                 nodo("D", [list: "C"])
             ]
 
@@ -75,19 +75,19 @@ where:
 end
 
 fun estende-caminho(viz :: List<String>, caminho :: List<String>) -> List<List<String>>:
-    doc: "Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinhos sendo colocado na primeira posição do caminho."
+    doc: "Dada uma lista de vizinhos e um caminho, retorna uma lista de caminhos estendendo o caminho com cada vizinho sendo colocado na primeira posição do caminho."
     cases (List<String>) viz:
         | empty => empty
         | link(f, r) =>
             # Cria um novo caminho estendendo o caminho atual com o vizinho f
             novo-caminho = link(f, caminho)
-
-            # Gera lista de caminhos com o caminho gerado, e os caminhos gerados com o resto dos vizinhos
             link(novo-caminho, estende-caminho(r, caminho))
     end
 where:
-    estende-caminho([list: "B", "C"], [list: "A", "D"]) is [list: [list: "B", "A", "D"], [list: "C", "A", "D"]]
-    estende-caminho(empty, [list: "A", "D"]) is empty
+    # "A" → "B" → "F" (guardado de trás para frente) estendido com os vizinhos de "F"
+    estende-caminho([list: "D", "G"], [list: "F", "B", "A"]) is
+        [list: [list: "D", "F", "B", "A"], [list: "G", "F", "B", "A"]]
+    estende-caminho(empty, [list: "F", "B", "A"]) is empty
 end
 
 
@@ -96,27 +96,23 @@ end
 fun existe-caminho(g :: Grafo, origem :: String, destino :: String) -> Boolean:
     doc: "Dados um grafo, um nodo de origem e um nodo de destino, determina se existe um caminho do nodo origem ao nodo destino."
 
-    fun existe-caminho-busca-em-largura(fila :: List<String>, visitados :: List<String>) -> Boolean:
-        doc: "Função auxiliar para realizar a busca em largura. Recebe o grafo, a origem, o destino, uma fila de nodos a explorar e uma lista de nodos visitados. Retorna true se existe um caminho do nodo origem ao nodo destino, ou false caso contrário."
+    fun busca-em-largura(fila :: List<String>, visitados :: List<String>) -> Boolean:
         cases (List<String>) fila:
-            | empty => false # Se fila vazia, não existe caminho
-            | link(first, rest) =>   
+            | empty => false # Fila vazia: não existe caminho
+            | link(no, resto) =>
                 ask:
-                    # Se o nó atual é o destino, retorna true
-                    | first == destino then: true
-                    # Se o nó atual já foi visitado, procura no resto da fila
-                    | esta-na-lista(visitados, first) then: existe-caminho-busca-em-largura(rest, visitados)
+                    | no == destino then: true
+                    # Nodo já visitado: segue com o resto da fila
+                    | esta-na-lista(visitados, no) then: busca-em-largura(resto, visitados)
                     | otherwise:
-                        novos-visitados = link(first, visitados) # Adiciona o nó atual à lista de visitados
-                        nova-fila = rest + vizinhos(g, first)
-
-                        existe-caminho-busca-em-largura(nova-fila, novos-visitados)
+                        # Os vizinhos do nodo atual vão para o fim da fila
+                        nova-fila = resto + vizinhos(g, no)
+                        busca-em-largura(nova-fila, link(no, visitados))
                 end
         end
     end
 
-    fila = [list: origem] 
-    existe-caminho-busca-em-largura(fila, empty)
+    busca-em-largura([list: origem], empty)
 where:
     existe-caminho(G1, "A", "G") is true
     existe-caminho(G1, "C", "A") is false
@@ -124,39 +120,32 @@ end
 
 
 # Qual é o caminho mais curto entre dois nodos em um grafo?
+# Mesma busca do existe-caminho, mas a fila guarda caminhos em vez de nodos.
 
 fun menor-caminho(g :: Grafo, origem :: String, destino :: String) -> List<String>:
     doc: "Dados um grafo, um nodo de origem e um nodo de destino, retorna o caminho mais curto (em número de arestas) do nodo origem ao nodo destino, ou lista vazia se não existe."
-    # fila de caminhos a explorar, iniciando com o caminho que contém apenas a origem
-    fila = [list: [list: origem]] 
 
-    busca-em-largura(g, origem, destino, fila, empty)
+    fun busca-em-largura(fila :: List<List<String>>, visitados :: List<String>) -> List<String>:
+        cases (List<List<String>>) fila:
+            | empty => empty # Fila vazia: não existe caminho
+            | link(caminho, resto) =>
+                no = caminho.first # O caminho está de trás para frente: o nodo atual é o first
+                ask:
+                    | no == destino then: reverse(caminho) # Desvira o caminho
+                    # Nodo já visitado: segue com o resto da fila
+                    | esta-na-lista(visitados, no) then: busca-em-largura(resto, visitados)
+                    | otherwise:
+                        # Os caminhos estendidos com os vizinhos do nodo atual vão para o fim da fila
+                        nova-fila = resto + estende-caminho(vizinhos(g, no), caminho)
+                        busca-em-largura(nova-fila, link(no, visitados))
+                end
+        end
+    end
+
+    busca-em-largura([list: [list: origem]], empty)
 where:
     menor-caminho(G1, "A", "G") is [list: "A", "B", "F", "G"]
     menor-caminho(G1, "C", "A") is empty
-end
-
-
-fun busca-em-largura(g :: Grafo, origem :: String, destino :: String, fila :: List<List<String>>, visitados :: List<String>) -> List<String>:
-    doc: "Função auxiliar para realizar a busca em largura. Recebe o grafo, a origem, o destino, uma fila de caminhos a explorar e uma lista de nodos visitados. Retorna o caminho do nodo origem ao nodo destino ou lista vazia se não existe."
-    cases (List<List<String>>) fila:
-        | empty => empty # Se fila vazia, não existe caminho
-        | link(first :: List<String>, rest :: List<List<String>>) =>   
-            no = first.first # O nó atual é o primeiro elemento do caminho no início da fila
-            ask:
-                | no == destino then: reverse(first)   # Se o nó atual é o destino, retorna o caminho (invertido para a ordem correta)
-                | esta-na-lista(visitados, no) then: busca-em-largura(g, origem, destino, rest, visitados) # Se o nó atual já foi visitado, descarta caminho e procura no resto da fila
-                | otherwise:
-                    novos-visitados = link(no, visitados)
-                    novos-caminhos = estende-caminho(vizinhos(g, no), first)
-                    nova-fila = rest + novos-caminhos
-
-                    busca-em-largura(g, origem, destino, nova-fila, novos-visitados)
-            end
-    end
-where:
-    busca-em-largura(G1, "A", "D", [list: [list: "A"]], empty) is [list: "A", "B", "F", "D"]
-    busca-em-largura(G1, "C", "A", empty, empty) is empty
 end
 
 
@@ -187,26 +176,27 @@ menor-caminho(mapa, "Denver", "Toronto")
 fun gera-todos-caminhos(g :: Grafo, origem :: String, destino :: String) -> List<List<String>>:
     doc: "Dados um grafo, um nodo de origem e um nodo de destino, retorna uma lista de todos os caminhos do nodo origem ao nodo destino."
 
-    fun gera-todos-caminhos-busca-em-largura(fila :: List<List<String>>) -> List<List<String>>:
+    # Aqui não dá para usar a lista de visitados: ela cortaria os outros caminhos que
+    # passam pelo mesmo nodo. Para não andar em ciclos, descartamos só os caminhos que
+    # repetem um nodo (o nodo atual já aparece no resto do caminho).
+    fun busca-em-largura(fila :: List<List<String>>) -> List<List<String>>:
         cases (List<List<String>>) fila:
-            | empty => empty # Se fila vazia, retorna lista vazia
-            | link(first :: List<String>, rest :: List<List<String>>) =>  
-                no = first.first # O nó atual é o primeiro elemento do caminho no início da fila
+            | empty => empty # Fila vazia: não há mais caminhos
+            | link(caminho, resto) =>
+                no = caminho.first # O caminho está de trás para frente: o nodo atual é o first
                 ask:
-                    # Se o nó atual é o destino, adiciona caminho (invertido para a ordem correta) à lista de caminhos encontrados no resto da fila
-                    | no == destino then: link(reverse(first), gera-todos-caminhos-busca-em-largura(rest))  
+                    # Chegou ao destino: guarda o caminho (desvirado) e continua com o resto da fila
+                    | no == destino then: link(reverse(caminho), busca-em-largura(resto))
+                    # O caminho passou duas vezes pelo nodo atual (ciclo): descarta
+                    | esta-na-lista(caminho.rest, no) then: busca-em-largura(resto)
                     | otherwise:
-                        # Estende caminho atual com os vizinhos do nó atual e adiciona os novos caminhos à fila para exploração
-                        novos-caminhos = estende-caminho(vizinhos(g, no), first)
-                        nova-fila = rest + novos-caminhos
-
-                        gera-todos-caminhos-busca-em-largura(nova-fila)
+                        nova-fila = resto + estende-caminho(vizinhos(g, no), caminho)
+                        busca-em-largura(nova-fila)
                 end
         end
     end
 
-    fila = [list: [list: origem]] 
-    gera-todos-caminhos-busca-em-largura(fila)
+    busca-em-largura([list: [list: origem]])
 where:
     gera-todos-caminhos(G1, "A", "D") is [list: [list: "A", "B", "F", "D"], [list: "A", "E", "C", "D"], [list: "A", "E", "F", "D"], [list: "A", "B", "E", "C", "D"], [list: "A", "B", "E", "F", "D"]]
     gera-todos-caminhos(G1, "C", "A") is empty

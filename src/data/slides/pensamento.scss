@@ -79,6 +79,80 @@ $pc-padroes: (filtrar: $pc-azul, mapear: $pc-roxo, juntar: $pc-vermelho, combina
   text-align: center;
 }
 
+// ── Ficha da função (objetivo, entrada, saída) e caixa preta ───────────────
+//   <div class="ficha">
+//     <div class="aba">Nome</div>
+//     <div class="item"><span class="azul">Obj:</span> ...</div>
+//   </div>
+//   <div class="funcao-caixa-preta">
+//     <div><span class="verde">p</span> <span class="roxo">:: Pessoa</span></div>
+//     <div class="seta">&#129123;</div>
+//     <div class="caixa-funcao">nome-da-funcao</div>
+//     <div class="seta">&#129123;</div>
+//     <div class="roxo">Boolean</div>
+//   </div>
+// Com mais de uma entrada, cada uma (rótulo + seta) vai num div dentro de
+// <div class="entradas">, no lugar das duas primeiras linhas.
+.reveal .ficha {
+  position: relative;
+  margin: 0.9em 0.4em 0.6em;
+  padding: 2em 1em 0.8em;
+  background: #ddeaf6;
+  border: 2px solid #2e75b5;
+  border-radius: 1.2em;
+  font-size: 0.75em;
+  .aba {
+    position: absolute;
+    top: -0.9em;
+    left: -1em;
+    width: 48%;
+    padding: 0.35em 0;
+    background: #2e75b5;
+    border-radius: 0.3em;
+    color: #fff;
+    text-align: center;
+    font-size: 1.1em;
+  }
+  .item {
+    margin-top: 0.35em;
+    padding: 0.3em 0.5em;
+    background: #fff;
+    border: 2px solid #4472c4;
+  }
+}
+// A caixa da função ocupa a largura do diagrama, para que todas as setas das
+// entradas caiam sobre ela.
+.reveal .funcao-caixa-preta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 0.7em;
+  line-height: 1.1;
+  .seta { font-size: 1.6em; color: #000; line-height: 1; }
+  .entradas {
+    display: flex;
+    gap: 2.2em;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      white-space: nowrap;
+    }
+  }
+  .caixa-funcao {
+    align-self: stretch;
+    text-align: center;
+    padding: 0.45em 1.4em;
+    background: #2e75b5;
+    border: 1px solid #1f4e79;
+    border-radius: 0.3em;
+    color: #fff;
+    font-size: 1.6em;
+  }
+}
+
 // ── Modelo da solução recursiva (trivial / decompor, resolver, combinar) ───
 // Cada caso é um div .trivial ou .dificil. O rótulo do caso, os títulos das
 // colunas, as setas e a numeração das soluções vêm do CSS. Exemplo:
@@ -244,6 +318,31 @@ $pc-seta-svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     top: -0.7em;
     left: -0.7em;
   }
+}
+
+// Variante sem a coluna "combinar", para quando a solução do problema menor já
+// é a resposta (ex.: busca em largura). A solução vem antes do problema menor,
+// para ler como frase:
+//   ::: {.modelo-recursivo .sem-combinar}
+//   ...
+//   [buscar o destino a partir da]{.sol} [nova fila: o resto da fila + ...]{.sub}
+.reveal .modelo-recursivo.sem-combinar {
+  .trivial,
+  .dificil {
+    grid-template-columns: 4.4em var(--colunas, minmax(0, 0.85fr) minmax(0, 1.15fr));
+  }
+  .sol { grid-column: 2; }
+  .sub { grid-column: 3; }
+  .dificil > p:nth-child(2)::before { content: "Solução (recursão)"; }
+  .dificil > p:nth-child(2)::after  { content: "Problema menor (decomposição)"; }
+  // Cada título aparece com a sua caixa (as regras do modelo usam a ordem inversa)
+  .dificil > p:nth-child(2):has(> .sub.fragment:not(.visible))::before,
+  .dificil > p:nth-child(2):has(> .sol.fragment:not(.visible))::after { opacity: 1; }
+  .dificil > p:nth-child(2):has(> .sol.fragment:not(.visible))::before,
+  .dificil > p:nth-child(2):has(> .sub.fragment:not(.visible))::after { opacity: 0; }
+  // Sem combinação, não há número de solução nem seta depois do problema menor
+  .sol::before,
+  .sub::after { content: none; }
 }
 
 @each $caso, $cor in $pc-casos {

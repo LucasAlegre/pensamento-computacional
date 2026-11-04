@@ -1,8 +1,8 @@
 /*-- scss:defaults --*/
 
 // Estilos específicos da Aula 21 (Estruturas com Referência Mútua).
-// Diagramas recriados do PowerPoint: árvores genealógicas, ficha de função e
-// código anotado. O modelo da solução recursiva fica em pensamento.scss.
+// Diagramas recriados do PowerPoint: árvores genealógicas e código anotado.
+// A ficha de função e o modelo da solução recursiva ficam em pensamento.scss.
 
 $a21-laranja: #ff8000;
 
@@ -69,51 +69,6 @@ $a21-laranja: #ff8000;
 // Caixas mais altas, para preencher na aula. O modelo vem de pensamento.scss.
 .reveal .modelo-recursivo.em-branco {
   .cond, .res, .sub, .sol, .comb { min-height: 2.4em; }
-}
-
-// ── Ficha da função (objetivo, entrada, saída) ─────────────────────────────
-.reveal .ficha {
-  position: relative;
-  margin: 0.9em 0.4em 0.6em;
-  padding: 2em 1em 0.8em;
-  background: #ddeaf6;
-  border: 2px solid #2e75b5;
-  border-radius: 1.2em;
-  font-size: 0.75em;
-  .aba {
-    position: absolute;
-    top: -0.9em;
-    left: -1em;
-    width: 48%;
-    padding: 0.35em 0;
-    background: #2e75b5;
-    border-radius: 0.3em;
-    color: #fff;
-    text-align: center;
-    font-size: 1.1em;
-  }
-  .item {
-    margin-top: 0.35em;
-    padding: 0.3em 0.5em;
-    background: #fff;
-    border: 2px solid #4472c4;
-  }
-}
-.reveal .funcao-caixa-preta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.7em;
-  line-height: 1.1;
-  .seta { font-size: 1.6em; color: #000; line-height: 1; }
-  .caixa-funcao {
-    padding: 0.45em 1.4em;
-    background: #2e75b5;
-    border: 1px solid #1f4e79;
-    border-radius: 0.3em;
-    color: #fff;
-    font-size: 1.6em;
-  }
 }
 
 // ── Nota do slide-resumo ───────────────────────────────────────────────────
