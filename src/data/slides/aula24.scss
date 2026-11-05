@@ -41,6 +41,137 @@ $a24-entradas: (grafo: #0f766e, destino: #c00000, fila: #c55a11, visitados: #1d4
   margin: 0 auto;
 }
 
+// ── existe-caminho passo a passo ───────────────────────────────────────────
+// Chamadas recursivas à esquerda, G1 à direita e a nota do caso embaixo; cada
+// clique é uma chamada (como o passo a passo de constroi-abp da aula 21).
+$a24-dificil: #2e75b6;
+$a24-trivial: #3a7a10;
+.reveal .passo-bfs {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
+  gap: 0.4em 1em;
+  font-size: 0.68em;
+  line-height: 1.3;
+  code { color: #23373b; background: none; white-space: nowrap; }
+  .prim { font-weight: 700; text-decoration: underline; }
+}
+@each $nome, $cor in $a24-entradas {
+  .reveal .passo-bfs .#{$nome} { color: $cor; }
+}
+.reveal .passo-bfs-rotulo {
+  margin: 0 0 0.3em;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $a24-dificil;
+}
+.reveal .passo-bfs-linha {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  margin: 0.2em 0 0.2em calc(var(--nivel, 0) * 0.3em);
+  padding: 0.12em 0.5em;
+  border-left: 3px solid $a24-dificil;
+  border-radius: 0 3px 3px 0;
+  background: rgba($a24-dificil, 0.06);
+  &.externa { border-left-color: #8c979c; background: rgba(#8c979c, 0.08); }
+  &.achou { border-left-color: $a24-trivial; background: rgba($a24-trivial, 0.08); }
+}
+.reveal .passo-bfs-ret {
+  margin-left: 0.6em;
+  color: $a24-trivial;
+  font-weight: 700;
+}
+.reveal .passo-bfs-grafo {
+  .r-stack > * { width: 100%; }
+  svg { display: block; width: 100%; height: auto; }
+}
+.reveal .passo-bfs-chave {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2em 0.7em;
+  margin: 0.3em 0 0;
+  font-size: 0.78em;
+  color: #444;
+  i {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 0.95em;
+    height: 0.95em;
+    margin-right: 0.3em;
+    border-radius: 50%;
+    vertical-align: -0.12em;
+  }
+  .atual    { background: map-get($a24-entradas, fila); }
+  .na-fila  { border: 2.5px solid map-get($a24-entradas, fila); }
+  .visitado { background: map-get($a24-entradas, visitados); }
+  .destino  { border: 2px dashed map-get($a24-entradas, destino); }
+}
+.reveal .passo-bfs-notas { grid-column: 1 / -1; }
+// Notas presas ao topo (o .r-stack centraliza), para a caixa não pular entre passos
+.reveal .passo-bfs-notas > * { width: 100%; margin: 0; }
+.reveal .passo-bfs-nota {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr);
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0.5em 0.9em;
+  border-left: 4px solid;
+  border-radius: 0 3px 3px 0;
+  font-size: 1.12em;
+  .tipo {
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+@each $tipo, $cor in (dificil: $a24-dificil, trivial: $a24-trivial, resultado: $a24-trivial) {
+  .reveal .passo-bfs-nota.#{$tipo} {
+    border-left-color: $cor;
+    background: rgba($cor, 0.06);
+    .tipo { color: $cor; }
+  }
+}
+
+// Variante do menor caminho: a fila guarda caminhos e as chamadas ficam longas,
+// então ocupam a largura toda; embaixo ficam a nota, o grafo e a legenda.
+.reveal .passo-bfs.caminhos {
+  grid-template-columns: minmax(0, 1fr) 17em auto;
+  grid-template-areas: "chamadas chamadas chamadas" "notas grafo chave";
+  gap: 0.2em 1em;
+  .passo-bfs-chamadas { grid-area: chamadas; }
+  .passo-bfs-notas { grid-area: notas; align-self: center; }
+  .passo-bfs-grafo { grid-area: grafo; }
+  .passo-bfs-chave {
+    grid-area: chave;
+    flex-direction: column;
+    align-self: center;
+    margin: 0;
+  }
+  .passo-bfs-linha { margin-top: 0.12em; margin-bottom: 0.12em; }
+  .passo-bfs-nota { grid-template-columns: 5.5em minmax(0, 1fr); font-size: 1.05em; }
+}
+.reveal .passo-bfs-obs {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #8c979c;
+}
+// Arestas na legenda: o primeiro caminho (cheio) e os caminhos estendidos (tracejado)
+.reveal .passo-bfs-chave {
+  .caminho, .extensao {
+    width: 1.5em;
+    height: 0;
+    border-radius: 0;
+    vertical-align: 0.25em;
+  }
+  .caminho  { border-top: 4px solid map-get($a24-entradas, fila); }
+  .extensao { border-top: 2.5px dashed map-get($a24-entradas, fila); }
+}
+
 // ── Código ──────────────────────────────────────────────────────────────────
 // O destaque Pyret (pyret-highlight.html) troca o <code>; reaplica a quebra de linha
 // de `.code-overflow-wrap` e deixa blocos longos crescerem sem barra de rolagem.
