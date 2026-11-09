@@ -101,7 +101,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-3963011d9d3c8c57413885c354fd25e2.css">
+  <link rel="stylesheet" href="libs/revealjs/dist/theme/quarto-d05cafa4f8466d2d6073fb19373ee902.css">
   <link href="libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -430,25 +430,29 @@ Lucas Nunes Alegre
 </div>
 
 </section>
+<section>
+<section id="recursão-generativa" class="title-slide slide level1 center">
+<h1>Recursão Generativa</h1>
+
+</section>
 <section id="estrutura-de-programas-recursivos" class="slide level2">
 <h2>Estrutura de Programas Recursivos</h2>
 <ul>
 <li>Uma forma abstrata de descrever <span class="azul">repetição</span> em processos.</li>
 <li>Ênfase em <span class="vermelho">quebrar (decompor)</span> um problema grande em problemas menores (até que a solução seja trivial) e então montar a solução através da <span class="vermelho">combinação</span> das soluções dos problemas menores <span class="vermelho">(composição)</span></li>
 </ul>
-<p><br></p>
-<ul>
-<li>Ideia básica:
-<ul>
-<li>Se o problema for trivial, resolva-o <span class="azul">(fim);</span></li>
-<li>Se o problema for muito complexo:
-<ul>
-<li>quebre-o <span class="azul">(decompor)</span>,</li>
-<li>solucione os problemas menores <span class="azul">(repetir)</span>,</li>
-<li>combine as soluções <span class="azul">(combinar)</span></li>
-</ul></li>
-</ul></li>
-</ul>
+<p><span class="azul">Ideia básica:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment">o problema é trivial</span></span> <span class="res fragment"><span class="fragment">resolva-o diretamente (fim)</span></span></p>
+</div>
+<div class="fragment dificil">
+<p>se <span class="cond"><span class="fragment">o problema é difícil</span></span></p>
+<p><span class="sub fragment"><span class="fragment">subproblema 1</span></span> <span class="sol fragment"><span class="fragment">solução do subproblema 1</span></span></p>
+<p><span class="sub fragment"><span class="fragment">subproblema 2</span></span> <span class="sol fragment"><span class="fragment">solução do subproblema 2</span></span></p>
+<p><span class="comb fragment"><span class="fragment">combinar <span class="n">1</span> e <span class="n">2</span></span></span></p>
+</div>
+</div>
 </section>
 <section id="recursão-estrutural" class="slide level2">
 <h2>Recursão Estrutural</h2>
@@ -459,7 +463,7 @@ Lucas Nunes Alegre
 <div class="column" style="width:58%;">
 <p><span class="verde rotulo-diagrama">Dado:</span></p>
 <svg viewbox="34 314 790 376" style="display:block; width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sublistas de link(3, link(1, link(2, empty))) até empty">
-<defs><marker id="a24-seta-e3" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs>
+<defs><marker id="a25-seta-e3" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs>
 <ellipse cx="426" cy="502" rx="390" ry="181" fill="none" stroke="#1f2a4d" stroke-width="1.5"></ellipse>
 <text x="156" y="394" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">3</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">2</tspan><tspan fill="#d32f2f">,</tspan> empty)))</text>
 <text x="428" y="479" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">2</tspan><tspan fill="#d32f2f">,</tspan> empty))</text>
@@ -467,11 +471,11 @@ Lucas Nunes Alegre
 <text x="349" y="627" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">empty</text>
 <text x="63" y="487" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">3</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> empty))</text>
 <text x="148" y="554" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> empty)</text>
-<line x1="368" y1="414" x2="520" y2="459" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e3)"></line>
-<line x1="522" y1="501" x2="522" y2="538" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e3)"></line>
-<line x1="520" y1="574" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e3)"></line>
-<line x1="228" y1="507" x2="228" y2="541" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e3)"></line>
-<line x1="235" y1="572" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e3)"></line>
+<line x1="368" y1="414" x2="520" y2="459" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e3)"></line>
+<line x1="522" y1="501" x2="522" y2="538" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e3)"></line>
+<line x1="520" y1="574" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e3)"></line>
+<line x1="228" y1="507" x2="228" y2="541" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e3)"></line>
+<line x1="235" y1="572" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e3)"></line>
 </svg>
 </div><div class="column" style="width:42%;">
 <p class="vermelho rotulo-diagrama fragment" data-fragment-index="1">Programa (execução):</p>
@@ -549,7 +553,7 @@ Lucas Nunes Alegre
 </div>
 </div></div>
 </section>
-<section id="recursão-generativa" class="slide level2">
+<section id="recursão-generativa-1" class="slide level2">
 <h2>Recursão Generativa</h2>
 <ul>
 <li>Mas há situações nas quais a decomposição em problemas menores não é feita baseada estritamente na estrutura do dado, por exemplo:</li>
@@ -558,7 +562,7 @@ Lucas Nunes Alegre
 <div class="column" style="width:58%;">
 <p><span class="verde rotulo-diagrama">Dado:</span></p>
 <svg viewbox="34 314 790 376" style="display:block; width:100%; height:auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sublistas de link(3, link(1, link(2, empty))) até empty">
-<defs><marker id="a24-seta-e6" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs>
+<defs><marker id="a25-seta-e6" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs>
 <ellipse cx="426" cy="502" rx="390" ry="181" fill="none" stroke="#1f2a4d" stroke-width="1.5"></ellipse>
 <text x="156" y="394" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">3</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">2</tspan><tspan fill="#d32f2f">,</tspan> empty)))</text>
 <text x="428" y="479" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">2</tspan><tspan fill="#d32f2f">,</tspan> empty))</text>
@@ -566,131 +570,156 @@ Lucas Nunes Alegre
 <text x="349" y="627" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">empty</text>
 <text x="63" y="487" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">3</tspan><tspan fill="#d32f2f">,</tspan> link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> empty))</text>
 <text x="148" y="554" font-size="25" dominant-baseline="central" fill="#212121" font-family="'Source Code Pro', Consolas, monospace">link(<tspan fill="#1976d2">1</tspan><tspan fill="#d32f2f">,</tspan> empty)</text>
-<line x1="368" y1="414" x2="520" y2="459" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e6)"></line>
-<line x1="522" y1="501" x2="522" y2="538" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e6)"></line>
-<line x1="520" y1="574" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e6)"></line>
-<line x1="228" y1="507" x2="228" y2="541" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e6)"></line>
-<line x1="235" y1="572" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-e6)"></line>
+<line x1="368" y1="414" x2="520" y2="459" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e6)"></line>
+<line x1="522" y1="501" x2="522" y2="538" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e6)"></line>
+<line x1="520" y1="574" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e6)"></line>
+<line x1="228" y1="507" x2="228" y2="541" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e6)"></line>
+<line x1="235" y1="572" x2="382" y2="607" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a25-seta-e6)"></line>
 </svg>
 </div><div class="column" style="width:42%;">
-<p class="vermelho rotulo-diagrama">Programa (execução):</p>
+<p class="vermelho rotulo-diagrama fragment" data-fragment-index="1">Programa (execução):</p>
 <div class="traco">
-<div><span class="tr-fun">g</span>(link(<span class="tr-num">3</span><span class="tr-sep">,</span> link(<span class="tr-num">1</span><span class="tr-sep">,</span> link(<span class="tr-num">2</span><span class="tr-sep">,</span> empty))))</div>
-<div><div class="seta">↓</div><span class="tr-fun">g</span>(link(<span class="tr-num">2</span><span class="tr-sep">,</span> empty))</div>
-<div><div class="seta">↓</div><span class="tr-fun">g</span>(empty)</div>
+<div class="fragment" data-fragment-index="1"><span class="tr-fun">g</span>(link(<span class="tr-num">3</span><span class="tr-sep">,</span> link(<span class="tr-num">1</span><span class="tr-sep">,</span> link(<span class="tr-num">2</span><span class="tr-sep">,</span> empty))))</div>
+<div class="fragment" data-fragment-index="2"><div class="seta">↓</div><span class="tr-fun">g</span>(link(<span class="tr-num">2</span><span class="tr-sep">,</span> empty))</div>
+<div class="fragment" data-fragment-index="3"><div class="seta">↓</div><span class="tr-fun">g</span>(empty)</div>
 </div>
 </div></div>
 </section>
 <section id="recursão-generativa---modelo-da-solução" class="slide level2">
 <h2>Recursão Generativa - Modelo da Solução</h2>
-<div class="modelo">
-<div class="m-dado">Dado(s) ...</div>
-<div class="m-titulo azul">Trivial: resolver</div>
-<div class="m-painel trivial">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa amarela" data-rotulo="problema trivial?"></div><span class="m-virgula">,</span><div class="m-caixa amarela" data-rotulo="solução do problema trivial"></div></div>
+<p><span class="italico">Dado(s) …</span></p>
+<div class="modelo-recursivo">
+<div class="trivial">
+<p>se <span class="cond">problema trivial?</span> <span class="res">solução do problema trivial</span></p>
 </div>
-<div class="m-titulo vermelho">Difícil: Decompor</div>
-<div class="m-painel dificil">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa" data-rotulo="problema difícil?"></div><span class="m-virgula">,</span></div>
-<div class="m-linha combinar"><div class="m-caixa" data-rotulo="combinar soluções"></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor"></div><div class="m-caixa" data-rotulo="gerar problema menor"></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor 2"></div><div class="m-caixa" data-rotulo="gerar problema menor"></div></div>
+<div class="dificil">
+<p>se <span class="cond">problema difícil?</span></p>
+<p><span class="sub">gerar problema menor 1</span> <span class="sol">solução do problema menor 1</span></p>
+<p><span class="sub">gerar problema menor 2</span> <span class="sol">solução do problema menor 2</span></p>
+<p><span class="comb">combinar <span class="n">1</span> e <span class="n">2</span></span></p>
 </div>
-<div class="m-camada fragment" data-fragment-index="1"><div class="m-nota" style="left:170px; top:2px;">O problema trivial não é necessariamente a forma mais simples (caso base) do dado.</div><svg class="m-setas" xmlns="http://www.w3.org/2000/svg"><defs><marker id="a24-seta-m7" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="8" markerheight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs><line x1="440" y1="34" x2="300" y2="128" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m7)"></line></svg></div>
-<div class="m-camada fragment" data-fragment-index="2"><div class="m-nota" style="left:480px; top:328px;">Os subproblemas são gerados de forma arbitrária.</div><svg class="m-setas" xmlns="http://www.w3.org/2000/svg"><defs><marker id="a24-seta-m7b" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="8" markerheight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs><line x1="720" y1="358" x2="640" y2="420" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m7b)"></line></svg></div>
 </div>
+<div class="fragment nota-modelo destaca-trivial">
+<p>O problema trivial <span class="vermelho">não é necessariamente</span> a forma mais simples (caso base) do dado.</p>
+</div>
+<div class="fragment nota-modelo destaca-sub">
+<p>Os subproblemas são <span class="vermelho">gerados de forma arbitrária</span>.</p>
+</div>
+</section></section>
+<section>
+<section id="quicksort" class="title-slide slide level1 center">
+<h1>Quicksort</h1>
+
 </section>
 <section id="exemplo-quicksort" class="slide level2">
 <h2>Exemplo: Quicksort</h2>
-<div class="problema">
-<p><span class="problema-titulo">Ordenação</span></p>
-<div class="problema-corpo">
-<div class="problema-campo">
-<p><span class="azul">Obj:</span> <span class="laranja">Dado uma lista de números, ordená-la em ordem crescente.</span></p>
+<div class="ficha">
+  <div class="aba">Ordenação</div>
+  <div class="item"><span class="azul">Obj:</span> <span class="laranja">Dada uma lista de números, ordená-la em ordem crescente.</span></div>
+  <div class="item"><span class="verde">Entrada:</span> Uma lista de números.</div>
+  <div class="item"><span class="vermelho">Saída:</span> A lista de números de entrada ordenada em ordem crescente.</div>
 </div>
-<div class="problema-campo afastado">
-<p><span class="verde">Entrada:</span> Uma lista de números.</p>
-</div>
-<div class="problema-campo">
-<p><span class="vermelho">Saída:</span> A lista de números de entrada ordenada em ordem crescente.</p>
-</div>
-</div>
-</div>
-<div class="caixa-funcao fragment">
-<div><span class="verde">l</span> :: List&lt;Number&gt;</div>
-<div class="seta">↓</div>
-<div class="nome">quicksort</div>
-<div class="seta">↓</div>
-<div>List&lt;Number&gt;</div>
+<div class="funcao-caixa-preta fragment">
+  <div><span class="verde">l</span> <span class="roxo">:: List&lt;Number&gt;</span></div>
+  <div class="seta">🡣</div>
+  <div class="caixa-funcao">quicksort</div>
+  <div class="seta">🡣</div>
+  <div class="roxo">List&lt;Number&gt;</div>
 </div>
 </section>
-<section id="quicksort" class="slide level2">
+<section id="quicksort-1" class="slide level2">
 <h2>Quicksort</h2>
 <svg viewbox="0 10 1386 1120" style="display:block; margin:0 auto; height:610px; max-width:100%;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Árvore de chamadas do quicksort para a lista [list: 11, 8, 14, 7]: divisões em menores e maiores que o pivô e a combinação dos resultados até [list: 7, 8, 11, 14]">
 <defs><marker id="qs-seta" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#23373b"></path></marker><marker id="qs-seta-p" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="7" markerheight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555555"></path></marker></defs>
-<rect x="8" y="148" width="737" height="416" fill="none" stroke="#555" stroke-width="1.5"></rect>
-<rect x="20" y="298" width="432" height="254" fill="none" stroke="#555" stroke-width="1.5"></rect>
-<rect x="30" y="452" width="410" height="86" fill="none" stroke="#555" stroke-width="1.5"></rect>
-<rect x="930" y="148" width="448" height="278" fill="none" stroke="#555" stroke-width="1.5"></rect>
-<rect x="943" y="298" width="423" height="114" fill="none" stroke="#555" stroke-width="1.5"></rect>
+<!-- Linhas (embaixo): decomposição em 1–3, combinação em 4–6 -->
+<g class="fragment" data-fragment-index="1">
 <path d="M683,80 C683,122 367,122 367,164" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M683,80 C683,120 845,120 845,160" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M683,80 C683,122 1153,122 1153,164" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
+</g>
+<g class="fragment" data-fragment-index="2">
+<rect x="8" y="148" width="737" height="416" fill="none" stroke="#555" stroke-width="1.5"></rect>
+<rect x="930" y="148" width="448" height="278" fill="none" stroke="#555" stroke-width="1.5"></rect>
+<rect x="943" y="298" width="423" height="114" fill="none" stroke="#555" stroke-width="1.5"></rect>
 <path d="M367,228 C367,270 220,270 220,313" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M367,228 C367,268 520,268 520,308" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M367,228 C367,270 683,270 683,313" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
-<path d="M220,377 C220,418 86,418 86,458" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
-<path d="M220,377 C220,415 218,415 218,453" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
-<path d="M220,377 C220,418 383,418 383,458" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M1153,228 C1153,270 1001,270 1001,313" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M1153,228 C1153,269 1153,269 1153,310" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
 <path d="M1153,228 C1153,270 1305,270 1305,313" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
+</g>
+<g class="fragment" data-fragment-index="3">
+<rect x="20" y="298" width="432" height="254" fill="none" stroke="#555" stroke-width="1.5"></rect>
+<rect x="30" y="452" width="410" height="86" fill="none" stroke="#555" stroke-width="1.5"></rect>
+<path d="M220,377 C220,418 86,418 86,458" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
+<path d="M220,377 C220,415 218,415 218,453" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
+<path d="M220,377 C220,418 383,418 383,458" fill="none" stroke="#23373b" stroke-width="2.2" marker-end="url(#qs-seta)"></path>
+</g>
+<g class="fragment" data-fragment-index="4">
 <path d="M86,522 C86,616 474,616 474,709" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M218,529 C218,619 474,619 474,709" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M383,522 C383,616 474,616 474,709" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
-<path d="M474,773 C474,808 600,808 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
-<path d="M520,384 C520,614 600,614 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
-<path d="M683,377 C683,610 600,610 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M1001,377 C1001,610 884,610 884,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M1153,386 C1153,614 884,614 884,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M1305,377 C1305,610 884,610 884,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
+</g>
+<g class="fragment" data-fragment-index="5">
+<path d="M474,773 C474,808 600,808 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
+<path d="M520,384 C520,614 600,614 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
+<path d="M683,377 C683,610 600,610 600,843" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
+</g>
+<g class="fragment" data-fragment-index="6">
 <path d="M600,907 C600,982 682,982 682,1057" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M845,236 C845,646 682,646 682,1057" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
 <path d="M884,907 C884,982 682,982 682,1057" fill="none" stroke-dasharray="4 5" stroke="#555555" stroke-width="2.2" marker-end="url(#qs-seta-p)"></path>
+</g>
+<!-- Listas e pivôs (em cima) -->
 <rect x="476" y="20" width="414" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="683" y="50" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 11, 8, 14, 7]</text>
+<g class="fragment" data-fragment-index="1">
 <circle cx="845" cy="200" r="36" fill="#fff" stroke="#e67e00" stroke-width="2.5"></circle>
 <text x="845" y="200" font-size="36" text-anchor="middle" dominant-baseline="central" fill="#c55a00" font-weight="bold" font-family="'Source Code Pro', Consolas, monospace">11</text>
 <rect x="237" y="168" width="260" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="367" y="198" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 8, 7]</text>
 <rect x="1042" y="168" width="222" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="1153" y="198" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 14]</text>
+</g>
+<g class="fragment" data-fragment-index="2">
 <rect x="119" y="317" width="203" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="220" y="347" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 7]</text>
 <circle cx="520" cy="348" r="36" fill="#fff" stroke="#e67e00" stroke-width="2.5"></circle>
 <text x="520" y="348" font-size="36" text-anchor="middle" dominant-baseline="central" fill="#c55a00" font-weight="bold" font-family="'Source Code Pro', Consolas, monospace">8</text>
 <rect x="620" y="317" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="683" y="347" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
-<rect x="23" y="462" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
-<text x="86" y="492" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
-<circle cx="218" cy="493" r="36" fill="#fff" stroke="#e67e00" stroke-width="2.5"></circle>
-<text x="218" y="493" font-size="36" text-anchor="middle" dominant-baseline="central" fill="#c55a00" font-weight="bold" font-family="'Source Code Pro', Consolas, monospace">7</text>
-<rect x="320" y="462" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
-<text x="383" y="492" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
 <rect x="938" y="317" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="1001" y="347" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
 <circle cx="1153" cy="350" r="36" fill="#fff" stroke="#e67e00" stroke-width="2.5"></circle>
 <text x="1153" y="350" font-size="36" text-anchor="middle" dominant-baseline="central" fill="#c55a00" font-weight="bold" font-family="'Source Code Pro', Consolas, monospace">14</text>
 <rect x="1242" y="317" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
 <text x="1305" y="347" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
+</g>
+<g class="fragment" data-fragment-index="3">
+<rect x="23" y="462" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
+<text x="86" y="492" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
+<circle cx="218" cy="493" r="36" fill="#fff" stroke="#e67e00" stroke-width="2.5"></circle>
+<text x="218" y="493" font-size="36" text-anchor="middle" dominant-baseline="central" fill="#c55a00" font-weight="bold" font-family="'Source Code Pro', Consolas, monospace">7</text>
+<rect x="320" y="462" width="126" height="60" fill="#fff" stroke="#23373b" stroke-width="2.5"></rect>
+<text x="383" y="492" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">empty</text>
+</g>
+<g class="fragment" data-fragment-index="4">
 <rect x="373" y="713" width="203" height="60" fill="#fff" stroke="#7030a0" stroke-width="2.5"></rect>
 <text x="474" y="743" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 7]</text>
-<rect x="470" y="847" width="260" height="60" fill="#fff" stroke="#7030a0" stroke-width="2.5"></rect>
-<text x="600" y="877" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 7, 8]</text>
 <rect x="773" y="847" width="222" height="60" fill="#fff" stroke="#7030a0" stroke-width="2.5"></rect>
 <text x="884" y="877" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 14]</text>
+</g>
+<g class="fragment" data-fragment-index="5">
+<rect x="470" y="847" width="260" height="60" fill="#fff" stroke="#7030a0" stroke-width="2.5"></rect>
+<text x="600" y="877" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 7, 8]</text>
+</g>
+<g class="fragment" data-fragment-index="6">
 <rect x="475" y="1061" width="414" height="60" fill="#fff" stroke="#7030a0" stroke-width="2.5"></rect>
 <text x="682" y="1091" font-size="32" text-anchor="middle" dominant-baseline="central" fill="#23373b" font-family="'Source Code Pro', Consolas, monospace">[list: 7, 8, 11, 14]</text>
+</g>
 </svg>
 </section>
 <section id="quicksort---visualização" class="slide level2">
@@ -700,21 +729,19 @@ Lucas Nunes Alegre
 <p><a href="https://visualgo.net/en/sorting" class="uri">https://visualgo.net/en/sorting</a></p>
 </div>
 </section>
-<section id="quicksort-1" class="slide level2">
-<h2>Quicksort</h2>
-<div class="modelo compacto">
-<div class="m-dado">Dado uma lista <span class="verde">l</span> :</div>
-<div class="m-titulo azul">Trivial: resolver</div>
-<div class="m-painel trivial">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa amarela" data-rotulo="problema trivial?"><span class="fragment" data-fragment-index="1"><span class="verde">l</span> é vazia</span></div><span class="m-virgula">,</span><div class="m-caixa amarela" data-rotulo="solução do problema trivial"><span class="fragment" data-fragment-index="2">devolver empty</span></div></div>
+<section id="quicksort-modelo-da-solução" class="slide level2">
+<h2>quicksort: modelo da solução</h2>
+<p><span class="italico">Dada uma lista <span class="verde">l</span>:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment"><span class="verde">l</span> é vazia</span></span> <span class="res fragment"><span class="fragment">devolver empty</span></span></p>
 </div>
-<div class="m-titulo vermelho">Difícil: Decompor</div>
-<div class="m-painel dificil">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa" data-rotulo="problema difícil?"><span class="fragment" data-fragment-index="3"><span class="verde">l</span> não é vazia</span></div><span class="m-virgula">,</span></div>
-<div class="m-linha combinar"><div class="m-caixa" data-rotulo="combinar soluções"><span class="fragment" data-fragment-index="4">juntar as listas:</span></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor"><span class="fragment" data-fragment-index="6">ordenar a lista com</span></div><div class="m-caixa" data-rotulo="gerar problema menor"><span class="fragment" data-fragment-index="5">os números menores que o primeiro elemento de <span class="verde">l</span></span></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor 2"><span class="fragment" data-fragment-index="6">montar uma lista com</span></div><div class="m-caixa" data-rotulo="gerar problema menor"><span class="fragment" data-fragment-index="5">o primeiro elemento de <span class="verde">l</span></span></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor 3"><span class="fragment" data-fragment-index="6">ordenar a lista com</span></div><div class="m-caixa" data-rotulo="gerar problema menor"><span class="fragment" data-fragment-index="5">os números maiores que o primeiro elemento de <span class="verde">l</span></span></div></div>
+<div class="fragment dificil">
+<p>se <span class="cond"><span class="fragment"><span class="verde">l</span> não é vazia</span></span></p>
+<p><span class="sub fragment"><span class="fragment">os números de <span class="verde">l</span> menores que o primeiro</span></span> <span class="sol fragment"><span class="fragment">ordenar essa lista</span></span></p>
+<p><span class="sub fragment"><span class="fragment">o primeiro elemento de <span class="verde">l</span></span></span> <span class="sol fragment"><span class="fragment">montar uma lista só com ele</span></span></p>
+<p><span class="sub fragment"><span class="fragment">os números de <span class="verde">l</span> maiores que o primeiro</span></span> <span class="sol fragment"><span class="fragment">ordenar essa lista</span></span></p>
+<p><span class="comb fragment"><span class="fragment">juntar as listas:<br><span class="n">1</span> + <span class="n">2</span> + <span class="n">3</span></span></span></p>
 </div>
 </div>
 </section>
@@ -771,6 +798,11 @@ Lucas Nunes Alegre
 <span id="cb6-18"><a href="" aria-label="18"></a>    quicksort([<span class="cn">list</span><span class="kw">:</span> <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>]) <span class="kw">is</span> [<span class="cn">list</span><span class="kw">:</span> <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
 <span id="cb6-19"><a href="" aria-label="19"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section></section>
+<section>
+<section id="animação" class="title-slide slide level1 center">
+<h1>Animação</h1>
+
 </section>
 <section id="exemplo-animação" class="slide level2">
 <h2>Exemplo: Animação</h2>
@@ -830,26 +862,23 @@ Lucas Nunes Alegre
 </section>
 <section id="move-até-que-fora" class="slide level2">
 <h2>Move Até Que Fora</h2>
-<div class="problema">
-<p><span class="problema-titulo">Move Até Que Fora</span></p>
-<div class="problema-corpo">
-<div class="problema-campo">
-<p><span class="azul">Obj:</span> <span class="laranja">Dado um Pokemon, movimenta-o até que ele saia dos limites do cenário, definido pelas constantes LARG e ALT.</span></p>
+<div class="ficha">
+  <div class="aba">Move Até Que Fora</div>
+  <div class="item"><span class="azul">Obj:</span> <span class="laranja">Dado um Pokemon, movimenta-o até que ele saia dos limites do cenário, definido pelas constantes LARG e ALT.</span></div>
+  <div class="item"><span class="verde">Entrada:</span> Um Pokemon.</div>
+  <div class="item"><span class="vermelho">Saída:</span> Uma lista de cenas.</div>
 </div>
-<div class="problema-campo">
-<p><span class="verde">Entrada:</span> Um Pokemon.</p>
+<div class="columns" style="display: flex; align-items: center;">
+<div class="column" style="width:44%;">
+<div class="funcao-caixa-preta">
+  <div><span class="verde">p</span> <span class="roxo">:: Pokemon</span></div>
+  <div class="seta">🡣</div>
+  <div class="caixa-funcao" style="white-space: nowrap;">move-ate-que-fora</div>
+  <div class="seta">🡣</div>
+  <div class="roxo">ListaDeCenas</div>
 </div>
-<div class="problema-campo">
-<p><span class="vermelho">Saída:</span> Uma lista de cenas.</p>
-</div>
-</div>
-</div>
-<p><br></p>
-<div class="columns">
-<div class="column" style="width:20%;">
-
-</div><div class="column" style="width:60%;">
-<div style="font-size: 0.85em;">
+</div><div class="column" style="width:56%;">
+<div style="font-size: 0.76em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb10-1"><a href="" aria-label="1"></a><span class="kw">type</span> <span class="dt">ListaDeCenas</span> = <span class="dt">List</span>&lt;<span class="dt">Image</span>&gt;</span>
 <span id="cb10-2"><a href="" aria-label="2"></a><span class="co"># ListaDeCenas é:</span></span>
 <span id="cb10-3"><a href="" aria-label="3"></a><span class="co"># | empty</span></span>
@@ -870,25 +899,37 @@ Lucas Nunes Alegre
 </div>
 <p><img data-src="images/aula25/cenas-pikachu.png" class="" style="width:68.0%" alt="Resultado: lista com 11 cenas do Pikachu se deslocando na diagonal até sair do cenário."></p>
 </section>
-<section id="move-ate-que-fora-1" class="slide level2">
-<h2>move-ate-que-fora</h2>
-<div class="modelo">
-<div class="m-dado">Dado um Pokemon <span class="verde">p</span> :</div>
-<div class="m-titulo azul">Trivial: resolver</div>
-<div class="m-painel trivial">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa amarela" data-rotulo="problema trivial?"><span class="fragment" data-fragment-index="1"><span class="verde">p</span> está fora dos limites</span></div><span class="m-virgula">,</span><div class="m-caixa amarela" data-rotulo="solução do problema trivial"><span class="fragment" data-fragment-index="2">devolver empty<br>(lista de cenas vazia)</span></div></div>
+<section id="move-ate-que-fora-modelo-da-solução" class="slide level2">
+<h2>move-ate-que-fora: modelo da solução</h2>
+<p><span class="italico">Dado um Pokemon <span class="verde">p</span>:</span></p>
+<div class="modelo-recursivo">
+<div class="fragment trivial">
+<p>se <span class="cond"><span class="fragment"><span class="verde">p</span> está fora dos limites</span></span> <span class="res fragment"><span class="fragment">devolver empty<br>(lista de cenas vazia)</span></span></p>
 </div>
-<div class="m-titulo vermelho">Difícil: Decompor</div>
-<div class="m-painel dificil">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa" data-rotulo="problema difícil?"><span class="fragment" data-fragment-index="3"><span class="verde">p</span> está dentro dos limites</span></div><span class="m-virgula">,</span></div>
-<div class="m-linha combinar"><div class="m-caixa" data-rotulo="combinar soluções"><span class="fragment" data-fragment-index="4">montar uma lista de cenas com:</span></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor"><span class="fragment" data-fragment-index="5">uma cena com</span></div><div class="m-caixa" data-rotulo="gerar problema menor"><span class="fragment" data-fragment-index="6">o pokémon <span class="verde">p</span></span></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor 2"><span class="fragment" data-fragment-index="7">as cenas geradas pela movimentação do</span></div><div class="m-caixa" data-rotulo="gerar problema menor"><span class="fragment" data-fragment-index="8">Pokemon <span class="verde">p</span> deslocado</span></div></div>
+<div class="fragment dificil">
+<p>se <span class="cond"><span class="fragment"><span class="verde">p</span> está dentro dos limites</span></span></p>
+<p><span class="sub fragment"><span class="fragment">o pokémon <span class="verde">p</span></span></span> <span class="sol fragment"><span class="fragment">uma cena com <span class="verde">p</span></span></span></p>
+<p><span class="sub fragment"><span class="fragment">o pokémon <span class="verde">p</span> deslocado</span></span> <span class="sol fragment"><span class="fragment">as cenas geradas pela movimentação de <span class="verde">p</span> deslocado</span></span></p>
+<p><span class="comb fragment"><span class="fragment">montar uma lista de cenas com <span class="n">1</span> seguida de <span class="n">2</span></span></span></p>
 </div>
-<div class="m-camada fragment" data-fragment-index="9"><div class="m-assinatura" style="left:380px; top:36px;">fora-dos-limites :: Pokemon -&gt; Boolean</div><div class="m-assinatura" style="left:472px; top:324px;">link</div><div class="m-assinatura" style="left:-104px; top:406px;">desenha-cena :: Pokemon -&gt; Image</div><div class="m-assinatura" style="left:-70px; top:552px;">move-ate-que-fora :: Pokemon -&gt; ListaDeCenas</div><div class="m-assinatura" style="left:476px; top:552px;">move-pokemon :: Pokemon -&gt; Pokemon</div></div>
 </div>
 </section>
-<section id="move-ate-que-fora-2" class="slide level2">
+<section id="move-ate-que-fora-funções-auxiliares" class="slide level2">
+<h2>move-ate-que-fora: funções auxiliares</h2>
+<p><span class="italico">Dado um Pokemon <span class="verde">p</span>:</span></p>
+<div class="modelo-recursivo">
+<div class="trivial">
+<p>se <span class="cond"><span class="verde">p</span> está fora dos limites <span class="assinatura fragment" data-fragment-index="1">fora-dos-limites :: Pokemon -&gt; Boolean</span></span> <span class="res">devolver empty<br>(lista de cenas vazia)</span></p>
+</div>
+<div class="dificil">
+<p>se <span class="cond"><span class="verde">p</span> está dentro dos limites</span></p>
+<p><span class="sub">o pokémon <span class="verde">p</span></span> <span class="sol">uma cena com <span class="verde">p</span> <span class="assinatura fragment" data-fragment-index="1">desenha-cena :: Pokemon -&gt; Image</span></span></p>
+<p><span class="sub">o pokémon <span class="verde">p</span> deslocado <span class="assinatura fragment" data-fragment-index="1">move-pokemon :: Pokemon -&gt; Pokemon</span></span> <span class="sol">as cenas geradas pela movimentação de <span class="verde">p</span> deslocado <span class="assinatura fragment" data-fragment-index="1">move-ate-que-fora :: Pokemon -&gt; ListaDeCenas</span></span></p>
+<p><span class="comb">montar uma lista de cenas com <span class="n">1</span> seguida de <span class="n">2</span> <span class="assinatura fragment" data-fragment-index="1">link</span></span></p>
+</div>
+</div>
+</section>
+<section id="move-ate-que-fora-1" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.82em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" data-code-line-numbers="1,2,4,6,8,10,12,16|1-16"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb13-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
@@ -1069,8 +1110,13 @@ Lucas Nunes Alegre
 <ul>
 <li>Construa um programa que, dados 2 pokemon, anima a imagem dos pokemon sobre o cenário, até que os dois estejam fora dos limites.</li>
 </ul>
+</section></section>
+<section>
+<section id="terminação" class="title-slide slide level1 center">
+<h1>Terminação</h1>
+
 </section>
-<section id="terminação" class="slide level2">
+<section id="terminação-1" class="slide level2">
 <h2>Terminação</h2>
 <ul>
 <li><span class="azul">P.</span> Quando o programa termina?</li>
@@ -1082,23 +1128,20 @@ Lucas Nunes Alegre
 </section>
 <section id="recursão-generativa---modelo-da-solução-1" class="slide level2">
 <h2>Recursão Generativa - Modelo da Solução</h2>
-<div class="modelo">
-<div class="m-dado">Dado(s) ...</div>
-<div class="m-titulo azul">Trivial: resolver</div>
-<div class="m-painel trivial">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa amarela" data-rotulo="problema trivial?"></div><span class="m-virgula">,</span><div class="m-caixa amarela" data-rotulo="solução do problema trivial"></div></div>
+<p><span class="italico">Dado(s) …</span></p>
+<div class="modelo-recursivo">
+<div class="trivial">
+<p>se <span class="cond">problema trivial? <span class="termina fragment" data-fragment-index="1">termina?</span></span> <span class="res">solução do problema trivial <span class="termina fragment" data-fragment-index="1">termina?</span></span></p>
 </div>
-<div class="m-titulo vermelho">Difícil: Decompor</div>
-<div class="m-painel dificil">
-<div class="m-linha"><span class="m-se">Se</span><div class="m-caixa" data-rotulo="problema difícil?"></div><span class="m-virgula">,</span></div>
-<div class="m-linha combinar"><div class="m-caixa" data-rotulo="combinar soluções"></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor"></div><div class="m-caixa" data-rotulo="gerar problema menor"></div></div>
-<div class="m-linha sub"><div class="m-caixa" data-rotulo="solução do problema menor 2"></div><div class="m-caixa" data-rotulo="gerar problema menor"></div></div>
+<div class="dificil">
+<p>se <span class="cond">problema difícil? <span class="termina fragment" data-fragment-index="1">termina?</span></span></p>
+<p><span class="sub">gerar problema menor 1 <span class="termina fragment" data-fragment-index="1">termina?</span></span> <span class="sol">solução do problema menor 1 <span class="termina fragment" data-fragment-index="1">termina?</span></span></p>
+<p><span class="sub">gerar problema menor 2 <span class="termina fragment" data-fragment-index="1">termina?</span></span> <span class="sol">solução do problema menor 2 <span class="termina fragment" data-fragment-index="1">termina?</span></span></p>
+<p><span class="comb">combinar <span class="n">1</span> e <span class="n">2</span> <span class="termina fragment" data-fragment-index="1">termina?</span></span></p>
 </div>
-<div class="m-camada"><div class="m-nota" style="left:334px; top:56px;">Termina?</div><div class="m-nota" style="left:614px; top:56px;">Termina?</div><div class="m-nota" style="left:334px; top:184px;">Termina?</div><div class="m-nota" style="left:378px; top:266px;">Termina?</div><div class="m-nota" style="left:420px; top:348px;">Termina?</div><div class="m-nota" style="left:676px; top:348px;">Termina?</div><div class="m-nota" style="left:420px; top:430px;">Termina?</div><div class="m-nota" style="left:676px; top:430px;">Termina?</div><svg class="m-setas" xmlns="http://www.w3.org/2000/svg"><defs><marker id="a24-seta-m30" viewbox="0 0 10 10" refx="9" refy="5" markerwidth="8" markerheight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4472c4"></path></marker></defs><line x1="352" y1="86" x2="298" y2="134" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="632" y1="86" x2="578" y2="134" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="352" y1="214" x2="298" y2="262" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="396" y1="296" x2="342" y2="344" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="438" y1="378" x2="384" y2="426" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="694" y1="378" x2="640" y2="426" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="438" y1="460" x2="384" y2="508" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line><line x1="694" y1="460" x2="640" y2="508" stroke="#4472c4" stroke-width="1.5" marker-end="url(#a24-seta-m30)"></line></svg></div>
 </div>
 </section>
-<section id="terminação-1" class="slide level2">
+<section id="terminação-2" class="slide level2">
 <h2>Terminação</h2>
 <ul>
 <li>Se o programa <span class="azul">não envolver repetição</span> (<em>em nenhuma função</em>), é fácil saber se ele termina ou não.</li>
@@ -1186,7 +1229,7 @@ Lucas Nunes Alegre
 <span id="cb23-23"><a href="" aria-label="23"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="terminação-2" class="slide level2">
+<section id="terminação-3" class="slide level2">
 <h2>Terminação</h2>
 <p>É necessário demonstrar que a função:</p>
 <p><br></p>
@@ -1202,7 +1245,7 @@ Lucas Nunes Alegre
 <li>3) Todas as funções auxiliares também terminam;</li>
 </ul>
 </section>
-<section id="move-ate-que-fora-3" class="slide level2">
+<section id="move-ate-que-fora-2" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.82em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode numberSource pyret code-overflow-wrap number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb24-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
@@ -1258,7 +1301,7 @@ Lucas Nunes Alegre
 <span id="cb26-15"><a href="" aria-label="15"></a><span class="kw">end</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="move-ate-que-fora-4" class="slide level2">
+<section id="move-ate-que-fora-3" class="slide level2">
 <h2>move-ate-que-fora</h2>
 <div style="font-size: 0.8em;">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode numberSource pyret number-lines code-with-copy"><code class="sourceCode pyret"><span id="cb27-1"><a href="" aria-label="1"></a><span class="kw">fun</span> move-ate-que-fora(p <span class="kw">::</span> <span class="dt">Pokemon</span>) <span class="kw">-&gt;</span> <span class="dt">ListaDeCenas</span><span class="kw">:</span></span>
@@ -1297,7 +1340,7 @@ Lucas Nunes Alegre
 <ul>
 <li><a href="https://lucasalegre.github.io/pensamento-computacional/exercises/Recurs%C3%A3o%20Generativa-3" class="uri">https://lucasalegre.github.io/pensamento-computacional/exercises/Recurs%C3%A3o%20Generativa-3</a></li>
 </ul>
-</section>
+</section></section>
 <section id="section" class="title-slide slide level1 center">
 <h1></h1>
 <div style="text-align: center; margin-top: 15vh;">
