@@ -4,6 +4,8 @@
 
 Neste laboratório, vamos construir um jogo: o **Voo do Quero-Quero**. Um quero-quero voa pelo cenário, e muros com um vão (uma passagem) vêm da direita na direção dele. O pássaro precisa bater as asas na hora certa para passar pelos vãos sem encostar nos muros.
 
+<img src="images/lab6/jogo.png" alt="Tela do jogo: o quero-quero, um pássaro cinza de bico laranja, entra no vão de um muro vermelho; outro muro vem mais à frente, e o placar no topo mostra Muros restantes: 5" width="600">
+
 Você vai poder jogar pelo teclado, mas o foco do laboratório é outro: um **piloto automático** decide quando o pássaro bate as asas, e o programa gera o filme da partida com **recursão generativa**, como a função `move-ate-que-fora` da Aula 25. No final, vamos analisar a **terminação** e o **custo** do programa (Aulas 25 e 27).
 
 <br>
