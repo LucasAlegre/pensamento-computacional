@@ -77,7 +77,7 @@ export const cronogramaTurmaC = {
     ] },
     { semana: 17, aulas: [
       { aula: 29, data: "ter. 24/nov.", tipo: "revisao", assunto: "Revisão", local: "Sala 109 - 43425" },
-      { aula: 30, data: "qui. 26/nov.", tipo: "prova", assunto: "Prova 3", local: "Aud. Superior - 43413" },
+      { aula: 30, data: "qui. 26/nov.", tipo: "prova", assunto: "Prova 3", local: "Aud. Inferior - 43413" },
     ] },
     { semana: null, aulas: [
       { data: "ter. 08/dez.", tipo: "exame", assunto: "Exame", local: "Sala 109 - 43425" },
